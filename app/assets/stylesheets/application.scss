@@ -1,0 +1,29 @@
+
+@import 'variables';
+
+@import "bootstrap";
+
+
+@import url('https://fonts.googleapis.com/css?family=Gloria+Hallelujah|Indie+Flower|Kirang+Haerang|Modern+Antiqua|Open+Sans+Condensed:300');
+
+
+
+body{
+	/*font-family: 'Kirang Haerang', cursive;*/
+	/*font-family: 'Modern Antiqua', cursive;*/
+	/*font-family: 'Open Sans Condensed', sans-serif;*/
+	/*font-family: 'Indie Flower', cursive;*/
+	/*font-family: 'Gloria Hallelujah', cursive;*/
+}
+h1,h2,h3,h4{
+	font-family: 'Kirang Haerang', cursive;
+}
+
+
+
+.jumbotron{
+	background: url( asset_path('background1.jpg')) no-repeat center center;
+	background-size: cover;
+}
+
+.fullwidth{padding: 0;}
