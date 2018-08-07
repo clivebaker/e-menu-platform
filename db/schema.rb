@@ -15,22 +15,5 @@ ActiveRecord::Schema.define(version: 2018_08_05_200659) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "cuisines", force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "resturants", force: :cascade do |t|
-    t.string "name"
-    t.string "address"
-    t.string "postcode"
-    t.boolean "is_chain"
-    t.bigint "cuisine_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["cuisine_id"], name: "index_resturants_on_cuisine_id"
-  end
-
-  add_foreign_key "resturants", "cuisines"
+  
 end
