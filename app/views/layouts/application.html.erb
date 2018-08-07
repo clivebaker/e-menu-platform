@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
 
-    <title><%= content_for?(:title) ? yield(:title) : "E Meal - What is in your food!" %></title>
+    <title><%= content_for?(:title) ? yield(:title) : "Resturant Menus re-defined" %></title>
 
     <%= stylesheet_link_tag    "application" %>
     <%= javascript_include_tag "application", 'data-turbolinks-track' => true %>
@@ -12,8 +12,9 @@
   </head>
 
   <body>
+    <%= render 'components/topnav' %>
+    <%= render 'components/messages' %>
     <div class="container-fluid fullwidth">
-      <%= render 'components/topnav' %>
       <%= yield %>
       <%= render 'components/footer' %>
     </div>
