@@ -1,4 +1,8 @@
 
+
+@import "font-awesome";
+
+
 @import 'variables';
 
 @import "bootstrap";
@@ -22,9 +26,7 @@ h1,h2,h3,h4{
 
 
 
-.jumbotron{
+.hero-main-background{
 	background: url( asset_path('background1.jpg')) no-repeat center center;
 	background-size: cover;
 }
-
-.fullwidth{padding: 0;}
