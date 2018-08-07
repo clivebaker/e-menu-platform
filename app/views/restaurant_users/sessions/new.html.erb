@@ -5,13 +5,11 @@
     <div class="col-8">
      
       <div class="jumbotron  mt-4">
-        <h1 class="display-4">Sign up</h1>
-        <p class="lead">Sign up to create your resturant profile.</p>
+        <h1 class="display-4">Log in</h1>
+        <p class="lead">Log into your restaurant management profile.  Change settings, menus and authorized users. </p>
         <hr class="my-4">
 
-          <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-            <%= devise_error_messages! %>
-
+          <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
             <div class="form-group">
               <%= f.label :email %>
               <%= f.email_field :email, autofocus: true, autocomplete: "email", class: 'form-control', 'aria-describedby'=>'emailHelp', placeholder: 'Enter Email' %>
@@ -20,23 +18,14 @@
             <div class="form-group">
               <%= f.label :password %>
               <%= f.password_field :password, autocomplete: "off", class: 'form-control', placeholder: "Password"%>
-              <% if @minimum_password_length %>
-                <small id="emailHelp" class="form-text text-muted">(<%= @minimum_password_length %> characters minimum)</small>
-              <% end %>
-
-              
-            </div>
-            <div class="form-group">
-              <%= f.label :password_confirmation %>
-              <%= f.password_field :password_confirmation, autocomplete: "off", class: 'form-control', placeholder: "Password"%>
             </div>
             <div class="actions">
-              <%= f.submit "Sign Up", class: 'btn btn-primary' %>
+              <%= f.submit "Log in", class: 'btn btn-primary' %>
             </div>
           <% end %>
           <hr class="my-4">
 
-          <%= render "resturant_users/shared/links" %>
+          <%= render "restaurant_users/shared/links" %>
 
       </div>
 
@@ -44,6 +33,8 @@
     <div class="col">&nbsp;</div>
   </div>
 </div>
+
+
 
 
 

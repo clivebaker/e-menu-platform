@@ -1,14 +1,17 @@
 class HomeController < ApplicationController
 
-	before_action :authenticate_resturant_user!, only: [:resturant_users_authenticated]
+	before_action :authenticate_restaurant_user!, only: [:restaurant_users_authenticated]
 
   def index
   end
 
-  def resturant_user_index
+  def restaurant_user_index
   end
 
-  def resturant_user_authenticated
+  def restaurant_user_authenticated
+
+    @restaurant = current_restaurant_user.restaurant
+
   	
   end
 

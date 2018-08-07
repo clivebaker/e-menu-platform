@@ -1,0 +1,15 @@
+    <div class="nav-scroller bg-white shadow-sm">
+      <nav class="nav nav-underline">
+        <%= link_to "Dashboard", home_restaurant_user_authenticated_path, class: "nav-link" %>
+       <% if current_restaurant_user.restaurant %>
+        <%= link_to("Restaurant", restaurant_path(current_restaurant_user.restaurant), class: "nav-link")  %>
+        <% else %>
+         <%= link_to("Add Restaurant", new_restaurant_path, class: "nav-link")  %>
+        <% end %>
+      
+        <a class="nav-link" href="#">Menus</a>
+        <a class="nav-link" href="#">Galleries</a>
+        <a class="nav-link" href="#">Reviews</a>
+
+      </nav>
+    </div>

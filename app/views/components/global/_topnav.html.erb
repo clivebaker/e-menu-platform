@@ -10,11 +10,7 @@
         <%= link_to "For General Public", home_user_index_path, class: 'nav-link' %>
       </li>      
       <li class="nav-item">
-        <% if current_resturant_user %>
-        <%=link_to "Resturant Home", home_resturant_user_authenticated_path , class: "nav-link"  %>
-      <% else %>
-        <%= link_to "For Resturants", home_resturant_user_index_path, class: 'nav-link' %>
-      <% end %>
+        <%= link_to "For Restaurants", home_restaurant_user_index_path, class: 'nav-link' %>
       </li>
 
 <!--       <li class="nav-item">
@@ -29,7 +25,7 @@
         <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Settings</a>
         <div class="dropdown-menu" aria-labelledby="dropdown01">
           <%= link_to "Cuisines", cuisines_path, class: "dropdown-item"%>
-          <%= link_to "Resturants", resturants_path, class: "dropdown-item"%>
+          <%= link_to "Restaurants", restaurants_path, class: "dropdown-item"%>
 
         </div>
       </li>
@@ -38,16 +34,16 @@
     <ul class="nav justify-content-end">
 
 
-  <% if current_resturant_user %>
+  <% if current_restaurant_user %>
   <li class="nav-item dropdown">
     <a class="nav-link dropdown-toggle btn btn-primary" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-      <i class="fa fa-user-circle"></i> <%=current_resturant_user.display_name%></a>
+      <i class="fa fa-user-circle"></i> <%=current_restaurant_user.display_name%></a>
     <div class="dropdown-menu dropdown-menu-right">
-      <a class="dropdown-item" href="#">xxx zzz</a>
+<!--       <a class="dropdown-item" href="#">xxx zzz</a>
       <a class="dropdown-item" href="#">yyy xxx</a>
-      <a class="dropdown-item" href="#">xxx yyy</a>
+      <a class="dropdown-item" href="#">xxx yyy</a> -->
       <div class="dropdown-divider"></div>
-      <%= link_to "Log Off", destroy_resturant_user_session_path, method: :delete, class: "dropdown-item" %>
+      <%= link_to "Log Off", destroy_restaurant_user_session_path, method: :delete, class: "dropdown-item" %>
     </div>
   </li>
   <% end %>

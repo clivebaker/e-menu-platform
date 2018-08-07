@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class ResturantUsers::SessionsController < Devise::SessionsController
+class RestaurantUsers::SessionsController < Devise::SessionsController
   # before_action :configure_sign_in_params, only: [:create]
 
   # GET /resource/sign_in
@@ -20,7 +20,7 @@ class ResturantUsers::SessionsController < Devise::SessionsController
 
 
   def after_sign_in_path_for(resource)
-    home_resturant_user_authenticated_path
+    home_restaurant_user_authenticated_path
   end
 
   # protected

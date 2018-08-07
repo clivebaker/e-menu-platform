@@ -10,12 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_07_153439) do
+ActiveRecord::Schema.define(version: 2018_08_07_214309) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "resturant_users", force: :cascade do |t|
+  create_table "cuisines", force: :cascade do |t|
+    t.string "name"
+    t.string "image"
+    t.string "flag"
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "restaurant_users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
@@ -29,8 +38,28 @@ ActiveRecord::Schema.define(version: 2018_08_07_153439) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "roles", array: true
-    t.index ["email"], name: "index_resturant_users_on_email", unique: true
-    t.index ["reset_password_token"], name: "index_resturant_users_on_reset_password_token", unique: true
+    t.index ["email"], name: "index_restaurant_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_restaurant_users_on_reset_password_token", unique: true
   end
 
+  create_table "restaurants", force: :cascade do |t|
+    t.string "name"
+    t.string "address"
+    t.string "postcode"
+    t.string "telephone"
+    t.string "email"
+    t.string "twitter"
+    t.string "facebook"
+    t.jsonb "opening_times", default: {}
+    t.boolean "is_chain"
+    t.bigint "cuisine_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "restaurant_user_id"
+    t.index ["cuisine_id"], name: "index_restaurants_on_cuisine_id"
+    t.index ["restaurant_user_id"], name: "index_restaurants_on_restaurant_user_id"
+  end
+
+  add_foreign_key "restaurants", "cuisines"
+  add_foreign_key "restaurants", "restaurant_users"
 end
