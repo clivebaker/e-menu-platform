@@ -1,0 +1,2 @@
+class SpiceLevel < ApplicationRecord
+end

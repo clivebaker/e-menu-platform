@@ -1,0 +1,2 @@
+class MenuItemCategorisation < ApplicationRecord
+end
