@@ -1,0 +1,14 @@
+
+
+
+
+<main role="main" class="container">
+  <div class="my-3 p-3 bg-white rounded shadow-sm">
+	  <h3 class="border-bottom border-gray pb-2 mb-0">Edit Menu</h3>
+
+<%= render 'form', menu: @menu %>
+
+<%= link_to 'Show', restaurant_menu_path(@restaurant, @menu) %> |
+<%= link_to 'Back', restaurant_menus_path(@restaurant) %>
+	</div>
+</main>

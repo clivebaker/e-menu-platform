@@ -7,9 +7,9 @@
          <%= link_to("Add Restaurant", new_restaurant_path, class: "nav-link")  %>
         <% end %>
       
-        <a class="nav-link" href="#">Menus</a>
-        <a class="nav-link" href="#">Galleries</a>
-        <a class="nav-link" href="#">Reviews</a>
+        <%= link_to("Menus", restaurant_menus_path(@restaurant), class: "nav-link") if @restaurant %>
+        <!-- <a class="nav-link" href="#">Galleries</a> -->
+        <!-- <a class="nav-link" href="#">Reviews</a> -->
 
       </nav>
     </div>

@@ -1,0 +1,97 @@
+<%= form_with(model: [@restaurant, menu], local: true) do |form| %>
+  <% if menu.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(menu.errors.count, "error") %> prohibited this menu from being saved:</h2>
+
+      <ul>
+      <% menu.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+    <%= form.hidden_field :restaurant_id, value: @restaurant.id %>
+    <%= hidden_field_tag :parent, params[:parent] %>
+
+
+
+
+
+  <div class="row">
+    <div class="col">
+      <div class="form-group ">
+        <%= form.label :name %>
+        <%= form.text_field :name, class: 'form-control  form-control-sm' %>
+      </div>
+    </div>
+  </div>
+
+
+
+  <% if params[:node_type]=='item' %>
+
+  <div class="row">
+    <div class="col">
+      <div class="form-group ">
+        <%= form.label :description %>
+        <%= form.text_area :description, class: 'form-control  form-control-sm' %>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <div class="form-group ">
+        <%= form.label :menu_item_categorisation_id %>
+        <%= form.select :menu_item_categorisation_id, options_for_select(@menu_item_categorisations.map{|a| [a.name, a.id]}, @menu.menu_item_categorisation_id), {prompt: "Choose Categorisation"}, {class: 'form-control  form-control-sm'} %>
+      </div>
+    </div>
+    <div class="col">
+      <div class="form-group ">
+        <%= form.label :spice_level_id %>
+        <%= form.select :spice_level_id, options_for_select(@spice_levels.map{|a| [a.name, a.id]}, @menu.spice_level_id), {prompt: "Choose Spice Level"}, {class: 'form-control  form-control-sm'} %>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <div class="form-group ">
+        <%= form.label :prices %>
+        <%= form.text_field :prices, class: 'form-control  form-control-sm' %>
+      </div>
+    </div>
+  </div>
+    <div class="row">
+    <div class="col">
+      <div class="form-group ">
+        <%= form.label :available %>
+        <%= form.check_box :available, class: 'form-control  form-control-sm' %>
+      </div>
+    </div>
+  </div>
+    <div class="row">
+    <div class="col">
+      <div class="form-group ">
+        <%= form.label :calories %>
+        <%= form.number_field :calories, class: 'form-control  form-control-sm' %>
+      </div>
+    </div>
+  </div>
+
+      <%= form.hidden_field :node_type, value: 'item' %>
+  <% else%>
+
+      <% if params[:parent].blank? %>
+        <%= form.hidden_field(:node_type, value: 'menu')  %>
+      <% else %>
+        <%= form.hidden_field(:node_type, value: 'section')  %>
+      <% end %>
+
+  <% end %>
+
+  <div class="actions">
+    <%= form.submit nil, class: "btn btn-primary" %>
+  </div>
+<% end %>

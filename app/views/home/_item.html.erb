@@ -1,0 +1,27 @@
+
+
+
+<div class="container">
+  <div class="row ">
+    <div class="col">
+      <span class="fs-1 pl-lev<%=level%> font-weight-bold"><strong><%=menu.name%> <i class="fi flaticon-fish"></i>
+      <i class="fi flaticon-pig"></i>
+      <i class="fi flaticon-jewish"></i>
+      <i class="fi flaticon-cow"></i>
+      <i class="fi flaticon-shrimp"></i>
+      <i class="fi flaticon-food"></i>
+      <i class="fi flaticon-nutrition"></i></strong></span>
+    </div>
+    <div class="col-2">
+      <%=Faker::Number.decimal(2)%>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <i><p class="pl-lev<%=level%>"><%=Faker::Food.description%></p></i>
+    </div>
+     <div class="col-2">
+      &nbsp;
+    </div>
+  </div>
+</div>

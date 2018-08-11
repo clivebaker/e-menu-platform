@@ -1,0 +1,55 @@
+<main role="main" class="container">
+  <div class="my-3 p-3 bg-white rounded shadow-sm">
+    <h3 class="border-bottom border-gray pb-2 mb-0">Menus</h3>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+
+      <th colspan="5"></th>
+
+    </tr>
+  </thead>
+
+  <tbody>
+    <% Menu.sort_by_ancestry(@menus).each do |menu| %>
+      <tr class="menu-node-<%=menu.depth%>">
+        <td><span  class="menu-node-font-<%=menu.depth%>"><%= menu.name %> ((<%=menu.node_type%>))</span>  </td>
+
+
+
+
+
+<td class="text-right">
+      <%if menu.node_type=='item'%>
+        <%= link_to restaurant_menu_path(@restaurant, menu), class: 'btn btn-primary  btn-sm'  do %>
+          <i class="fa fa-info-circle"></i>
+        <%end%>
+      <% end %>
+
+      <%unless menu.node_type == 'item'%>
+        <%= link_to "Add Category to #{menu.name}", new_restaurant_menu_path(parent: menu.id) , class: 'btn btn-primary  btn-sm' %>
+      <%end%>
+
+      <%unless menu.node_type == 'item'%>
+        <%= link_to "New Item in #{menu.name}", new_restaurant_menu_path(parent: menu.id, node_type: :item) , class: 'btn btn-primary  btn-sm' %>
+      <%end%>
+      <%= link_to edit_restaurant_menu_path(@restaurant, menu, node_type: menu.node_type), class: 'btn btn-primary  btn-sm' do %><i class="fa fa-edit"></i><%end%>
+      <%= link_to restaurant_menu_path(@restaurant, menu), method: :delete, data: { confirm: 'Are you sure? This will remove all items and categories!' }, class: 'btn btn-primary  btn-sm'   do %>
+        <i class="fa fa-trash"></i>
+      <%end%>
+</td>
+
+
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Menu', new_restaurant_menu_path() %>
+
+  </div>
+</main>

@@ -7,7 +7,7 @@ class RestaurantUser < ApplicationRecord
 
     has_one :restaurant
 
-
+    
 
 
    def display_name

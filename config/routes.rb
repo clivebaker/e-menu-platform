@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
-  resources :restaurants
+  resources :restaurants do 
+    resources :menus
+  end
   get 'home/index'
   get 'home/restaurant_user_index'
   get 'home/user_index'

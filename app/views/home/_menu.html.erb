@@ -1,0 +1,90 @@
+  	<div class="container pt-3">
+  <div class="shadow-lg p-3 mb-5 bg-white rounded">
+<h1 class="fs-max text-center"><%= menu.name%></h1>
+<% menu.children.each do |level1|%>
+  <div class="row">
+    <div class="col">
+    		<%= render "home/#{level1.node_type}", menu: level1, level: 1%>
+      	<% level1.children.each do |level2| %>
+      		  <div class="row">
+					    <div class="col ml-2">
+					      	<%= render "home/#{level2.node_type}", menu: level2, level: 2%>
+
+						      	<% level2.children.each do |level3| %>
+					      		
+					      		  <div class="row">
+
+										    <div class="col ml-3">
+										      	<%= render "home/#{level3.node_type}", menu: level3, level: 3%>
+											      	<% level3.children.each do |level4| %>
+										      		
+
+											      		  <div class="row">
+
+																    <div class="col ml-4">
+																      	<%= render "home/#{level4.node_type}", menu: level4, level: 4%>
+																	      	<% level4.children.each do |level5| %>
+																      		
+
+
+																      			      		  <div class="row">
+																											    <div class="col ml-5">
+																											      	<%= render "home/#{level5.node_type}", menu: level5, level: 5%>
+																												      	<% level5.children.each do |level6| %>
+																											      		
+
+																												      	      		  <div class="row">
+																																						    <div class="col">
+																																						      	<%= render "home/#{level6.node_type}", menu: level6, level: 6%>
+																																							      	<% level6.children.each do |level7| %>
+																																						      		
+
+																																							      		  <div class="row">
+																																												    <div class="col">
+																																												      	<%= render "home/#{level7.node_type}", menu: level7, level: 7%>
+																																													      	<% level7.children.each do |level8| %>
+																																												      		
+																																													      			 <%= render "home/#{level8.node_type}", menu: level8, level: 8%>
+																																												      		<% end %>
+																																												    </div>
+																																												  </div>
+
+
+
+
+																																						      		<% end %>
+																																						    </div>
+																																						  </div>
+
+
+
+																											      		<% end %>
+																											    </div>
+																											  </div>
+
+
+																      		<% end %>
+																    </div>
+																  </div>
+
+
+
+
+										      		<% end %>
+										    </div>
+										  </div>
+
+
+
+					      		<% end %>
+					    </div>
+					  </div>
+
+
+      	<% end %>
+    </div>
+  </div>
+ <% end %>
+  
+  </div>
+	</div>
