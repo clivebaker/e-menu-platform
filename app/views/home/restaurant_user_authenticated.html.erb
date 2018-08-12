@@ -25,7 +25,7 @@
         
         <% @restaurant.menus.roots.each do |menu| %>
           <%= render 'home/menu', menu: menu%>
-        <% end %>
+        <% end if @restaurant %>
       </div>
     </div>
 <!--     <div class="media text-muted pt-3">
