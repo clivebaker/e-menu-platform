@@ -1,3 +1,53 @@
+<% content_for :js do %>
+
+
+  <script type="text/javascript">
+    
+      $(function () { 
+        console.log("Before loading js tree");
+        $('#jstree_demo_div').jstree(); 
+        console.log("After loading js tree");
+      });
+
+  </script>
+
+
+<% end %>
+
+
+<main role="main" class="container">
+  <div class="my-3 p-3 bg-white rounded shadow-sm">
+    <h3 class="border-bottom border-gray pb-2 mb-0">Menus</h3>
+
+    <div id="jstree_demo_div">
+          
+      <ul>
+      
+        <% Menu.sort_by_ancestry(@menus).each do |menu| %>
+          <li data-jstree='{"opened":true, "selected":true, "icon":"fa fa-book"}'><%=menu.name%>
+            <ul>
+              <li data-jstree='{"icon":"fa fa-clone"}'>Child
+                <ul>
+                  <li data-jstree='{"icon":"fa fa-clone"}'>Child</li>
+                  <li data-jstree='{"icon":"fa fa-apple"}'>Child</li>
+                </ul>
+              </li>
+              <li data-jstree='{"icon":"fa fa-apple"}'>Child</li>
+            </ul>
+          </li>
+        <% end %>
+
+      </ul>
+
+    </div>
+
+  </div>
+</main>
+
+
+
+
+
 <main role="main" class="container">
   <div class="my-3 p-3 bg-white rounded shadow-sm">
     <h3 class="border-bottom border-gray pb-2 mb-0">Menus</h3>

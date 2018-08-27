@@ -14,7 +14,8 @@
 //= require jquery3
 //= require popper
 //= require bootstrap
-//= require activestorage
-//= require_tree .
+//= require jquery.mobile
+//= require jstree
+
 
 

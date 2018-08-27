@@ -38,6 +38,9 @@ gem 'devise'
 gem "font-awesome-rails"
 gem 'ancestry'
 gem 'faker'
+gem 'jquery_mobile_rails'
+
+gem "jstree-rails-4"
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false

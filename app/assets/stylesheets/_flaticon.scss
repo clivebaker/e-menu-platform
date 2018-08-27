@@ -1,6 +1,6 @@
     /*
     Flaticon icon font: Flaticon
-    Creation date: 12/08/2018 00:11
+    Creation date: 13/08/2018 17:42
     */
 
     @font-face {
@@ -25,8 +25,7 @@
         display: inline-block;
   font-family: "Flaticon";
   font-style: normal;
-  font-weight: bold;
-  // font-size: 1.3em;
+  font-weight: normal;
   font-variant: normal;
   line-height: 1;
   text-decoration: inherit;
@@ -38,19 +37,43 @@
     }
 
     .flaticon-fish:before { content: "\f100"; }
-.flaticon-pig:before { content: "\f101"; }
-.flaticon-cow:before { content: "\f102"; }
-.flaticon-jewish:before { content: "\f103"; }
-.flaticon-shrimp:before { content: "\f104"; }
-.flaticon-fruit:before { content: "\f105"; }
-.flaticon-nutrition:before { content: "\f106"; }
-.flaticon-food:before { content: "\f107"; }
+.flaticon-nutrition:before { content: "\f101"; }
+.flaticon-cellphone:before { content: "\f102"; }
+.flaticon-pig:before { content: "\f103"; }
+.flaticon-tofu:before { content: "\f104"; }
+.flaticon-menu:before { content: "\f105"; }
+.flaticon-chicken:before { content: "\f106"; }
+.flaticon-sheep:before { content: "\f107"; }
+.flaticon-chicken-1:before { content: "\f108"; }
+.flaticon-cow:before { content: "\f109"; }
+.flaticon-sheep-1:before { content: "\f10a"; }
+.flaticon-shrimp:before { content: "\f10b"; }
+.flaticon-deer:before { content: "\f10c"; }
+.flaticon-pig-1:before { content: "\f10d"; }
+.flaticon-sheep-2:before { content: "\f10e"; }
+.flaticon-goat:before { content: "\f10f"; }
+.flaticon-seafood:before { content: "\f110"; }
+.flaticon-keyboard-key-v:before { content: "\f111"; }
+.flaticon-key-h-of-a-keyboard:before { content: "\f112"; }
+.flaticon-keyboard-key-k:before { content: "\f113"; }
     
     $font-Flaticon-fish: "\f100";
-    $font-Flaticon-pig: "\f101";
-    $font-Flaticon-cow: "\f102";
-    $font-Flaticon-jewish: "\f103";
-    $font-Flaticon-shrimp: "\f104";
-    $font-Flaticon-fruit: "\f105";
-    $font-Flaticon-nutrition: "\f106";
-    $font-Flaticon-food: "\f107";
+    $font-Flaticon-nutrition: "\f101";
+    $font-Flaticon-cellphone: "\f102";
+    $font-Flaticon-pig: "\f103";
+    $font-Flaticon-tofu: "\f104";
+    $font-Flaticon-menu: "\f105";
+    $font-Flaticon-chicken: "\f106";
+    $font-Flaticon-sheep: "\f107";
+    $font-Flaticon-chicken-1: "\f108";
+    $font-Flaticon-cow: "\f109";
+    $font-Flaticon-sheep-1: "\f10a";
+    $font-Flaticon-shrimp: "\f10b";
+    $font-Flaticon-deer: "\f10c";
+    $font-Flaticon-pig-1: "\f10d";
+    $font-Flaticon-sheep-2: "\f10e";
+    $font-Flaticon-goat: "\f10f";
+    $font-Flaticon-seafood: "\f110";
+    $font-Flaticon-keyboard-key-v: "\f111";
+    $font-Flaticon-key-h-of-a-keyboard: "\f112";
+    $font-Flaticon-keyboard-key-k: "\f113";

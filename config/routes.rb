@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'home_mobile/index'
   resources :restaurants do 
     resources :menus
   end
