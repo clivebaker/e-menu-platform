@@ -29,7 +29,7 @@
 
 
 
-  <% if params[:node_type]=='item' %>
+  <% if params[:node_type]=='item' || @menu.node_type == 'item' %>
 
   <div class="row">
     <div class="col">
@@ -42,28 +42,64 @@
 
   <div class="row">
     <div class="col">
-      <div class="form-group ">
-        <%= form.label :menu_item_categorisation_id %>
-        <%= form.select :menu_item_categorisation_id, options_for_select(@menu_item_categorisations.map{|a| [a.name, a.id]}, @menu.menu_item_categorisation_id), {prompt: "Choose Categorisation"}, {class: 'form-control  form-control-sm'} %>
-      </div>
+      <h6>Categories</h6>
+
+   
+
+ <%= form.collection_check_boxes :menu_item_categorisation_ids, @menu_item_categorisations, :id, :icon do |b| %>
+    <div class="collection-check-box">
+      <%= b.check_box %>
+      <i class="<%= b.text %>"> <%= b.object.name %></i>
     </div>
+  <% end %>
+
+
+
+    </div>
+
+
+
     <div class="col">
-      <div class="form-group ">
-        <%= form.label :spice_level_id %>
-        <%= form.select :spice_level_id, options_for_select(@spice_levels.map{|a| [a.name, a.id]}, @menu.spice_level_id), {prompt: "Choose Spice Level"}, {class: 'form-control  form-control-sm'} %>
+      <h6>Spice Level</h6>
+      <% @spice_levels.each do |spice| %>
+      <div class="form-check">
+        <%= form.radio_button :spice_level_id, spice.id%>
+        <%= form.label spice.name %>
       </div>
+      <% end %>
+     
+
     </div>
+
   </div>
+
+
 
   <div class="row">
     <div class="col">
       <div class="form-group ">
-        <%= form.label :prices %>
-        <%= form.text_field :prices, class: 'form-control  form-control-sm' %>
+        <%= form.label :price_a %>
+        <%= form.number_field :price_a, class: 'form-control  form-control-sm', step: :any %>
       </div>
     </div>
   </div>
-    <div class="row">
+  <div class="row">
+    <div class="col">
+      <div class="form-group ">
+        <%= form.label :price_b %>
+        <%= form.number_field :price_b, class: 'form-control  form-control-sm', step: :any %>
+      </div>
+    </div>
+  </div>
+<!--   <div class="row">
+    <div class="col">
+      <div class="form-group ">
+        <%= form.label :prices %>
+        <%#= form.text_field :prices, class: 'form-control  form-control-sm' %>
+      </div>
+    </div>
+  </div>
+ -->    <div class="row">
     <div class="col">
       <div class="form-group ">
         <%= form.label :available %>

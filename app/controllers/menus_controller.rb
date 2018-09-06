@@ -8,8 +8,8 @@ class MenusController < ApplicationController
   # GET /menus
   # GET /menus.json
   def index
-    @menus = Menu.all
-   
+    @menus = Menu.where(ancestry: nil)
+    @updated_menu = params[:updated_menu].to_i if params[:updated_menu]
   end
 
   # GET /menus/1
@@ -35,7 +35,8 @@ class MenusController < ApplicationController
     respond_to do |format|
       if @menu.save
 
-          redirect_location = @menu.node_type == 'item' ? restaurant_menu_path(@restaurant, @menu) : restaurant_menus_path(@restaurant)
+        @menu.translate
+        redirect_location = @menu.node_type == 'item' ? restaurant_menu_path(@restaurant, @menu, updated_menu: @menu.id) : restaurant_menus_path(@restaurant, updated_menu: @menu.id)
         format.html { redirect_to redirect_location, notice: 'Menu was successfully created.' }
         format.json { render :show, status: :created, location: @menu }
       else
@@ -51,7 +52,9 @@ class MenusController < ApplicationController
 
     respond_to do |format|
       if @menu.update(menu_params)
-          redirect_location = @menu.node_type == 'item' ? restaurant_menu_path(@restaurant, @menu) : restaurant_menus_path(@restaurant)
+        
+        @menu.translate
+        redirect_location = @menu.node_type == 'item' ? restaurant_menu_path(@restaurant, @menu, updated_menu: @menu.id) : restaurant_menus_path(@restaurant, updated_menu: @menu.id)
 
         format.html { redirect_to redirect_location, notice: 'Menu was successfully updated.' }
         format.json { render :show, status: :ok, location: @menu }
@@ -65,15 +68,18 @@ class MenusController < ApplicationController
   # DELETE /menus/1
   # DELETE /menus/1.json
   def destroy
+    parent_id = @menu.parent.present? ? @menu.parent.id : nil
     @menu.destroy
     respond_to do |format|
-      format.html { redirect_to restaurant_menus_path(@restaurant), notice: 'Menu was successfully destroyed.' }
+      format.html { redirect_to restaurant_menus_path(@restaurant, updated_menu: parent_id), notice: 'Menu was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
+
+
     def set_menu
       @menu = Menu.find(params[:id])
     end
@@ -90,6 +96,6 @@ class MenusController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def menu_params
-      params.require(:menu).permit(:restaurant_id, :name, :description, :image, :spice_level_id, :node_type, :menu_item_categorisation_id, :prices, :available, :calories)
+      params.require(:menu).permit(:restaurant_id, :name, :description, :image, :spice_level_id, :node_type,  :prices, :available, :calories, :price_a, :price_b, :menu_item_categorisation_ids => [])
     end
 end

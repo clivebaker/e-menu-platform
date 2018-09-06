@@ -1,6 +1,8 @@
 class Restaurant < ApplicationRecord
   belongs_to :cuisine
   
+  belongs_to :restaurant_user
+
   has_many :menus
 
   validates_presence_of :name, :on => [:create, :update], :message => "can't be blank"

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_09_074145) do
+ActiveRecord::Schema.define(version: 2018_09_06_180755) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,17 +24,40 @@ ActiveRecord::Schema.define(version: 2018_08_09_074145) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "languages", force: :cascade do |t|
+    t.string "name"
+    t.string "locale"
+    t.string "icon"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "language_code"
+  end
+
   create_table "menu_item_categorisations", force: :cascade do |t|
     t.string "name"
-    t.text "description"
+    t.text "icon"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "menus", force: :cascade do |t|
-    t.bigint "restaurant_id"
+  create_table "menu_item_categorisations_menus", id: false, force: :cascade do |t|
+    t.bigint "menu_id", null: false
+    t.bigint "menu_item_categorisation_id", null: false
+  end
+
+  create_table "menu_translations", force: :cascade do |t|
+    t.integer "menu_id", null: false
+    t.string "locale", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.string "name"
     t.text "description"
+    t.index ["locale"], name: "index_menu_translations_on_locale"
+    t.index ["menu_id"], name: "index_menu_translations_on_menu_id"
+  end
+
+  create_table "menus", force: :cascade do |t|
+    t.bigint "restaurant_id"
     t.string "image"
     t.bigint "spice_level_id"
     t.bigint "menu_item_categorisation_id"
@@ -45,6 +68,8 @@ ActiveRecord::Schema.define(version: 2018_08_09_074145) do
     t.datetime "updated_at", null: false
     t.string "ancestry"
     t.string "node_type"
+    t.decimal "price_a", precision: 6, scale: 2
+    t.decimal "price_b", precision: 6, scale: 2
     t.index ["ancestry"], name: "index_menus_on_ancestry"
     t.index ["menu_item_categorisation_id"], name: "index_menus_on_menu_item_categorisation_id"
     t.index ["restaurant_id"], name: "index_menus_on_restaurant_id"
@@ -89,7 +114,7 @@ ActiveRecord::Schema.define(version: 2018_08_09_074145) do
 
   create_table "spice_levels", force: :cascade do |t|
     t.string "name"
-    t.text "description"
+    t.text "icon"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

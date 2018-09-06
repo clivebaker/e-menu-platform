@@ -33,12 +33,16 @@
 
 <p>
   <strong>Menu item categorisation:</strong>
-  <%= @menu.menu_item_categorisation_name %>
+  <% @menu.menu_item_categorisation.each do |category| %>
+    <i class="<%= category.icon %>"> <%= category.name %></i>
+  <% end %>
 </p>
 
 <p>
   <strong>Prices:</strong>
-  <%= @menu.prices %>
+
+
+  <%= @menu.prices_joined.map{|a| number_to_currency(a, unit: "£")}.join(" / ") if @menu.prices_joined%>
 </p>
 
 <p>
@@ -51,8 +55,8 @@
   <%= @menu.calories %>
 </p>
 <% end %>
-<%= link_to 'Edit', edit_restaurant_menu_path(@restaurant, @menu) %> |
-<%= link_to 'Back', restaurant_menus_path(@restaurant) %>
+<%= link_to 'Edit', edit_restaurant_menu_path(@restaurant, @menu, node_type: @menu.node_type, updated_menu: params[:updated_menu]) %> |
+<%= link_to 'Back', restaurant_menus_path(@restaurant, updated_menu: params[:updated_menu]) %>
 
 
   </div>
