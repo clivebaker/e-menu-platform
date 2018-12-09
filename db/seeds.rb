@@ -1,3 +1,16 @@
+def add_item(restaurant, parent, name, description, price)
+	item = Menu.create("restaurant"=>restaurant, "available"=>true, "node_type"=>"item",  "calories"=>"344",
+			"parent"=>parent,
+			#{}"menu_item_categorisation_ids"=>[ic1.id, ic2.id, ic12.id], 
+			#{}"spice_level_id"=>sl1.id, 
+	 		"name"=>name, 
+	 		"description"=>description, 
+	 		"price_a"=>price, "price_b"=>0
+	 		)
+end
+
+
+
 puts "Create User"
 restaurant_user = RestaurantUser.create(email: 'clive@clivebaker.com', password: 'cliveb1', password_confirmation: 'cliveb1')
 
@@ -51,19 +64,36 @@ language21 = Language.create(name:'Slovakian', locale: 'sk', language_code:'sk',
 language24 = Language.create(name:'Swedish', locale: 'sv', language_code:'sv', icon: '')
 	
 puts "Create Restaurant"
-restaurant = Restaurant.create(name: 'Nandos', restaurant_user: restaurant_user, cuisine: cuisine1, address: "66 Meadowgroft, St Albans", postcode: "AL1 1UF", telephone: '07900 987 482', email: 'menu@nandos.co.uk')
+#restaurant = Restaurant.create(name: 'Nandos', restaurant_user: restaurant_user, cuisine: cuisine1, address: "66 Meadowgroft, St Albans", postcode: "AL1 1UF", telephone: '07900 987 482', email: 'menu@nandos.co.uk')
 
 puts "Create Menu"
-menu = Menu.create("restaurant"=>restaurant, "name"=>"Main Menu", "node_type"=>"menu")
-
-category = Menu.create("restaurant"=>restaurant, "name"=>"Category", "node_type"=>"section", "parent"=>menu)
-
-item = Menu.create("restaurant"=>restaurant, "name"=>"Clive", "description"=>"hjhjhj", "menu_item_categorisation_ids"=>[ic1.id, ic2.id, ic12.id], "spice_level_id"=>sl1.id, "price_a"=>"12.34", "price_b"=>"6.18", "available"=>true, "calories"=>"344", "node_type"=>"item", "parent"=>category)
+#menu = Menu.create("restaurant"=>restaurant, "name"=>"Main Menu", "node_type"=>"menu")
+#category = Menu.create("restaurant"=>restaurant, "name"=>"Category", "node_type"=>"section", "parent"=>menu)
+#item = Menu.create("restaurant"=>restaurant, "name"=>"Clive", "description"=>"hjhjhj", "menu_item_categorisation_ids"=>[ic1.id, ic2.id, ic12.id], "spice_level_id"=>sl1.id, "price_a"=>"12.34", "price_b"=>"6.18", "available"=>true, "calories"=>"344", "node_type"=>"item", "parent"=>category)
 
 puts "Translate"
 Menu.all.each do |m|
-	m.translate
+#	m.translate
 end
+
+menu = Menu.create("restaurant"=>restaurant, "name"=>"Main Menu", "node_type"=>"menu")
+starters = Menu.create("restaurant"=>restaurant, "node_type"=>"section", "parent"=>menu, "name"=>"Fire-Starters")
+
+add_item(restaurant, starters, '3 Chicken Wings', 'Curb your craving with a PERi-PERi taster.', 3.70)
+add_item(restaurant, starters, 'Houmous with PERi-PERi Drizzle', 'Pour smoky PERi-PERi oil over creamy houmous and dig in with strips of warm pitta.', 3.70)
+add_item(restaurant, starters, 'Red Pepper Dip', 'Dive in to roasted red pepper and chilli spice dip with warm pitta strips.', 3.70)
+add_item(restaurant, starters, 'Spicy Mixed Olives', 'Co-starring mushrooms, garlic and red pepper', 3.70)
+add_item(restaurant, starters, 'PERi-PERi Nuts', 'Fiery almonds, cashews and macadamias - crunch with punch.', 3.70)
+add_item(restaurant, starters, 'Halloumi Sticks & Dip', 'Five chunky sticks of grilled halloumi cheese with a chilli jam dip.', 3.70)
+
+starters_share = Menu.create("restaurant"=>restaurant, "node_type"=>"section", "parent"=>starters, "name"=>"To Share")
+
+add_item(restaurant, starters_share, 'All Together Now', 'Please everyone! Split any three Fire-Starters. For 2-4 people to share. Excludes Wing Roulette.', 9.95)
+add_item(restaurant, starters_share, 'Wing Roulette', '10 wings randomly spiced in various PERi-PERi flavours. Live dangerously.',10.95)
+
+
+
+
 
 
 

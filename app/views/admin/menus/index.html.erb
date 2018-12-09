@@ -29,16 +29,16 @@
 
             if (node_type != "item"){
 
-              $('#event_result').append(" <a class='btn btn-primary  btn-sm' href='/restaurants/" + restaurant_id + "/menus/new?parent=" + parent + "'>Add Category to " + name + "</a>");
-              $('#event_result').append(" <a class='btn btn-primary  btn-sm' href='/restaurants/" + restaurant_id + "/menus/new?node_type=item&amp;parent=" + parent + "'>New Item in " + name + "</a>");
-              $('#event_result').append(" <a class='btn btn-primary  btn-sm' href='/restaurants/" + restaurant_id + "/menus/" + parent + "/edit?node_type=menu'><i class='fa fa-edit'></i></a>");
-              $('#event_result').append(" <a data-confirm='Are you sure? This will remove all items and categories!' class='btn btn-primary  btn-sm' rel='nofollow' data-method='delete' href='/restaurants/" + restaurant_id + "/menus/" + parent + "'><i class='fa fa-trash'></i></a>");
+              $('#event_result').append(" <a class='btn btn-primary  btn-sm' href='/admin/restaurants/" + restaurant_id + "/menus/new?parent=" + parent + "'>Add Category to " + name + "</a>");
+              $('#event_result').append(" <a class='btn btn-primary  btn-sm' href='/admin/restaurants/" + restaurant_id + "/menus/new?node_type=item&amp;parent=" + parent + "'>New Item in " + name + "</a>");
+              $('#event_result').append(" <a class='btn btn-primary  btn-sm' href='/admin/restaurants/" + restaurant_id + "/menus/" + parent + "/edit?node_type=menu'><i class='fa fa-edit'></i></a>");
+              $('#event_result').append(" <a data-confirm='Are you sure? This will remove all items and categories!' class='btn btn-primary  btn-sm' rel='nofollow' data-method='delete' href='/admin/restaurants/" + restaurant_id + "/menus/" + parent + "'><i class='fa fa-trash'></i></a>");
 
             } else {
 
-              $('#event_result').append(" <a class='btn btn-primary  btn-sm' href='/restaurants/" + restaurant_id + "/menus/" + parent + "?updated_menu="+ menu_id +"'><i class='fa fa-info-circle'></i></a>");
-              $('#event_result').append(" <a class='btn btn-primary  btn-sm' href='/restaurants/" + restaurant_id + "/menus/" + parent + "/edit?node_type=item&updated_menu="+ menu_id +"'><i class='fa fa-edit'></i></a>");
-              $('#event_result').append(" <a data-confirm='Are you sure? This will remove all items and categories!' class='btn btn-primary  btn-sm' rel='nofollow' data-method='delete' href='/restaurants/" + restaurant_id + "/menus/" + parent + "'><i class='fa fa-trash'></i></a>");
+              $('#event_result').append(" <a class='btn btn-primary  btn-sm' href='/admin/restaurants/" + restaurant_id + "/menus/" + parent + "?updated_menu="+ menu_id +"'><i class='fa fa-info-circle'></i></a>");
+              $('#event_result').append(" <a class='btn btn-primary  btn-sm' href='/admin/restaurants/" + restaurant_id + "/menus/" + parent + "/edit?node_type=item&updated_menu="+ menu_id +"'><i class='fa fa-edit'></i></a>");
+              $('#event_result').append(" <a data-confirm='Are you sure? This will remove all items and categories!' class='btn btn-primary  btn-sm' rel='nofollow' data-method='delete' href='/admin/restaurants/" + restaurant_id + "/menus/" + parent + "'><i class='fa fa-trash'></i></a>");
 
             }
 
@@ -90,7 +90,7 @@
     </div>
 
 <br>
-<%= link_to 'New Menu', new_restaurant_menu_path() %>
+<%= link_to 'New Menu', new_admin_restaurant_menu_path() %>
 
   </div>
 </main>

@@ -8,7 +8,7 @@
 
 <%= render 'form', menu: @menu %>
 
-<%= link_to 'Show', restaurant_menu_path(@restaurant, @menu, updated_menu: params[:updated_menu]) %> |
-<%= link_to 'Back', restaurant_menus_path(@restaurant, updated_menu: params[:updated_menu]) %>
+<%= link_to 'Show', admin_restaurant_menu_path(@restaurant, @menu, updated_menu: params[:updated_menu]) %> |
+<%= link_to 'Back', admin_restaurant_menus_path(@restaurant, updated_menu: params[:updated_menu]) %>
 	</div>
 </main>

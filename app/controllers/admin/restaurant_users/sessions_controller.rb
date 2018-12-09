@@ -1,3 +1,4 @@
+module Admin
 # frozen_string_literal: true
 
 class RestaurantUsers::SessionsController < Devise::SessionsController
@@ -20,7 +21,7 @@ class RestaurantUsers::SessionsController < Devise::SessionsController
 
 
   def after_sign_in_path_for(resource)
-    home_restaurant_user_authenticated_path
+    admin_home_restaurant_user_authenticated_path
   end
 
   # protected
@@ -29,4 +30,5 @@ class RestaurantUsers::SessionsController < Devise::SessionsController
   # def configure_sign_in_params
   #   devise_parameter_sanitizer.permit(:sign_in, keys: [:attribute])
   # end
+end
 end

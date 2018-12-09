@@ -1,5 +1,6 @@
+module Admin
 class MenusController < ApplicationController
-  before_action :authenticate_restaurant_user!
+  before_action :authenticate_admin_restaurant_user!
   before_action :set_spice_levels, only: [:new, :create,  :edit, :update]
   before_action :set_menu_item_categorisations, only: [:new, :create,  :edit, :update]
   before_action :set_menu, only: [:show, :edit, :update, :destroy]
@@ -36,7 +37,7 @@ class MenusController < ApplicationController
       if @menu.save
 
         @menu.translate
-        redirect_location = @menu.node_type == 'item' ? restaurant_menu_path(@restaurant, @menu, updated_menu: @menu.id) : restaurant_menus_path(@restaurant, updated_menu: @menu.id)
+        redirect_location = @menu.node_type == 'item' ? admin_restaurant_menu_path(@restaurant, @menu, updated_menu: @menu.id) : admin_restaurant_menus_path(@restaurant, updated_menu: @menu.id)
         format.html { redirect_to redirect_location, notice: 'Menu was successfully created.' }
         format.json { render :show, status: :created, location: @menu }
       else
@@ -54,7 +55,7 @@ class MenusController < ApplicationController
       if @menu.update(menu_params)
         
         @menu.translate
-        redirect_location = @menu.node_type == 'item' ? restaurant_menu_path(@restaurant, @menu, updated_menu: @menu.id) : restaurant_menus_path(@restaurant, updated_menu: @menu.id)
+        redirect_location = @menu.node_type == 'item' ? admin_restaurant_menu_path(@restaurant, @menu, updated_menu: @menu.id) : admin_restaurant_menus_path(@restaurant, updated_menu: @menu.id)
 
         format.html { redirect_to redirect_location, notice: 'Menu was successfully updated.' }
         format.json { render :show, status: :ok, location: @menu }
@@ -71,7 +72,7 @@ class MenusController < ApplicationController
     parent_id = @menu.parent.present? ? @menu.parent.id : nil
     @menu.destroy
     respond_to do |format|
-      format.html { redirect_to restaurant_menus_path(@restaurant, updated_menu: parent_id), notice: 'Menu was successfully destroyed.' }
+      format.html { redirect_to admin_restaurant_menus_path(@restaurant, updated_menu: parent_id), notice: 'Menu was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -98,4 +99,5 @@ class MenusController < ApplicationController
     def menu_params
       params.require(:menu).permit(:restaurant_id, :name, :description, :image, :spice_level_id, :node_type,  :prices, :available, :calories, :price_a, :price_b, :menu_item_categorisation_ids => [])
     end
+end
 end

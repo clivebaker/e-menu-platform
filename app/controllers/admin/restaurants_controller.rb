@@ -1,3 +1,4 @@
+module Admin
 class RestaurantsController < ApplicationController
   
   before_action :authenticate_restaurant_user!
@@ -68,3 +69,5 @@ class RestaurantsController < ApplicationController
       params.require(:restaurant).permit(:name, :address, :postcode, :telephone, :email, :twitter, :facebook, :opening_times, :is_chain, :cuisine_id, :restaurant_user_id)
     end
 end
+end
+

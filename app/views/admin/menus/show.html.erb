@@ -55,8 +55,8 @@
   <%= @menu.calories %>
 </p>
 <% end %>
-<%= link_to 'Edit', edit_restaurant_menu_path(@restaurant, @menu, node_type: @menu.node_type, updated_menu: params[:updated_menu]) %> |
-<%= link_to 'Back', restaurant_menus_path(@restaurant, updated_menu: params[:updated_menu]) %>
+<%= link_to 'Edit', edit_admin_restaurant_menu_path(@restaurant, @menu, node_type: @menu.node_type, updated_menu: params[:updated_menu]) %> |
+<%= link_to 'Back', admin_restaurant_menus_path(@restaurant, updated_menu: params[:updated_menu]) %>
 
 
   </div>

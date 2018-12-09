@@ -13,7 +13,7 @@
 
   <body>
     <%= render 'components/global/topnav' %>
-    <%= render 'components/restaurant/navigation' if current_restaurant_user %>
+    <%= render 'components/restaurant/navigation' if current_admin_restaurant_user %>
 
     <%= render 'components/global/messages' %>
     <div class="container-fluid px-0">

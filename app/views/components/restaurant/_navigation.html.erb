@@ -1,13 +1,14 @@
     <div class="nav-scroller bg-white shadow-sm">
       <nav class="nav nav-underline">
-        <%= link_to "Dashboard", home_restaurant_user_authenticated_path, class: "nav-link" %>
-       <% if current_restaurant_user.restaurant %>
-        <%= link_to("Restaurant", restaurant_path(current_restaurant_user.restaurant), class: "nav-link")  %>
+        <%= link_to "Dashboard", admin_home_restaurant_user_authenticated_path, class: "nav-link" %>
+       <% if current_admin_restaurant_user.restaurant %>
+        <%= link_to("Restaurant", admin_restaurant_path(current_admin_restaurant_user.restaurant), class: "nav-link")  %>
         <% else %>
-         <%= link_to("Add Restaurant", new_restaurant_path, class: "nav-link")  %>
+         <%= link_to("Add Restaurant", new_admin_restaurant_path, class: "nav-link")  %>
         <% end %>
-      
-        <%= link_to("Menus", restaurant_menus_path(@restaurant), class: "nav-link") if @restaurant %>
+        <% if @restaurant.present? && @restaurant.id %> 
+          <%= link_to("Menus", admin_restaurant_menus_path(@restaurant), class: "nav-link") %>
+        <% end %>
         <!-- <a class="nav-link" href="#">Galleries</a> -->
         <!-- <a class="nav-link" href="#">Reviews</a> -->
 

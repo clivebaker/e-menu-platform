@@ -1,3 +1,4 @@
+module Admin
 # frozen_string_literal: true
 
 class RestaurantUsers::RegistrationsController < Devise::RegistrationsController
@@ -63,4 +64,5 @@ class RestaurantUsers::RegistrationsController < Devise::RegistrationsController
   # def after_inactive_sign_up_path_for(resource)
   #   super(resource)
   # end
+end
 end

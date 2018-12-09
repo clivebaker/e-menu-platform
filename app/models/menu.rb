@@ -12,7 +12,7 @@ class Menu < ApplicationRecord
   validates_presence_of :description, :on => [:update, :create], :message => "can't be blank", if: :is_node?
   validates_presence_of :price_a, :on => [:update, :create], :message => "can't be blank", if: :is_node?
   validates_numericality_of :price_a, :on => :create, :message => "is not a number", if: :is_node? 
- 	validates_numericality_of :price_b, :on => :create, :message => "is not a number", if: :is_node?
+# 	validates_numericality_of :price_b, :on => :create, :message => "is not a number", if: :is_node?
 
 
    delegate :name, to: :spice_level, prefix: true, allow_nil:true
@@ -27,7 +27,7 @@ class Menu < ApplicationRecord
 		def prices_joined
 			pri = []
 			pri << price_a if price_a
-			pri << price_b if price_b
+#			pri << price_b if price_b
 			pri
 		end
 
