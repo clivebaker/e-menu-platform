@@ -1,7 +1,7 @@
 module Admin
-class RestaurantsController < ApplicationController
+class RestaurantsController < Admin::BaseController
   
-  before_action :authenticate_restaurant_user!
+  before_action :authenticate_admin_restaurant_user!
 
 
   before_action :set_restaurant, only: [:show, :edit, :update]
@@ -30,7 +30,7 @@ class RestaurantsController < ApplicationController
 
     respond_to do |format|
       if @restaurant.save
-        format.html { redirect_to @restaurant, notice: 'Restaurant was successfully created.' }
+        format.html { redirect_to admin_restaurant_path(@restaurant), notice: 'Restaurant was successfully created.' }
         format.json { render :show, status: :created, location: @restaurant }
       else
         format.html { render :new }
@@ -44,7 +44,7 @@ class RestaurantsController < ApplicationController
   def update
     respond_to do |format|
       if @restaurant.update(restaurant_params)
-        format.html { redirect_to @restaurant, notice: 'Restaurant was successfully updated.' }
+        format.html { redirect_to admin_restaurant_path(@restaurant), notice: 'Restaurant was successfully updated.' }
         format.json { render :show, status: :ok, location: @restaurant }
       else
         format.html { render :edit }

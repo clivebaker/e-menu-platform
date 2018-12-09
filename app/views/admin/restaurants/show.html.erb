@@ -53,8 +53,8 @@
 
         <% end %>
         <small class="d-block text-right mt-3">
-          <%= link_to("Add Restaurant", new_restaurant_path) unless @restaurant %>
-          <%= link_to("Edit Restaurant", edit_restaurant_path(@restaurant)) if @restaurant%>
+          <%= link_to("Add Restaurant", new_admin_restaurant_path) unless @restaurant %>
+          <%= link_to("Edit Restaurant", edit_admin_restaurant_path(@restaurant)) if @restaurant%>
         </small>
       </div>
 

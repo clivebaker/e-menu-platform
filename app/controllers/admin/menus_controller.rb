@@ -1,5 +1,5 @@
 module Admin
-class MenusController < ApplicationController
+class MenusController < Admin::BaseController
   before_action :authenticate_admin_restaurant_user!
   before_action :set_spice_levels, only: [:new, :create,  :edit, :update]
   before_action :set_menu_item_categorisations, only: [:new, :create,  :edit, :update]
