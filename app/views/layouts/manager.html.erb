@@ -14,6 +14,7 @@
 
   <body>
     <%= render 'components/global/topnav' %>
+    <%= render 'manager/components/restaurant/navigation' if current_manager_restaurant_user %>
 
     <%= render 'components/global/messages' %>
     <div class="container-fluid px-0">

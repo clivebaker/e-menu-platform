@@ -1,0 +1,39 @@
+    <div class="nav-scroller bg-white shadow-sm">
+      <nav class="nav nav-underline">
+        <%= link_to "Dashboard", manager_home_dashboard_path, class: "nav-link" %>
+
+        <!-- <a class="nav-link" href="#">Galleries</a> -->
+        <!-- <a class="nav-link" href="#">Reviews</a> -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Configuration
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+             <% if current_manager_restaurant_user.restaurant %>
+              <%= link_to("Details", manager_restaurant_path(current_manager_restaurant_user.restaurant), class: "nav-link")  %>
+              <% else %>
+               <%= link_to("Add Restaurant Details", new_manager_restaurant_path, class: "nav-link")  %>
+              <% end %>
+              <% if @restaurant.present? && @restaurant.id %> 
+                <%= link_to("Menus", manager_restaurant_menus_path(@restaurant), class: "nav-link") %>
+              <% end %>
+              <%= link_to("Tables", manager_restaurant_tables_path(@restaurant), class: "nav-link") %>
+
+              <div class="dropdown-divider"></div>
+              <%= link_to("View Menus", manager_home_menu_path(@restaurant), class: "nav-link") %>
+          
+      <!--       <a class="dropdown-item" href="#">Action</a>
+            <a class="dropdown-item" href="#">Another action</a>
+            
+            <a class="dropdown-item" href="#">Something else here</a> -->
+          </div>
+        </li>
+
+
+      </nav>
+    </div>
+
+
+
+
+

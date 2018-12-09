@@ -1,0 +1,26 @@
+<%= form_with(model: [:manager, @restaurant, table], local: true) do |form| %>
+  <% if table.errors.any? %>
+    <div id="error_explanation" class="alert alert-danger">
+      <h2><%= pluralize(table.errors.count, "error") %> prohibited this table from being saved:</h2>
+
+      <ul>
+      <% table.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+  <div class="form-group">
+    <%= form.label :number %>
+    <%= form.number_field :number, class:"form-control"  %>
+  </div>
+
+
+  <%= form.hidden_field :restaurant_id %>
+
+  <div class="actions">
+    <%= form.submit nil, class: 'btn btn-primary' %>
+  </div>
+<% end %>

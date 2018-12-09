@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-  <%= link_to "e-menu", root_path, class: "navbar-brand" %> 
+  <%= link_to "e-me.nu", root_path, class: "navbar-brand" %> 
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -10,7 +10,7 @@
         <%= link_to "For General Public", home_index_path, class: 'nav-link' %>
       </li>      
       <li class="nav-item">
-        <%= link_to "For Restaurants", admin_home_index_path, class: 'nav-link' %>
+        <%= link_to "For Restaurants", manager_home_index_path, class: 'nav-link' %>
       </li>
 
 <!--       <li class="nav-item">
@@ -24,8 +24,8 @@
 <!--       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Settings</a>
         <div class="dropdown-menu" aria-labelledby="dropdown01">
-          <%= link_to "Cuisines", admin_cuisines_path, class: "dropdown-item"%>
-          <%= link_to "Restaurants", admin_restaurants_path, class: "dropdown-item"%>
+          <%= link_to "Cuisines", manager_cuisines_path, class: "dropdown-item"%>
+          <%= link_to "Restaurants", manager_restaurants_path, class: "dropdown-item"%>
 
         </div>
       </li>
@@ -34,16 +34,16 @@
     <ul class="nav justify-content-end">
 
 
-  <% if current_admin_restaurant_user %>
+  <% if current_manager_restaurant_user %>
   <li class="nav-item dropdown">
-    <a class="nav-link dropdown-toggle btn btn-primary" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-      <i class="fa fa-user-circle"></i> <%=current_admin_restaurant_user.display_name%></a>
+    <a class="nav-link dropdown-toggle btn btn-outline-primary btn-sm" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+      <i class="fa fa-user-circle"></i> <%=current_manager_restaurant_user.display_name%></a>
     <div class="dropdown-menu dropdown-menu-right">
 <!--       <a class="dropdown-item" href="#">xxx zzz</a>
       <a class="dropdown-item" href="#">yyy xxx</a>
       <a class="dropdown-item" href="#">xxx yyy</a> -->
       <div class="dropdown-divider"></div>
-      <%= link_to "Log Off", destroy_admin_restaurant_user_session_path, method: :delete, class: "dropdown-item" %>
+      <%= link_to "Log Off", destroy_manager_restaurant_user_session_path, method: :delete, class: "dropdown-item" %>
     </div>
   </li>
   <% end %>

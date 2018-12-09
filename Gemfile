@@ -37,10 +37,12 @@ gem 'cowsay'
 # gem 'capistrano-rails', group: :development
 
 gem 'devise'
-gem "font-awesome-rails"
+#gem "font-awesome-rails"
 gem 'ancestry'
 gem 'faker'
 gem 'jquery_mobile_rails'
+
+gem 'aasm'
 
 gem "jstree-rails-4"
 gem 'globalize', git: 'https://github.com/globalize/globalize'

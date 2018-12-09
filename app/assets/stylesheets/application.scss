@@ -1,5 +1,5 @@
 @import "jstree-default";
-@import "font-awesome";
+// @import "font-awesome";
 @import "flaticon";
 
 
@@ -8,9 +8,12 @@
 @import "bootstrap";
 
 
-@import url('https://fonts.googleapis.com/css?family=Gloria+Hallelujah|Indie+Flower|Kirang+Haerang|Modern+Antiqua|Open+Sans+Condensed:300');
+@import url('https://fonts.googleapis.com/css?family=Cutive+Mono|Gloria+Hallelujah|Indie+Flower|Kirang+Haerang|Modern+Antiqua|Open+Sans+Condensed:300|Dosis:400,800');
 
 
+code{
+	font-family: 'Cutive Mono', monospace;
+}
 
 body{
 	padding-top:55px;
@@ -19,9 +22,22 @@ body{
 	/*font-family: 'Open Sans Condensed', sans-serif;*/
 	/*font-family: 'Indie Flower', cursive;*/
 	/*font-family: 'Gloria Hallelujah', cursive;*/
+	font-family: 'Dosis', sans-serif;
+
 }
 h1,h2,h3,h4{
-	font-family: 'Kirang Haerang', cursive;
+
+
+
+
+	// font-family: 'Kirang Haerang', cursive;
+	// font-family: 'Modern Antiqua', cursive;
+	font-family: 'Dosis', sans-serif;
+	// font-family: 'Indie Flower', cursive;
+	// font-family: 'Gloria Hallelujah', cursive;
+
+
+
 }
 
 
@@ -70,6 +86,11 @@ h1,h2,h3,h4{
 .fish {max-width: 256px;max-height: 256px;background-image: url(data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTYuMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgd2lkdGg9IjI0cHgiIGhlaWdodD0iMjRweCIgdmlld0JveD0iMCAwIDQ3LjQwNyA0Ny40MDciIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDQ3LjQwNyA0Ny40MDc7IiB4bWw6c3BhY2U9InByZXNlcnZlIj4KPGc+Cgk8Zz4KCQk8cGF0aCBkPSJNNDcuMDc0LDQuNDU5QzQyLjk1MywwLjMzOCwzNS4yMDcsMC4zMzgsMjcuODYsNC4xMTZjLTAuMjY2LDMuNjAxLDEuMDg0LDcuNDU0LDQuMDExLDEwLjM4MSAgICBjMi4yOTksMi4yOTgsNS4xNjksMy42MTksOC4wNDEsMy45NThDNDUuNTAyLDExLjcwOCw0OC40NDIsNS44MjYsNDcuMDc0LDQuNDU5eiBNMzkuMzA5LDcuMDYgICAgYy0wLjYzMywwLjYzMy0xLjY1OCwwLjYzMy0yLjI5LDAuMDAyYy0wLjYzNC0wLjYzMy0wLjYzNC0xLjY1OSwwLTIuMjkyYzAuNjMyLTAuNjMzLDEuNjU3LTAuNjMzLDIuMjkxLDAgICAgQzM5Ljk0MSw1LjQwMywzOS45NDEsNi40MjksMzkuMzA5LDcuMDZ6IiBmaWxsPSIjMDAwMDAwIi8+CgkJPHBhdGggZD0iTTI1LjE5Niw1LjY2NmMtMC41NDIsMC4zNTQtMS4wNzksMC43MjktMS42MSwxLjEyNWwtMS4yNi0wLjY2NGMtMS4wOTktMC41NzUtMi40NS0wLjM3Ni0zLjMyOCwwLjUwMWwtOC44NjIsOC44NjIgICAgYy0wLjYzOSwwLjYzOS0wLjkyOCwxLjU0Ny0wLjc5MiwyLjQ0YzAuMTM3LDAuODkxLDAuNjkyLDEuNjY4LDEuNDkxLDIuMDg3bDIuMDEsMS4wNTNjLTIuMDE0LDQuNjk2LTMuMTA3LDkuMjk3LTMuNDA1LDEyLjIxMSAgICBsLTguNzUsMy4wMWMtMC4zOTUsMC4xMzUtMC42NjcsMC40OTUtMC42ODksMC45MTFjLTAuMDIyLDAuNDE3LDAuMjA5LDAuODA2LDAuNTg2LDAuOTgybDMuODE2LDEuNzk3ICAgIGMwLjc0NywwLjM1MiwxLjM0NiwwLjk1MiwxLjY5OCwxLjY5OGwxLjc5NywzLjgxNWMwLjE3NywwLjM3NiwwLjU2NiwwLjYwOCwwLjk4MSwwLjU4NmMwLjQxNy0wLjAyMiwwLjc3Ny0wLjI5NiwwLjkxMy0wLjY4OCAgICBsMy4wMTMtOC43NjRjNC4xMDgtMC42NzcsMTEuMjM0LTMuODE3LDE3LjQyMy04LjU0NmwwLjY5MywyLjE0YzAuMTI1LDAuMzg3LDAuNDM5LDAuNjc3LDAuODM1LDAuNzcyICAgIGMwLjM5NiwwLjA5NiwwLjgwOS0wLjAyNSwxLjA5OC0wLjMxMmwwLjc0MS0wLjc0MmMwLjU3LTAuNTcxLDAuOTIxLTEuMzI3LDAuOTc3LTIuMTMzbDAuMjYyLTMuNzYyICAgIGMxLjA4MS0xLjA4OSwyLjEwNi0yLjE3OSwzLjA3NC0zLjI2Yy0yLjg1NS0wLjY2Mi01LjYyMS0yLjEzOS03LjkwNC00LjQyMkMyNi45ODEsMTMuMzM5LDI1LjM2NCw5LjQ2OSwyNS4xOTYsNS42NjZ6IiBmaWxsPSIjMDAwMDAwIi8+Cgk8L2c+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPC9zdmc+Cg==)}
 
 
+
+.card-dashboard-icon{
+	font-size: 10rem;
+}
+
 // FontSize-1
 .fs-max{
 	font-size: 6em;
@@ -79,4 +100,9 @@ h1,h2,h3,h4{
 	font-size: 1.3em
 }
 
+// error_explanation
 
+
+footer{  font-size: 0.95em;
+	background-color: #ddd!important;
+}
