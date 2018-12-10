@@ -9,62 +9,37 @@
           </p>
         </div>
       </div>
-      <div class="container">
+      <div class="container pb-3">
         <div class="row">
-          <div class="col-md-4">
-            <h2>Scan your table QR code</h2>
-            <p></p>
-            <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
-          </div>
-          <div class="col-md-4">
+
+          <div class="col-md-5 shadow  bg-light rounded text-center">
             <h2>Enter your Table Code</h2>
-            <p>create your table psasword</p>
-            <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
+            <!-- <p>create your table psasword</p> -->
+
+            <%= form_tag home_register_table_path do %>
+              <%= text_field_tag :code %>
+              <%= submit_tag nil, class: 'btn btn-primary'%>
+            <% end %>
+
+            <!-- <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p> -->
           </div>
-          <div class="col-md-4">
-            <h2>What do you want ot eat?</h2>
-            <p>Based on your previous meals</p>
-            <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
+          <div class="col-md-1">
+            &nbsp;
+          </div>
+
+
+          <div class="col-md-6 shadow bg-light rounded">
+            <h2>Where do you want to eat?</h2>
+            <p>Available Restaurants</p>
+            <ul>
+            <% @restaurants.each do |restaurant| %>
+              <li><%=restaurant.name%></li>
+            <% end %>
+            </ul>
+            <!-- <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p> -->
           </div>
         </div>
-        <hr>
+      
       </div>
     </main>
 
-
-
-
-
-<!--     <main role="main">
-      <div class="jumbotron jumbotron-fluid hero-main-user-background">
-        <div class="container">
-          <h2 class="display-1 text-center text-dark">Restaurant Menus</h2>
-          <h1 class="display-3 text-center text-dark">Re-Imagined</h1>
-          <p class=" text-center ">
-            <a class="btn btn-primary btn-lg" href="#" role="button">Sign Up</a>
-            <a class="btn btn-lg btn-secondary" href="#" role="button">Log In</a>
-          </p>
-        </div>
-      </div>
-      <div class="container">
-        <div class="row">
-          <div class="col-md-4">
-            <h2>Your eating Profile</h2>
-            <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-            <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
-          </div>
-          <div class="col-md-4">
-            <h2>Heading</h2>
-            <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-            <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
-          </div>
-          <div class="col-md-4">
-            <h2>Heading</h2>
-            <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-            <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
-          </div>
-        </div>
-        <hr>
-      </div>
-    </main>
- -->

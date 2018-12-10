@@ -11,7 +11,7 @@ class TablesController < Manager::BaseController
   # GET /tables
   # GET /tables.json
   def index
-    @tables = Table.all.order(:number)
+    @tables = Table.where(restaurant_id: @restaurant).order(:number)
   end
 
   # GET /tables/1

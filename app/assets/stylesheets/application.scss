@@ -8,7 +8,7 @@
 @import "bootstrap";
 
 
-@import url('https://fonts.googleapis.com/css?family=Cutive+Mono|Gloria+Hallelujah|Indie+Flower|Kirang+Haerang|Modern+Antiqua|Open+Sans+Condensed:300|Dosis:400,800');
+@import url('https://fonts.googleapis.com/css?family=Cutive+Mono|Dosis:400,800|Monoton');
 
 
 code{
@@ -25,6 +25,11 @@ body{
 	font-family: 'Dosis', sans-serif;
 
 }
+
+.navbar-brand{
+	font-family: 'Monoton', cursive;
+}
+
 h1,h2,h3,h4{
 
 

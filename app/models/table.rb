@@ -3,10 +3,12 @@ class Table < ApplicationRecord
     belongs_to :restaurant
     before_create :set_unique_code
 
-    validates_uniqueness_of :number, :on => :create, :message => "must be unique"
+    validates_uniqueness_of :number, scope: :restaurant, :on => :create, :message => "must be unique"
     validates_uniqueness_of :code, :on => :create, :message => "must be unique"
+    validates_numericality_of :number, :on => :create, :message => "is not a number"
 
 
+   delegate :name, to: :restaurant, prefix: true
 
 
   aasm do

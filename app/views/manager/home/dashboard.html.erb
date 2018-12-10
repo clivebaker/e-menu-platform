@@ -2,6 +2,8 @@
 <div class="container mt-4 mb-5">
 	<div class="row">
 
+		<% if @restaurant %>
+
 	  <div class="col-sm-3">
 	    <div class="card shadow p-3 mb-5 bg-white rounded">
 	      <div class="card-body text-center">
@@ -35,8 +37,23 @@
 	      </div>
 	    </div>
 	  </div>
-	  
+	  <% else %>
 
+	  <div class="col-sm-3">
+	    <div class="card shadow p-3 mb-5 bg-white rounded">
+	      <div class="card-body text-center">
+	        <%= link_to new_manager_restaurant_path do %>
+	        <i class="fa fa-plus-square card-dashboard-icon"></i>
+	        <% end %>
+	        <div><strong>Add Restaurant</strong></div>
+	        <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+	      </div>
+	    </div>
+	  </div>
+
+
+
+	  <% end %>
 
 
 

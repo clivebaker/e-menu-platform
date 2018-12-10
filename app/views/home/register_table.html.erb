@@ -1,0 +1,48 @@
+
+<div class="container mt-4 mb-5">
+
+	<% if @table %>
+
+  <div class="row">
+    <div class="col-sm">
+      <h3><strong>Table Details:</strong></h3>
+      <table class="table">
+      	<thead>
+      		<tr>
+      			<th>Restaurant Name</th>
+      			<th>Table Code</th>
+      			<th>Table Number</th>
+      		</tr>
+      	</thead>
+      	<tbody>
+      		<tr>
+      			<td><%= @table.restaurant_name%></td>
+      			<td><code><%= @code%></code></td>
+      			<td><%= @table.number %></td>
+      		</tr>
+      	</tbody>
+      </table>
+
+
+
+    </div>
+  </div>
+
+
+<% else %>
+
+
+  <div class="row">
+    <div class="col-sm">
+      <h3><strong>Sorry, table code is not recognised.</strong></h3>
+      <%= link_to "Back to Home page", home_index_path %>
+
+    </div>
+  </div>
+
+	
+
+<% end %>
+
+
+</div>

@@ -1,7 +1,9 @@
 <footer class="container-fluid text-center pt-3 pb-3">
   <div class="row">
     <div class="col-sm">
-      <%= link_to "Restaurant Login", manager_home_index_path, class: 'btn btn-outline-primary' %>
+      <%= link_to home_index_path, class: 'btn btn-outline-primary' do %>
+        <i class="fa fa-home"></i> Public Site
+      <% end %>
     </div>
   </div>
 <hr>

@@ -20,6 +20,8 @@ Rails.application.routes.draw do
 
   get 'home_mobile/index'
   get 'home/index'
+  post 'home/register_table'
+
 
   root 'home#index'
 

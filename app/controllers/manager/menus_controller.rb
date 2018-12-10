@@ -9,7 +9,7 @@ class MenusController < Manager::BaseController
   # GET /menus
   # GET /menus.json
   def index
-    @menus = Menu.where(ancestry: nil)
+    @menus = Menu.where(restaurant_id: @restaurant, ancestry: nil)
     @updated_menu = params[:updated_menu].to_i if params[:updated_menu]
   end
 
