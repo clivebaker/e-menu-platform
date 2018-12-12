@@ -1,7 +1,10 @@
 
 <div class="container mt-4 mb-5">
 
-	<% if @table %>
+	<% if @restaurant_table %>
+
+
+
 
   <div class="row">
     <div class="col-sm">
@@ -16,17 +19,48 @@
       	</thead>
       	<tbody>
       		<tr>
-      			<td><%= @table.restaurant_name%></td>
-      			<td><code><%= @code%></code></td>
-      			<td><%= @table.number %></td>
+      			<td><%= @restaurant_table.restaurant_name%></td>
+      			<td><code><%= @restaurant_table.code%></code></td>
+      			<td><%= @restaurant_table.number %></td>
       		</tr>
       	</tbody>
       </table>
-
-
-
     </div>
   </div>
+
+  <% if @restaurant_table.tables.where(aasm_state: :started).count == 0%>
+
+    <div class="jumbotron jumbotron-fluid hero-main-background2">
+      <div class="container  text-center">
+        <h2 class="display-2 text-dark">Start Eating</h2>
+        <p class="">
+          <h2>Create a password for your table</h2>
+          <%= form_tag start_table_path(@restaurant_table) do %>
+            <%= text_field_tag :password %>
+            <%= submit_tag nil, class: 'btn btn-primary'%>
+          <% end %>
+          <p><i>This can be your name!</i></p>
+        </p>
+      </div>
+    </div>
+  <% else %>
+
+    <div class="jumbotron jumbotron-fluid hero-main-background2">
+      <div class="container  text-center">
+        <h2 class="display-2 text-dark">Join your Table</h2>
+        <p class="">
+          <h2>Enter the password for your table</h2>
+          <%= form_tag start_table_path(@restaurant_table) do %>
+            <%= text_field_tag :password %>
+            <%= submit_tag nil, class: 'btn btn-primary'%>
+          <% end %>
+        </p>
+      </div>
+    </div>
+
+  <% end %>
+
+
 
 
 <% else %>

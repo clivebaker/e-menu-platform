@@ -1,0 +1,11 @@
+<div class="container mt-5 mb-5 ">
+
+
+<h1>Editing Restaurant Table</h1>
+
+<%= render 'form', restaurant_table: @restaurant_table %>
+
+<%= link_to 'Show', manager_restaurant_restaurant_table_path(@restaurant, @restaurant_table) %> |
+<%= link_to 'Back', manager_restaurant_restaurant_tables_path(@restaurant) %>
+
+</div>

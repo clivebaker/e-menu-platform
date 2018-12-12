@@ -1,0 +1,23 @@
+<div class="container mt-5 mb-5 ">
+
+
+<p>
+  <strong>Number:</strong>
+  <%= @restaurant_table.number %>
+</p>
+
+<p>
+  <strong>Code:</strong>
+  <code><%= @restaurant_table.code %></code>
+</p>
+
+<p>
+  <strong>Restaurant:</strong>
+  <%= @restaurant_table.aasm_state %>
+</p>
+
+
+<%= link_to 'Edit', edit_manager_restaurant_restaurant_table_path(@restaurant, @restaurant_table) %> |
+<%= link_to 'Back', manager_restaurant_restaurant_tables_path(@restaurant) %>
+
+</div>

@@ -1,28 +1,28 @@
-module Manager
-class TablesController < Manager::BaseController
-
-  before_action :authenticate_manager_restaurant_user!
-
-
+class TablesController < ApplicationController
   before_action :set_table, only: [:show, :edit, :update, :destroy]
-
-  before_action :set_restaurant
-
+    before_action :authenticate_manager_restaurant_user!, except: [:show]
   # GET /tables
   # GET /tables.json
   def index
-    @tables = Table.where(restaurant_id: @restaurant).order(:number)
+    @tables = Table.all
+
   end
 
   # GET /tables/1
   # GET /tables/1.json
   def show
+
+    table_id = cookies[:table_id]
+    unless @table.id == table_id.to_i
+      redirect_to home_index_path, alert: "The table session has expired. Please re-join table." 
+    end
+
+
   end
 
   # GET /tables/new
   def new
     @table = Table.new
-    @table.restaurant_id = @restaurant.id
   end
 
   # GET /tables/1/edit
@@ -36,7 +36,7 @@ class TablesController < Manager::BaseController
 
     respond_to do |format|
       if @table.save
-        format.html { redirect_to manager_restaurant_table_path(@restaurant, @table), notice: 'Table was successfully created.' }
+        format.html { redirect_to @table, notice: 'Table was successfully created.' }
         format.json { render :show, status: :created, location: @table }
       else
         format.html { render :new }
@@ -50,7 +50,7 @@ class TablesController < Manager::BaseController
   def update
     respond_to do |format|
       if @table.update(table_params)
-        format.html { redirect_to manager_restaurant_table_path(@restaurant, @table), notice: 'Table was successfully updated.' }
+        format.html { redirect_to @table, notice: 'Table was successfully updated.' }
         format.json { render :show, status: :ok, location: @table }
       else
         format.html { render :edit }
@@ -64,7 +64,7 @@ class TablesController < Manager::BaseController
   def destroy
     @table.destroy
     respond_to do |format|
-      format.html { redirect_to manager_restaurant_tables_path(@restaurant), notice: 'Table was successfully destroyed.' }
+      format.html { redirect_to tables_url, notice: 'Table was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -74,12 +74,9 @@ class TablesController < Manager::BaseController
     def set_table
       @table = Table.find(params[:id])
     end
-    def set_restaurant
-      @restaurant = Restaurant.find(params[:restaurant_id])
-    end
+
     # Never trust parameters from the scary internet, only allow the white list through.
     def table_params
-      params.require(:table).permit(:number, :restaurant_id, :code)
+      params.require(:table).permit(:restaurant_table_id, :password, :aasm_state)
     end
-end
 end

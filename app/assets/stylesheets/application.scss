@@ -1,3 +1,7 @@
+@import "tables";
+
+
+
 @import "jstree-default";
 // @import "font-awesome";
 @import "flaticon";
@@ -49,6 +53,10 @@ h1,h2,h3,h4{
 
 .hero-main-background{
 	background: url( asset_path('background1.jpg')) no-repeat center center;
+	background-size: cover;
+}
+.hero-main-background2{
+	background: url( asset_path('background2.jpg')) no-repeat center center;
 	background-size: cover;
 }
 .hero-main-user-background{

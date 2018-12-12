@@ -14,9 +14,9 @@ class TablesTest < ApplicationSystemTestCase
     visit tables_url
     click_on "New Table"
 
-    fill_in "Code", with: @table.code
-    fill_in "Number", with: @table.number
-    fill_in "Restaurant", with: @table.restaurant_id
+    fill_in "Aasm State", with: @table.aasm_state
+    fill_in "Password", with: @table.password
+    fill_in "Restaurant Table", with: @table.restaurant_table_id
     click_on "Create Table"
 
     assert_text "Table was successfully created"
@@ -27,9 +27,9 @@ class TablesTest < ApplicationSystemTestCase
     visit tables_url
     click_on "Edit", match: :first
 
-    fill_in "Code", with: @table.code
-    fill_in "Number", with: @table.number
-    fill_in "Restaurant", with: @table.restaurant_id
+    fill_in "Aasm State", with: @table.aasm_state
+    fill_in "Password", with: @table.password
+    fill_in "Restaurant Table", with: @table.restaurant_table_id
     click_on "Update Table"
 
     assert_text "Table was successfully updated"

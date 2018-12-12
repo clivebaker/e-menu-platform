@@ -1,0 +1,76 @@
+
+<div class="container mt-4 mb-5">
+
+	<% if @restaurant_table %>
+
+  <div class="row">
+    <div class="col-sm">
+      <h3><strong>Table Details:</strong></h3>
+
+      <table class="table">
+      	<thead>
+      		<tr>
+      			<th>Restaurant Name</th>
+      			<th>Table Code</th>
+      			<th>Table Number</th>
+      		</tr>
+      	</thead>
+      	<tbody>
+      		<tr>
+      			<td><%= @restaurant_table.restaurant_name%></td>
+      			<td><code><%= @restaurant_table.code%></code></td>
+      			<td><%= @restaurant_table.number %></td>
+      		</tr>
+      	</tbody>
+      </table>
+
+
+
+
+    </div>
+  </div>
+
+
+
+
+      <div class="jumbotron jumbotron-fluid hero-main-background2">
+        <div class="container  text-center">
+          <h2 class="display-2 text-dark">Start Eating</h2>
+          <p class="">
+
+            <!-- <h2>Create a password for your table</h2> -->
+            <!-- <p>create your table psasword</p> -->
+
+
+          </p>
+        </div>
+      </div>
+
+
+
+
+<% else %>
+
+
+
+      <div class="jumbotron jumbotron-fluid hero-main-background2">
+        <div class="container  text-center">
+        	<h3><strong>Sorry, there has been an error.</strong></h3>
+      <%= link_to "Back to Home page", home_index_path, class: "btn btn-primary" %>
+        </div>
+      </div>
+
+
+  <div class="row">
+    <div class="col-sm">
+      
+
+    </div>
+  </div>
+
+	
+
+<% end %>
+
+
+</div>

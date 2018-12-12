@@ -1,11 +1,13 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  restaurant_table: one
-  password: MyString
+  number: 1
+  restaurant: one
+  code: MyString
   aasm_state: MyString
 
 two:
-  restaurant_table: two
-  password: MyString
+  number: 1
+  restaurant: two
+  code: MyString
   aasm_state: MyString

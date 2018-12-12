@@ -1,0 +1,47 @@
+<div class="container my-3 p-3 bg-white rounded shadow-sm">
+
+
+<h1>Restaurant Tables</h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Number</th>
+      <th>Code</th>
+      <th>State</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @restaurant_tables.each do |restaurant_table| %>
+      <tr>
+        <td><%= restaurant_table.number %></td>
+        <td><%= restaurant_table.code %></td>
+        <td><%= restaurant_table.aasm_state %></td>
+        <td><%= link_to 'Show', manager_restaurant_restaurant_table_path(@restaurant, restaurant_table) %></td>
+        <td><%= link_to 'Edit', edit_manager_restaurant_restaurant_table_path(@restaurant, restaurant_table) %></td>
+        <td><%= link_to 'Destroy', manager_restaurant_restaurant_table_path(@restaurant, restaurant_table), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+      <% restaurant_table.tables.each do |table|%>
+      <tr class="p-3 mb-2 bg-gradient-success text-black">
+        <td>&nbsp;</td>
+        <td><%= table.created_at %></td>
+        <td><%= table.aasm_state %></td>
+        <td><%= table.password %></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <% end %>
+
+
+    <% end %>
+  </tbody>
+</table>
+
+<hr>
+<div class="d-block text-right mt-3">
+<%= link_to 'New Restaurant Table', new_manager_restaurant_restaurant_table_path(@restaurant) %>
+</div>
+
+</div>
