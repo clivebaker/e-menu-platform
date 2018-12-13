@@ -1,0 +1,110 @@
+<ul class="menu">
+  <% category.children.each do |sub| %>
+    <li class='menu-<%= sub.node_type%>'>
+
+
+  <div class="row ">
+
+    <div class="col">
+      <span class=" <%= sub.node_type != "item" ? "font-weight-bold" : ""%>"><%=sub.name%> 
+			  <% sub.menu_item_categorisation.each do |category| %>
+			    <i class="<%= category.icon %>"></i>
+			  <% end %>
+      </span>
+    </div>
+    <div class="col-3 text-right"> 
+
+      <div class="row ">
+        <div class="col-8 text-right">
+          <%= sub.prices_joined.map{|a| number_to_currency(a, unit: "£")}.join(" / ") if sub.prices_joined%>
+        </div>
+        <div class="col-4">
+          <% if sub.node_type == 'item' %>
+            <%= button_tag  class: "btn btn-outline-primary btn-sm add-menu-item",  "data-toggle" => "modal", "data-target" => "#item-#{sub.id}" do %><i class="fa fa-plus"></i><% end  %>
+          <% end %>
+        </div>
+      </div>
+
+
+
+        <% if sub.node_type == 'item' %>
+          <!-- Modal -->
+          <div class="modal fade" id="item-<%=sub.id%>" tabindex="-1" role="dialog" aria-labelledby="item-<%=sub.id%>-label" aria-hidden="true">
+            <div class="modal-dialog  modal-lg" role="document">
+              <%= form_tag table_add_item_path(table.id,sub.id), remote: false do %>
+              <div class="modal-content">
+                <div class="modal-header">
+                  <div class="container modal-title" id="item-<%=sub.id%>-label">
+                    <div class="row">
+                      <div class="col text-left ">
+                        <span class="<%= sub.node_type != "item" ? "font-weight-bold" : ""%>"><%=sub.name%> 
+                          <% sub.menu_item_categorisation.each do |category| %>
+                            <i class="<%= category.icon %>"></i>
+                          <% end %>
+                        </span>
+                      </div>
+                      <div class="col">
+                        <%= sub.prices_joined.map{|a| number_to_currency(a, unit: "£")}.join(" / ") if sub.prices_joined%>
+                      </div>
+                    </div>
+
+                  </div>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body text-left">
+                       
+                <div class="menu-description ml-3"><%=sub.description%></div>
+ 
+
+                       
+                  
+                </div>
+                <div class="modal-footer">
+                  <div class="form-group mt-4">
+                    <%= label_tag "Who is this for?", nil, class: "menu-label-who" %>
+                    <%= text_field_tag :for %>
+                  </div>
+
+
+                  <button type="submit" class="btn btn-primary">Add</button>
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                </div>
+              </div>
+              <% end %>
+            </div>
+          </div>
+
+        <% end %>
+
+
+
+     
+
+
+    </div>
+  </div>
+
+  <% if sub.node_type == 'item' %>
+    <div class="row">
+      <div class="col">
+        <i><p class="menu-description"><%=sub.description%></p></i>
+      </div>
+       <div class="col-2">
+        &nbsp;
+      </div>
+    </div>
+  <% end %>
+
+
+
+
+
+
+
+      
+      <%= render 'tables/item', category: sub, table: table %>
+    </li>
+  <% end %>
+</ul>

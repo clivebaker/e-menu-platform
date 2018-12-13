@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
 
 
-  resources :tables
+  resources :tables do
+    post 'add_item/:menu_id' => 'tables#add_item', as: :add_item
+  end
   require 'sidekiq/web'
   mount Sidekiq::Web => '/sidekiq'
 

@@ -31,7 +31,7 @@
 
               $('#event_result').append(" <a class='btn btn-primary  btn-sm' href='/manager/restaurants/" + restaurant_id + "/menus/new?parent=" + parent + "'>Add Category to " + name + "</a>");
               $('#event_result').append(" <a class='btn btn-primary  btn-sm' href='/manager/restaurants/" + restaurant_id + "/menus/new?node_type=item&amp;parent=" + parent + "'>New Item in " + name + "</a>");
-              $('#event_result').append(" <a class='btn btn-primary  btn-sm' href='/manager/restaurants/" + restaurant_id + "/menus/" + parent + "/edit?node_type=menu'><i class='fa fa-edit'></i></a>");
+              $('#event_result').append(" <a class='btn btn-primary  btn-sm' href='/manager/restaurants/" + restaurant_id + "/menus/" + parent + "/edit?node_type="+node_type+"'><i class='fa fa-edit'></i></a>");
               $('#event_result').append(" <a data-confirm='Are you sure? This will remove all items and categories!' class='btn btn-primary  btn-sm' rel='nofollow' data-method='delete' href='/manager/restaurants/" + restaurant_id + "/menus/" + parent + "'><i class='fa fa-trash'></i></a>");
 
             } else {

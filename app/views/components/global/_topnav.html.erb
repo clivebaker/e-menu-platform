@@ -34,19 +34,6 @@
     <ul class="nav justify-content-end">
 
 
-  <% if current_manager_restaurant_user %>
-  <li class="nav-item dropdown">
-    <a class="nav-link dropdown-toggle btn btn-outline-primary btn-sm" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-      <i class="fa fa-user-circle"></i> <%=current_manager_restaurant_user.display_name%></a>
-    <div class="dropdown-menu dropdown-menu-right">
-<!--       <a class="dropdown-item" href="#">xxx zzz</a>
-      <a class="dropdown-item" href="#">yyy xxx</a>
-      <a class="dropdown-item" href="#">xxx yyy</a> -->
-      <div class="dropdown-divider"></div>
-      <%= link_to "Log Off", destroy_manager_restaurant_user_session_path, method: :delete, class: "dropdown-item" %>
-    </div>
-  </li>
-  <% end %>
 
 
 

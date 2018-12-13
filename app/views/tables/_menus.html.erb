@@ -1,0 +1,12 @@
+
+ <% @table.restaurant.menus.roots.each do |category| %>
+    <div><h3> <%= h(category.name) %></h3>
+      <% if category.children.present? %>
+      <div id="submenu">
+      	<ul class="menu">
+        <%= render 'tables/item', category: category, table: @table %>
+      	</ul>
+      </div>
+      <% end %>
+    </div>
+  <% end %>

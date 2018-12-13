@@ -118,12 +118,21 @@
 
       <%= form.hidden_field :node_type, value: 'item' %>
   <% else%>
+     
 
-      <% if params[:parent].blank? %>
-        <%= form.hidden_field(:node_type, value: 'menu')  %>
+      <% if params[:node_type].present? %>
+        <%= form.hidden_field(:node_type, value: params[:node_type])  %>
+
       <% else %>
-        <%= form.hidden_field(:node_type, value: 'section')  %>
+
+        <% if params[:parent].blank? %>
+          <%= form.hidden_field(:node_type, value: 'menu')  %>
+        <% else %>
+          <%= form.hidden_field(:node_type, value: 'section')  %>
+        <% end %>
+
       <% end %>
+
 
   <% end %>
 

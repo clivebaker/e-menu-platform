@@ -2,11 +2,11 @@ module Manager
 class RestaurantTablesController < Manager::BaseController
     before_action :set_restaurant_table, only: [:show, :edit, :update, :destroy]
     before_action :authenticate_manager_restaurant_user!
-      before_action :set_restaurant
+    before_action :set_restaurant
   # GET /restaurant_tables
   # GET /restaurant_tables.json
   def index
-    @restaurant_tables = RestaurantTable.where(restaurant_id: @restaurant.id)
+    @restaurant_tables = RestaurantTable.where(restaurant_id: @restaurant.id).order(:number)
 
   end
 
@@ -25,6 +25,8 @@ class RestaurantTablesController < Manager::BaseController
   # GET /restaurant_tables/new
   def new
     @restaurant_table = RestaurantTable.new
+    @restaurant_table.restaurant_id = @restaurant.id
+
   end
 
   # GET /restaurant_tables/1/edit
@@ -38,7 +40,7 @@ class RestaurantTablesController < Manager::BaseController
 
     respond_to do |format|
       if @restaurant_table.save
-        format.html { redirect_to @restaurant_table, notice: 'restaurant_Table was successfully created.' }
+        format.html { redirect_to manager_restaurant_restaurant_tables_path(@restaurant), notice: 'restaurant_Table was successfully created.' }
         format.json { render :show, status: :created, location: @restaurant_table }
       else
         format.html { render :new }
@@ -52,7 +54,7 @@ class RestaurantTablesController < Manager::BaseController
   def update
     respond_to do |format|
       if @restaurant_table.update(restaurant_table_params)
-        format.html { redirect_to @restaurant_table, notice: 'restaurant_Table was successfully updated.' }
+        format.html { redirect_to manager_restaurant_restaurant_tables_path(@restaurant), notice: 'restaurant_Table was successfully updated.' }
         format.json { render :show, status: :ok, location: @restaurant_table }
       else
         format.html { render :edit }
@@ -66,7 +68,7 @@ class RestaurantTablesController < Manager::BaseController
   def destroy
     @restaurant_table.destroy
     respond_to do |format|
-      format.html { redirect_to restaurant_tables_url, notice: 'restaurant_Table was successfully destroyed.' }
+      format.html { redirect_to manager_restaurant_restaurant_tables_path(@restaurant), notice: 'restaurant_Table was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -81,7 +83,7 @@ class RestaurantTablesController < Manager::BaseController
     end
     # Never trust parameters from the scary internet, only allow the white list through.
     def restaurant_table_params
-      params.require(:restaurant_table).permit(:restaurant_table_id, :password, :aasm_state)
+      params.require(:restaurant_table).permit(:restaurant_id, :number, :aasm_state)
     end
 end
 end

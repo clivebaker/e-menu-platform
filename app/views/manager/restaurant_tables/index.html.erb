@@ -24,7 +24,7 @@
         <td><%= link_to 'Destroy', manager_restaurant_restaurant_table_path(@restaurant, restaurant_table), method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
       <% restaurant_table.tables.each do |table|%>
-      <tr class="p-3 mb-2 bg-gradient-success text-black">
+      <tr class="p-3 mb-2 text-black active-table">
         <td>&nbsp;</td>
         <td><%= table.created_at %></td>
         <td><%= table.aasm_state %></td>

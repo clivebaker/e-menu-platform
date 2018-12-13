@@ -1,6 +1,7 @@
 class TablesController < ApplicationController
   before_action :set_table, only: [:show, :edit, :update, :destroy]
     before_action :authenticate_manager_restaurant_user!, except: [:show]
+
   # GET /tables
   # GET /tables.json
   def index
@@ -27,6 +28,26 @@ class TablesController < ApplicationController
 
   # GET /tables/1/edit
   def edit
+  end
+
+  def add_item
+
+    table = Table.find(params[:table_id])
+    menu = Menu.find(params[:menu_id])
+    for_person = params[:for]
+
+    TableItem.create(
+      table_id: table.id,
+      menu_id: menu.id,
+      for: for_person)
+
+    respond_to do |format|
+        format.html {redirect_to table_path(table), notice: "#{menu.name} was added to your order successfully."}
+        format.js
+    end
+    
+
+
   end
 
   # POST /tables
