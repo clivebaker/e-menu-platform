@@ -12,6 +12,14 @@ class Table < ApplicationRecord
   
   aasm do
   	state :started, :initial => true
+  	state :finished
+
+
+    event :finish do
+      transitions :from => :started, :to => :finished
+    end
+
+
   end
 
 

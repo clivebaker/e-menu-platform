@@ -29,7 +29,7 @@
         <td><%= table.created_at %></td>
         <td><%= table.aasm_state %></td>
         <td><%= table.password %></td>
-        <td></td>
+        <td><%= number_to_currency table.table_items.reject{|a| a.paid}.map{|e| e.price_a}.inject(:+) || 0, unit: "£"%></td>
         <td></td>
       </tr>
       <% end %>

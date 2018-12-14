@@ -11,7 +11,7 @@ class HomeController < ApplicationController
     
     restaurant_table_id = cookies[:restaurant_table_id]
     table_id = cookies[:table_id]
-    @table = Table.find_by(id: table_id, restaurant_table_id: @restaurant_table.id) if table_id
+    @table = Table.find_by(id: table_id, restaurant_table_id: @restaurant_table.id, aasm_state: :started) if table_id
 
      respond_to do |format|
       if @table.present?
@@ -25,7 +25,7 @@ class HomeController < ApplicationController
   def start_table
   	table_id = params[:table_id]
   	@restaurant_table = RestaurantTable.find(table_id)
-    password = params[:password]
+    password = params[:password].downcase
  
     live_table = @restaurant_table.tables.where(aasm_state: :started)
 

@@ -1,6 +1,6 @@
 class TablesController < ApplicationController
   before_action :set_table, only: [:show, :edit, :update, :destroy]
-    before_action :authenticate_manager_restaurant_user!, except: [:show]
+    before_action :authenticate_manager_restaurant_user!, except: [:show, :pay, :stripe, :finish, :add_item]
     skip_before_action :verify_authenticity_token, only: [:pay, :stripe]
   # GET /tables
   # GET /tables.json
@@ -84,7 +84,8 @@ class TablesController < ApplicationController
 
     respond_to do |format|
       if price == 0
-        @table
+        @table.finish
+        @table.save
         format.html {redirect_to root_path(@table), notice: "Thank You"}
       else
         format.html {redirect_to table_pay_path(@table), notice: "You cannot close the table if the bill is not settled"}
