@@ -44,6 +44,8 @@ gem 'jquery_mobile_rails'
 
 gem 'aasm'
 
+gem 'stripe'
+
 gem "jstree-rails-4"
 gem 'globalize', git: 'https://github.com/globalize/globalize'
 

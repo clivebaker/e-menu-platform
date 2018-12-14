@@ -1,7 +1,7 @@
 class TablesController < ApplicationController
   before_action :set_table, only: [:show, :edit, :update, :destroy]
     before_action :authenticate_manager_restaurant_user!, except: [:show]
-
+    skip_before_action :verify_authenticity_token, only: [:pay, :stripe]
   # GET /tables
   # GET /tables.json
   def index
@@ -45,7 +45,52 @@ class TablesController < ApplicationController
         format.html {redirect_to table_path(table), notice: "#{menu.name} was added to your order successfully."}
         format.js
     end
-    
+  end
+
+
+  def pay
+    @table = Table.find(params[:table_id])
+  end
+
+  def stripe
+
+    @table = Table.find(params[:table_id])
+   
+    Stripe.api_key = "sk_test_hOj5WqYB26UV1v5uuqXsADSG"
+    token = params[:stripeToken]
+    price = params[:price].to_i
+
+    charge = Stripe::Charge.create({
+        amount: price,
+        currency: 'gbp',
+        description: 'Example charge',
+        source: token,
+    })
+
+    table_items = TableItem.where(id: params[:items].split(','))
+    table_items.update_all(paid: true, token: token)
+
+    # .update_all(author: 'David')
+
+    respond_to do |format|
+      format.html {redirect_to table_pay_path(@table), notice: "Payment Made"}
+    end
+  end
+
+
+  def finish
+    @table = Table.find(params[:table_id])
+    price = @table.table_items.reject{|a| a.paid}.map{|e| e.price_a}.inject(:+) || 0
+
+    respond_to do |format|
+      if price == 0
+        @table
+        format.html {redirect_to root_path(@table), notice: "Thank You"}
+      else
+        format.html {redirect_to table_pay_path(@table), notice: "You cannot close the table if the bill is not settled"}
+      end
+
+    end
 
 
   end
