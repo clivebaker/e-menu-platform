@@ -53,27 +53,38 @@ class TablesController < ApplicationController
   end
 
   def stripe
-
+    error = nil
     @table = Table.find(params[:table_id])
    
     Stripe.api_key = "sk_test_hOj5WqYB26UV1v5uuqXsADSG"
     token = params[:stripeToken]
     price = params[:price].to_i
 
-    charge = Stripe::Charge.create({
-        amount: price,
-        currency: 'gbp',
-        description: 'Example charge',
-        source: token,
-    })
+    begin
+      charge = Stripe::Charge.create({
+          amount: price,
+          currency: 'gbp',
+          description: 'Example charge',
+          source: token,
+      })
+      table_items = TableItem.where(id: params[:items].split(','))
+      table_items.update_all(paid: true, token: token)
 
-    table_items = TableItem.where(id: params[:items].split(','))
-    table_items.update_all(paid: true, token: token)
+    rescue Exception => e 
+      error = e
+    end
 
-    # .update_all(author: 'David')
+
+
+    
+
 
     respond_to do |format|
-      format.html {redirect_to table_pay_path(@table), notice: "Payment Made"}
+      if error.present?
+        format.html {redirect_to table_pay_path(@table), notice: "There has been an error: #{e.message}"}
+      else
+        format.html {redirect_to table_pay_path(@table), notice: "Payment Made"}
+      end
     end
   end
 

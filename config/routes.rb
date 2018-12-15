@@ -31,6 +31,7 @@ Rails.application.routes.draw do
   get 'home/register_table/:code' => 'home#register_table', as: :register_table
   post 'home/start_table/:table_id' => "home#start_table", via: [:get, :post], as: :start_table
   get 'home/table'
+  post 'home/set_locale/:language_id' => 'home#set_locale', as: :home_set_locale
 
 
   root 'home#index'

@@ -1,0 +1,10 @@
+
+		  <div class="row  ">
+				<div class="col pt-2 bg-secondary	text-light text-center ">
+					<h6 class="">Language: <%=@language%></h6> 
+					<% @languages.each do |language| %>
+						<%= link_to home_set_locale_path(language), method: :post, "data-toggle"=>"tooltip", "data-placement"=>"top", title: language.name do %><i class="flag <%= language.icon%>" ></i><% end %>
+					<% end %>
+
+			</div>
+		</div>

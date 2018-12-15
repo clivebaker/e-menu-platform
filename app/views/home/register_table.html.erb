@@ -1,38 +1,17 @@
 
-<div class="container mt-4 mb-5">
+<div class="container-fluid px-0">
 
 	<% if @restaurant_table %>
 
 
 
 
-  <div class="row">
-    <div class="col-sm">
-      <h3><strong>Table Details:</strong></h3>
-      <table class="table">
-      	<thead>
-      		<tr>
-      			<th>Restaurant Name</th>
-      			<th>Table Code</th>
-      			<th>Table Number</th>
-      		</tr>
-      	</thead>
-      	<tbody>
-      		<tr>
-      			<td><%= @restaurant_table.restaurant_name%></td>
-      			<td><code><%= @restaurant_table.code%></code></td>
-      			<td><%= @restaurant_table.number %></td>
-      		</tr>
-      	</tbody>
-      </table>
-    </div>
-  </div>
 
   <% if @restaurant_table.tables.where(aasm_state: :started).count == 0%>
 
-    <div class="jumbotron jumbotron-fluid hero-main-background2">
+    <div class="jumbotron jumbotron-fluid hero-main-background2 mb-0  text-light">
       <div class="container  text-center">
-        <h2 class="display-2 text-dark">Start Eating</h2>
+        <h2 class="display-2">Start Eating</h2>
         <p class="">
           <h2>Create a password for your table</h2>
           <%= form_tag start_table_path(@restaurant_table) do %>
@@ -45,9 +24,9 @@
     </div>
   <% else %>
 
-    <div class="jumbotron jumbotron-fluid hero-main-background2">
+    <div class="jumbotron jumbotron-fluid hero-main-background2 mb-0 text-light">
       <div class="container  text-center">
-        <h2 class="display-2 text-dark">Join your Table</h2>
+        <h2 class="display-2 ">Join your Table</h2>
         <p class="">
           <h2>Enter the password for your table</h2>
           <%= form_tag start_table_path(@restaurant_table) do %>
@@ -57,25 +36,41 @@
         </p>
       </div>
     </div>
-
-  <% end %>
-
-
-
-
-<% else %>
-
+    <% end %>
 
   <div class="row">
-    <div class="col-sm">
-      <h3><strong>Sorry, table code is not recognised.</strong></h3>
-      <%= link_to "Back to Home page", home_index_path %>
-
+    <div class="col-sm pl-4 mt-4">
+      <h3><strong>Table Details:</strong></h3>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Restaurant Name</th>
+            <th>Table Code</th>
+            <th>Table Number</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><%= @restaurant_table.restaurant_name%></td>
+            <td><code><%= @restaurant_table.code%></code></td>
+            <td><%= @restaurant_table.number %></td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 
-	
 
+
+
+    
+  <% else %>  
+    <div class="jumbotron jumbotron-fluid hero-main-background2 mb-0 text-light">
+      <div class="container  text-center">
+        <h2 class="display-4 ">Sorry, table code is not recognised.</h2>
+        <%= link_to "Back to Home page", home_index_path, class: 'btn btn-warning'%>
+      </div>
+    </div>
 <% end %>
 
 

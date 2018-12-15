@@ -17,5 +17,8 @@ class HomeController < Manager::BaseController
     @restaurant = current_manager_restaurant_user.restaurant
   end
 
+
+
+
 end
 end

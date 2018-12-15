@@ -98,6 +98,8 @@
     </div>
     <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
       <div class="card-body menu-description ml-3">
+        Calories<br>
+        <%= sub.calories%><br><br>
         Total fat<br>
         Low: 3g of fat or less per 100g<br><br>
         Saturated fat<br>
@@ -114,7 +116,7 @@
     <div class="card-header" id="headingThree">
       <h5 class="mb-0">
         <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-          Ethically Sourced
+          Provenance
         </button>
       </h5>
     </div>
@@ -133,14 +135,30 @@
                   <!-- /Content Body  -->
                 </div>
                 <div class="modal-footer">
-                  <div class="form-group mt-4">
-                    <%= label_tag "Who is this for?", nil, class: "menu-label-who" %>
-                    <%= text_field_tag :for %>
+                  <div class="container">
+                  <div class="row">
+                    <div class="col-lg-9">
+                      <div class="form-group">
+                        <%= label_tag "Who is this for?", nil, class: "menu-label-who" %>
+                        <%= text_field_tag :for %>
                   </div>
-
-
-                  <button type="submit" class="btn btn-primary">Add</button>
+                    </div>
+                    <div class="col-lg-3">
+                       <button type="submit" class="btn btn-primary">Add</button>
                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                
+                    </div>
+
+
+                  </div>
+</div>
+                  
+
+
+                 
+
+
+
                 </div>
               </div>
               <% end %>

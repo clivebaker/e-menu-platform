@@ -11,15 +11,31 @@ class HomeController < ApplicationController
     
     restaurant_table_id = cookies[:restaurant_table_id]
     table_id = cookies[:table_id]
-    @table = Table.find_by(id: table_id, restaurant_table_id: @restaurant_table.id, aasm_state: :started) if table_id
 
-     respond_to do |format|
+    if table_id && @restaurant
+      @table = Table.find_by(id: table_id, restaurant_table_id: @restaurant_table.id, aasm_state: :started) 
+    end
+
+    respond_to do |format|
       if @table.present?
         format.html { redirect_to table_path(@table.id), notice: 'Table was successfully re-joined.' }
       else
         format.html 
       end
     end
+  end
+
+
+  def set_locale
+    
+    language = Language.find(params[:language_id])
+
+    cookies[:locale] = language.locale
+    cookies[:language] = language.name
+    redirect_back(fallback_location: home_index_path)
+
+
+
   end
 
   def start_table
@@ -53,16 +69,9 @@ class HomeController < ApplicationController
 
     end
 
-
-
   #   cookies.delete(:key, :domain => 'domain.com')
 
-  	
-
-
-
-
-    respond_to do |format|
+      respond_to do |format|
       if @table.present?
         format.html { redirect_to table_path(@table.id), notice: 'Table was successfully started.' }
       else
