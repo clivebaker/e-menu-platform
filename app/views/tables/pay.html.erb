@@ -249,9 +249,9 @@ function stripeTokenHandler(token) {
 
 <div class="container-fluid mb-0">
 	<div class="row">
-			<div class="col-lg-6">
+			<div class="col-lg-6 bg-secondary ">
 				
-				<div class="row bg-secondary text-white pt-3 pb-3">
+				<div class="row text-white pt-3 pb-3">
 					<div class="col text-center">
 						<span>Current Bill </span><br>
 						<span class="current-bill">
@@ -263,7 +263,7 @@ function stripeTokenHandler(token) {
 					</div>
 				</div>
 
-				<div class="row bg-secondary pt-3 pb-3">
+				<div class="row pt-3 pb-3">
 					<div class="col">
             <%= link_to "Select All", "#", class: "btn btn-outline-warning mb-2 btn-sm", id: "select-all"%> 
             <%= link_to "Deselect all", "#", class: "btn btn-outline-warning mb-2 btn-sm", id: "deselect-all"%>
@@ -287,60 +287,64 @@ function stripeTokenHandler(token) {
 			</div>
 			<div class="col-lg-6 wrapper pt-5 text-center bg-dark text-light px-5">
 
-<% if alert.present? %>
-  <div class="alert alert-danger show m-0" role="alert">
-    <%= alert %>
-  </div>
-<% end %>
-<% if notice.present? %>
-  <div class="alert alert-success show m-0" role="alert">
-    <%= notice %>
-  </div>
-<% end %>
+
 
 
 <% if price != 0 %>
-
+  <h2><%= label_tag :Total%> <span class="display-price">£0.00</span></h2>
 <script src="https://js.stripe.com/v3/"></script>
 
-<div id="please-wait" class="invisible">
-  <h3>Please Wait</h3>
-  <div class="progress">
-    <div class="progress-bar progress-bar-striped  progress-bar-animated bg-warning" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
-  </div>
-</div>
+<div class="container">
+  <div class="row">
+    <div class="col bg-light m-5">
 
-<div id='main-payment-form'>
+      <% if alert.present? %>
+        <div class="alert alert-danger show m-0 mt-2" role="alert">
+          <%= alert %>
+        </div>
+      <% end %>
+      <% if notice.present? %>
+        <div class="alert alert-success show m-0 mt-2" role="alert">
+          <%= notice %>
+        </div>
+      <% end %>
 
-<div id="payment-request-button">
-  <!-- A Stripe Element will be inserted here. -->
-</div>
 
-  
-<form action="/tables/<%=@table.id%>/stripe" method="post" id="payment-form">
-	<h2><%= label_tag :Total%> <span class="display-price">£0.00</span></h2>
-	<%= hidden_field_tag :price, nil %>
-	<%= hidden_field_tag :items, nil%>
-  <div class="form-row">
-    <label for="card-element">
-      <!-- Credit or debit card -->
-    </label>
-    <div id="card-element">
-      <!-- A Stripe Element will be inserted here. -->
+      <div id="please-wait" class="invisible">
+        <h3 class="text-dark">Please Wait</h3>
+        <div class="progress">
+          <div class="progress-bar progress-bar-striped  progress-bar-animated bg-warning" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
+      </div>
+      <div id='main-payment-form'>
+        <div id="payment-request-button">
+          <!-- A Stripe Element will be inserted here. -->
+        </div>
+        <form action="/tables/<%=@table.id%>/stripe" method="post" id="payment-form">
+        	<%= hidden_field_tag :price, nil %>
+        	<%= hidden_field_tag :items, nil%>
+          <div class="form-row">
+            <label for="card-element">
+              <!-- Credit or debit card -->
+            </label>
+            <div id="card-element">
+              <!-- A Stripe Element will be inserted here. -->
+            </div>
+            <!-- Used to display form errors. -->
+            <div id="card-errors" role="alert"></div>
+          </div>
+          <button class="btn btn-warning mt-2 submit-payment" disabled>Submit Payment</button>
+          <%=link_to "Not Finished?", table_path(@table), class: "btn btn-secondary  mt-2 "%>
+        </form>
+        <p class="mt-3">
+          <i>Please choose the items on the left that you will be paying for.  Please "select all" if you are paying the whole bill.</i>
+        </p>
+      </div>
+
+      
     </div>
-
-    <!-- Used to display form errors. -->
-    <div id="card-errors" role="alert"></div>
   </div>
-
-  <button class="btn btn-warning mt-2 submit-payment" disabled>Submit Payment</button>
-  <%=link_to "Not Finished?", table_path(@table), class: "btn btn-secondary  mt-2 "%>
-
-
-</form>
-<p class="mt-3"><i>Please choose the items on the left that you will be paying for.  Please "select all" if you are paying the whole bill.</i></p>
 </div>
-
 
 
 
