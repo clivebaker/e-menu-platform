@@ -16,15 +16,22 @@
 
 <% if @menu.node_type == 'item' %>
 
+<% if @menu.image.attached? %>
+<!-- @menu.image.present? will always return true, use attached? to check presence -->
+  <p>
+    <strong>Image:</strong>
+    <br>
+    <%= image_tag @menu.image.variant(resize: "200x200") %>
+    <%#= image_tag @menu.image %>
+  </p>
+<% end %>
+
+
 <p>
   <strong>Description:</strong>
   <%= @menu.description %>
 </p>
 
-<p>
-  <strong>Image:</strong>
-  <%= @menu.image %>
-</p>
 
 <p>
   <strong>Spice level:</strong>

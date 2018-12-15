@@ -5,6 +5,9 @@ class Menu < ApplicationRecord
 	has_and_belongs_to_many :menu_item_categorisation
 	has_ancestry
   
+  has_one_attached :image
+
+
   translates :name, :description, :fallbacks_for_empty_translations => true
 
   

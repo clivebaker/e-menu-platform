@@ -71,7 +71,20 @@
 
     <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
       <div class="card-body">
-        <div class="menu-description ml-3"><%=sub.description%></div>
+        
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-3"><%= image_tag sub.image.variant(resize: "200x200"), class: "img-fluid" if sub.image.attached? %></div>
+            <div class="col"><div class="menu-description ml-3"><%=sub.description%></div></div>
+          </div>
+        </div>
+
+
+         
+        
+      
+
+
       </div>
     </div>
   </div>
@@ -147,7 +160,21 @@
   <% if sub.node_type == 'item' %>
     <div class="row">
       <div class="col">
-        <i><p class="menu-description"><%=sub.description%></p></i>
+
+
+        <div class="container pl-0">
+          <div class="row">
+            <% if sub.image.attached? %>
+              <div class="col-lg-3"><%= image_tag sub.image.variant(resize: "200x200"), class: "img-fluid"  %></div>
+            <% end %>
+            <div class="col pl-0"><div class="menu-description ml-3"><%=sub.description%></div></div>
+          </div>
+        </div>
+
+
+
+
+        <!-- <i><p class="menu-description"><%#=sub.description%></p></i> -->
       </div>
        <div class="col-2">
         &nbsp;
