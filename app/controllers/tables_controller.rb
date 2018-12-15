@@ -81,9 +81,9 @@ class TablesController < ApplicationController
 
     respond_to do |format|
       if error.present?
-        format.html {redirect_to table_pay_path(@table), notice: "There has been an error: #{e.message}"}
+        format.html {redirect_to table_pay_path(@table), alert: "There has been an error: #{e.message}"}
       else
-        format.html {redirect_to table_pay_path(@table), notice: "Payment Made"}
+        format.html {redirect_to table_pay_path(@table), notice: "Thank You, your payment was successful."}
       end
     end
   end

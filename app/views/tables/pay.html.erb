@@ -228,6 +228,18 @@ function stripeTokenHandler(token) {
 			</div>
 			<div class="col-lg-6 wrapper pt-5 text-center bg-dark text-light px-5">
 
+<% if alert.present? %>
+  <div class="alert alert-danger show m-0" role="alert">
+    <%= alert %>
+  </div>
+<% end %>
+<% if notice.present? %>
+  <div class="alert alert-success show m-0" role="alert">
+    <%= notice %>
+  </div>
+<% end %>
+
+
 <% if price != 0 %>
 
 <script src="https://js.stripe.com/v3/"></script>
