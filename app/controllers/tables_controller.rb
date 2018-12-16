@@ -66,7 +66,7 @@ class TablesController < ApplicationController
       charge = Stripe::Charge.create({
           amount: price,
           currency: 'gbp',
-          description: 'Example charge',
+          description: 'e-me.nu charge',
           source: token,
       })
       table_items = TableItem.where(id: params[:items].split(','))
