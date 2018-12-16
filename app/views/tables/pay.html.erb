@@ -131,12 +131,21 @@
     // Send the token to your server to charge it!
     fetch('/tables/<%=@table.id%>/stripe.json', {
       method: 'POST',
-      body: JSON.stringify({token: ev.token.id, price: parseInt($("#price").val())}),
+      body: JSON.stringify({token: ev.token.id, price: parseInt($("#price").val()), items: $("#items").val()}),
       headers: {'content-type': 'application/json'},
     })
     .then(function(response) {
       if (response.ok) {
+
+        console.log("----------------------------- **")
+        console.log("RESPONSE OKOKOKOKOKOK")
         console.log(response.body)
+        console.log("-----------------------------")
+        console.log(response.json())
+        console.log("-----------------------------")
+        console.log(response)
+        console.log("----------------------------- **")
+
         // Report to the browser that the payment was successful, prompting
         // it to close the browser payment interface.
         ev.complete('success');
@@ -144,7 +153,14 @@
         // Report to the browser that the payment failed, prompting it to
         // re-show the payment interface, or show an error message and close
         // the payment interface.
-            console.log(response.body)
+        console.log("----------------------------- **")
+        console.log("RESPONSE NOTOKNOTOK")
+        console.log(response.body)
+        console.log("-----------------------------")
+        console.log(response.json())
+        console.log("-----------------------------")
+        console.log(response)
+        console.log("----------------------------- **")
         ev.complete('fail');
       }
     });
