@@ -78,12 +78,10 @@ class TablesController < ApplicationController
 
     respond_to do |format|
       if error.present?
-        # format.json { render json: {error: 'true'} }
-        format.json {redirect_to table_pay_path(@table), alert: "There has been an error: #{e.message}"}
+        format.json { render json: {error: 'true', url: table_pay_path(@table), message: "There has been an error: #{e.message}"} }
         format.html {redirect_to table_pay_path(@table), alert: "There has been an error: #{e.message}"}
       else
-        # format.json { render json: {error: 'false'} }
-        format.json {redirect_to table_pay_path(@table), notice: "Thank You, your payment was successful."}
+        format.json { render json: {error: 'false', url: table_pay_path(@table), message: "Thank You, your payment was successful."} }
         format.html {redirect_to table_pay_path(@table), notice: "Thank You, your payment was successful."}
       end
     end
