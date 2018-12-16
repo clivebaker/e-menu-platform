@@ -1,4 +1,5 @@
 <ul class="menu">
+  <%#= category.children.arrange(:order => :name)%>
   <% category.children.each do |sub| %>
     <li class='menu-<%= sub.node_type%>'>
 
