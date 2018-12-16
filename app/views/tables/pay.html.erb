@@ -136,30 +136,29 @@
     })
     .then(function(response) {
       if (response.ok) {
-
+        result = response.json();
         console.log("----------------------------- **")
         console.log("RESPONSE OKOKOKOKOKOK")
-        console.log(response.body)
-        console.log("-----------------------------")
+        
         console.log(response.json())
-        console.log("-----------------------------")
-        console.log(response)
+        console.log("**--**--**")
+        console.log(result.result)
         console.log("----------------------------- **")
 
         // Report to the browser that the payment was successful, prompting
         // it to close the browser payment interface.
         ev.complete('success');
       } else {
+        result = response.json();
         // Report to the browser that the payment failed, prompting it to
         // re-show the payment interface, or show an error message and close
         // the payment interface.
         console.log("----------------------------- **")
         console.log("RESPONSE NOTOKNOTOK")
-        console.log(response.body)
-        console.log("-----------------------------")
+        
         console.log(response.json())
-        console.log("-----------------------------")
-        console.log(response)
+        console.log("**--**--**")
+        console.log(result.result)
         console.log("----------------------------- **")
         ev.complete('fail');
       }
