@@ -16,7 +16,7 @@
           <h2>Create a password for your table</h2>
           <%= form_tag start_table_path(@restaurant_table) do %>
             <%= text_field_tag :password %>
-            <%= submit_tag nil, class: 'btn btn-primary'%>
+            <%= submit_tag nil, class: 'btn btn-primary btn-sm  mb-1'%>
           <% end %>
           <p><i>This can be your name!</i></p>
         </p>
@@ -31,7 +31,7 @@
           <h2>Enter the password for your table</h2>
           <%= form_tag start_table_path(@restaurant_table) do %>
             <%= text_field_tag :password %>
-            <%= submit_tag nil, class: 'btn btn-primary'%>
+            <%= submit_tag nil, class: 'btn btn-primary btn-sm mb-1'%>
           <% end %>
         </p>
       </div>

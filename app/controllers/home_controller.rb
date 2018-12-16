@@ -12,10 +12,10 @@ class HomeController < ApplicationController
     restaurant_table_id = cookies[:restaurant_table_id]
     table_id = cookies[:table_id]
 
-    if table_id && @restaurant
+    if table_id && @restaurant_table
       @table = Table.find_by(id: table_id, restaurant_table_id: @restaurant_table.id, aasm_state: :started) 
     end
-
+# binding.pry
     respond_to do |format|
       if @table.present?
         format.html { redirect_to table_path(@table.id), notice: 'Table was successfully re-joined.' }
