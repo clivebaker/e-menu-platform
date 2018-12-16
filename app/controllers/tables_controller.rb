@@ -57,9 +57,11 @@ class TablesController < ApplicationController
     @table = Table.find(params[:table_id])
    
     Stripe.api_key = "sk_test_hOj5WqYB26UV1v5uuqXsADSG"
-    token = params[:stripeToken]
+    token = params[:token]
     price = params[:price].to_i
 
+    Rails.logger.debug("Payment Token: #{token}")
+    Rails.logger.debug("Payment Price: #{price}")
     begin
       charge = Stripe::Charge.create({
           amount: price,
