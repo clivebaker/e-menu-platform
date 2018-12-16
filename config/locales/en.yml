@@ -1,4 +1,9 @@
 en:
+  messages:
+    table_created_successfully: Table was successfully started.
+    table_incorrect_password: Cannot join table. Incorrect Password
+    table_joined_successfully: Table was successfully re-joined.
+
   topnav:
     site: e-me.nu
     home: Home
