@@ -1,52 +1,42 @@
-
 <div class="container-fluid px-0">
-
 	<% if @restaurant_table %>
-
-
-
-
-
-  <% if @restaurant_table.tables.where(aasm_state: :started).count == 0%>
-
-    <div class="jumbotron jumbotron-fluid hero-main-background2 mb-0  text-light">
-      <div class="container  text-center">
-        <h2 class="display-2">Start Eating</h2>
-        <p class="">
-          <h2>Create a password for your table</h2>
-          <%= form_tag start_table_path(@restaurant_table) do %>
-            <%= text_field_tag :password %>
-            <%= submit_tag nil, class: 'btn btn-primary btn-sm  mb-1'%>
-          <% end %>
-          <p><i>This can be your name!</i></p>
-        </p>
+    <% if @restaurant_table.tables.where(aasm_state: :started).count == 0%>
+      <div class="jumbotron jumbotron-fluid hero-main-background2 mb-0  text-light">
+        <div class="container  text-center">
+          <h2 class="display-2"><%= t('register_table.start.message')%></h2>
+          <p class="">
+            <h2><%= t('register_table.start.password_message')%></h2>
+            <%= form_tag start_table_path(@restaurant_table) do %>
+              <%= text_field_tag :password %>
+              <%= submit_tag t('register_table.start.password_submit'), class: 'btn btn-primary btn-sm  mb-1'%>
+            <% end %>
+            <p><i><%= t('register_table.start.password_help')%></i></p>
+          </p>
+        </div>
       </div>
-    </div>
-  <% else %>
-
+    <% else %>
     <div class="jumbotron jumbotron-fluid hero-main-background2 mb-0 text-light">
       <div class="container  text-center">
-        <h2 class="display-2 ">Join your Table</h2>
+        <h2 class="display-2 "><%= t('register_table.join.message')%></h2>
         <p class="">
-          <h2>Enter the password for your table</h2>
+          <h2><%= t('register_table.join.password_message')%></h2>
           <%= form_tag start_table_path(@restaurant_table) do %>
             <%= text_field_tag :password %>
-            <%= submit_tag nil, class: 'btn btn-primary btn-sm mb-1'%>
+            <%= submit_tag t('register_table.join.password_submit'), class: 'btn btn-primary btn-sm mb-1'%>
           <% end %>
         </p>
       </div>
     </div>
-    <% end %>
-
+  <% end %>
   <div class="row">
     <div class="col-sm pl-4 mt-4">
-      <h3><strong>Table Details:</strong></h3>
+      <h3><strong><%= t('register_table.details.title')%>:</strong></h3>
       <table class="table">
         <thead>
           <tr>
-            <th>Restaurant Name</th>
-            <th>Table Code</th>
-            <th>Table Number</th>
+            <th><%= t('register_table.details.headers.name')%></th>
+            <th><%= t('register_table.details.headers.code')%></th>
+            <th><%= t('register_table.details.headers.number')%></th>
           </tr>
         </thead>
         <tbody>
@@ -59,19 +49,12 @@
       </table>
     </div>
   </div>
-
-
-
-
-    
   <% else %>  
     <div class="jumbotron jumbotron-fluid hero-main-background2 mb-0 text-light">
       <div class="container  text-center">
-        <h2 class="display-4 ">Sorry, table code is not recognised.</h2>
-        <%= link_to "Back to Home page", home_index_path, class: 'btn btn-warning'%>
+        <h2 class="display-4 "><%= t('register_table.error.message')%></h2>
+        <%= link_to t('register_table.error.home_button'), home_index_path, class: 'btn btn-warning'%>
       </div>
     </div>
-<% end %>
-
-
+  <% end %>
 </div>

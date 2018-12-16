@@ -1,7 +1,7 @@
 <main role="main">
   <div class="jumbotron jumbotron-fluid hero-main-user-background mb-0">
     <div class="container">
-      <h2 class="display-2 text-center text-light">Start Eating</h2>
+      <h2 class="display-2 text-center text-light"><%= t('furniture.start_eating')%></h2>
       <p class=" text-center ">
       </p>
     </div>
@@ -9,15 +9,15 @@
   <div class="container-fluid">
     <div class="row mb-0">
       <div class="col-lg-6 bg-dark text-light text-center pt-3 pb-3">
-        <h2>Enter your Table Code</h2>
+        <h2><%= t('furniture.enter_table_code')%></h2>
         <%= form_tag home_register_table_path do %>
           <%= text_field_tag :code %>
-          <%= submit_tag nil, class: 'btn btn-warning btn-sm mb-1'%>
+          <%= submit_tag t('furniture.enter_table_code_submit'), class: 'btn btn-warning btn-sm mb-1'%>
         <% end %>
       </div>
       <div class="col-lg-6 bg-info text-light mt-0 mb-0 pt-3 pb-3">
-        <h2>Where do you want to eat?</h2>
-        <p>Available Restaurants</p>
+        <h2><%= t('furniture.where_to_eat')%></h2>
+        <p><%= t('furniture.available_restaurants')%></p>
         <ul>
         <% @restaurants.each do |restaurant| %>
           <li><%=restaurant.name%></li>

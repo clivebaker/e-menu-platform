@@ -1,33 +1,35 @@
-# Files in the config/locales directory are used for internationalization
-# and are automatically loaded by Rails. If you want to use locales other
-# than English, add the necessary files in this directory.
-#
-# To use the locales, use `I18n.t`:
-#
-#     I18n.t 'hello'
-#
-# In views, this is aliased to just `t`:
-#
-#     <%= t('hello') %>
-#
-# To use a different locale, set it with `I18n.locale`:
-#
-#     I18n.locale = :es
-#
-# This would use the information in config/locales/es.yml.
-#
-# The following keys must be escaped otherwise they will not be retrieved by
-# the default I18n backend:
-#
-# true, false, on, off, yes, no
-#
-# Instead, surround them with single quotes.
-#
-# en:
-#   'true': 'foo'
-#
-# To learn more, please read the Rails Internationalization guide
-# available at http://guides.rubyonrails.org/i18n.html.
-
 en:
-  hello: "Hello world"
+  topnav:
+    site: e-me.nu
+    home: Home
+  furniture: 
+    enter_table_code: Enter your Table Code
+    enter_table_code_submit: Submit
+    start_eating: Start Eating
+    where_to_eat: Where do you want to eat?
+    available_restaurants: Available Restaurants
+  register_table: 
+    start:
+      message: Start Eating
+      password_message: Create a password for your table
+      password_submit: Submit
+      password_help: This can be your name!
+    join:
+      message: Join your Table
+      password_message: Enter the password for your table
+      password_submit: Submit
+    error:
+      message: Sorry, table code is not recognised.
+      home_button: Back to Home page
+    details:
+      title: Table Details
+      headers:
+        name: Restaurant Name
+        code: Table Code
+        number: Table Number
+  footer:
+    restaurant_button_login: Restaurant Login
+    e_menu_copyright: © e-me.nu 2019-2020
+    disclaimer: <div>Icons made by <a href='http://www.freepik.com' title='Freepik'>Freepik</a> from <a href='https://www.flaticon.com/' title='Flaticon'>www.flaticon.com</a> is licensed by <a href='http://creativecommons.org/licenses/by/3.0/' title='Creative Commons BY 3.0' target='_blank'>CC 3.0 BY</a></div></small><small>Translated by Yandex.Translate
+  language:
+    title: Language

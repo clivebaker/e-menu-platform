@@ -1,45 +1,15 @@
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-  <%= link_to "e-me.nu", root_path, class: "navbar-brand" %> 
+  <%= link_to t('topnav.site'), root_path, class: "navbar-brand" %> 
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-
   <div class="collapse navbar-collapse" id="navbarsExampleDefault">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
         <%= link_to home_index_path, class: 'nav-link' do %>
-          <i class="fa fa-home"></i> Home
+          <i class="fa fa-home"></i> <%= t('topnav.home')%>
         <% end %>
       </li>      
-
-
-<!--       <li class="nav-item">
-        <a class="nav-link" href="#">Link</a>
-      </li>
- -->
-<!--       <li class="nav-item">
-        <a class="nav-link disabled" href="#">Disabled</a>
-      </li>
- -->
-<!--       <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Settings</a>
-        <div class="dropdown-menu" aria-labelledby="dropdown01">
-          <%= link_to "Cuisines", manager_cuisines_path, class: "dropdown-item"%>
-          <%= link_to "Restaurants", manager_restaurants_path, class: "dropdown-item"%>
-
-        </div>
-      </li>
-      -->
     </ul>
-    <ul class="nav justify-content-end">
-
-
-
-
-
-    </ul>
-
-
-
   </div>
 </nav>
