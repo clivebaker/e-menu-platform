@@ -1,0 +1,73 @@
+<ul class="management-menu">
+  <% category.children.each do |sub| %>
+    <li class='border p-1 m-1 <%= sub.node_type != 'item' ? "bg-secondary text-light pl-2" : "bg-light text-dark" %>'>
+
+    
+      <div class="row ">
+        <% if sub.node_type != 'item' %>
+        <div class="col-lg-2">
+            <%=sub.name%> 
+        </div>
+        <% end %>
+
+          <% if sub.node_type != "item" %>
+  
+          <div class="col-lg-5 text-center">  
+            <%= link_to "Add Category to #{sub.name}", new_manager_restaurant_menu_path(sub.restaurant_id, parent: sub.id), class: "text-warning  menu-management-links" %> | 
+            <%= link_to "New Item in #{sub.name}", new_manager_restaurant_menu_path(sub.restaurant_id, node_type: 'item', parent: sub.id), class: "text-warning menu-management-links" %>  
+          </div>
+          <div class="col-lg-5 text-right">  
+          
+            <%= link_to edit_manager_restaurant_menu_path(sub.restaurant_id, sub.id, node_type: sub.node_type, parent: sub.id), class: "text-warning menu-management-links" do %><i class='fa fa-edit'></i> Edit<% end %> | 
+            <%= link_to manager_restaurant_menu_path(sub.restaurant_id, sub.id), class: "text-warning menu-management-links", method: :delete,  "data-confirm" => 'Are you sure? This will remove all items and categories!' do %><i class='fa fa-trash'></i> Delete<% end %>
+          </div>
+          <% else %>
+          <div class="col-lg-12 text-right ">  
+            <%= link_to manager_restaurant_menu_path(sub.restaurant_id, sub.id, updated_menu: sub.id), class: " menu-management-links" do %><i class='fa fa-info-circle'></i> View<% end %> | 
+            <%= link_to edit_manager_restaurant_menu_path(sub.restaurant_id, sub.id, node_type: sub.node_type, updated_menu: sub.id), class: " menu-management-links" do %><i class='fa fa-edit'></i> Edit<% end %> | 
+            <%= link_to manager_restaurant_menu_path(sub.restaurant_id, sub.id), method: :delete, class: " menu-management-links", "data-confirm" => 'Are you sure? This will remove all items and categories!' do %><i class='fa fa-trash'></i> Delete<% end %>
+          </div>
+          <% end %>     
+       
+      </div>
+
+<% if sub.node_type == 'item' %>
+
+      <div class="row ">
+        <div class="col-lg-2">
+            <%=sub.name%> 
+        </div>
+        <div class="col-lg-1">
+          <% if sub.image.attached? %>
+            <%= image_tag sub.image.variant(resize: "50x50"), class: "img-fluid"  %>
+          <% end %>
+        </div>
+        <div class="col management-description"> 
+          <%=sub.description%>
+        </div>
+        <div class="col-lg-2"> 
+          <% sub.menu_item_categorisation.each do |category| %>
+            <i class="<%= category.icon %>"></i>
+          <% end %>
+        </div>
+
+        <div class="col-lg-1 text-right mr-3">
+             <%= sub.prices_joined.map{|a| number_to_currency(a, unit: "£")}.join(" / ") if sub.prices_joined%>
+        </div>
+      </div>
+
+
+      
+        <div class="row">
+          <div class="col">
+            <div class="container pl-0">
+              <div class="row">
+                <div class="col pl-0"><div class="menu-description ml-3"></div></div>
+              </div>
+            </div>
+          </div>        </div>
+      <% end %>
+      <%= render 'manager/menus/item', category: sub, table: table %>
+    </li>
+  <% end %>
+</ul>

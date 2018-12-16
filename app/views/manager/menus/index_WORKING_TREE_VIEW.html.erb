@@ -1,0 +1,101 @@
+
+<% content_for :js do %>
+
+
+  <script type="text/javascript">
+    
+      $(function () { 
+     
+        console.log("Before loading js tree");
+        $('#jstree_demo_div')
+          // listen for event
+          .on('changed.jstree', function (e, data) {
+            var i, j, r = [];
+            for(i = 0, j = data.selected.length; i < j; i++) {
+              r.push(data.instance.get_node(data.selected[i]));
+            }
+
+            restaurant_id = r[0].data["restaurant_id"];
+            parent = r[0].data["parent"]
+            menu_id = r[0].data["menu_id"]
+            node_type = r[0].data["node_type"]
+            name = r[0].text
+
+            console.log("Text: " + r[0].text);
+            console.log("Restaurant: " + r[0].data["restaurant_id"]);
+            console.log("Parent: " + r[0].data["parent"]);
+            console.log("Menu_id: " + r[0].data["menu_id"]);
+            console.log("node_type: " + r[0].data["node_type"]);
+            $('#event_result').html('');
+
+            if (node_type != "item"){
+
+              $('#event_result').append(" <a class='btn btn-primary  btn-sm' href='/manager/restaurants/" + restaurant_id + "/menus/new?parent=" + parent + "'>Add Category to " + name + "</a>");
+              $('#event_result').append(" <a class='btn btn-primary  btn-sm' href='/manager/restaurants/" + restaurant_id + "/menus/new?node_type=item&amp;parent=" + parent + "'>New Item in " + name + "</a>");
+              $('#event_result').append(" <a class='btn btn-primary  btn-sm' href='/manager/restaurants/" + restaurant_id + "/menus/" + parent + "/edit?node_type="+node_type+"'><i class='fa fa-edit'></i></a>");
+              $('#event_result').append(" <a data-confirm='Are you sure? This will remove all items and categories!' class='btn btn-primary  btn-sm' rel='nofollow' data-method='delete' href='/manager/restaurants/" + restaurant_id + "/menus/" + parent + "'><i class='fa fa-trash'></i></a>");
+
+            } else {
+
+              $('#event_result').append(" <a class='btn btn-primary  btn-sm' href='/manager/restaurants/" + restaurant_id + "/menus/" + parent + "?updated_menu="+ menu_id +"'><i class='fa fa-info-circle'></i></a>");
+              $('#event_result').append(" <a class='btn btn-primary  btn-sm' href='/manager/restaurants/" + restaurant_id + "/menus/" + parent + "/edit?node_type=item&updated_menu="+ menu_id +"'><i class='fa fa-edit'></i></a>");
+              $('#event_result').append(" <a data-confirm='Are you sure? This will remove all items and categories!' class='btn btn-primary  btn-sm' rel='nofollow' data-method='delete' href='/manager/restaurants/" + restaurant_id + "/menus/" + parent + "'><i class='fa fa-trash'></i></a>");
+
+            }
+
+
+          })
+          .jstree({
+            "core" : {
+              "multiple" : false,
+              "animation" : 0,
+              "themes" : {
+                "variant" : "large",
+               
+              },
+                },
+                "checkbox" : {
+                  "keep_selected_style" : false
+                },
+                "plugins" : [ "wholerow" ]
+              }); 
+        console.log("After loading js tree");
+      });
+
+  </script>
+
+
+<% end %>
+
+
+<main role="main" class="container">
+  <div class="my-3 p-3 bg-white rounded shadow-sm">
+    <h1 class="">Menus</h1>
+
+    <div id="event_result"></div>
+    <br>
+    <div id="jstree_demo_div">
+          
+   
+      
+        <% Menu.sort_by_ancestry(@menus).each do |menu| %>
+            <ul>     
+              <li data-jstree='{"opened":<%= menu.id == @updated_menu ? true : false %>, "selected":<%= menu.id == @updated_menu ? true : false %>, "icon":"fa fa-book"}' data-restaurant_id='<%=menu.restaurant_id%>' data-menu_id="<%=menu.id%>" data-node_type='<%=menu.node_type%>' data-parent='<%=menu.id%>'><%=menu.name%>
+                <%= node(menu).html_safe %>
+              </li>
+            </ul>
+        <% end %>
+
+      
+
+    </div>
+
+<hr>
+<%= link_to 'New Menu', new_manager_restaurant_menu_path(), class: "d-block text-right mt-3" %>
+
+  </div>
+</main>
+
+
+
+
