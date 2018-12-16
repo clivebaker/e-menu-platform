@@ -320,6 +320,8 @@ function stripeTokenHandler(token) {
         <div id="payment-request-button">
           <!-- A Stripe Element will be inserted here. -->
         </div>
+<br>
+        <hr>
         <form action="/tables/<%=@table.id%>/stripe" method="post" id="payment-form">
         	<%= hidden_field_tag :price, nil %>
         	<%= hidden_field_tag :items, nil%>
