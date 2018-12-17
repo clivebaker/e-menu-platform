@@ -5,5 +5,4 @@ class HomeMobileControllerTest < ActionDispatch::IntegrationTest
     get home_mobile_index_url
     assert_response :success
   end
-
 end

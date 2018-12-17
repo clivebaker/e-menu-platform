@@ -1,4 +1,2 @@
 class SpiceLevel < ApplicationRecord
 end
-
-

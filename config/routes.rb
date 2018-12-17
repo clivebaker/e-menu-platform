@@ -1,6 +1,4 @@
 Rails.application.routes.draw do
-
-
   resources :tables do
     post 'add_item/:menu_id' => 'tables#add_item', as: :add_item
     get 'pay'
@@ -15,7 +13,7 @@ Rails.application.routes.draw do
     get 'home/dashboard'
     get 'home/menu'
     resources :cuisines
-    resources :restaurants do 
+    resources :restaurants do
       resources :menus
       resources :restaurant_tables
     end
@@ -33,7 +31,5 @@ Rails.application.routes.draw do
   get 'home/table'
   post 'home/set_locale/:language_id' => 'home#set_locale', as: :home_set_locale
 
-
   root 'home#index'
-
 end

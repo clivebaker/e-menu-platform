@@ -1,22 +1,21 @@
 class HomeController < ApplicationController
-
   def index
-  	@restaurants = Restaurant.all
+    @restaurants = Restaurant.all
   end
 
   def register_table
-  	@code = params[:code].upcase
-  	@restaurant_table = RestaurantTable.find_by(code: @code)
+    @code = params[:code].upcase
+    @restaurant_table = RestaurantTable.find_by(code: @code)
     restaurant_table_id = cookies[:restaurant_table_id]
     table_id = cookies[:table_id]
     if table_id && @restaurant_table
-      @table = Table.find_by(id: table_id, restaurant_table_id: @restaurant_table.id, aasm_state: :started) 
+      @table = Table.find_by(id: table_id, restaurant_table_id: @restaurant_table.id, aasm_state: :started)
     end
     respond_to do |format|
       if @table.present?
         format.html { redirect_to table_path(@table.id), notice: t('messages.table_joined_successfully') }
       else
-        format.html 
+        format.html
       end
     end
   end
@@ -29,24 +28,25 @@ class HomeController < ApplicationController
   end
 
   def start_table
-  	table_id = params[:table_id]
-  	@restaurant_table = RestaurantTable.find(table_id)
+    table_id = params[:table_id]
+    @restaurant_table = RestaurantTable.find(table_id)
     password = params[:password].downcase
     live_table = @restaurant_table.tables.where(aasm_state: :started)
-    if live_table.blank? 
+    if live_table.blank?
       @table = Table.create(
-                restaurant_table_id: @restaurant_table.id, 
-                password: password)
-      cookies[:restaurant_table_id] = {:value => @restaurant_table.id, :expires => 4.hour.from_now,}
-      cookies[:table_id] = {:value => @table.id, :expires => 4.hour.from_now}
-    else 
+        restaurant_table_id: @restaurant_table.id,
+        password: password
+      )
+      cookies[:restaurant_table_id] = { :value => @restaurant_table.id, :expires => 4.hour.from_now, }
+      cookies[:table_id] = { :value => @table.id, :expires => 4.hour.from_now }
+    else
       @table = live_table.find_by(password: password)
       if @table.present?
-        cookies[:restaurant_table_id] = {:value => @restaurant_table.id, :expires => 4.hour.from_now,}
-        cookies[:table_id] = {:value => @table.id, :expires => 4.hour.from_now}
+        cookies[:restaurant_table_id] = { :value => @restaurant_table.id, :expires => 4.hour.from_now, }
+        cookies[:table_id] = { :value => @table.id, :expires => 4.hour.from_now }
       end
     end
-      respond_to do |format|
+    respond_to do |format|
       if @table.present?
         format.html { redirect_to table_path(@table.id), notice: t('messages.table_created_successfully') }
       else

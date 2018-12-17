@@ -1,5 +1,3 @@
 class Language < ApplicationRecord
-
-	default_scope {order('name ASC')}
-
+  default_scope { order('name ASC') }
 end
