@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class HomeController < ApplicationController
   def index
     @restaurants = Restaurant.all
@@ -6,11 +8,8 @@ class HomeController < ApplicationController
   def register_table
     @code = params[:code].upcase
     @restaurant_table = RestaurantTable.find_by(code: @code)
-    restaurant_table_id = cookies[:restaurant_table_id]
     table_id = cookies[:table_id]
-    if table_id && @restaurant_table
-      @table = Table.find_by(id: table_id, restaurant_table_id: @restaurant_table.id, aasm_state: :started)
-    end
+    @table = Table.find_by(id: table_id, restaurant_table_id: @restaurant_table.id, aasm_state: :started) if table_id && @restaurant_table
     respond_to do |format|
       if @table.present?
         format.html { redirect_to table_path(@table.id), notice: t('messages.table_joined_successfully') }
@@ -37,13 +36,13 @@ class HomeController < ApplicationController
         restaurant_table_id: @restaurant_table.id,
         password: password
       )
-      cookies[:restaurant_table_id] = { :value => @restaurant_table.id, :expires => 4.hour.from_now, }
-      cookies[:table_id] = { :value => @table.id, :expires => 4.hour.from_now }
+      cookies[:restaurant_table_id] = { value: @restaurant_table.id, expires: 4.hour.from_now }
+      cookies[:table_id] = { value: @table.id, expires: 4.hour.from_now }
     else
       @table = live_table.find_by(password: password)
       if @table.present?
-        cookies[:restaurant_table_id] = { :value => @restaurant_table.id, :expires => 4.hour.from_now, }
-        cookies[:table_id] = { :value => @table.id, :expires => 4.hour.from_now }
+        cookies[:restaurant_table_id] = { value: @restaurant_table.id, expires: 4.hour.from_now }
+        cookies[:table_id] = { value: @table.id, expires: 4.hour.from_now }
       end
     end
     respond_to do |format|

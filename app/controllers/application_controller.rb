@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ApplicationController < ActionController::Base
   before_action :choose_locale
   before_action :set_languages
@@ -8,6 +10,6 @@ class ApplicationController < ActionController::Base
 
   def choose_locale
     I18n.locale = cookies[:locale] || 'en'
-    @language = cookies[:language] || "English"
+    @language = cookies[:language] || 'English'
   end
 end

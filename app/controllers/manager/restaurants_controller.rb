@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 module Manager
   class RestaurantsController < Manager::BaseController
     before_action :authenticate_manager_restaurant_user!
 
-    before_action :set_restaurant, only: [:show, :edit, :update]
-    before_action :set_cuisine, only: [:new, :create, :show, :edit, :update]
+    before_action :set_restaurant, only: %i[show edit update]
+    before_action :set_cuisine, only: %i[new create show edit update]
 
     # GET /restaurants/new
     def new
@@ -12,11 +14,9 @@ module Manager
     end
 
     # GET /restaurants/1/edit
-    def edit
-    end
+    def edit; end
 
-    def show
-    end
+    def show; end
 
     # POST /restaurants
     # POST /restaurants.json

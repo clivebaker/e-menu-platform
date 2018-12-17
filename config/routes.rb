@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
   resources :tables do
     post 'add_item/:menu_id' => 'tables#add_item', as: :add_item
@@ -27,7 +29,7 @@ Rails.application.routes.draw do
   get 'home/index'
   post 'home/register_table'
   get 'home/register_table/:code' => 'home#register_table', as: :register_table
-  post 'home/start_table/:table_id' => "home#start_table", via: [:get, :post], as: :start_table
+  post 'home/start_table/:table_id' => 'home#start_table', via: %i[get post], as: :start_table
   get 'home/table'
   post 'home/set_locale/:language_id' => 'home#set_locale', as: :home_set_locale
 

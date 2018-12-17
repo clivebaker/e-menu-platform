@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class TableItem < ApplicationRecord
   belongs_to :table
   belongs_to :menu

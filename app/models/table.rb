@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Table < ApplicationRecord
   include AASM
   belongs_to :restaurant_table
@@ -9,11 +11,11 @@ class Table < ApplicationRecord
   has_many :table_items
 
   aasm do
-    state :started, :initial => true
+    state :started, initial: true
     state :finished
 
     event :finish do
-      transitions :from => :started, :to => :finished
+      transitions from: :started, to: :finished
     end
   end
 end

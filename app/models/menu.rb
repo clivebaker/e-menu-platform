@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Menu < ApplicationRecord
   belongs_to :restaurant
   belongs_to :spice_level, optional: true
@@ -7,40 +9,30 @@ class Menu < ApplicationRecord
 
   has_one_attached :image
 
-  translates :name, :description, :fallbacks_for_empty_translations => true
+  translates :name, :description, fallbacks_for_empty_translations: true
 
-  validates_presence_of :name, :on => [:update, :create], :message => "can't be blank"
-  validates_presence_of :description, :on => [:update, :create], :message => "can't be blank", if: :is_node?
-  validates_presence_of :price_a, :on => [:update, :create], :message => "can't be blank", if: :is_node?
-  validates_numericality_of :price_a, :on => :create, :message => "is not a number", if: :is_node?
-#   validates_numericality_of :price_b, :on => :create, :message => "is not a number", if: :is_node?
+  validates_presence_of :name, on: %i[update create], message: "can't be blank"
+  validates_presence_of :description, on: %i[update create], message: "can't be blank", if: :node?
+  validates_presence_of :price_a, on: %i[update create], message: "can't be blank", if: :node?
+  validates_numericality_of :price_a, on: :create, message: 'is not a number', if: :node?
+  #   validates_numericality_of :price_b, :on => :create, :message => "is not a number", if: :node?
 
   delegate :name, to: :spice_level, prefix: true, allow_nil: true
 
   delegate :id, to: :restaurant, prefix: true, allow_nil: false
 
-  def is_node?
+  def node?
     node_type == 'item'
   end
 
   def prices_joined
     pri = []
     pri << price_a if price_a
-#      pri << price_b if price_b
+    #      pri << price_b if price_b
     pri
   end
 
   def translate
     TranslateJob.perform_later self
   end
-
-# Yandex Translation
-# https://translate.yandex.net/api/v1.5/tr/translate
-#  ? key=<API key>
-#  & text=<text to translate>
-#  & lang=<translation direction>
-#  & [format=<text format>]
-#  & [options=<translation options>]
-
-# “Translated by Yandex.Translate”
 end

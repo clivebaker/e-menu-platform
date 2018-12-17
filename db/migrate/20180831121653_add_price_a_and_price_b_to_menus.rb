@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddPriceAAndPriceBToMenus < ActiveRecord::Migration[5.2]
   def change
     add_column :menus, :price_a, :decimal, precision: 6, scale: 2

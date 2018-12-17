@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddNodeTypeToMenus < ActiveRecord::Migration[5.2]
   def change
     add_column :menus, :node_type, :string

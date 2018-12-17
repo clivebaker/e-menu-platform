@@ -1,32 +1,31 @@
+# frozen_string_literal: true
+
 module Manager
   class RestaurantTablesController < Manager::BaseController
-    before_action :set_restaurant_table, only: [:show, :edit, :update, :destroy]
+    before_action :set_restaurant_table, only: %i[show edit update destroy]
     before_action :authenticate_manager_restaurant_user!
     before_action :set_restaurant
     # GET /restaurant_tables
     # GET /restaurant_tables.json
     def index
       @restaurant_tables = RestaurantTable.where(restaurant_id: @restaurant.id).order(:number)
-        end
+    end
 
     # GET /restaurant_tables/1
     # GET /restaurant_tables/1.json
     def show
       restaurant_table_id = cookies[:restaurant_table_id]
-      unless @restaurant_table.id == restaurant_table_id.to_i
-        redirect_to home_index_path, alert: "The restaurant_table session has expired. Please re-join restaurant_table."
-      end
-        end
+      redirect_to home_index_path, alert: 'The restaurant_table session has expired. Please re-join restaurant_table.' unless @restaurant_table.id == restaurant_table_id.to_i
+    end
 
     # GET /restaurant_tables/new
     def new
       @restaurant_table = RestaurantTable.new
       @restaurant_table.restaurant_id = @restaurant.id
-        end
+    end
 
     # GET /restaurant_tables/1/edit
-    def edit
-    end
+    def edit; end
 
     # POST /restaurant_tables
     # POST /restaurant_tables.json

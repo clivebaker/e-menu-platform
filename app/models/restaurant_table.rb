@@ -1,17 +1,19 @@
+# frozen_string_literal: true
+
 class RestaurantTable < ApplicationRecord
   include AASM
   belongs_to :restaurant
   before_create :set_unique_code
   has_many :tables
 
-  validates_uniqueness_of :number, scope: :restaurant, :on => :create, :message => "must be unique"
-  validates_uniqueness_of :code, :on => :create, :message => "must be unique"
-  validates_numericality_of :number, :on => :create, :message => "is not a number"
+  validates_uniqueness_of :number, scope: :restaurant, on: :create, message: 'must be unique'
+  validates_uniqueness_of :code, on: :create, message: 'must be unique'
+  validates_numericality_of :number, on: :create, message: 'is not a number'
 
   delegate :name, to: :restaurant, prefix: true
 
   aasm do
-    state :new, :initial => true
+    state :new, initial: true
   end
 
   def set_unique_code

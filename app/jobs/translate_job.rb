@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class TranslateJob < ApplicationJob
   queue_as :default
 
