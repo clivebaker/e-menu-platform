@@ -1,0 +1,86 @@
+---
+es:
+  devise:
+    confirmations:
+      confirmed: Su dirección de correo electrónico ha sido confirmada exitosamente.
+      send_instructions: Usted recibirá un correo electrónico con instrucciones para
+        confirmar tu dirección de correo electrónico en pocos minutos.
+      send_paranoid_instructions: Si su dirección de correo electrónico existe en
+        nuestra base de datos, usted recibirá un correo electrónico con instrucciones
+        para confirmar tu dirección de correo electrónico en pocos minutos.
+    failure:
+      already_authenticated: Usted ya está inscrito en.
+      inactive: Su cuenta no está activada todavía.
+      invalid: No válido %{authentication_keys} o contraseña.
+      locked: Tu cuenta está bloqueada.
+      last_attempt: Usted tiene uno de los más intento antes de que su cuenta está
+        bloqueada.
+      not_found_in_database: No válido %{authentication_keys} o contraseña.
+      timeout: Su sesión ha caducado. Por favor, iniciar sesión de nuevo para continuar.
+      unauthenticated: Usted necesita para iniciar sesión o registrarse antes de continuar.
+      unconfirmed: Usted tiene que confirmar su dirección de correo electrónico antes
+        de continuar.
+    mailer:
+      confirmation_instructions:
+        subject: La confirmación de instrucciones
+      reset_password_instructions:
+        subject: Instrucciones para restablecer la contraseña
+      unlock_instructions:
+        subject: Desbloquear instrucciones
+      email_changed:
+        subject: Correo Electrónico Cambiado
+      password_change:
+        subject: Cambia La Contraseña
+    omniauth_callbacks:
+      failure: No se pudo autenticar desde %{kind} porque "%{reason}".
+      success: Autenticado correctamente desde %{kind} cuenta.
+    passwords:
+      no_token: Usted no puede tener acceso a esta página sin viniendo de un restablecimiento
+        de contraseña de correo electrónico. Si usted viene de un restablecimiento
+        de contraseña de correo electrónico, por favor asegúrese de que utiliza la
+        dirección URL completa siempre.
+      send_instructions: Usted recibirá un correo electrónico con instrucciones sobre
+        cómo restablecer su contraseña en un par de minutos.
+      send_paranoid_instructions: Si su dirección de correo electrónico existe en
+        nuestra base de datos, usted recibirá un enlace de recuperación de contraseña
+        a su dirección de correo electrónico en pocos minutos.
+      updated: Su contraseña ha sido cambiada con éxito. Usted ahora está firmado.
+      updated_not_active: Su contraseña ha sido cambiada con éxito.
+    registrations:
+      destroyed: Bye! Su cuenta se ha cancelado correctamente. Esperamos volver a
+        verte pronto.
+      signed_up: Bienvenida! Te has inscrito con éxito.
+      signed_up_but_inactive: Te has inscrito con éxito. Sin embargo, no podemos iniciar
+        sesión, ya que su cuenta aún no está activada.
+      signed_up_but_locked: Te has inscrito con éxito. Sin embargo, no podemos firmar
+        debido a que su cuenta sea cerrada.
+      signed_up_but_unconfirmed: Un mensaje con un enlace de confirmación ha sido
+        enviado a su dirección de correo electrónico. Por favor siga el enlace para
+        activar su cuenta.
+      update_needs_confirmation: Has actualizado tu cuenta correctamente, pero necesitamos
+        verificar tu dirección de correo electrónico nueva. Por favor revise su correo
+        electrónico y siga el vínculo confirmar para confirmar tu nueva dirección
+        de correo electrónico.
+      updated: Su cuenta ha sido actualizada con éxito.
+    sessions:
+      signed_in: Firmado correctamente.
+      signed_out: Firmado a cabo con éxito.
+      already_signed_out: Firmado a cabo con éxito.
+    unlocks:
+      send_instructions: Usted recibirá un correo electrónico con instrucciones para
+        desbloquear tu cuenta en pocos minutos.
+      send_paranoid_instructions: Si su cuenta, usted recibirá un correo electrónico
+        con instrucciones sobre cómo desbloquear en un par de minutos.
+      unlocked: Su cuenta ha sido desbloqueado con éxito. Por favor inicie sesión
+        para continuar.
+  errors:
+    messages:
+      already_confirmed: ya fue confirmado, por favor, intente iniciar sesión en el
+      confirmation_period_expired: debe ser confirmada dentro de %{period}, favor
+        de solicitar una nueva
+      expired: ha caducado, por favor solicitar una nueva
+      not_found: no se encuentra
+      not_locked: no se ha bloqueado
+      not_saved:
+        one: '1 error prohibido esta %{resource} de ser salvos:'
+        other: "%{count} errores prohibido esta %{resource} de ser salvos:"

@@ -1,0 +1,43 @@
+---
+da:
+  messages:
+    table_created_successfully: Bordet var held i gang.
+    table_incorrect_password: Kan ikke deltage i tabellen. Forkert Adgangskode
+    table_joined_successfully: Bordet var held til at re-tiltrådte.
+  topnav:
+    site: e-mig.nu
+    home: Hjem
+  furniture:
+    enter_table_code: Indtast din Kode Tabel
+    enter_table_code_submit: Send
+    start_eating: Begynde At Spise
+    where_to_eat: Hvor ønsker du at spise?
+    available_restaurants: Til Rådighed Restauranter
+  register_table:
+    start:
+      message: Begynde At Spise
+      password_message: Opret en adgangskode til din tabel,
+      password_submit: Send
+      password_help: Dette kan være dit navn!
+    join:
+      message: Ved Bordet
+      password_message: Indtast den adgangskode, for din tabel
+      password_submit: Send
+    error:
+      message: Undskyld, tabel kode er ikke indregnet.
+      home_button: Tilbage til startsiden
+    details:
+      title: Tabel Detaljer
+      headers:
+        name: Restaurant Navn
+        code: Tabel Kode
+        number: Tabel Antal
+  footer:
+    restaurant_button_login: Restaurant Login
+    e_menu_copyright: "© e-mig.nu 2019-2020"
+    disclaimer: "<div>Ikoner lavet med <a href='http://www.freepik.com' title='Freepik'>Freepik</a>
+      fra <a href='https://www.flaticon.com/' title='Flaticon'>www.flaticon.com</a>
+      er licenseret af <a href='http://creativecommons.org/licenses/by/3.0/' title='Creative
+      Commons 3.0' target='_blank'>CC 3.0</a></div></small><small>Oversat af Google.Oversæt"
+  language:
+    title: Sprog

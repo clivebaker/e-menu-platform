@@ -1,0 +1,44 @@
+---
+de:
+  messages:
+    table_created_successfully: Tabelle wurde erfolgreich gestartet.
+    table_incorrect_password: Cannot join-Tabelle. Falsches Passwort
+    table_joined_successfully: Tabelle wurde erfolgreich wieder zusammen.
+  topnav:
+    site: e-mich.nu
+    home: Home
+  furniture:
+    enter_table_code: Geben Sie Ihren Code Tabelle
+    enter_table_code_submit: Einreichen
+    start_eating: Anfangen Zu Essen
+    where_to_eat: Wo möchten Sie Essen?
+    available_restaurants: Verfügbare Restaurants
+  register_table:
+    start:
+      message: Anfangen Zu Essen
+      password_message: Erstellen Sie ein Passwort für Ihren Tisch
+      password_submit: Einreichen
+      password_help: Dies kann Ihren Namen!
+    join:
+      message: Tisch
+      password_message: Geben Sie das Kennwort für Ihren Tisch
+      password_submit: Einreichen
+    error:
+      message: Sorry, Tabelle code wird nicht anerkannt.
+      home_button: Zurück zur Startseite
+    details:
+      title: Tisch Details
+      headers:
+        name: Restaurant Name
+        code: Tabelle Code
+        number: Tabelle Anzahl
+  footer:
+    restaurant_button_login: Restaurant Login
+    e_menu_copyright: "© e-me.nu 2019-2020"
+    disclaimer: <div>Icons made by <a href='http://www.freepik.com' title='Freepik'>Freepik</a>
+      von <a href='https://www.flaticon.com/' title='Flaticon'>www.flaticon.com</a>
+      wurde von <a href='http://creativecommons.org/licenses/by/3.0/" title= "Creative
+      Commons-BY 3.0' target='_blank'>CC 3.0</a></div></small><small>Übersetzt von
+      Yandex.Übersetzen
+  language:
+    title: Sprache

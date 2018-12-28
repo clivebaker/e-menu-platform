@@ -1,0 +1,78 @@
+---
+nl:
+  devise:
+    confirmations:
+      confirmed: Uw e-mail adres is succesvol bevestigd.
+      send_instructions: U ontvangt een e-mail met instructies voor het bevestigen
+        van uw e-mail adres in een paar minuten.
+      send_paranoid_instructions: Als uw e-mailadres voorkomt in onze database ontvangt
+        u een e-mail met instructies voor het bevestigen van uw e-mail adres in een
+        paar minuten.
+    failure:
+      already_authenticated: U bent al aangemeld bij.
+      inactive: Uw account is nog niet geactiveerd.
+      invalid: Ongeldige %{authentication_keys} of wachtwoord.
+      locked: Uw account is vergrendeld.
+      last_attempt: Je hebt nog een poging voordat uw account wordt vergrendeld.
+      not_found_in_database: Ongeldige %{authentication_keys} of wachtwoord.
+      timeout: Uw sessie verlopen. Log in om verder te gaan.
+      unauthenticated: Je dient in te loggen of zich aanmelden voordat u verdergaat.
+      unconfirmed: U heeft uw e-mailadres bevestigen voordat u verdergaat.
+    mailer:
+      confirmation_instructions:
+        subject: Bevestiging instructies
+      reset_password_instructions:
+        subject: Opnieuw instellen van het wachtwoord instructies
+      unlock_instructions:
+        subject: Unlock instructies
+      email_changed:
+        subject: E-Mail Gewijzigd
+      password_change:
+        subject: Het Wachtwoord Is Gewijzigd
+    omniauth_callbacks:
+      failure: Kan het niet verifiëren van %{kind} omdat "%{reason}".
+      success: Succesvol geauthenticeerd van %{kind}-account.
+    passwords:
+      no_token: U kan deze pagina niet openen zonder komst van een wachtwoord reset
+        e-mail. Als je komt van een wachtwoord reset e-mail, zorg dan dat u de volledige
+        URL.
+      send_instructions: U ontvangt een e-mail met instructies om uw wachtwoord opnieuw
+        in een paar minuten.
+      send_paranoid_instructions: Als uw e-mailadres voorkomt in onze database, ontvangt
+        u een wachtwoord recovery link in uw e-mail adres in een paar minuten.
+      updated: Uw wachtwoord is succesvol gewijzigd. U bent nu aangemeld.
+      updated_not_active: Uw wachtwoord is succesvol gewijzigd.
+    registrations:
+      destroyed: Tot ziens! Uw account is geannuleerd. We hopen je weer te zien binnenkort.
+      signed_up: Welkom! U heeft zich succesvol ingeschreven.
+      signed_up_but_inactive: U heeft zich succesvol ingeschreven. Wij kunnen echter
+        niet aanmelden omdat uw account is nog niet geactiveerd.
+      signed_up_but_locked: U heeft zich succesvol ingeschreven. Wij kunnen echter
+        niet aanmelden omdat uw account is vergrendeld.
+      signed_up_but_unconfirmed: Een bericht met een bevestiging link werd verzonden
+        naar uw email adres. Volg de link om uw account te activeren.
+      update_needs_confirmation: U hebt bijgewerkt uw account met succes, maar we
+        moeten om te controleren of uw nieuwe e-mailadres. Controleer uw e-mail en
+        bevestigen volg de link om te bevestigen dat uw nieuwe e-mailadres.
+      updated: Je account is bijgewerkt.
+    sessions:
+      signed_in: Ondertekend met succes.
+      signed_out: Ondertekend met succes.
+      already_signed_out: Ondertekend met succes.
+    unlocks:
+      send_instructions: U ontvangt een e-mail met instructies voor hoe te ontgrendelen
+        van uw account in een paar minuten.
+      send_paranoid_instructions: Als uw account bestaat, ontvangt u een e-mail met
+        instructies voor hoe om te ontgrendelen in een paar minuten.
+      unlocked: Uw account werd ontgrendeld met succes. Log in om verder te gaan.
+  errors:
+    messages:
+      already_confirmed: was al bevestigd, neem dan proberen aan te melden
+      confirmation_period_expired: dient te worden bevestigd binnen %{period}, vraag
+        dan een nieuwe aan
+      expired: is verlopen, gelieve de aanvraag van een nieuwe
+      not_found: niet gevonden
+      not_locked: niet is vergrendeld
+      not_saved:
+        one: '1 fout verboden deze %{resource} kunnen worden opgeslagen:'
+        other: "%{count} fouten verboden deze %{resource} kan worden opgeslagen:"

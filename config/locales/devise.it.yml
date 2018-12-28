@@ -1,0 +1,81 @@
+---
+it:
+  devise:
+    confirmations:
+      confirmed: Il tuo indirizzo e-mail è stata confermata correttamente.
+      send_instructions: Riceverai una email con le istruzioni per confermare il tuo
+        indirizzo e-mail in pochi minuti.
+      send_paranoid_instructions: Se il vostro indirizzo e-mail presente nel nostro
+        database riceverai un'e-mail con le istruzioni per confermare il tuo indirizzo
+        e-mail in pochi minuti.
+    failure:
+      already_authenticated: Hai già effettuato l'accesso.
+      inactive: Il tuo account non è ancora attivato.
+      invalid: Non valido %{authentication_keys} o password.
+      locked: Il tuo account è bloccato.
+      last_attempt: Avete un altro tentativo prima che il tuo account è bloccato.
+      not_found_in_database: Non valido %{authentication_keys} o password.
+      timeout: La tua sessione è scaduta. Si prega di firmare di nuovo per continuare.
+      unauthenticated: È necessario accedere o registrarti prima di continuare.
+      unconfirmed: Devi confermare il tuo indirizzo email prima di continuare.
+    mailer:
+      confirmation_instructions:
+        subject: Conferma le istruzioni
+      reset_password_instructions:
+        subject: Istruzioni per reimpostare la password
+      unlock_instructions:
+        subject: Le istruzioni di sblocco
+      email_changed:
+        subject: E-Mail Cambiato
+      password_change:
+        subject: Cambiato Password
+    omniauth_callbacks:
+      failure: Non poteva autenticare da %{kind} perché "%{reason}".
+      success: Autenticato da %{kind} conto.
+    passwords:
+      no_token: Non è possibile accedere a questa pagina senza proveniente da una
+        email per reimpostare la password. Se venite da un email per reimpostare la
+        password, si prega di assicurarsi di aver utilizzato l'URL fornito.
+      send_instructions: Riceverai una email con le istruzioni su come reimpostare
+        la password in pochi minuti.
+      send_paranoid_instructions: Se il vostro indirizzo e-mail presente nel nostro
+        database, si riceverà una password recovery link al tuo indirizzo email in
+        pochi minuti.
+      updated: La tua password è stata cambiata. Ora si è firmato.
+      updated_not_active: La tua password è stata cambiata.
+    registrations:
+      destroyed: Bye! Il tuo account è stato annullato. Speriamo di rivedervi presto.
+      signed_up: Benvenuto!!!! Hai firmato con successo.
+      signed_up_but_inactive: Hai firmato con successo. Tuttavia non si può accedere
+        perché il tuo account non è stato ancora attivato.
+      signed_up_but_locked: Hai firmato con successo. Tuttavia non si può accedere
+        perché il tuo account è bloccato.
+      signed_up_but_unconfirmed: Un messaggio con un link di conferma è stata inviata
+        al tuo indirizzo email. Si prega di seguire il link per attivare il tuo account.
+      update_needs_confirmation: Avete aggiornato il vostro conto con successo, ma
+        abbiamo bisogno di verificare il tuo nuovo indirizzo email. Si prega di controllare
+        la vostra e-mail e seguire l'confermare link per confermare il tuo nuovo indirizzo
+        email.
+      updated: Il tuo account è stato aggiornato con successo.
+    sessions:
+      signed_in: Firmato correttamente.
+      signed_out: Firmato correttamente.
+      already_signed_out: Firmato correttamente.
+    unlocks:
+      send_instructions: Riceverai una email con le istruzioni per sbloccare il tuo
+        account in pochi minuti.
+      send_paranoid_instructions: Se il tuo account non esiste, si riceverà una e-mail
+        con le istruzioni su come sbloccare in pochi minuti.
+      unlocked: Il tuo account è stato sbloccato con successo. Si prega di firmare
+        per continuare.
+  errors:
+    messages:
+      already_confirmed: è stato già confermato, si prega di provare ad accedere
+      confirmation_period_expired: deve essere confermata entro il %{period}, si prega
+        di richiedere una nuova
+      expired: è scaduto, si prega di richiedere una nuova
+      not_found: non trovato
+      not_locked: non è stato bloccato
+      not_saved:
+        one: '1 errore vietato %{resource} non può essere salvato:'
+        other: "%{count} errori vietato %{resource} da cui vengono salvati:"

@@ -11,7 +11,6 @@ gem 'dotenv-rails', groups: %i[development test]
 gem 'jquery-rails'
 gem 'rails', '~> 5.2.0'
 
-
 # Use postgresql as the database for Active Record
 gem 'pg', '>= 0.18', '< 2.0'
 # Use Puma as the app server
@@ -60,10 +59,9 @@ gem 'yandex-translator'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
-  gem 'rspec-rails'
+  gem 'capybara', '>= 2.15', '< 4.0'
   gem 'factory_girl_rails', '~> 4.5.0'
-   gem 'capybara', '>= 2.15', '< 4.0'
-
+  gem 'rspec-rails'
 end
 
 group :development do
@@ -79,13 +77,13 @@ end
 
 group :test do
   # Adds support for Capybara system testing and selenium driver
- 
+
   gem 'selenium-webdriver'
   # Easy installation and use of chromedriver to run system tests with Chrome
   gem 'chromedriver-helper'
-  gem 'shoulda-matchers', '~> 3.0', require: false
-  gem 'rails-controller-testing' # If you are using Rails 5.x
   gem 'database_cleaner', '~> 1.5'
+  gem 'rails-controller-testing' # If you are using Rails 5.x
+  gem 'shoulda-matchers', '~> 3.0', require: false
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

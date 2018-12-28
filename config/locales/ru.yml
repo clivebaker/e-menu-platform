@@ -1,0 +1,44 @@
+---
+ru:
+  messages:
+    table_created_successfully: Стол был успешно запущен.
+    table_incorrect_password: Не могу присоединиться к таблице. Неверный Пароль
+    table_joined_successfully: Стол был успешно воссоединился.
+  topnav:
+    site: е-мое.ну
+    home: Дома
+  furniture:
+    enter_table_code: Введите код таблицы
+    enter_table_code_submit: Представить
+    start_eating: Начать Есть
+    where_to_eat: Где ты хочешь поесть?
+    available_restaurants: Рестораны
+  register_table:
+    start:
+      message: Начать Есть
+      password_message: Создать пароль для вашего стола
+      password_submit: Представить
+      password_help: Это может быть ваше имя!
+    join:
+      message: Присоединиться к вашему столу
+      password_message: Введите пароль для вашего стола
+      password_submit: Представить
+    error:
+      message: К сожалению, таблица кодов не признается.
+      home_button: Вернуться на главную страницу
+    details:
+      title: 'Детали Стола '
+      headers:
+        name: 'Название Ресторана '
+        code: Таблица Кодов
+        number: 'Номер Таблицы '
+  footer:
+    restaurant_button_login: Ресторан Логин
+    e_menu_copyright: "© е-мое.ну 2019-2020"
+    disclaimer: тег <div>иконы <а href='http://www.freepik.com поле' title='бесплатные'>бесплатные</A>
+      и С <а href='https://www.flaticon.com/' название='Flaticon'>www.flaticon.com</а>
+      имеет лицензию <а href='http://creativecommons.org/licenses/by/3.0/' название='творческих
+      общин 3.0' цель=значение _blank>ГК 3.0 С</а></див></маленький><небольшой>перевела
+      на Яндекс.Перевести
+  language:
+    title: Язык

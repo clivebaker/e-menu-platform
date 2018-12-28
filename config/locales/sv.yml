@@ -1,0 +1,44 @@
+---
+sv:
+  messages:
+    table_created_successfully: Tabell inleddes framgångsrikt.
+    table_incorrect_password: Kan inte ansluta till bordet. Felaktigt Lösenord
+    table_joined_successfully: Bordet var framgångsrikt på nytt gick.
+  topnav:
+    site: e-me.nu
+    home: Hem
+  furniture:
+    enter_table_code: Ange ditt Bord Kod
+    enter_table_code_submit: Skicka
+    start_eating: Börja Äta
+    where_to_eat: Var vill du äta?
+    available_restaurants: Tillgängliga Restauranger
+  register_table:
+    start:
+      message: Börja Äta
+      password_message: Skapa ett lösenord för ditt bord
+      password_submit: Skicka
+      password_help: Detta kan vara ditt namn!
+    join:
+      message: Gå med i din Tabell
+      password_message: Ange lösenordet för ditt bord
+      password_submit: Skicka
+    error:
+      message: Ledsen, tabell-kod är inte erkända.
+      home_button: Tillbaka till startsidan
+    details:
+      title: Tabell Detaljer
+      headers:
+        name: Restaurang Namn
+        code: Tabell Kod
+        number: Bord Nummer
+  footer:
+    restaurant_button_login: Restaurang Logga In
+    e_menu_copyright: "© e-me.nu 2019-2020"
+    disclaimer: "<div>Ikoner genom att <a href='http://www.freepik.com' title='Freepik'>Freepik</a>
+      <en href='https://www.flaticon.com/' title='Flaticon'>www.flaticon.com</a> är
+      licensierad av <a href='http://creativecommons.org/licenses/by/3.0/' title='Creative
+      Commons BY 3.0' target='_blank'>CC 3.0</a></div></small><small>Översatta av
+      Google.Översätt"
+  language:
+    title: Språk

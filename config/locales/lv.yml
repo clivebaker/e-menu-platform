@@ -1,0 +1,44 @@
+---
+lv:
+  messages:
+    table_created_successfully: Galda tika veiksmīgi uzsākts.
+    table_incorrect_password: Nevar pievienoties galdam. Nepareiza Parole
+    table_joined_successfully: Galda tika veiksmīgi pievienojās.
+  topnav:
+    site: e-me.nu
+    home: Mājas
+  furniture:
+    enter_table_code: Ievadiet savu Kodu Tabula
+    enter_table_code_submit: Iesniegt
+    start_eating: Sākt Ēšanas
+    where_to_eat: Ja jūs vēlaties, lai ēst?
+    available_restaurants: Pieejami Restorāni
+  register_table:
+    start:
+      message: Sākt Ēšanas
+      password_message: Izveidot paroli uz jūsu galda
+      password_submit: Iesniegt
+      password_help: Tas var būt jūsu vārds!
+    join:
+      message: Pievienoties jūsu Galda
+      password_message: Ievadiet paroli tabula
+      password_submit: Iesniegt
+    error:
+      message: Atvainojiet, galda kods nav atzītas.
+      home_button: Atpakaļ uz Sākuma lapu
+    details:
+      title: Tabula Informācija
+      headers:
+        name: Restorāna Nosaukums
+        code: Tabula Kods
+        number: Tabulas Numurs
+  footer:
+    restaurant_button_login: Restorāns Pieteikšanās
+    e_menu_copyright: "© e-me.nu 2019-2020"
+    disclaimer: <div>Ikonas, kas veikts ar <a href= "http://www.freepik.com' title='Freepik'>Freepik</a>
+      <a href= " https://www.flaticon.com/' title='Flaticon'>www.flaticon.com</a>
+      ir licencēta ar <a href= " http://creativecommons.org/licenses/by/3.0/' title='Creative
+      Commons (AR 3.0" target='_blank'>CC 3.0</a></div></small><small>Tulkots, izmantojot
+      Yandex.Tulkot
+  language:
+    title: Valodas

@@ -1,0 +1,82 @@
+---
+lv:
+  devise:
+    confirmations:
+      confirmed: Jūsu e-pasta adrese ir veiksmīgi apstiprināts.
+      send_instructions: Jūs saņemsiet e-pastu ar norādījumiem par to, kā apstiprināt
+        jūsu e-pasta adresi pāris minūšu laikā.
+      send_paranoid_instructions: Ja jūsu e-pasta adrese neeksistē mūsu datu bāzē,
+        jūs saņemsiet e-pastu ar norādījumiem par to, kā apstiprināt jūsu e-pasta
+        adresi pāris minūšu laikā.
+    failure:
+      already_authenticated: Jūs esat jau pierakstījies.
+      inactive: Jūsu konts nav aktivizēts vēl.
+      invalid: Nederīgs %{authentication_keys} vai paroli.
+      locked: Jūsu konts ir bloķēts.
+      last_attempt: Jums ir vēl viens mēģinājums pirms jūsu konts ir bloķēts.
+      not_found_in_database: Nederīgs %{authentication_keys} vai paroli.
+      timeout: Jūsu sesijas beigām. Lūdzu, piesakieties vēlreiz, lai turpinātu.
+      unauthenticated: Jums ir nepieciešams, lai pierakstītos vai reģistrēties pirms
+        turpināt.
+      unconfirmed: Jums ir, lai apstiprinātu savu e-pasta adresi, pirms turpināt.
+    mailer:
+      confirmation_instructions:
+        subject: Apstiprinājums instrukcijas
+      reset_password_instructions:
+        subject: Atiestatīt paroli instrukcijas
+      unlock_instructions:
+        subject: Atslēgt instrukcijas
+      email_changed:
+        subject: E-Pasta Mainīt
+      password_change:
+        subject: Mainīt Paroli
+    omniauth_callbacks:
+      failure: Nevar autentificēt jūs no %{kind}, jo "%{reason}".
+      success: Autentificēts veiksmīgi no %{kind} kontu.
+    passwords:
+      no_token: Jūs nevarat piekļūt šai lapai, bez nāk no paroles atiestatīšanas e-pastu.
+        Ja jūs nāk no paroles atiestatīšanas e-pastu, lūdzu pārliecinieties, ka jums
+        izmantot pilnu URL sniegta.
+      send_instructions: Jūs saņemsiet e-pastu ar norādījumiem par to, kā atiestatīt
+        savu paroli pāris minūšu laikā.
+      send_paranoid_instructions: Ja jūsu e-pasta adrese neeksistē mūsu datu bāzē,
+        jums tiks nosūtīts paroles atjaunošanas saiti savā e-pasta adrese pāris minūšu
+        laikā.
+      updated: Jūsu parole ir nomainīta veiksmīgi. Tagad jūs esat pierakstījies.
+      updated_not_active: Jūsu parole ir nomainīta veiksmīgi.
+    registrations:
+      destroyed: Atā! Jūsu konta darbība ir pārtraukta. Mēs ceram redzēt jūs drīz
+        atkal.
+      signed_up: Laipni gaidīti! Jūs esat veiksmīgi parakstījušies.
+      signed_up_but_inactive: Jūs esat veiksmīgi parakstījušies. Tomēr, mēs nevarējām
+        jums, jo jūsu konts vēl nav aktivizēts.
+      signed_up_but_locked: Jūs esat veiksmīgi parakstījušies. Tomēr, mēs nevarējām
+        jums, jo jūsu konts ir bloķēts.
+      signed_up_but_unconfirmed: Īsziņa ar apstiprinājuma saiti, kas tika nosūtīta
+        uz jūsu e-pasta adresi. Lūdzu, sekojiet saites, lai aktivizētu savu kontu.
+      update_needs_confirmation: Jūs atjauninātu savā kontā veiksmīgi, bet mums ir
+        nepieciešams, lai pārbaudītu savu jauno e-pasta adresi. Lūdzu pārbaudiet savu
+        e-pastu un sekojiet apstiprināt saiti, lai apstiprinātu savu jauno e-pasta
+        adresi.
+      updated: Jūsu konts ir jāatjaunina veiksmīgi.
+    sessions:
+      signed_in: Parakstīts veiksmīgi.
+      signed_out: Izrakstījies veiksmīgi.
+      already_signed_out: Izrakstījies veiksmīgi.
+    unlocks:
+      send_instructions: Jūs saņemsiet e-pastu ar norādījumiem par to, kā atbloķēt
+        jūsu kontā pāris minūšu laikā.
+      send_paranoid_instructions: Ja jūsu konts eksistē, jūs saņemsiet e-pastu ar
+        norādījumiem par to, kā atbloķēt to dažas minūtes.
+      unlocked: Jūsu konts tika atbloķēts veiksmīgi. Lūdzu, pierakstieties, lai turpinātu.
+  errors:
+    messages:
+      already_confirmed: bija jau apstiprināts, lūdzu, mēģiniet pierakstīties
+      confirmation_period_expired: ir apstiprināta ietvaros %{period}, lūdzu pieprasīt
+        jaunu
+      expired: ir beidzies, lūdzu pieprasīt jaunu
+      not_found: nav atrasts
+      not_locked: nebija bloķēts
+      not_saved:
+        one: '1 kļūda aizliegta šo %{resource} saglabāšanu:'
+        other: "%{count} kļūdas aizliegta šo %{resource} tiek saglabāti:"

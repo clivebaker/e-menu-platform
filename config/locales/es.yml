@@ -1,0 +1,44 @@
+---
+es:
+  messages:
+    table_created_successfully: Tabla fue iniciado satisfactoriamente.
+    table_incorrect_password: No puede unirse a la mesa. Contraseña Incorrecta
+    table_joined_successfully: Tabla éxito fue re-unió.
+  topnav:
+    site: e-me.nu
+    home: Casa
+  furniture:
+    enter_table_code: Introduzca su Código de Tabla
+    enter_table_code_submit: Enviar
+    start_eating: Empezar A Comer
+    where_to_eat: "¿Dónde quieres comer?"
+    available_restaurants: Disponible Restaurantes
+  register_table:
+    start:
+      message: Empezar A Comer
+      password_message: Crear una contraseña para tu mesa
+      password_submit: Enviar
+      password_help: Esta puede ser tu nombre!
+    join:
+      message: Unirse a la Mesa
+      password_message: Introduzca la contraseña de la tabla
+      password_submit: Enviar
+    error:
+      message: Lo siento, tabla de código no es reconocido.
+      home_button: Volver a la página principal
+    details:
+      title: Tabla Detalles
+      headers:
+        name: Nombre Del Restaurante
+        code: Código De Tabla
+        number: Número De La Tabla De
+  footer:
+    restaurant_button_login: Restaurante De Inicio De Sesión
+    e_menu_copyright: "© e-mí.nu 2019-2020"
+    disclaimer: "<div>Iconos realizados por <a href='http://www.freepik.com' title='Freepik'>Freepik</a>
+      de <a href='https://www.flaticon.com/' title='Flaticon'>www.flaticon.com</a>
+      licencia <a href='http://creativecommons.org/licenses/by/3.0/' title='Creative
+      Commons BY 3.0' target='_blank'>CC 3.0</a></div></small><small>Traducido por
+      Yandex.Traducir"
+  language:
+    title: Idioma

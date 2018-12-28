@@ -1,0 +1,43 @@
+---
+fr:
+  messages:
+    table_created_successfully: Le tableau a bien été démarré.
+    table_incorrect_password: Impossible de joindre la table. Mot De Passe Incorrect
+    table_joined_successfully: Le tableau a été à nouveau réunis.
+  topnav:
+    site: e-moi.nu
+    home: La maison
+  furniture:
+    enter_table_code: Entrez votre Code de la Table
+    enter_table_code_submit: Soumettre
+    start_eating: Commencer À Manger
+    where_to_eat: Où voulez-vous manger?
+    available_restaurants: Disponible Restaurants
+  register_table:
+    start:
+      message: Commencer À Manger
+      password_message: Créer un mot de passe pour votre table
+      password_submit: Soumettre
+      password_help: Cela peut être votre nom!
+    join:
+      message: Joindre à votre Table
+      password_message: Entrez le mot de passe pour votre table
+      password_submit: Soumettre
+    error:
+      message: Désolé, le code de la table n'est pas reconnu.
+      home_button: Retour à la page d'Accueil
+    details:
+      title: Table De Détails
+      headers:
+        name: Nom Du Restaurant
+        code: Code De La Table
+        number: Numéro De Table
+  footer:
+    restaurant_button_login: Restaurant De Connexion
+    e_menu_copyright: "© e-me.nu 2019-2020"
+    disclaimer: "<div>Icônes par <a href='http://www.freepik.com' title='Freepik'>Freepik</a>
+      à partir de <a href='https://www.flaticon.com/' title='Flaticon'>www.flaticon.com</a>
+      sous licence <a href='http://creativecommons.org/licenses/by/3.0/' title='Creative
+      Commons BY 3.0' target='_blank'>CC 3.0</a></div></small><small>Traduit par Yandex.Traduire"
+  language:
+    title: Langue

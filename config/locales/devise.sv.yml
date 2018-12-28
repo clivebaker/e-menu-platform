@@ -1,0 +1,80 @@
+---
+sv:
+  devise:
+    confirmations:
+      confirmed: Din e-postadress har varit framgångsrikt bekräftas.
+      send_instructions: Du kommer att få ett mail med instruktioner om hur du bekräftar
+        din e-postadress inom ett par minuter.
+      send_paranoid_instructions: Om din e-postadress finns i vår databas, kommer
+        du att få ett mail med instruktioner för hur du bekräftar din e-postadress
+        inom ett par minuter.
+    failure:
+      already_authenticated: Du är redan inloggad.
+      inactive: Ditt konto är inte aktiverat ännu.
+      invalid: Ogiltiga %{authentication_keys} eller lösenord.
+      locked: Ditt konto är låst.
+      last_attempt: Du har ett försök innan ditt konto är låst.
+      not_found_in_database: Ogiltiga %{authentication_keys} eller lösenord.
+      timeout: Din session har löpt ut. Vänligen logga in igen för att fortsätta.
+      unauthenticated: Du måste logga in eller registrera dig innan du fortsätter.
+      unconfirmed: Du måste bekräfta din e-post adress innan du fortsätter.
+    mailer:
+      confirmation_instructions:
+        subject: Bekräftelse instruktioner
+      reset_password_instructions:
+        subject: Återställa lösenord instruktioner
+      unlock_instructions:
+        subject: Låsa upp instruktioner
+      email_changed:
+        subject: E-Post Ändras
+      password_change:
+        subject: Lösenord Ändrat
+    omniauth_callbacks:
+      failure: Kunde inte autentisera dig från %{kind} eftersom "%{reason}".
+      success: Autentiserats från %{kind}-konto.
+    passwords:
+      no_token: Du kan inte komma åt denna sida utan kommer från en återställning
+        av lösenord med e-post. Om du kommer från en återställning av lösenord, e-post,
+        var god se till att du använt den fullständiga WEBBADRESSEN.
+      send_instructions: Du kommer att få ett mail med instruktioner om hur du återställer
+        ditt lösenord inom några minuter.
+      send_paranoid_instructions: Om din e-postadress finns i vår databas, kommer
+        du att få en länk för återställning av lösenord till din e-postadress inom
+        ett par minuter.
+      updated: Ditt lösenord har ändrats. Du är nu inloggad.
+      updated_not_active: Ditt lösenord har ändrats.
+    registrations:
+      destroyed: Bye! Ditt konto har tagits annulleras. Vi hoppas att se dig snart
+        igen.
+      signed_up: Välkommen! Du har loggat in korrekt.
+      signed_up_but_inactive: Du har loggat in korrekt. Men vi kunde inte logga in
+        eftersom ditt konto är ännu inte aktiverad.
+      signed_up_but_locked: Du har loggat in korrekt. Men vi kunde inte logga in eftersom
+        ditt konto är låst.
+      signed_up_but_unconfirmed: Ett meddelande med en bekräftelse länk har skickats
+        till din e-postadress. Följ länken för att aktivera ditt konto.
+      update_needs_confirmation: Du uppdaterat ditt konto framgångsrikt, men vi måste
+        bekräfta din nya e-postadress. Vänligen kontrollera din e-post och följ bekräfta
+        länken för att bekräfta din nya e-postadress.
+      updated: Ditt konto har uppdaterats.
+    sessions:
+      signed_in: Inloggad på ett framgångsrikt sätt.
+      signed_out: Undertecknad ut med framgång.
+      already_signed_out: Undertecknad ut med framgång.
+    unlocks:
+      send_instructions: Du kommer att få ett mail med instruktioner för hur du låsa
+        upp ditt konto inom några minuter.
+      send_paranoid_instructions: Om ditt konto finns, du kommer få ett mail med instruktioner
+        för hur man låser upp det i ett par minuter.
+      unlocked: Ditt konto har låsts upp med framgång. Vänligen logga in för att fortsätta.
+  errors:
+    messages:
+      already_confirmed: var redan bekräftat, vänligen prova att logga in
+      confirmation_period_expired: måste bekräftas inom %{period}, vänligen begär
+        en ny
+      expired: har gått ut, vänligen begär en ny
+      not_found: hittades inte
+      not_locked: var inte låst.
+      not_saved:
+        one: '1 fel förbjudet att detta %{resource} sparas:'
+        other: "%{count} fel förbjudet att detta %{resource} sparas:"

@@ -1,0 +1,81 @@
+---
+sk:
+  devise:
+    confirmations:
+      confirmed: Vaša e-mailová adresa bola úspešne potvrdené.
+      send_instructions: Dostanete e-mail s inštrukciami, ako potvrďte svoju e-mailovú
+        adresu, v priebehu niekoľkých minút.
+      send_paranoid_instructions: Ak vaša e-mailová adresa existuje v našej databáze,
+        vám bude zaslaný e-mail s inštrukciami, ako potvrďte svoju e-mailovú adresu,
+        v priebehu niekoľkých minút.
+    failure:
+      already_authenticated: Už ste prihlásený.
+      inactive: Váš účet nie je aktivovaný ešte.
+      invalid: Neplatné %{authentication_keys} alebo heslo.
+      locked: Váš účet je zablokovaný.
+      last_attempt: Máte ešte jeden pokus pred váš účet je zablokovaný.
+      not_found_in_database: Neplatné %{authentication_keys} alebo heslo.
+      timeout: Vaša relácia skončila. Prosím prihláste sa, ak chcete pokračovať.
+      unauthenticated: Musíte sa prihlásiť, alebo zaregistrujte sa, aby ste mohli
+        pokračovať.
+      unconfirmed: Budete musieť potvrdiť svoju e-mailovú adresu, aby ste mohli pokračovať.
+    mailer:
+      confirmation_instructions:
+        subject: Potvrdenie inštrukcie
+      reset_password_instructions:
+        subject: Reset hesla pokyny
+      unlock_instructions:
+        subject: Odomknúť pokyny
+      email_changed:
+        subject: E-Mail Zmeniť
+      password_change:
+        subject: Zmeniť Heslo
+    omniauth_callbacks:
+      failure: Nemohol overiť si z %{kind}, pretože "%{reason}".
+      success: Úspešne overený z %{kind} účtu.
+    passwords:
+      no_token: Nemôžete prístup na túto stránku bez pochádzajúcich z hesla e-mail.
+        Ak si pochádzajú z hesla, e-mail, prosím uistite sa, že ste použili úplnú
+        adresu URL dispozícii.
+      send_instructions: Dostanete e-mail s inštrukciami, ako obnoviť vaše heslo v
+        priebehu niekoľkých minút.
+      send_paranoid_instructions: Ak vaša e-mailová adresa existuje v našej databáze,
+        vám bude doručené heslo zotavenie odkaz na vašu e-mailovú adresu v priebehu
+        niekoľkých minút.
+      updated: Vaše heslo bolo úspešne zmenené. Teraz ste prihlásení.
+      updated_not_active: Vaše heslo bolo úspešne zmenené.
+    registrations:
+      destroyed: Maj sa! Váš účet bol úspešne zrušená. Dúfame, že sa opäť uvidíme
+        sa čoskoro.
+      signed_up: Vitajte! Ste sa zaregistrovali úspešne.
+      signed_up_but_inactive: Ste sa zaregistrovali úspešne. Však môžeme nie prihlásite,
+        pretože váš účet ešte nie je aktivovaný.
+      signed_up_but_locked: Ste sa zaregistrovali úspešne. Však môžeme nie prihlásite,
+        pretože váš účet je zablokovaný.
+      signed_up_but_unconfirmed: Správu s potvrdením odkaz bol odoslaný na vašu e-mailovú
+        adresu. Prosím, postupujte podľa odkaz pre aktiváciu vášho účtu.
+      update_needs_confirmation: Môžete aktualizovať svoj účet úspešne, ale musíme
+        overiť svoju novú e-mailovú adresu. Skontrolujte svoj e-mail a postupujte
+        podľa potvrdiť odkaz potvrďte svoju novú e-mailovú adresu.
+      updated: Váš účet bol úspešne aktualizovaný.
+    sessions:
+      signed_in: Prihlásení úspešne.
+      signed_out: Odhlásení úspešne.
+      already_signed_out: Odhlásení úspešne.
+    unlocks:
+      send_instructions: Dostanete e-mail s inštrukciami, ako odomknúť váš účet v
+        priebehu niekoľkých minút.
+      send_paranoid_instructions: Ak váš existuje účet, vám bude zaslaný e-mail s
+        inštrukciami, ako odomknúť to v priebehu niekoľkých minút.
+      unlocked: Váš účet bol odomknutý úspešne. Prosím prihláste sa, ak chcete pokračovať.
+  errors:
+    messages:
+      already_confirmed: bol už potvrdené, prosím skúste sa prihlásiť
+      confirmation_period_expired: musí byť potvrdené v rámci %{period}, prosím, požiadať
+        o nový
+      expired: uplynula, prosím, požiadať o nový
+      not_found: nebol nájdený
+      not_locked: nebolo zamknuté
+      not_saved:
+        one: '1 chyba zakázané tejto %{resource} z uloženia:'
+        other: "%{count} chýb zakázané tejto %{resource} od uloženia:"

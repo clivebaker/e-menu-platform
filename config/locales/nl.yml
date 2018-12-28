@@ -1,0 +1,44 @@
+---
+nl:
+  messages:
+    table_created_successfully: Tabel met succes is ingezet.
+    table_incorrect_password: Kan niet deelnemen aan tafel. Onjuist Wachtwoord
+    table_joined_successfully: Tabel werd met succes opnieuw gevoegd.
+  topnav:
+    site: e-mij.nu
+    home: Thuis
+  furniture:
+    enter_table_code: Voer uw Code Tabel
+    enter_table_code_submit: Verzenden
+    start_eating: Beginnen Met Het Eten
+    where_to_eat: Waar wil je eten?
+    available_restaurants: Beschikbare Restaurants
+  register_table:
+    start:
+      message: Beginnen Met Het Eten
+      password_message: Maak een wachtwoord voor uw tafel
+      password_submit: Verzenden
+      password_help: Dit kan uw naam!
+    join:
+      message: Deelnemen aan uw Tafel
+      password_message: Voer het wachtwoord in voor uw tafel
+      password_submit: Verzenden
+    error:
+      message: Sorry, tabel-code wordt niet erkend.
+      home_button: Terug naar Home pagina
+    details:
+      title: Tabel
+      headers:
+        name: Restaurant Naam
+        code: Tabel-Code
+        number: Tabel Aantal
+  footer:
+    restaurant_button_login: Restaurant Aanmelden
+    e_menu_copyright: "© e-mij.nu 2019-2020"
+    disclaimer: "<div>Pictogrammen gemaakt door <a href='http://www.freepik.com' title='Freepik'>Freepik</a>
+      van <a href='https://www.flaticon.com/' title='Flaticon'>www.flaticon.com</a>
+      is in licentie gegeven door <a href='http://creativecommons.org/licenses/by/3.0/'
+      title='Creative Commons BY 3.0' target='_blank'>CC 3.0</a></div></small><small>Vertaald
+      door Yandex.Vertalen"
+  language:
+    title: Taal

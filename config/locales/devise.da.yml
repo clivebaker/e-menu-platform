@@ -1,0 +1,78 @@
+---
+da:
+  devise:
+    confirmations:
+      confirmed: Din e-mail-adresse er med succes blevet bekræftet.
+      send_instructions: Du vil modtage en e-mail med instruktioner til, hvordan du
+        bekræfte din e-mail-adresse i et par minutter.
+      send_paranoid_instructions: Hvis din e-mail adresse findes i vores database,
+        vil du modtage en e-mail med instruktioner til, hvordan du bekræfte din e-mail-adresse
+        i et par minutter.
+    failure:
+      already_authenticated: Du er allerede logget på med.
+      inactive: Din konto er ikke aktiveret endnu.
+      invalid: Ugyldig %{authentication_keys} eller adgangskode.
+      locked: Din konto er låst.
+      last_attempt: Du har endnu et forsøg, før din konto er låst.
+      not_found_in_database: Ugyldig %{authentication_keys} eller adgangskode.
+      timeout: Din session er udløbet. Her kan du logge ind igen for at fortsætte.
+      unauthenticated: Du er nødt til at logge på-eller tilmelde dig, før du fortsætter.
+      unconfirmed: Du er nødt til at bekræfte din e-mail-adresse, før du fortsætter.
+    mailer:
+      confirmation_instructions:
+        subject: Bekræftelse instruktioner
+      reset_password_instructions:
+        subject: Reset password instruktioner
+      unlock_instructions:
+        subject: Unlock instruktioner
+      email_changed:
+        subject: E-Mail Ændret
+      password_change:
+        subject: Adgangskoden Ændret
+    omniauth_callbacks:
+      failure: Kunne ikke godkende dig fra %{kind}, fordi "%{reason}".
+      success: Ægthedsbekræftet fra %{kind}-konto.
+    passwords:
+      no_token: Du kan ikke få adgang til denne side, uden at det kommer fra en e-mail
+        til nulstilling af adgangskoden. Hvis du kommer fra en e-mail til nulstilling
+        af adgangskoden, skal du sørge for du har brugt den fulde URL-adresse.
+      send_instructions: Du vil modtage en e-mail med instruktioner på hvordan du
+        kan nulstille din adgangskode i et par minutter.
+      send_paranoid_instructions: Hvis din e-mail adresse findes i vores database
+        vil du modtage et password recovery link på din e-mail-adresse i et par minutter.
+      updated: Din adgangskode er blevet ændret. Du er nu logget ind.
+      updated_not_active: Din adgangskode er blevet ændret.
+    registrations:
+      destroyed: Farvel! Din konto er blevet annulleret. Vi håber at se dig igen snart.
+      signed_up: Velkommen! Du er blevet tilmeldt.
+      signed_up_but_inactive: Du er blevet tilmeldt. Men vi kunne ikke logge dig ind,
+        fordi din konto er endnu ikke aktiveret.
+      signed_up_but_locked: Du er blevet tilmeldt. Men vi kunne ikke logge dig ind,
+        fordi din konto er låst.
+      signed_up_but_unconfirmed: En besked med et link til bekræftelse er sendt til
+        din e-mail-adresse. Følg linket for at aktivere din konto.
+      update_needs_confirmation: Du opdateret din konto med succes, men vi har brug
+        for at bekræfte din nye e-mail-adresse. Check venligst din e-mail og følg
+        bekræfte link for at bekræfte din nye e-mail-adresse.
+      updated: Din konto er blevet opdateret.
+    sessions:
+      signed_in: Underskrevet i succes.
+      signed_out: Logget ud med succes.
+      already_signed_out: Logget ud med succes.
+    unlocks:
+      send_instructions: Du vil modtage en e-mail med instruktioner om, hvordan at
+        låse din konto op i et par minutter.
+      send_paranoid_instructions: Hvis din konto eksisterer, vil du modtage en e-mail
+        med instruktioner om, hvordan at låse den op i et par minutter.
+      unlocked: Din konto er blevet låst op med succes. Log ind for at fortsætte.
+  errors:
+    messages:
+      already_confirmed: blev allerede bekræftet, kan du prøve at logge ind
+      confirmation_period_expired: behov for at blive bekræftet inden for %{period},
+        bedes du anmode om en ny
+      expired: er udløbet, skal du anmode om en ny
+      not_found: ikke fundet
+      not_locked: var ikke låst
+      not_saved:
+        one: '1 fejl forbudt i denne %{resource} fra at blive frelst:'
+        other: "%{count} fejl forbudt i denne %{resource} fra at blive frelst:"

@@ -1,0 +1,80 @@
+---
+'no':
+  devise:
+    confirmations:
+      confirmed: Din e-postadresse har blitt bekreftet.
+      send_instructions: Du vil motta en e-post med instruksjoner om hvordan å bekrefte
+        e-postadressen din i et par minutter.
+      send_paranoid_instructions: Hvis din e-postadresse finnes i vår database, vil
+        du motta en e-post med instruksjoner om hvordan å bekrefte e-postadressen
+        din i et par minutter.
+    failure:
+      already_authenticated: Du er allerede logget på.
+      inactive: Din konto er ikke aktivert ennå.
+      invalid: Ugyldig %{authentication_keys} eller passord.
+      locked: Din konto er låst.
+      last_attempt: Du har man flere forsøk før din konto er låst.
+      not_found_in_database: Ugyldig %{authentication_keys} eller passord.
+      timeout: Økten er utløpt. Vennligst logg inn på nytt for å fortsette.
+      unauthenticated: Du må logge inn eller registrere deg før du fortsetter.
+      unconfirmed: Du må bekrefte din e-postadresse før du fortsetter.
+    mailer:
+      confirmation_instructions:
+        subject: Bekreftelse instruksjoner
+      reset_password_instructions:
+        subject: Tilbakestill passord instruksjoner
+      unlock_instructions:
+        subject: Låse opp instruksjoner
+      email_changed:
+        subject: E-Endret
+      password_change:
+        subject: Passordet Er Endret
+    omniauth_callbacks:
+      failure: Kunne ikke autentisere deg fra %{kind}, fordi "%{reason}".
+      success: Godkjennes fra %{kind}-konto.
+    passwords:
+      no_token: Du kan ikke tilgang til denne siden uten å komme fra en e-post for
+        å tilbakestille passord. Hvis du kommer fra en e-post for å tilbakestille
+        passord, vennligst sørg for at du har brukt den fullstendige URL-adressen
+        gitt.
+      send_instructions: Du vil motta en e-post med instruksjoner om hvordan du tilbakestiller
+        passordet ditt i et par minutter.
+      send_paranoid_instructions: Hvis din e-postadresse finnes i vår database, vil
+        du motta et passord recovery link til din e-postadresse i et par minutter.
+      updated: Passordet har blitt endret vellykket. Du er nå logget inn.
+      updated_not_active: Passordet har blitt endret vellykket.
+    registrations:
+      destroyed: Bye! Din konto har blitt kansellert. Vi håper å se deg igjen snart.
+      signed_up: Velkommen! Du har meldt deg på en vellykket måte.
+      signed_up_but_inactive: Du har meldt deg på en vellykket måte. Men, vi kunne
+        ikke logge på fordi kontoen er ennå ikke aktivert.
+      signed_up_but_locked: Du har meldt deg på en vellykket måte. Men, vi kunne ikke
+        logge på fordi kontoen er låst.
+      signed_up_but_unconfirmed: En melding med en bekreftelse link har blitt sendt
+        til din e-post adresse. Vennligst følg linken for å aktivere kontoen din.
+      update_needs_confirmation: Du oppdatert din konto vellykket, men vi trenger
+        å bekrefte den nye e-postadressen. Vennligst sjekk din e-post og følg bekrefte
+        koblingen for å bekrefte den nye e-postadressen.
+      updated: Din konto har blitt oppdatert på riktig måte.
+    sessions:
+      signed_in: Signert på hell.
+      signed_out: Signert ut vellykket.
+      already_signed_out: Signert ut vellykket.
+    unlocks:
+      send_instructions: Du vil motta en e-post med instruksjoner om hvordan å låse
+        opp kontoen din i et par minutter.
+      send_paranoid_instructions: Hvis kontoen din eksisterer, vil du motta en e-post
+        med instruksjoner om hvordan å låse det i et par minutter.
+      unlocked: Kontoen din har blitt låst opp med hell. Vennligst logg inn for å
+        fortsette.
+  errors:
+    messages:
+      already_confirmed: var det allerede bekreftet, kan du prøve å logge deg på
+      confirmation_period_expired: behov for å bli bekreftet innenfor %{period}, vennligst
+        be om et nytt ett
+      expired: har utløpt, vennligst be om et nytt ett
+      not_found: ikke funnet
+      not_locked: var ikke låst.
+      not_saved:
+        one: '1 feil forbudt dette %{resource} lagres:'
+        other: "%{count} feil forbudt dette %{resource} fra å bli lagret:"

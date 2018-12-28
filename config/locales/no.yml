@@ -1,0 +1,44 @@
+---
+'no':
+  messages:
+    table_created_successfully: Bordet ble startet.
+    table_incorrect_password: Kan ikke bli med i tabellen. Feil Passord
+    table_joined_successfully: Bordet var vellykket re-sluttet.
+  topnav:
+    site: e-meg.nu
+    home: Hjem
+  furniture:
+    enter_table_code: Skriv inn ditt Bord-Kode
+    enter_table_code_submit: Send inn
+    start_eating: Begynne Å Spise
+    where_to_eat: Hvor ønsker du å spise?
+    available_restaurants: Tilgjengelig Restauranter
+  register_table:
+    start:
+      message: Begynne Å Spise
+      password_message: Opprette et passord for din bordet
+      password_submit: Send inn
+      password_help: Dette kan være ditt navn!
+    join:
+      message: Bli med i Tabell
+      password_message: Skriv inn passord for ditt bord
+      password_submit: Send inn
+    error:
+      message: Beklager, tabell koden er ikke balanseført.
+      home_button: Tilbake til startsiden
+    details:
+      title: Tabell Detaljer
+      headers:
+        name: Restaurant Navn
+        code: Tabell Koden
+        number: Tabell Nummer
+  footer:
+    restaurant_button_login: Restaurant Logg Inn
+    e_menu_copyright: "© e-meg.nu 2019-2020"
+    disclaimer: "<div>Ikoner laget av <a href='http://www.freepik.com' title='Freepik'>Freepik</a>
+      på <a href='https://www.flaticon.com/' title='Flaticon'>www.flaticon.com</a>
+      er lisensiert av <a href='http://creativecommons.org/licenses/by/3.0/' title='Creative
+      Commons BY 3.0' target='_blank'>CC 3.0 AV</a></div></small><small>Oversatt av
+      Yandex.Oversette"
+  language:
+    title: Språk

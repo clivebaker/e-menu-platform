@@ -1,3 +1,44 @@
+---
 it:
-  furniture: 
-    # enter_table_code: "ITALIAN Enter your Table Code"
+  messages:
+    table_created_successfully: Tabella è stato avviato con successo.
+    table_incorrect_password: Non può partecipare a tavola. Password Errata
+    table_joined_successfully: La tabella è stata correttamente ri-entrato.
+  topnav:
+    site: e-me.nu
+    home: Casa
+  furniture:
+    enter_table_code: Inserisci il tuo Codice Tabella
+    enter_table_code_submit: Invia
+    start_eating: Iniziare A Mangiare
+    where_to_eat: Dove vuoi mangiare?
+    available_restaurants: Ristoranti Disponibili
+  register_table:
+    start:
+      message: Iniziare A Mangiare
+      password_message: Creare una password per il vostro tavolo
+      password_submit: Invia
+      password_help: Questo può essere il vostro nome!
+    join:
+      message: Unirsi al vostro Tavolo
+      password_message: Immettere la password per il vostro tavolo
+      password_submit: Invia
+    error:
+      message: Scusate, il codice non viene riconosciuto.
+      home_button: Torna alla Home page
+    details:
+      title: Tabella Dettagli
+      headers:
+        name: Nome Del Ristorante
+        code: Codice Tabella
+        number: Numero Di Tavola
+  footer:
+    restaurant_button_login: Ristorante Il Login
+    e_menu_copyright: "© e-me.nu 2019-2020"
+    disclaimer: "<div>Icone fatte da <a href='http://www.freepik.com' title='Freepik'>Freepik</a>
+      da <a href='https://www.flaticon.com/' title='Flaticon'>www.flaticon.com</a>
+      è concesso in licenza da <a href='http://creativecommons.org/licenses/by/3.0/'
+      title='Creative Commons BY 3.0' target='_blank'>CC 3.0</a></div></small><small>Tradotto
+      da Yandex.Tradurre"
+  language:
+    title: Lingua

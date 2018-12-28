@@ -1,0 +1,43 @@
+---
+sk:
+  messages:
+    table_created_successfully: Tabuľka bol úspešne začala.
+    table_incorrect_password: Nemôžete pripojiť tabuľke. Nesprávne Heslo
+    table_joined_successfully: Tabuľka bol úspešne znovu pripojil.
+  topnav:
+    site: e-mi.nu
+    home: Domov
+  furniture:
+    enter_table_code: Zadajte váš Stôl Kód
+    enter_table_code_submit: Odoslať
+    start_eating: Začnite Jesť
+    where_to_eat: Ak chceš jesť?
+    available_restaurants: K Dispozícii Reštaurácie
+  register_table:
+    start:
+      message: Začnite Jesť
+      password_message: Vytvoriť heslo pre váš stôl
+      password_submit: Odoslať
+      password_help: Toto môže byť vaše meno!
+    join:
+      message: Pripojte váš Stôl
+      password_message: Zadajte heslo pre váš stôl
+      password_submit: Odoslať
+    error:
+      message: Ľutujeme, stolný kód nie je uznaný.
+      home_button: Späť na úvodnú stránku
+    details:
+      title: Tabuľka Podrobnosti
+      headers:
+        name: Reštaurácia Meno
+        code: Tabuľka Kód
+        number: Tabuľka Číslo
+  footer:
+    restaurant_button_login: Reštaurácia Prihlásiť Sa
+    e_menu_copyright: "© e-mi.nu 2019-2020"
+    disclaimer: <div>Ikony vykonané <a href='http://www.freepik.com' title='Freepik'>Freepik</a>
+      od <a href='https://www.flaticon.com/' title='Flaticon'>www.flaticon.com</a>
+      je licencovaný <a href='http://creativecommons.org/licenses/by/3.0/' title='Creative
+      Commons TÝM, 3.0" target='_blank'>CC 3.0</a></div></small><small>Preložil Yandex.Preklad
+  language:
+    title: Jazyk
