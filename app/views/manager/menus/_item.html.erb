@@ -13,7 +13,7 @@
           <% if sub.node_type != "item" %>
   
           <div class="col-lg-5 text-center">  
-            <%= link_to "Add Category to #{sub.name}", new_manager_restaurant_menu_path(sub.restaurant_id, parent: sub.id), class: "text-warning  menu-management-links" %> | 
+            <%= link_to "Add Category to #{sub.name}", new_manager_restaurant_menu_path(sub.restaurant_id,  node_type: 'section', parent: sub.id), class: "text-warning  menu-management-links" %> | 
             <%= link_to "New Item in #{sub.name}", new_manager_restaurant_menu_path(sub.restaurant_id, node_type: 'item', parent: sub.id), class: "text-warning menu-management-links" %>  
           </div>
           <div class="col-lg-5 text-right">  

@@ -1,7 +1,7 @@
 <div class="container-fluid">
   <div class="row">
 		<div class="col bg-dark text-light">
-			<%= link_to 'New Menu', new_manager_restaurant_menu_path(), class: "btn btn-primary btn-block btn-sm mt-3 mb-2" %>
+			<%= link_to 'New Menu', new_manager_restaurant_menu_path(node_type: 'menu'), class: "btn btn-primary btn-block btn-sm mt-3 mb-2" %>
 
 			<%=render 'manager/menus/menus'%>
     </div>

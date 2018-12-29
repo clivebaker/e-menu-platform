@@ -14,7 +14,7 @@
       <h3> <%= h(category.name) %></h3>
   </div>
   <div class="col-lg-5 text-center">  
-    <%= link_to "Add Category to #{category.name}", new_manager_restaurant_menu_path(category.restaurant_id, parent: category.id), class: "text-warning  menu-management-links" %> | 
+    <%= link_to "Add Category to #{category.name}", new_manager_restaurant_menu_path(category.restaurant_id,  node_type: 'section',parent: category.id), class: "text-warning  menu-management-links" %> | 
     <%= link_to "New Item in #{category.name}", new_manager_restaurant_menu_path(category.restaurant_id, node_type: 'item', parent: category.id), class: "text-warning menu-management-links" %>  
   </div>
   <div class="col-lg-5 text-right">  

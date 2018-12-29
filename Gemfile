@@ -50,7 +50,7 @@ gem 'stripe'
 
 gem 'globalize', git: 'https://github.com/globalize/globalize'
 gem 'jstree-rails-4'
-
+gem 'trix-rails', require: 'trix'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'sidekiq'

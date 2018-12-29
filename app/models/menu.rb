@@ -3,8 +3,11 @@
 class Menu < ApplicationRecord
   belongs_to :restaurant
   belongs_to :spice_level, optional: true
+
   # belongs_to :menu_item_categorisation, optional: true
   has_and_belongs_to_many :menu_item_categorisation
+  has_and_belongs_to_many :cook_level
+
   has_ancestry
 
   has_one_attached :image
@@ -18,6 +21,7 @@ class Menu < ApplicationRecord
   #   validates_numericality_of :price_b, :on => :create, :message => "is not a number", if: :node?
 
   delegate :name, to: :spice_level, prefix: true, allow_nil: true
+  delegate :name, to: :cook_level, prefix: true, allow_nil: true
 
   delegate :id, to: :restaurant, prefix: true, allow_nil: false
 

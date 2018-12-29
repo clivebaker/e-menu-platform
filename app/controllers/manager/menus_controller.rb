@@ -4,6 +4,7 @@ module Manager
   class MenusController < Manager::BaseController
     before_action :authenticate_manager_restaurant_user!
     before_action :set_spice_levels, only: %i[new create edit update]
+    before_action :set_cook_levels, only: %i[new create edit update]
     before_action :set_menu_item_categorisations, only: %i[new create edit update]
     before_action :set_menu, only: %i[show edit update destroy]
     before_action :set_restaurant
@@ -22,6 +23,8 @@ module Manager
     # GET /menus/new
     def new
       @menu = Menu.new
+
+      @menu.node_type = params[:node_type]
     end
 
     # GET /menus/1/edit
@@ -31,6 +34,7 @@ module Manager
     # POST /menus.json
     def create
       @menu = Menu.new(menu_params)
+      # binding.pry
       @menu.parent = Menu.find(params[:parent]) if params[:parent].present?
 
       respond_to do |format|
@@ -91,6 +95,9 @@ module Manager
     def set_spice_levels
       @spice_levels = SpiceLevel.all
     end
+    def set_cook_levels
+      @cook_levels = CookLevel.all
+    end
 
     def set_menu_item_categorisations
       @menu_item_categorisations = MenuItemCategorisation.all
@@ -98,7 +105,7 @@ module Manager
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def menu_params
-      params.require(:menu).permit(:restaurant_id, :name, :description, :image, :spice_level_id, :node_type, :prices, :available, :calories, :price_a, :price_b, menu_item_categorisation_ids: [])
+      params.require(:menu).permit(:restaurant_id, :nutrition, :provenance, :name, :description, :image, :spice_level_id, :node_type, :prices, :available, :calories, :price_a, :price_b, menu_item_categorisation_ids: [],  cook_level_ids: [])
     end
   end
 end
