@@ -1,59 +1,31 @@
-<ul class="menu">
-  <% category.children.each do |sub| %>
-    <li class='menu-<%= sub.node_type%>'>
-      <% if sub.node_type != 'item' || sub.available %>
-        <!-- item -->
-        <div class="row ">
-          
-          <div class="col">
-            <span class=" <%= sub.node_type != "item" ? "font-weight-bold" : ""%>">
-              <%=sub.name%> 
-      			  <% sub.menu_item_categorisation.each do |category| %>
-      			    <i class="<%= category.icon %>"></i>
-      			  <% end %>
-            </span>
-          </div>
-          
-
-          <div class="col-3 text-right"> 
-            <div class="row ">
-              <div class="col-8 text-right">
-                <%= sub.prices_joined.map{|a| number_to_currency(a, unit: "£")}.join(" / ") if sub.prices_joined%>
-              </div>
-              <div class="col-4">
-                <% if sub.node_type == 'item' %>
-                  <%= button_tag  class: "btn btn-outline-primary btn-sm add-menu-item",  "data-toggle" => "modal", "data-target" => "#item-#{sub.id}" do %><i class="fa fa-plus"></i><% end  %>
-                <% end %>
-              </div>
-            </div>
-          </div>
-        
-
-        </div>
-
-        <% if sub.node_type == 'item' %>
-
-
-          <div class="row">
-            <div class="col">
-              <div class="container pl-0">
-                <div class="row">
-                  <% if sub.image.attached? %>
-                    <div class="col-lg-3"><%= image_tag sub.image.variant(resize: "200x200"), class: "img-fluid"  %></div>
-                  <% end %>
-                  <div class="col pl-0"><div class="menu-description ml-3"><%=sub.description%></div></div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-
+<!-- item -->
+<div class="container">
+  <div class="row ">
+    <div class="col-md-2 d-none d-md-block">
+      <% if sub.image.attached? %>
+        <%= image_tag sub.image.variant(resize: "150x150"), class: "img-fluid"  %>
+      <% end %>
+    </div>
+    <div class="col-8 col-md-6">
+        <%=sub.name%> 
+        <% sub.menu_item_categorisation.each do |category| %>
+          <i class="<%= category.icon %>"></i>
         <% end %>
-        <%= render 'tables/modal', sub: sub, table: table %>
-        <!-- / item -->
+        <div class="menu-description"><%=sub.description%></div>
 
-      <% end # close available sub %>
-      <%= render 'tables/item', category: sub, table: table %>
-    </li>
-  <% end %>
-</ul>
+
+
+    </div>
+    <div class="col-2 col-md-2 text-right">
+       <%= sub.prices_joined.map{|a| number_to_currency(a, unit: "£")}.join(" / ") if sub.prices_joined%>
+    </div>
+    <div class="col-2 col-md-2 text-right">
+      <%= button_tag  class: "btn btn-outline-primary btn-sm add-menu-item",  "data-toggle" => "modal", "data-target" => "#item-#{sub.id}" do %><i class="fa fa-plus"></i><% end %>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- / item -->
+<%= render 'tables/modal', sub: sub, table: table %>
