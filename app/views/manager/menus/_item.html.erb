@@ -35,7 +35,7 @@
 
       <div class="row ">
         <div class="col-lg-2">
-            <%=sub.name%> 
+            <%=sub.name%>
         </div>
         <div class="col-lg-1">
           <% if sub.image.attached? %>
@@ -45,19 +45,24 @@
         <div class="col management-description"> 
           <%=sub.description%>
         </div>
-        <div class="col-lg-2"> 
+        <div class="col-lg-1"> 
+          <% if sub.available %>
+          <i class="fa fa-check available">Available</i>
+          <% end   %>
+        </div>
+        <div class="col-lg-1"> 
           <% sub.menu_item_categorisation.each do |category| %>
             <i class="<%= category.icon %>"></i>
           <% end %>
+        </div>
+        <div class="col-lg-1"> 
+          <%= "Custom List" if sub.custom_lists.present? %>
         </div>
 
         <div class="col-lg-1 text-right mr-3">
              <%= sub.prices_joined.map{|a| number_to_currency(a, unit: "£")}.join(" / ") if sub.prices_joined%>
         </div>
       </div>
-
-
-      
         <div class="row">
           <div class="col">
             <div class="container pl-0">
@@ -65,8 +70,11 @@
                 <div class="col pl-0"><div class="menu-description ml-3"></div></div>
               </div>
             </div>
-          </div>        </div>
+          </div>        
+        </div>
       <% end %>
+      
+
       <%= render 'manager/menus/item', category: sub, table: table %>
     </li>
   <% end %>

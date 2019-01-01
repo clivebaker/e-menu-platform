@@ -26,19 +26,35 @@ class TablesController < ApplicationController
   def edit; end
 
   def add_item
-    table = Table.find(params[:table_id])
-    menu = Menu.find(params[:menu_id])
-    for_person = params[:for]
 
-    TableItem.create(
-      table_id: table.id,
-      menu_id: menu.id,
-      for: for_person
+    # binding.pry
+
+    @table = Table.find(params[:table_id])
+    @menu = Menu.find(params[:menu_id])
+    for_person = params[:for]
+    custom_lists = {}
+    if params[:table]
+      custom_lists = params[:table][:custom_lists] || {}
+    end
+
+    @table_item = TableItem.new(
+      table_id: @table.id,
+      menu_id: @menu.id,
+      for: for_person,
+      custom_lists: custom_lists
     )
 
+
+  # binding.pry
+
     respond_to do |format|
-      format.html { redirect_to table_path(table), notice: "#{menu.name} was added to your order successfully." }
-      format.js
+      if @table_item.save
+        # format.html { redirect_to table_path(@table), notice: "#{@menu.name} was added to your order successfully." }
+        format.js
+      else
+        # format.html { redirect_to table_path(@table), alert: "Please choose option: #{@table_item.errors.map{|k,v| k.to_s.capitalize}.join(", ")}" }
+        format.js
+      end
     end
   end
 
@@ -144,6 +160,6 @@ class TablesController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def table_params
-    params.require(:table).permit(:restaurant_table_id, :password, :aasm_state)
+    params.require(:table).permit(:restaurant_table_id, :password, :aasm_state, :custom_lists)
   end
 end

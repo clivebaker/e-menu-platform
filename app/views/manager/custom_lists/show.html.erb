@@ -1,0 +1,28 @@
+
+
+
+<div class="container my-3 p-3 bg-white rounded shadow-sm">
+
+  <div class="row">
+    <div class="col">
+      <h3>Custom List: <%= @custom_list.name %></h3>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      Constraint: <%= constraint_to_human(@custom_list.constraint) %> 
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+    	<%= render "manager/custom_list_items/index", custom_list_items: @custom_list.custom_list_items, restaurant: @restaurant, custom_list: @custom_list %>
+    </div>
+  </div>
+
+
+
+<%= link_to 'Edit', edit_manager_restaurant_custom_list_path(@restaurant, @custom_list) %> |
+<%= link_to 'Back', manager_restaurant_custom_lists_path(@restaurant) %>
+
+</div>

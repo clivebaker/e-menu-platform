@@ -1,0 +1,240 @@
+    <h3 class=" pb-2 mb-0">Item</h3>
+
+<%= menu.node_type%>
+
+<%= form_with(model: [:manager, @restaurant, menu], local: true) do |form| %>
+  <% if menu.errors.any? %>
+    <div id="error_explanation" class="alert alert-danger">
+      <h2><%= pluralize(menu.errors.count, "error") %> prohibited this menu from being saved:</h2>
+
+      <ul>
+      <% menu.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+    <%= form.hidden_field :restaurant_id, value: @restaurant.id %>
+    <%= form.hidden_field :node_type, value: menu.node_type %>
+    <%= hidden_field_tag :parent, params[:parent] %>
+
+
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+  <li class="nav-item">
+    <a class="nav-link active" id="details-tab" data-toggle="tab" href="#details" role="tab" aria-controls="details" aria-selected="true"><%= t('menu.details')%></a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="image-tab" data-toggle="tab" href="#image" role="tab" aria-controls="image" aria-selected="false"><%= t('menu.image')%></a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="options-tab" data-toggle="tab" href="#options" role="tab" aria-controls="options" aria-selected="false"><%= t('menu.options')%></a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="extras-tab" data-toggle="tab" href="#extras" role="tab" aria-controls="extras" aria-selected="false"><%= t('menu.extras')%></a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="categories-tab" data-toggle="tab" href="#categories" role="tab" aria-controls="categories" aria-selected="false"><%= t('menu.categories')%></a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="nutrition-tab" data-toggle="tab" href="#nutrition" role="tab" aria-controls="nutrition" aria-selected="false"><%= t('menu.nutrition')%></a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="provenance-tab" data-toggle="tab" href="#provenance" role="tab" aria-controls="provenance" aria-selected="false"><%= t('menu.provenance')%></a>
+  </li>
+</ul>
+<div class="tab-content" id="myTabContent">
+  <div class="tab-pane fade pt-3  pb-3 show active" id="details" role="tabpanel" aria-labelledby="details-tab">
+    <!-- details -->
+    <div class="row">
+      <div class="col">
+        <div class="form-group ">
+          <%= form.label :name %>
+          <%= form.text_field :name, class: 'form-control  form-control-sm' %>
+        </div>
+      </div>
+    </div>
+  <div class="row">
+    <div class="col">
+      <div class="form-group ">
+        <%= form.label :description %>
+        <%= form.text_area :description, class: 'form-control  form-control-sm' %>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="col">
+      <div class="form-group ">
+        <%= form.label :price %>
+        <%= form.number_field :price_a, class: 'form-control  form-control-sm', step: :any %>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <div class="form-group ">
+        <%= form.label :available %>
+        <%= form.check_box :available, class: 'form-control  form-control-sm' %>
+      </div>
+    </div>
+  </div>
+
+
+
+  </div>
+  <div class="tab-pane fade pt-3  pb-3" id="image" role="tabpanel" aria-labelledby="image-tab">
+    <!-- image -->
+
+    <div class="row">
+      <div class="col">
+        <div class="form-group ">
+          <%= form.label :image %>
+          <%= form.file_field :image %>
+        </div>
+      </div>
+      <div class="col">
+        <div class="form-group ">
+           <% if menu.image.attached? %>
+              <%= image_tag menu.image.variant(resize: "200x200"), class: "img-fluid"  %>
+            <% end %>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+
+  <div class="tab-pane fade pt-3  pb-3" id="options" role="tabpanel" aria-labelledby="options-tab">
+    <!-- options -->
+    <div class="row">
+      <div class="col">
+        <h4>These are the available options for a customer to choose whilst ordering their meal.</h4>
+      </div>
+    </div>
+    <div class="row">
+
+<!--       <div class="col">
+        <h6>Cook Levels</h6>
+        <%#= form.collection_check_boxes :cook_level_ids, @cook_levels, :id, :name do |b| %>
+          <div class="collection-check-box">
+            <%#= b.check_box %>
+            <i class="<%#= b.text %>"> <%#= b.object.name %></i>
+          </div>
+        <%# end %>
+      </div> -->
+      <% @restaurant.custom_lists.each do |custom_list| %>
+      <div class="col">
+        <h6><strong><%= custom_list.name %></strong> (<%=constraint_to_human custom_list.constraint%>)</h6>
+        
+        <% custom_list.custom_list_items.each do |item| %>
+
+          <div class="collection-check-box">
+            <input type="checkbox" value="<%=item.id%>" name="menu[custom_lists][<%=custom_list.id%>][]" id="menu_custom_lists_<%=custom_list.id%>-<%=item.id%>" <%=checked?(menu.custom_lists, custom_list.id, item.id)%>>
+            <i class=""><%= item.name%></i>
+          </div>
+
+
+        <% end %>
+
+ 
+
+
+      </div>
+      <% end %>
+    </div>
+
+  </div>
+  <div class="tab-pane fade pt-3  pb-3" id="extras" role="tabpanel" aria-labelledby="extras-tab">
+  <!-- extras -->
+  </div>
+  <div class="tab-pane fade pt-3  pb-3" id="nutrition" role="tabpanel" aria-labelledby="nutrition-tab">
+  <!-- nutrition -->
+
+    <div class="row">
+      <div class="col">
+
+      <div class="row">
+        <div class="col">
+          <div class="form-group ">
+            <%= form.label :calories %>
+            <%= form.number_field :calories, class: 'form-control  form-control-sm' %>
+          </div>
+        </div>
+      </div>
+
+        <div class="row">
+          <div class="col">
+            <div class="form-group ">
+              <%= form.label :nutrition %>
+              <%= form.trix_editor :nutrition, required: true, autofocus: true %>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+
+
+
+
+  </div>
+ 
+  <div class="tab-pane fade pt-3  pb-3" id="categories" role="tabpanel" aria-labelledby="categories-tab">
+  <!-- categories -->
+
+    <div class="row">
+
+      <div class="col">
+
+        <div class="row ml-1">
+          <div lass="col ">
+            <h6>Categories</h6>
+            <%= form.collection_check_boxes :menu_item_categorisation_ids, @menu_item_categorisations, :id, :icon do |b| %>
+            <div class="collection-check-box">
+              <%= b.check_box %>
+              <i class="<%= b.text %>"> <%= b.object.name %></i>
+            </div>
+            <% end %>
+          </div>
+        </div>
+
+      </div>
+      <div class="col">
+
+        <div class="row">
+          <div class="col">
+            <h6>Spice Level</h6>
+            <% @spice_levels.each do |spice| %>
+            <div class="form-check">
+              <%= form.radio_button :spice_level_id, spice.id%>
+              <%= form.label spice.name %>
+            </div>
+            <% end %>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+ 
+
+  <div class="tab-pane fade pt-3  pb-3" id="provenance" role="tabpanel" aria-labelledby="provenance-tab">
+  <!-- provenance -->
+    <div class="row">
+      <div class="col">
+        <div class="form-group ">
+          <%= form.label :provenance %>
+          <%= form.trix_editor :provenance, required: true, autofocus: true %>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+  <div class="actions">
+    <%= form.submit nil, class: "btn btn-primary" %>
+  </div>
+<% end %>

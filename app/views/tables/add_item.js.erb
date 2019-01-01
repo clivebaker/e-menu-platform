@@ -1,0 +1,26 @@
+// alert("Hello")
+
+
+
+<% return_string = [] %>
+
+<% @table_item.errors.full_messages.each do |message| %>
+	<% return_string << "<li>#{message}</li>" %>
+<% end %>
+
+
+<% if return_string.present? %>
+	$("#error_explanation_<%=@menu.id%>").removeClass("d-none");
+	$("#error_detail_<%=@menu.id%>").html("<%=escape_javascript(return_string.join("")).html_safe%>");
+<% else %>
+	$("#item-<%=@menu.id%>").modal('hide');
+	$("#error_explanation_<%=@menu.id%>").removeClass("d-none").addClass("d-none");
+	$('input:checked').prop("checked", false);
+	$("#error_detail_<%=@menu.id%>").html("");
+	$("#current_bill").html("<%=escape_javascript(render partial: 'tables/current_bill')%>");
+	$("#customer_for_<%=@menu.id%>").val("");
+
+<% end %>
+
+
+

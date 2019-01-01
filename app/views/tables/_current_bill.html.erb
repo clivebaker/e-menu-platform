@@ -1,0 +1,55 @@
+			<div class="row  text-white pt-3 pb-3">
+				<div class="col text-center">
+					<h3>Current Bill </h3>
+					<span class="current-bill">
+						<% price = @table.table_items.reject{|a| a.paid}.map{|e| e.total_price}.inject(:+) || 0 %>
+						<%=number_to_currency price, unit: "£"%>
+					</span>
+				</div>
+			</div>
+			<div class="row pt-3 pb-3">
+				<div class="col">
+					<ul class="list-group">
+						<% @table.table_items.order(:created_at).each do |item| %>
+						  <li class="list-group-item d-flex justify-content-between align-items-center rhc-item  <%=item.paid ? "item-paid" : "" %>">
+							  <div class="container">
+							  	<div class="row">
+							  		<div class="col-sm-6"><%= item.name%></div>
+							  		<div class="col-sm-4 text-right"><%= item.for%></div>
+							  		<div class="col-sm-2 text-right"><%=number_to_currency item.total_price, unit: "£"%></div>
+							  	</div>
+
+
+							  	<% item.custom_lists.keys.each do |list_id| %>
+							  		<% custom_list = CustomList.find(list_id) %>
+								  		<% item.custom_lists[list_id].each do |list_item_id| %>
+								  			<% list_item = CustomListItem.find(list_item_id) %>
+										  	<div class="row">
+										  		<div class="col-sm-1">&nbsp;</div>
+										  		<div class="col-sm-9">- <%= "#{custom_list.name}: #{list_item.name}" %>&nbsp;&nbsp;<%= "(#{number_to_currency(list_item.price, unit: "£")})"  if list_item.price > 0 %></div>
+										  		<div class="col-sm-2 text-right"></div>
+										  	</div>
+								  		<% end %>
+							  	<% end %>
+
+							  </div>
+						  </li>
+					  <% end %>
+					</ul>
+				</div>
+			</div>
+   	  <div class="row  pt-1 pb-3 ">
+				<div class="col text-center">
+		      <%= link_to("PAY BILL", table_pay_path(@table), disabled: :disabled, method: :get, class: 'btn btn-warning btn-lg btn-block') if price > 0%>
+
+		    
+
+		      <%=link_to("Close Table", table_finish_path(@table), class: "btn btn-warning  mt-2 mb-2 btn-lg btn-block") if price <= 0%>
+				
+
+
+				</div>
+
+
+
+			</div>

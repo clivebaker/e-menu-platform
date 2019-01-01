@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+
   resources :tables do
     post 'add_item/:menu_id' => 'tables#add_item', as: :add_item
     get 'pay'
@@ -14,10 +15,14 @@ Rails.application.routes.draw do
     get 'home/index'
     get 'home/dashboard'
     get 'home/menu'
+
     resources :cuisines
     resources :restaurants do
       resources :menus
       resources :restaurant_tables
+      resources :custom_lists do 
+        resources :custom_list_items
+      end
     end
     devise_for :restaurant_users, path: 'manager', controllers: {
       sessions: 'manager/restaurant_users/sessions',

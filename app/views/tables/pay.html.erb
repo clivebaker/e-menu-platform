@@ -8,21 +8,9 @@
 
     ITEMS = []
     PRICE = 0
-
-
-
-
-
 	
   var stripe = Stripe('pk_test_WK72bUcdjoVsncoNFQGrFkcv');
   var elements = stripe.elements();
-  
-
-
-
-
-
-
 
   // Custom styling can be passed to options when creating an Element.
   // (Note that this demo uses a wider set of styles than the guide below.)
@@ -262,7 +250,7 @@
 						<span>Current Bill </span><br>
 						<span class="current-bill">
 
-	<% price = @table.table_items.reject{|a| a.paid}.map{|e| e.price_a}.inject(:+) || 0 %>
+	<% price = @table.table_items.reject{|a| a.paid}.map{|e| e.total_price}.inject(:+) || 0 %>
 							<%=number_to_currency price, unit: "£"%>								
 
 							</span>
@@ -278,11 +266,27 @@
 							  <li class="list-group-item d-flex justify-content-between align-items-center rhc-item  <%=item.paid ? "item-paid" : "" %>">
 								  <div class="container-fluid">
 								  	<div class="row ">
-								  		<div class="col-sm-1 "><%= check_box_tag( :item, item.id, false, class: "item-check form-check-input", "data-price" => item.price_a*100) unless item.paid  %></div>
+								  		<div class="col-sm-1 "><%= check_box_tag( :item, item.id, false, class: "item-check form-check-input", "data-price" => item.total_price*100) unless item.paid  %></div>
 								  		<div class="col-sm-5"><%= item.name%></div>
 								  		<div class="col-sm-4 text-right"><%= item.for%></div>
-								  		<div class="col-sm-2 text-right"><%=number_to_currency item.price_a, unit: "£"%></div>
+								  		<div class="col-sm-2 text-right"><%=number_to_currency item.total_price, unit: "£"%></div>
 								  	</div>
+
+
+                    <% item.custom_lists.keys.each do |list_id| %>
+                      <% custom_list = CustomList.find(list_id) %>
+                        <% item.custom_lists[list_id].each do |list_item_id| %>
+                          <% list_item = CustomListItem.find(list_item_id) %>
+                          <div class="row">
+                            <div class="col-sm-1">&nbsp;</div>
+                            <div class="col-sm-9">- <%= "#{custom_list.name}: #{list_item.name}" %>&nbsp;&nbsp;<%= "(#{number_to_currency(list_item.price, unit: "£")})"  if list_item.price > 0 %></div>
+                            <div class="col-sm-2 text-right"></div>
+                          </div>
+                        <% end %>
+                    <% end %>
+
+
+                    
 								  </div>
 							  </li>
 						  <% end %>

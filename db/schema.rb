@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_29_004858) do
+ActiveRecord::Schema.define(version: 2019_01_01_172317) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -54,6 +54,25 @@ ActiveRecord::Schema.define(version: 2018_12_29_004858) do
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "custom_list_items", force: :cascade do |t|
+    t.string "name"
+    t.bigint "custom_list_id"
+    t.decimal "price"
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["custom_list_id"], name: "index_custom_list_items_on_custom_list_id"
+  end
+
+  create_table "custom_lists", force: :cascade do |t|
+    t.string "name"
+    t.bigint "restaurant_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "constraint"
+    t.index ["restaurant_id"], name: "index_custom_lists_on_restaurant_id"
   end
 
   create_table "languages", force: :cascade do |t|
@@ -103,6 +122,7 @@ ActiveRecord::Schema.define(version: 2018_12_29_004858) do
     t.decimal "price_b", precision: 6, scale: 2
     t.text "nutrition"
     t.text "provenance"
+    t.jsonb "custom_lists", default: {}
     t.index ["ancestry"], name: "index_menus_on_ancestry"
     t.index ["menu_item_categorisation_id"], name: "index_menus_on_menu_item_categorisation_id"
     t.index ["restaurant_id"], name: "index_menus_on_restaurant_id"
@@ -170,6 +190,7 @@ ActiveRecord::Schema.define(version: 2018_12_29_004858) do
     t.string "for"
     t.boolean "paid"
     t.string "token"
+    t.jsonb "custom_lists", default: {}
     t.index ["menu_id"], name: "index_table_items_on_menu_id"
     t.index ["table_id"], name: "index_table_items_on_table_id"
   end
@@ -183,6 +204,8 @@ ActiveRecord::Schema.define(version: 2018_12_29_004858) do
     t.index ["restaurant_table_id"], name: "index_tables_on_restaurant_table_id"
   end
 
+  add_foreign_key "custom_list_items", "custom_lists"
+  add_foreign_key "custom_lists", "restaurants"
   add_foreign_key "menus", "menu_item_categorisations"
   add_foreign_key "menus", "restaurants"
   add_foreign_key "menus", "spice_levels"

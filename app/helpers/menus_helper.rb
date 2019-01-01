@@ -11,4 +11,26 @@ module MenusHelper
   #   end
   #   return_string << '</ul>'
   # end
+
+  def checked?(menu_custom_lists, custom_list_id, item_id)
+    checked = ""
+    if menu_custom_lists[custom_list_id.to_s].present?
+      checked = menu_custom_lists[custom_list_id.to_s].include?(item_id.to_s) ? "CHECKED" : ""
+    end
+    checked
+  end
+
+  def custom_list_items(items)
+    #binding.pry
+    CustomListItem.where(id: items).map{|g| g.name}.join(", ")
+  end
+
+  def custom_list(key)
+    CustomList.find(key).name    
+  end
+  def custom_list_constraint(key)
+    constraint_to_human CustomList.find(key).constraint 
+  end
+
+
 end

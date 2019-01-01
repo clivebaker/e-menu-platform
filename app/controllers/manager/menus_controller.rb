@@ -57,6 +57,11 @@ module Manager
       respond_to do |format|
         if @menu.update(menu_params)
 
+          if params[:menu][:custom_lists].blank?
+            @menu.custom_lists = {}
+            @menu.save
+          end
+
           @menu.translate
           redirect_location = @menu.node_type == 'item' ? manager_restaurant_menu_path(@restaurant, @menu, updated_menu: @menu.id) : manager_restaurant_menus_path(@restaurant, updated_menu: @menu.id)
 
@@ -105,7 +110,7 @@ module Manager
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def menu_params
-      params.require(:menu).permit(:restaurant_id, :nutrition, :provenance, :name, :description, :image, :spice_level_id, :node_type, :prices, :available, :calories, :price_a, :price_b, menu_item_categorisation_ids: [],  cook_level_ids: [])
+      params.require(:menu).permit(:restaurant_id, :nutrition, :provenance, :name, :description, :image, :spice_level_id, :node_type, :prices, :available, :calories, :price_a, :price_b, menu_item_categorisation_ids: [], custom_lists: {} )
     end
   end
 end

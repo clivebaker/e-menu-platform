@@ -1,0 +1,51 @@
+
+
+<%= form_with(model: [:manager, @restaurant, @custom_list, custom_list_item], local: true) do |form| %>
+  <% if custom_list_item.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(custom_list_item.errors.count, "error") %> prohibited this custom_list_item from being saved:</h2>
+
+      <ul>
+      <% custom_list_item.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+
+  <div class="row">
+    <div class="col">
+      <div class="form-group ">
+        <%= form.label :name %>
+        <%= form.text_field :name, class: 'form-control  form-control-sm' %>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <div class="form-group ">
+        <%= form.label :price %>
+        <%= form.number_field :price, class: 'form-control  form-control-sm', step: :any  %>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <div class="form-group ">
+        <%= form.label :description %>
+        <%= form.text_area :description, class: 'form-control  form-control-sm' %>
+      </div>
+    </div>
+  </div>
+
+
+    <%= form.hidden_field :custom_list_id, value: @custom_list.id %>
+
+  <div class="actions">
+    <%= form.submit nil, class: "btn btn-warning mt-2" %>
+  </div>
+<% end %>

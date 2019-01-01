@@ -7,6 +7,7 @@ class Restaurant < ApplicationRecord
 
   has_many :menus
   has_many :restaurant_tables
+  has_many :custom_lists
   # has_many :tables, through: :restaurant_tables
 
   validates_presence_of :name, on: %i[create update], message: "can't be blank"
