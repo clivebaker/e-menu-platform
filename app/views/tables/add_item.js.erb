@@ -20,6 +20,12 @@
 	$("#current_bill").html("<%=escape_javascript(render partial: 'tables/current_bill')%>");
 	$("#customer_for_<%=@menu.id%>").val("");
 
+	$("#flash-message").html('"<%=@menu.name%>" was successfully added to your order.');
+	$("#flash-message").removeClass('invisible');
+	setTimeout(function(){
+		$("#flash-message").addClass('invisible');
+	}, 2500);
+
 <% end %>
 
 

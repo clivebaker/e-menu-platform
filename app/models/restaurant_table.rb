@@ -11,6 +11,7 @@ class RestaurantTable < ApplicationRecord
   validates_numericality_of :number, on: :create, message: 'is not a number'
 
   delegate :name, to: :restaurant, prefix: true
+  delegate :live, to: :tables, prefix: true
 
   aasm do
     state :new, initial: true

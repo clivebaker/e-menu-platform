@@ -4,7 +4,7 @@
 
 		<% if @restaurant %>
 
-	  <div class="col-sm-3">
+	  <div class="col-lg-3">
 	    <div class="card shadow p-3 mb-5 bg-white rounded">
 	      <div class="card-body text-center">
 	        <%= link_to manager_home_menu_path do %>
@@ -15,7 +15,7 @@
 	      </div>
 	    </div>
 	  </div>
-	  <div class="col-sm-3">
+	  <div class="col-lg-3">
 	    <div class="card shadow p-3 mb-5 bg-white rounded">
 	      <div class="card-body text-center">
 	        <%= link_to manager_restaurant_restaurant_tables_path(@restaurant) do %>
@@ -26,7 +26,7 @@
 	      </div>
 	    </div>
 	  </div>
-	  <div class="col-sm-3">
+	  <div class="col-lg-3">
 	    <div class="card shadow p-3 mb-5 bg-white rounded">
 	      <div class="card-body text-center">
 	        <%= link_to "#" do %>
@@ -39,7 +39,7 @@
 	  </div>
 	  <% else %>
 
-	  <div class="col-sm-3">
+	  <div class="col-lg-3">
 	    <div class="card shadow p-3 mb-5 bg-white rounded">
 	      <div class="card-body text-center">
 	        <%= link_to new_manager_restaurant_path do %>

@@ -1,3 +1,4 @@
+
 <% @table.restaurant.menus.roots.each do |category| %>
   <div><h3> <%= h(category.name) %></h3>
     <% if category.children.present? %>
@@ -9,3 +10,5 @@
     <% end %>
   </div>
 <% end %>
+
+

@@ -10,6 +10,9 @@ module Manager
     def index
       @restaurant_tables = RestaurantTable.where(restaurant_id: @restaurant.id).order(:number)
     end
+    def qr
+      @restaurant_tables = RestaurantTable.where(restaurant_id: @restaurant.id).order(:number)
+    end
 
     # GET /restaurant_tables/1
     # GET /restaurant_tables/1.json

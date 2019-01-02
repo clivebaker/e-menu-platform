@@ -8,6 +8,9 @@ class Table < ApplicationRecord
   delegate  :restaurant_id, :restaurant_name, to: :restaurant_table, prefix: false
   delegate  :code, :number, to: :restaurant_table, prefix: true
 
+  scope :live, -> { where(aasm_state: 'started') }
+
+
   has_many :table_items
 
   aasm do

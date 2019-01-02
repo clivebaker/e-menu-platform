@@ -19,7 +19,11 @@ Rails.application.routes.draw do
     resources :cuisines
     resources :restaurants do
       resources :menus
-      resources :restaurant_tables
+      resources :restaurant_tables do
+        collection do
+          get :qr
+        end
+      end
       resources :custom_lists do 
         resources :custom_list_items
       end

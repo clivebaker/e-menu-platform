@@ -45,7 +45,7 @@ gem 'faker'
 gem 'jquery_mobile_rails'
 
 gem 'aasm'
-
+gem 'rqrcode'
 gem 'stripe'
 
 gem 'globalize', git: 'https://github.com/globalize/globalize'
