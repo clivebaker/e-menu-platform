@@ -59,8 +59,8 @@ gem 'yandex-translator'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
-  gem 'capybara', '>= 2.15', '< 4.0'
-  gem 'factory_girl_rails', '~> 4.5.0'
+
+  # gem 'factory_girl_rails', '~> 4.5.0'
   gem 'rspec-rails'
 end
 
@@ -78,12 +78,13 @@ end
 group :test do
   # Adds support for Capybara system testing and selenium driver
 
-  gem 'selenium-webdriver'
+  gem 'capybara', '>= 2.15', '< 4.0'
+  # gem 'selenium-webdriver'
   # Easy installation and use of chromedriver to run system tests with Chrome
-  gem 'chromedriver-helper'
-  gem 'database_cleaner', '~> 1.5'
-  gem 'rails-controller-testing' # If you are using Rails 5.x
-  gem 'shoulda-matchers', '~> 3.0', require: false
+  # gem 'chromedriver-helper'
+  # gem 'database_cleaner', '~> 1.5'
+  # gem 'rails-controller-testing' # If you are using Rails 5.x
+  # gem 'shoulda-matchers', '~> 3.0', require: false
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
