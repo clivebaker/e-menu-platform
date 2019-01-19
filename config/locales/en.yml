@@ -3,7 +3,6 @@ en:
     table_created_successfully: Table was successfully started.
     table_incorrect_password: Cannot join table. Incorrect Password
     table_joined_successfully: Table was successfully re-joined.
-
   topnav:
     site: e-me.nu
     home: Home
@@ -26,12 +25,28 @@ en:
     error:
       message: Sorry, table code is not recognised.
       home_button: Back to Home page
+      expired: The table session has expired. Please re-join table.
     details:
       title: Table Details
       headers:
         name: Restaurant Name
         code: Table Code
         number: Table Number
+  table:
+    details: Table Details
+    restaurant: Restaurant
+    number: Table Number
+    code: Table Code
+    password: Table Password
+    close:
+      button: Close Table
+      success: Thank You
+      error: You cannot close the table if the bill is not settled
+  payment:
+    current_bill: Current Bill
+    pay_button: PAY BILL
+    error: There has been an error
+    success: Thank You, your payment was successful.
   footer:
     restaurant_button_login: Restaurant Login
     e_menu_copyright: © e-me.nu 2019-2020
@@ -42,7 +57,22 @@ en:
     details: Details
     image: Image
     options: Customer Options
+    description: Description and Options
     extras: Extras
     categories: Categories
     nutrition: Nutrition
     provenance: Provenance
+    who_for: Who is this for?
+    calories: Calories
+    choose_below: Please choose below
+    buttons:
+      add: Add
+      cancel: Cancel
+    options_to_human:
+      zero_more: Optional (Zero or more)
+      one: Require one only
+      two: Require two only
+      three: Require three only
+    error:
+      title: Please choose the Options
+

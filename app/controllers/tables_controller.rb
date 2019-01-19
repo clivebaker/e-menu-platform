@@ -14,7 +14,7 @@ class TablesController < ApplicationController
   # GET /tables/1.json
   def show
     table_id = cookies[:table_id]
-    redirect_to home_index_path, alert: 'The table session has expired. Please re-join table.' unless @table.id == table_id.to_i
+    redirect_to home_index_path, alert: t('register_table.error.expired') unless @table.id == table_id.to_i
   end
 
   # GET /tables/new
@@ -87,11 +87,11 @@ class TablesController < ApplicationController
 
     respond_to do |format|
       if error.present?
-        format.json { render json: { error: 'true', url: table_pay_path(@table), message: "There has been an error: #{e.message}" } }
-        format.html { redirect_to table_pay_path(@table), alert: "There has been an error: #{e.message}" }
+        format.json { render json: { error: 'true', url: table_pay_path(@table), message: "#{t('payment.error')}: #{e.message}" } }
+        format.html { redirect_to table_pay_path(@table), alert: "#{t('payment.error')}: #{e.message}" }
       else
-        format.json { render json: { error: 'false', url: table_pay_path(@table), message: 'Thank You, your payment was successful.' } }
-        format.html { redirect_to table_pay_path(@table), notice: 'Thank You, your payment was successful.' }
+        format.json { render json: { error: 'false', url: table_pay_path(@table), message: t('payment.success') } }
+        format.html { redirect_to table_pay_path(@table), notice: t('payment.success') }
       end
     end
   end
@@ -104,9 +104,9 @@ class TablesController < ApplicationController
       if price.zero?
         @table.finish
         @table.save
-        format.html { redirect_to root_path(@table), notice: 'Thank You' }
+        format.html { redirect_to root_path(@table), notice: t('table.close.success') }
       else
-        format.html { redirect_to table_pay_path(@table), notice: 'You cannot close the table if the bill is not settled' }
+        format.html { redirect_to table_pay_path(@table), notice: t('table.close.error') }
       end
     end
   end

@@ -3,13 +3,13 @@ module CustomListsHelper
 	def constraint_to_human(constraint)
 		case constraint
 			when '*'
-				"Optional (Zero or more)"
+				t('menu.options_to_human.zero_more')
 			when '1'
-				"Require one only"
+				t('menu.options_to_human.one')
 			when '2'
-				"Require two only"
+				t('menu.options_to_human.two')
 			when '3'
-				"Require three only"
+				t('menu.options_to_human.three')
 		end			
 	end
 

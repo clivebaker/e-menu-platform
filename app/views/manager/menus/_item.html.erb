@@ -1,8 +1,17 @@
 <ul class="management-menu">
   <% category.children.each do |sub| %>
-    <li class='border p-1 m-1 <%= sub.node_type != 'item' ? "bg-secondary text-light pl-2" : "bg-light text-dark" %>'>
 
-    
+    <%
+
+    available_css = ""
+    if sub.node_type == 'item' && !sub.available
+      available_css = "alert alert-danger"
+    end 
+
+    %>
+
+    <li class='<%= available_css %> border p-1 m-1 <%= sub.node_type != 'item' ? "bg-secondary text-light pl-2" : "bg-light text-dark" %>'>
+  
       <div class="row ">
         <% if sub.node_type != 'item' %>
         <div class="col-lg-2">

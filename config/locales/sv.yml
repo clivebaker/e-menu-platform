@@ -26,12 +26,28 @@ sv:
     error:
       message: Ledsen, tabell-kod är inte erkända.
       home_button: Tillbaka till startsidan
+      expired: Tabellen session har gått ut. Vänligen re-gå bordet.
     details:
       title: Tabell Detaljer
       headers:
         name: Restaurang Namn
         code: Tabell Kod
         number: Bord Nummer
+  table:
+    details: Tabell Detaljer
+    restaurant: Restaurang
+    number: Bord Nummer
+    code: Tabell Kod
+    password: Tabell Lösenord
+    close:
+      button: Nära Tabell
+      success: Tack
+      error: Du kan inte stänga bordet om bill är inte avgjord
+  payment:
+    current_bill: Nuvarande Bill
+    pay_button: BETALA RÄKNING
+    error: Det har skett ett fel
+    success: Tack, din betalning har lyckats.
   footer:
     restaurant_button_login: Restaurang Logga In
     e_menu_copyright: "© e-me.nu 2019-2020"
@@ -42,3 +58,25 @@ sv:
       Google.Översätt"
   language:
     title: Språk
+  menu:
+    details: Detaljer
+    image: Bild
+    options: Kunden Alternativ
+    description: Beskrivning och Val
+    extras: Extramaterial
+    categories: Kategorier
+    nutrition: Näring
+    provenance: Härkomst
+    who_for: Vem är det för?
+    calories: Kalorier
+    choose_below: Välj nedan
+    buttons:
+      add: Lägg till
+      cancel: Avbryt
+    options_to_human:
+      zero_more: Tillval (Noll eller fler)
+      one: Behöver man bara
+      two: Kräver bara två
+      three: Kräver bara tre
+    error:
+      title: Välj Alternativ

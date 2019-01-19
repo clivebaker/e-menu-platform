@@ -26,12 +26,28 @@ pt:
     error:
       message: Desculpe, código da tabela não é reconhecido.
       home_button: Volta para página Inicial
+      expired: A tabela de sessão expirou. Por favor, re-entrar na mesa.
     details:
       title: Tabela Detalhes
       headers:
         name: Nome Do Restaurante
         code: Código Da Tabela
         number: Tabela De Número
+  table:
+    details: Tabela Detalhes
+    restaurant: Restaurante
+    number: Tabela De Número
+    code: Código Da Tabela
+    password: Tabela Senha
+    close:
+      button: Feche A Tabela
+      success: Obrigado
+      error: Você não pode fechar a tabela, se a lei não for resolvida
+  payment:
+    current_bill: Conta Corrente
+    pay_button: O PAGAMENTO POR CONTA
+    error: Ocorreu um erro
+    success: Obrigado, seu pagamento foi bem sucedido.
   footer:
     restaurant_button_login: Restaurante Login
     e_menu_copyright: "© e-me.nu 2019-2020"
@@ -42,3 +58,25 @@ pt:
       pelo Google.Traduzir"
   language:
     title: Idioma
+  menu:
+    details: Detalhes
+    image: Imagem
+    options: Cliente Opções
+    description: Descrição e Opções
+    extras: Extras
+    categories: Categorias
+    nutrition: Nutrição
+    provenance: Proveniência
+    who_for: Que é isso?
+    calories: Calorias
+    choose_below: Por favor, escolha abaixo
+    buttons:
+      add: Adicionar
+      cancel: Cancelar
+    options_to_human:
+      zero_more: Opcional (Zero ou mais)
+      one: Exigem um só
+      two: Exigem apenas dois
+      three: Exigem apenas três
+    error:
+      title: Por favor, escolha Opções

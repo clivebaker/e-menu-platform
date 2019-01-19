@@ -20,7 +20,12 @@
        <%= sub.prices_joined.map{|a| number_to_currency(a, unit: "£")}.join(" / ") if sub.prices_joined%>
     </div>
     <div class="col-2 col-md-2 text-right">
-      <%= button_tag  class: "btn btn-outline-primary btn-sm add-menu-item",  "data-toggle" => "modal", "data-target" => "#item-#{sub.id}" do %><i class="fa fa-plus"></i><% end %>
+      <% if sub.available %>
+      <%= button_tag class: "btn btn-outline-primary btn-sm add-menu-item",  "data-toggle" => "modal", "data-target" => "#item-#{sub.id}" do %><i class="fa fa-plus"></i><% end %>
+      <% else %>
+
+        <div class="btn btn-danger unavailable">UNAVAILABLE</div>
+      <% end %>
     </div>
   </div>
 </div>

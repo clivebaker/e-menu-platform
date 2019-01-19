@@ -26,12 +26,28 @@ ru:
     error:
       message: К сожалению, таблица кодов не признается.
       home_button: Вернуться на главную страницу
+      expired: Таблица сеанса истек. Пожалуйста, присоединяйтесь к таблице.
     details:
       title: 'Детали Стола '
       headers:
         name: 'Название Ресторана '
         code: Таблица Кодов
         number: 'Номер Таблицы '
+  table:
+    details: 'Детали Стола '
+    restaurant: Ресторан
+    number: 'Номер Таблицы '
+    code: Таблица Кодов
+    password: Таблица Пароль
+    close:
+      button: Закрыть Стол
+      success: Спасибо
+      error: Нельзя закрыть стол, если закон не урегулирован
+  payment:
+    current_bill: Текущий Счет
+    pay_button: ОПЛАТИТЬ СЧЕТ
+    error: Там была ошибка
+    success: Спасибо, ваш платеж прошел успешно.
   footer:
     restaurant_button_login: Ресторан Логин
     e_menu_copyright: "© е-мое.ну 2019-2020"
@@ -42,3 +58,25 @@ ru:
       на Яндекс.Перевести
   language:
     title: Язык
+  menu:
+    details: Детали
+    image: Изображения
+    options: 'Варианты Клиента '
+    description: Описание и параметры
+    extras: Дополнительно
+    categories: Категории
+    nutrition: Питание
+    provenance: Происхождение
+    who_for: Кто это?
+    calories: Калорий
+    choose_below: Пожалуйста, выберите ниже
+    buttons:
+      add: Добавить
+      cancel: Отменить
+    options_to_human:
+      zero_more: Необязательно (ноль или более)
+      one: Требуется один только
+      two: Требуется два только
+      three: Требуется три только
+    error:
+      title: Пожалуйста, выберите варианты

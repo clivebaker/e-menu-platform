@@ -26,12 +26,28 @@
     error:
       message: Beklager, tabell koden er ikke balanseført.
       home_button: Tilbake til startsiden
+      expired: Tabellen økten er utløpt. Vær så snill å bli med i tabellen.
     details:
       title: Tabell Detaljer
       headers:
         name: Restaurant Navn
         code: Tabell Koden
         number: Tabell Nummer
+  table:
+    details: Tabell Detaljer
+    restaurant: Restaurant
+    number: Tabell Nummer
+    code: Tabell Koden
+    password: Tabell Passord
+    close:
+      button: Lukk Bordet
+      success: Takk
+      error: Du kan ikke lukke bordet hvis regningen ikke avgjort
+  payment:
+    current_bill: Nåværende Regningen
+    pay_button: BETALE REGNINGEN
+    error: Det har oppstått en feil
+    success: Takk, din betalingen var vellykket.
   footer:
     restaurant_button_login: Restaurant Logg Inn
     e_menu_copyright: "© e-meg.nu 2019-2020"
@@ -42,3 +58,25 @@
       Yandex.Oversette"
   language:
     title: Språk
+  menu:
+    details: Detaljer
+    image: Bilde
+    options: Kunden Valg
+    description: Beskrivelse og Valg
+    extras: Tilbehør
+    categories: Kategorier
+    nutrition: Ernæring
+    provenance: Opprinnelse
+    who_for: Hvem er dette for?
+    calories: Kalorier
+    choose_below: Vennligst velg nedenfor
+    buttons:
+      add: Legg til
+      cancel: Avbryt
+    options_to_human:
+      zero_more: Valgfritt (Null eller mer)
+      one: Krever bare en
+      two: Bare krever to
+      three: Krever bare tre
+    error:
+      title: Vennligst velg Valg

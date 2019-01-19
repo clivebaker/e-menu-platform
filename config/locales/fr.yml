@@ -26,12 +26,28 @@ fr:
     error:
       message: Désolé, le code de la table n'est pas reconnu.
       home_button: Retour à la page d'Accueil
+      expired: La table session a expiré. S'il vous plaît re-table de jointure.
     details:
       title: Table De Détails
       headers:
         name: Nom Du Restaurant
         code: Code De La Table
         number: Numéro De Table
+  table:
+    details: Table De Détails
+    restaurant: Restaurant
+    number: Numéro De Table
+    code: Code De La Table
+    password: Table Mot De Passe
+    close:
+      button: Près De La Table
+      success: Je Vous Remercie
+      error: Vous ne pouvez pas fermer la table, si le projet de loi n'est pas réglé
+  payment:
+    current_bill: Projet De Loi Actuel
+    pay_button: PAYER DES FACTURES
+    error: Il y a eu une erreur
+    success: Je Vous remercie, votre paiement a été couronnée de succès.
   footer:
     restaurant_button_login: Restaurant De Connexion
     e_menu_copyright: "© e-me.nu 2019-2020"
@@ -41,3 +57,25 @@ fr:
       Commons BY 3.0' target='_blank'>CC 3.0</a></div></small><small>Traduit par Yandex.Traduire"
   language:
     title: Langue
+  menu:
+    details: Détails
+    image: Image
+    options: Client Options
+    description: Description et Options
+    extras: Extras
+    categories: Catégories
+    nutrition: La Nutrition
+    provenance: Provenance
+    who_for: Qui est-ce?
+    calories: Calories
+    choose_below: Veuillez choisir ci-dessous
+    buttons:
+      add: Ajouter
+      cancel: Annuler
+    options_to_human:
+      zero_more: En option (Zéro ou plus)
+      one: Exiger un seul
+      two: Besoin de deux seulement
+      three: Besoin de trois seulement
+    error:
+      title: Veuillez choisir les Options

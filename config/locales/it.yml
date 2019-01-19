@@ -26,12 +26,28 @@ it:
     error:
       message: Scusate, il codice non viene riconosciuto.
       home_button: Torna alla Home page
+      expired: La sessione è scaduta. Si prega di ri-tabella di join.
     details:
       title: Tabella Dettagli
       headers:
         name: Nome Del Ristorante
         code: Codice Tabella
         number: Numero Di Tavola
+  table:
+    details: Tabella Dettagli
+    restaurant: Ristorante
+    number: Numero Di Tavola
+    code: Codice Tabella
+    password: Tabella Password
+    close:
+      button: Chiudere La Tabella
+      success: Grazie
+      error: Non è possibile chiudere la tabella se la fattura non viene risolta
+  payment:
+    current_bill: Bolletta Della Corrente
+    pay_button: PAGAMENTO FATTURE
+    error: C'è stato un errore
+    success: Grazie, il tuo pagamento è stato di successo.
   footer:
     restaurant_button_login: Ristorante Il Login
     e_menu_copyright: "© e-me.nu 2019-2020"
@@ -42,3 +58,25 @@ it:
       da Yandex.Tradurre"
   language:
     title: Lingua
+  menu:
+    details: Dettagli
+    image: Immagine
+    options: Opzioni Del Cliente
+    description: Descrizione e Opzioni
+    extras: Extra
+    categories: Categorie
+    nutrition: Nutrizione
+    provenance: Provenienza
+    who_for: Chi è questo?
+    calories: Calorie
+    choose_below: Si prega di scegliere qui sotto
+    buttons:
+      add: Aggiungere
+      cancel: Annulla
+    options_to_human:
+      zero_more: Opzionale (Zero o più)
+      one: Richiedono uno solo
+      two: Richiedono solo due
+      three: Richiedono solo tre
+    error:
+      title: Si prega di scegliere le Opzioni

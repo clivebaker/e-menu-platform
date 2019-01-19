@@ -26,12 +26,29 @@ de:
     error:
       message: Sorry, Tabelle code wird nicht anerkannt.
       home_button: Zurück zur Startseite
+      expired: Die Tabelle session ist abgelaufen. Bitte re-join-Tabelle.
     details:
       title: Tisch Details
       headers:
         name: Restaurant Name
         code: Tabelle Code
         number: Tabelle Anzahl
+  table:
+    details: Tisch Details
+    restaurant: Restaurant
+    number: Tabelle Anzahl
+    code: Tabelle Code
+    password: Tabelle Passwort
+    close:
+      button: Schließen Sie Die Tabelle
+      success: Danke
+      error: Sie können nicht schließen Sie die Tabelle, wenn die Rechnung nicht beglichen
+        wird
+  payment:
+    current_bill: Laufende Rechnung
+    pay_button: RECHNUNG BEZAHLEN
+    error: Es wurde ein Fehler
+    success: Vielen Dank, Ihre Zahlung war erfolgreich.
   footer:
     restaurant_button_login: Restaurant Login
     e_menu_copyright: "© e-me.nu 2019-2020"
@@ -42,3 +59,25 @@ de:
       Yandex.Übersetzen
   language:
     title: Sprache
+  menu:
+    details: Details
+    image: Bild
+    options: Kunden Optionen
+    description: Beschreibung und Optionen
+    extras: Extras
+    categories: Kategorien
+    nutrition: Ernährung
+    provenance: Herkunft
+    who_for: Wer ist das?
+    calories: Kalorien
+    choose_below: Bitte wählen Sie weiter unten
+    buttons:
+      add: Hinzufügen
+      cancel: Abbrechen
+    options_to_human:
+      zero_more: Optional (Null oder mehr)
+      one: Braucht man sich nur
+      two: Benötigen nur zwei
+      three: Drei brauchen nur
+    error:
+      title: Bitte wählen Sie die gewünschten Optionen

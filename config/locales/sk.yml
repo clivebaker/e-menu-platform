@@ -26,12 +26,28 @@ sk:
     error:
       message: Ľutujeme, stolný kód nie je uznaný.
       home_button: Späť na úvodnú stránku
+      expired: Tabuľka relácia skončila platnosť. Prosím, znovu pripojiť do tabuľky.
     details:
       title: Tabuľka Podrobnosti
       headers:
         name: Reštaurácia Meno
         code: Tabuľka Kód
         number: Tabuľka Číslo
+  table:
+    details: Tabuľka Podrobnosti
+    restaurant: Reštaurácia
+    number: Tabuľka Číslo
+    code: Tabuľka Kód
+    password: Tabuľka Heslo
+    close:
+      button: V Blízkosti Tabuľka
+      success: Ďakujeme
+      error: Nemožno zatvoriť tabuľky, ak účet nie je vyrovnané
+  payment:
+    current_bill: Aktuálne Bill
+    pay_button: ZAPLATIŤ ÚČET
+    error: Tam bola chyba
+    success: Ďakujem Vám, vaša platba bola úspešná.
   footer:
     restaurant_button_login: Reštaurácia Prihlásiť Sa
     e_menu_copyright: "© e-mi.nu 2019-2020"
@@ -41,3 +57,25 @@ sk:
       Commons TÝM, 3.0" target='_blank'>CC 3.0</a></div></small><small>Preložil Yandex.Preklad
   language:
     title: Jazyk
+  menu:
+    details: Podrobnosti
+    image: Obrázok
+    options: Zákazník Možnosti
+    description: Popis a Možnosti
+    extras: Extra
+    categories: Kategórie
+    nutrition: Výživa
+    provenance: Proveniencie
+    who_for: Kto je to?
+    calories: Kalórie
+    choose_below: Vyberte si prosím nižšie
+    buttons:
+      add: Pridať
+      cancel: Zrušiť
+    options_to_human:
+      zero_more: Voliteľné (Nula alebo viac)
+      one: Vyžadujú iba jeden
+      two: Vyžadujú dva len
+      three: Vyžadujú iba tri
+    error:
+      title: Prosím, vyberte Voĺby

@@ -26,12 +26,29 @@ es:
     error:
       message: Lo siento, tabla de código no es reconocido.
       home_button: Volver a la página principal
+      expired: La tabla de la sesión ha caducado. Por favor, vuelva a unirse a la
+        mesa.
     details:
       title: Tabla Detalles
       headers:
         name: Nombre Del Restaurante
         code: Código De Tabla
         number: Número De La Tabla De
+  table:
+    details: Tabla Detalles
+    restaurant: Restaurante
+    number: Número De La Tabla De
+    code: Código De Tabla
+    password: Tabla Contraseña
+    close:
+      button: Cierre De La Tabla
+      success: Gracias
+      error: No se puede cerrar la tabla, si la factura no está resuelto
+  payment:
+    current_bill: Actual Proyecto De Ley
+    pay_button: PAGAR LA FACTURA
+    error: Ha habido un error
+    success: Gracias, su pago fue exitoso.
   footer:
     restaurant_button_login: Restaurante De Inicio De Sesión
     e_menu_copyright: "© e-mí.nu 2019-2020"
@@ -42,3 +59,25 @@ es:
       Yandex.Traducir"
   language:
     title: Idioma
+  menu:
+    details: Detalles
+    image: Imagen
+    options: Opciones Del Cliente
+    description: Descripción y Opciones
+    extras: Extras
+    categories: Categorías
+    nutrition: Nutrición
+    provenance: Procedencia
+    who_for: Para quién es esto?
+    calories: Calorías
+    choose_below: Por favor seleccione a continuación
+    buttons:
+      add: Agregar
+      cancel: Cancelar
+    options_to_human:
+      zero_more: Opcionales (Cero o más)
+      one: Requieren de uno solo
+      two: Se requieren dos sólo
+      three: Requieren sólo tres
+    error:
+      title: Por favor, seleccione las Opciones

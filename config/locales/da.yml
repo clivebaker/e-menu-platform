@@ -26,12 +26,28 @@ da:
     error:
       message: Undskyld, tabel kode er ikke indregnet.
       home_button: Tilbage til startsiden
+      expired: Tabellen session er udløbet. Please re-deltag i bordet.
     details:
       title: Tabel Detaljer
       headers:
         name: Restaurant Navn
         code: Tabel Kode
         number: Tabel Antal
+  table:
+    details: Tabel Detaljer
+    restaurant: Restaurant
+    number: Tabel Antal
+    code: Tabel Kode
+    password: Tabel Adgangskode
+    close:
+      button: Tæt Bordet
+      success: Tak
+      error: Du kan ikke lukke bordet, hvis regningen ikke betales
+  payment:
+    current_bill: Aktuelle Lovforslag
+    pay_button: BETALER REGNINGEN
+    error: Der er sket en fejl
+    success: Tak fordi Du, at din betaling blev en succes.
   footer:
     restaurant_button_login: Restaurant Login
     e_menu_copyright: "© e-mig.nu 2019-2020"
@@ -41,3 +57,25 @@ da:
       Commons 3.0' target='_blank'>CC 3.0</a></div></small><small>Oversat af Google.Oversæt"
   language:
     title: Sprog
+  menu:
+    details: Detaljer
+    image: Billede
+    options: Kundernes Valg
+    description: Beskrivelse og Muligheder
+    extras: Tilbehør
+    categories: Kategorier
+    nutrition: Ernæring
+    provenance: Oprindelse
+    who_for: Hvem er det til?
+    calories: Kalorier
+    choose_below: Vælg venligst nedenfor
+    buttons:
+      add: Tilføj
+      cancel: Annuller
+    options_to_human:
+      zero_more: Valgfri (Nul eller mere)
+      one: Kræver kun én
+      two: Kræver kun to
+      three: Kræver kun tre
+    error:
+      title: Vælg Indstillinger

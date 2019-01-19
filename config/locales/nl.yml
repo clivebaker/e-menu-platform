@@ -26,12 +26,28 @@ nl:
     error:
       message: Sorry, tabel-code wordt niet erkend.
       home_button: Terug naar Home pagina
+      expired: De tafel sessie is verlopen. Probeer het opnieuw deelnemen aan tafel.
     details:
       title: Tabel
       headers:
         name: Restaurant Naam
         code: Tabel-Code
         number: Tabel Aantal
+  table:
+    details: Tabel
+    restaurant: Restaurant
+    number: Tabel Aantal
+    code: Tabel-Code
+    password: Tabel Wachtwoord
+    close:
+      button: Sluit Tafel
+      success: Dank U
+      error: U kunt de tabel als de factuur nog niet voldaan is
+  payment:
+    current_bill: Huidige Wetsvoorstel
+    pay_button: BETALEN OP REKENING
+    error: Er is een fout opgetreden
+    success: Dank U, uw betaling succesvol is afgerond.
   footer:
     restaurant_button_login: Restaurant Aanmelden
     e_menu_copyright: "© e-mij.nu 2019-2020"
@@ -42,3 +58,25 @@ nl:
       door Yandex.Vertalen"
   language:
     title: Taal
+  menu:
+    details: Details
+    image: Afbeelding
+    options: De Klant
+    description: Beschrijving en Opties
+    extras: Extra ' s
+    categories: Categorieën
+    nutrition: Voeding
+    provenance: Herkomst
+    who_for: Wie is dit?
+    calories: Calorieën
+    choose_below: Kies hieronder
+    buttons:
+      add: Toevoegen
+      cancel: Annuleren
+    options_to_human:
+      zero_more: Optioneel (Nul of meer)
+      one: Nodig alleen
+      two: Nodig twee alleen
+      three: Nodig drie alleen
+    error:
+      title: Kies het Opties

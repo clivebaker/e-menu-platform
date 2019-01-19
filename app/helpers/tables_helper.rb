@@ -16,7 +16,7 @@ module TablesHelper
 
   def custom_list_options(custom_lists)
 
-    ret_string = "<strong>Please choose below</strong><br>"
+    ret_string = "<strong>#{t('menu.choose_below')}</strong><br>"
     custom_lists.keys.each do |custom_list_key| 
       custom_list =  CustomList.find(custom_list_key)
       checkbox_list = ""

@@ -26,12 +26,28 @@ lv:
     error:
       message: Atvainojiet, galda kods nav atzītas.
       home_button: Atpakaļ uz Sākuma lapu
+      expired: Galda sesija ir beidzies. Lūdzu, atkārtoti pievienoties galdam.
     details:
       title: Tabula Informācija
       headers:
         name: Restorāna Nosaukums
         code: Tabula Kods
         number: Tabulas Numurs
+  table:
+    details: Tabula Informācija
+    restaurant: Restorāns
+    number: Tabulas Numurs
+    code: Tabula Kods
+    password: Galda Paroli
+    close:
+      button: Aizvērt Tabulu
+      success: Paldies
+      error: Jūs nevar aizvērt tabulu, ja rēķins netiek samaksāts
+  payment:
+    current_bill: Tekošā Rēķina
+    pay_button: SAMAKSĀT RĒĶINU
+    error: Ir kļūda
+    success: Paldies, jūsu maksājums ir bijusi veiksmīga.
   footer:
     restaurant_button_login: Restorāns Pieteikšanās
     e_menu_copyright: "© e-me.nu 2019-2020"
@@ -42,3 +58,25 @@ lv:
       Yandex.Tulkot
   language:
     title: Valodas
+  menu:
+    details: Detaļas
+    image: Attēls
+    options: Klientu Iespējas
+    description: Apraksts un Iespējas
+    extras: Ekstras
+    categories: Kategorijas
+    nutrition: Uzturs
+    provenance: Izcelsmes vieta
+    who_for: Kas tas ir par?
+    calories: Kalorijas
+    choose_below: Lūdzu, izvēlies, zem
+    buttons:
+      add: Pievienot
+      cancel: Atcelt
+    options_to_human:
+      zero_more: Izvēles (Nulle vai vairāk)
+      one: Nepieciešams tikai viens
+      two: Nepieciešamas divas tikai
+      three: Nepieciešams tikai trīs
+    error:
+      title: Lūdzu, izvēlieties Iespējas
