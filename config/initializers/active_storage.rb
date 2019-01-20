@@ -1,0 +1,1 @@
+#ActiveStorage.logger = Logger.new("#{Rails.root}/log/active_storage.log")
