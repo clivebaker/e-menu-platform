@@ -14,6 +14,7 @@ class TablesController < ApplicationController
   # GET /tables/1.json
   def show
     table_id = cookies[:table_id]
+    @price = @table.table_items.reject{|a| a.paid}.map{|e| e.total_price}.inject(:+) || 0
     redirect_to home_index_path, alert: t('register_table.error.expired') unless @table.id == table_id.to_i
   end
 
@@ -44,11 +45,12 @@ class TablesController < ApplicationController
       custom_lists: custom_lists
     )
 
-
+   
   # binding.pry
 
     respond_to do |format|
       if @table_item.save
+        
         # format.html { redirect_to table_path(@table), notice: "#{@menu.name} was added to your order successfully." }
         format.js
       else

@@ -1,9 +1,9 @@
 			<div class="row text-white pt-3 pb-3">
 				<div class="col text-center">
 					<h3><%= t('payment.current_bill') %></h3>
-					<span class="current-bill">
-						<% price = @table.table_items.reject{|a| a.paid}.map{|e| e.total_price}.inject(:+) || 0 %>
-						<%=number_to_currency price, unit: "£"%>
+					<span class="current-bill  current-bill-lg">
+						
+						<%=number_to_currency @price, unit: "£"%>
 					</span>
 				</div>
 			</div>
@@ -40,9 +40,9 @@
 			</div>
    	  <div class="row  pt-1 pb-3 ">
 				<div class="col text-center">
-		      <%= link_to(t('payment.pay_button'), table_pay_path(@table), disabled: :disabled, method: :get, class: 'btn btn-warning btn-lg btn-block') if price > 0%>
+		      <%= link_to(t('payment.pay_button'), table_pay_path(@table), disabled: :disabled, method: :get, class: 'btn btn-warning btn-lg btn-block') if @price > 0%>
 
-		      <%=link_to(t('table.close.button'), table_finish_path(@table), class: "btn btn-warning  mt-2 mb-2 btn-lg btn-block") if price <= 0%>
+		      <%=link_to(t('table.close.button'), table_finish_path(@table), class: "btn btn-warning  mt-2 mb-2 btn-lg btn-block") if @price <= 0%>
 				</div>
 			</div>
 
