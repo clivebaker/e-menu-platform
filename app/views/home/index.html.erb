@@ -11,8 +11,8 @@
       <div class="col-lg-6 bg-dark text-light text-center pt-3 pb-3">
         <h2><%= t('furniture.enter_table_code')%></h2>
         <%= form_tag home_register_table_path do %>
-          <%= text_field_tag :code %>
-          <%= submit_tag t('furniture.enter_table_code_submit'), class: 'btn btn-warning btn-sm mb-1'%>
+          <%= text_field_tag :code %><%t('furniture.enter_table_code_submit')%>
+          <%= submit_tag "CliveSubmit", class: 'btn btn-warning btn-sm mb-1'%>
         <% end %>
       </div>
       <div class="col-lg-6 bg-info text-light mt-0 mb-0 pt-3 pb-3">
