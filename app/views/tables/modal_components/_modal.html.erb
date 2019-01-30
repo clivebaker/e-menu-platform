@@ -48,7 +48,14 @@
                       <div class="card-body">
                         <div class="container">
                           <div class="row">
-                            <div class="col-lg-3"><%= image_tag sub.image.variant(resize: "200x200"), class: "img-fluid" if sub.image.attached? %></div>
+                            <div class="col-lg-3">
+                            <% if feature_match(:images, sub.restaurant_features) %>
+                        
+                              <%= image_tag sub.image.variant(resize: "200x200"), class: "img-fluid" if sub.image.attached? %>
+                            <% end %>    
+
+                              </div>
+                            
                             <div class="col">
                               <div class="menu-description ml-3"><%=sub.description%></div>
                               <div class="menu-description ml-3">
@@ -61,43 +68,12 @@
                     </div>
                   </div>
 
-                  <% if sub.nutrition.present? %>
+                  <%#= sub.inspect%>
 
-                  <div class="card">
-                    <div class="card-header" id="headingTwo-<%=sub.id%>">
-                      <h5 class="mb-0">
-                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo-<%=sub.id%>" aria-expanded="false" aria-controls="collapseTwo-<%=sub.id%>">
-                          <%= t('menu.nutrition')%>
-                        </button>
-                      </h5>
-                    </div>
-                    <div id="collapseTwo-<%=sub.id%>" class="collapse" aria-labelledby="headingTwo-<%=sub.id%>" data-parent="#accordionExample-<%=sub.id%>">
-                      <div class="card-body menu-description ml-3">
-                        <%= t('menu.calories')%><br>
-                        <%= sub.calories%><br><br>
-                         <%= sub.nutrition.html_safe if sub.nutrition %>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <% end %>
-                   <% if sub.provenance.present? %>
+<%= render('tables/modal_components/nutrition', sub: sub) if feature_match(:nutrition, sub.restaurant_features)%>
+<%= render('tables/modal_components/provenance', sub: sub) if feature_match(:provenance, sub.restaurant_features)%>
 
-                  <div class="card">
-                    <div class="card-header" id="headingThree-<%=sub.id%>">
-                      <h5 class="mb-0">
-                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree-<%=sub.id%>" aria-expanded="false" aria-controls="collapseThree-<%=sub.id%>">
-                          <%= t('menu.provenance')%>
-                        </button>
-                      </h5>
-                    </div>
-                    <div id="collapseThree-<%=sub.id%>" class="collapse" aria-labelledby="headingThree-<%=sub.id%>" data-parent="#accordionExample-<%=sub.id%>">
-                      <div class="card-body menu-description ml-3">
-                         <%= sub.provenance.html_safe if sub.provenance %>
-                      </div>
-                    </div>
-                  </div>
-                  <% end %>
+              
 
                 </div>               
                 <!-- /Content Body  -->
@@ -106,14 +82,22 @@
                   <div class="container">
                   <div class="row">
                     <div class="col-lg-9">
+                      <% if feature_match(:ordering, sub.restaurant_features) %>
+                      <% if feature_match(:order_customer_name, sub.restaurant_features) %>
                       <div class="form-group">
                         <%= label_tag t('menu.who_for'), nil, class: "menu-label-who" %>
                         <%= text_field_tag :for, nil, id: "customer_for_#{sub.id}" %>
                       </div>
+                      <% end %>
+  <% end %>
+
+
                     </div>
                     <div class="col-lg-3">
+                          <% if feature_match(:ordering, sub.restaurant_features) %>
                        <button type="submit" class="btn btn-primary"><%= t('menu.buttons.add')%></button>
                        <button type="button" class="btn btn-secondary" data-dismiss="modal"><%= t('menu.buttons.cancel')%></button>
+                       <% end %>
                     </div>
                   </div>
                 </div>

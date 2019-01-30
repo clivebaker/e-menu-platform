@@ -22,7 +22,9 @@ class Menu < ApplicationRecord
 
   delegate :name, to: :spice_level, prefix: true, allow_nil: true
   delegate :name, to: :cook_level, prefix: true, allow_nil: true
-
+  delegate :features, to: :restaurant, prefix: true, allow_nil: true
+  delegate :feature_ids, to: :restaurant, prefix: true, allow_nil: true
+ 
   delegate :id, to: :restaurant, prefix: true, allow_nil: false
 
   def node?

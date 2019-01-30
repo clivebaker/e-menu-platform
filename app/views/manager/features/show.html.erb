@@ -1,0 +1,15 @@
+<div class="container">
+
+<p>
+  <strong>Name:</strong>
+  <%= @feature.name %>
+</p>
+
+<p>
+  <strong>Key:</strong>
+  <%= @feature.key %>
+</p>
+
+<%= link_to 'Edit', edit_manager_feature_path(@feature) %> |
+<%= link_to 'Back', manager_features_path %>
+</div>

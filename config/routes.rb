@@ -24,8 +24,17 @@ Rails.application.routes.draw do
     get 'home/dashboard'
     get 'home/menu'
 
+    resources :features
+    resources :packages do
+      post 'add_feature/:feature_id', action: :add_feature, as: :add_feature
+      post 'remove_feature/:feature_id', action: :remove_feature, as: :remove_feature
+    end
+
     resources :cuisines
     resources :restaurants do
+      post 'add_feature/:feature_id', action: :add_feature, as: :add_feature
+      post 'remove_feature/:feature_id', action: :remove_feature, as: :remove_feature
+
       resources :menus
       resources :restaurant_tables do
         collection do

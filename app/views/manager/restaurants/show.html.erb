@@ -3,55 +3,76 @@
 
 
     
-      <div class="my-3 p-3 bg-white rounded shadow-sm">
-        <h1>Restaurant Details</h1>
+      <div class="row my-3 p-3 bg-white rounded shadow-sm">
+
       
-    <% if @restaurant %>
-        <div class="media text-muted pt-3">
-          <p class="media-body pb-3 mb-0  lh-125 border-bottom border-gray">
-            <strong class="d-block text-gray-dark">Name</strong>
-            <%= @restaurant.name %>
-          </p>
-        </div>
-        <div class="media text-muted pt-3">
-          <p class="media-body pb-3 mb-0 lh-125 border-bottom border-gray">
-            <strong class="d-block text-gray-dark">Cuisine</strong>
-            <%= @restaurant.cuisine_name %>
-          </p>
+          <div class="col-6">
+                    <h1>Restaurant Details</h1>
+          <% if @restaurant %>
+              <div class="media text-muted pt-3">
+                <p class="media-body pb-3 mb-0  lh-125 border-bottom border-gray">
+                  <strong class="d-block text-gray-dark">Name</strong>
+                  <%= @restaurant.name %>
+                </p>
+              </div>
+              <div class="media text-muted pt-3">
+                <p class="media-body pb-3 mb-0 lh-125 border-bottom border-gray">
+                  <strong class="d-block text-gray-dark">Cuisine</strong>
+                  <%= @restaurant.cuisine_name %>
+                </p>
+              </div>
+
+              <div class="media text-muted pt-3">
+                <p class="media-body pb-3 mb-0 lh-125 border-bottom border-gray">
+                  <strong class="d-block text-gray-dark">Address</strong>
+                  <%= @restaurant.address %>, <%= @restaurant.postcode %>
+                </p>
+              </div>
+              <div class="media text-muted pt-3">
+                <p class="media-body pb-3 mb-0 lh-125 border-bottom border-gray">
+                  <strong class="d-block text-gray-dark">Telephone</strong>
+                  <%= @restaurant.telephone %>
+                </p>
+              </div>
+              <div class="media text-muted pt-3">
+                <p class="media-body pb-3 mb-0 lh-125 border-bottom border-gray">
+                  <strong class="d-block text-gray-dark">Email</strong>
+                  <%= @restaurant.email %>
+                </p>
+              </div>
+              <div class="media text-muted pt-3">
+                <p class="media-body pb-3 mb-0 lh-125 border-bottom border-gray">
+                  <strong class="d-block text-gray-dark">Social</strong>
+                  <strong>Facebook: </strong><%= @restaurant.facebook.blank? ?  "Not supplied" : @restaurant.facebook%>, <strong>Twitter: </strong><%= @restaurant.twitter.blank? ?  "Not supplied" : @restaurant.twitter%>
+                </p>
+              </div>
+            <% end %>
+          </div>
+          <div class="col-6">
+
+
+                <div class="row">
+                  <div class="col-sm">
+                    <ul>
+                      <h5>Assigned Features</h5>
+                    <% @restaurant.features.each do |feature|%>
+                      <div><%= link_to manager_restaurant_remove_feature_path(@restaurant.id, feature.id), method: :post do %>
+                        <span class="badge badge-dark mr-1"><%=feature.name%></span><i class="fas fa-minus-square"></i><% end %></div>
+                    <% end %>
+                    </ul>
+                  </div>
+                  <div class="col-sm">
+                    <ul>
+                      <h5>Available Features</h5>
+                    <% @features.reject{|a| @restaurant.features.map{|b| b.id}.include?(a.id)}.each do |feature|%>
+                      <div><%= link_to manager_restaurant_add_feature_path(@restaurant.id, feature.id), method: :post  do %>
+                        <span class="badge badge-dark mr-1"><%=feature.name%></span><i class="fas fa-plus-square"></i><% end %></div>
+                    <% end %>
+                    </ul>
+                  </div>
+                </div>
         </div>
 
-        <div class="media text-muted pt-3">
-          <p class="media-body pb-3 mb-0 lh-125 border-bottom border-gray">
-            <strong class="d-block text-gray-dark">Address</strong>
-            <%= @restaurant.address %>, <%= @restaurant.postcode %>
-          </p>
-        </div>
-        <div class="media text-muted pt-3">
-          <p class="media-body pb-3 mb-0 lh-125 border-bottom border-gray">
-            <strong class="d-block text-gray-dark">Telephone</strong>
-            <%= @restaurant.telephone %>
-          </p>
-        </div>
-        <div class="media text-muted pt-3">
-          <p class="media-body pb-3 mb-0 lh-125 border-bottom border-gray">
-            <strong class="d-block text-gray-dark">Email</strong>
-            <%= @restaurant.email %>
-          </p>
-        </div>
-        <div class="media text-muted pt-3">
-          <p class="media-body pb-3 mb-0 lh-125 border-bottom border-gray">
-            <strong class="d-block text-gray-dark">Social</strong>
-            <strong>Facebook: </strong><%= @restaurant.facebook.blank? ?  "Not supplied" : @restaurant.facebook%>, <strong>Twitter: </strong><%= @restaurant.twitter.blank? ?  "Not supplied" : @restaurant.twitter%>
-          </p>
-        </div>
-<!--         <div class="media text-muted pt-3">
-          <p class="media-body pb-3 mb-0 lh-125 border-bottom border-gray">
-            <strong class="d-block text-gray-dark">Opening Times</strong>
-            <%= @restaurant.opening_times %>
-          </p>
-        </div> -->
-
-        <% end %>
         <div class="d-block text-right mt-3">
           <%= link_to("Add Restaurant", new_manager_restaurant_path) unless @restaurant %>
           <%= link_to("Edit Restaurant", edit_manager_restaurant_path(@restaurant)) if @restaurant%>

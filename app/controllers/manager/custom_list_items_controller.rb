@@ -3,6 +3,7 @@
 module Manager
 
 class CustomListItemsController < Manager::BaseController
+   before_action :authenticate_manager_restaurant_user!
   before_action :set_custom_list_item, only: [:show, :edit, :update, :destroy]
   before_action :set_restaurant
   before_action :set_custom_list

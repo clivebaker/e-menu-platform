@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_01_172317) do
+ActiveRecord::Schema.define(version: 2019_01_28_152001) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -75,6 +75,23 @@ ActiveRecord::Schema.define(version: 2019_01_01_172317) do
     t.index ["restaurant_id"], name: "index_custom_lists_on_restaurant_id"
   end
 
+  create_table "features", force: :cascade do |t|
+    t.string "name"
+    t.string "key"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "features_packages", id: false, force: :cascade do |t|
+    t.bigint "package_id", null: false
+    t.bigint "feature_id", null: false
+  end
+
+  create_table "features_restaurants", id: false, force: :cascade do |t|
+    t.bigint "restaurant_id", null: false
+    t.bigint "feature_id", null: false
+  end
+
   create_table "languages", force: :cascade do |t|
     t.string "name"
     t.string "locale"
@@ -127,6 +144,12 @@ ActiveRecord::Schema.define(version: 2019_01_01_172317) do
     t.index ["menu_item_categorisation_id"], name: "index_menus_on_menu_item_categorisation_id"
     t.index ["restaurant_id"], name: "index_menus_on_restaurant_id"
     t.index ["spice_level_id"], name: "index_menus_on_spice_level_id"
+  end
+
+  create_table "packages", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "restaurant_tables", force: :cascade do |t|

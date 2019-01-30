@@ -7,6 +7,9 @@ module Manager
     before_action :set_restaurant, only: %i[show edit update]
     before_action :set_cuisine, only: %i[new create show edit update]
 
+  before_action :set_features, only: [:show]
+
+
     # GET /restaurants/new
     def new
       @restaurant = Restaurant.new
@@ -17,6 +20,33 @@ module Manager
     def edit; end
 
     def show; end
+
+
+  def add_feature
+    
+    @restaurant = Restaurant.find(params[:restaurant_id])
+    feature = Feature.find(params[:feature_id])
+
+    @restaurant.features << feature
+
+    redirect_to manager_restaurant_path(@restaurant)
+
+  end
+
+  def remove_feature
+    
+    
+    @restaurant = Restaurant.find(params[:restaurant_id])
+    feature = Feature.find(params[:feature_id])
+
+    @restaurant.features.delete(feature)
+
+    redirect_to manager_restaurant_path(@restaurant)
+
+
+
+  end
+
 
     # POST /restaurants
     # POST /restaurants.json
@@ -57,6 +87,9 @@ module Manager
 
     def set_cuisine
       @cuisines = Cuisine.all
+    end
+    def set_features
+      @features = Feature.all
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

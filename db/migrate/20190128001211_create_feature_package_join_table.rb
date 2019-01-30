@@ -1,0 +1,8 @@
+class CreateFeaturePackageJoinTable < ActiveRecord::Migration[5.2]
+  def change
+
+
+  	create_join_table :packages, :features
+
+  end
+end

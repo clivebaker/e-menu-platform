@@ -1,0 +1,29 @@
+<div class="container">
+<h1>Packages</h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Features</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @packages.each do |package| %>
+      <tr>
+        <td><%= package.name %></td>
+        <td><%package.features.each do |feature| %><span class="badge badge-dark mr-1"><%=feature.name%></span><% end %></td>
+        <td><%= link_to 'Show', manager_package_path(package) %></td>
+        <td><%= link_to 'Edit', edit_manager_package_path(package) %></td>
+        <td><%= link_to 'Destroy', manager_package_path(package), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Manager Package', new_manager_package_path %>
+</div>

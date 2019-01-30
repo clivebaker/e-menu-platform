@@ -8,6 +8,8 @@ class Restaurant < ApplicationRecord
   has_many :menus
   has_many :restaurant_tables
   has_many :custom_lists
+  has_and_belongs_to_many :features
+
   # has_many :tables, through: :restaurant_tables
 
   validates_presence_of :name, on: %i[create update], message: "can't be blank"
@@ -17,4 +19,5 @@ class Restaurant < ApplicationRecord
   validates_presence_of :email, on: %i[create update], message: "can't be blank"
 
   delegate :name, to: :cuisine, prefix: true
+  delegate :ids, to: :features, prefix: true
 end

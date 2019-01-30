@@ -1,0 +1,30 @@
+
+<div class="container">
+<h1>Manager Features</h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Key</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @features.each do |manager_feature| %>
+      <tr>
+        <td><%= manager_feature.name %></td>
+        <td><%= manager_feature.key %></td>
+        <td><%= link_to 'Show', manager_feature_path(manager_feature) %></td>
+        <td><%= link_to 'Edit', edit_manager_feature_path(manager_feature) %></td>
+        <td><%= link_to 'Destroy', manager_feature_path(manager_feature), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Manager Feature', new_manager_feature_path %>
+</div>

@@ -1,0 +1,36 @@
+<div class="container">
+<p>
+  <strong>Name:</strong>
+  <%= @package.name %>
+</p>
+
+
+	
+
+
+
+  <div class="row">
+    <div class="col-sm">
+      <ul>
+      	<h5>Assigned Features</h5>
+      <% @package.features.each do |feature|%>
+      	<div><%= link_to manager_package_remove_feature_path(@package.id, feature.id), method: :post do %>
+          <span class="badge badge-dark mr-1"><%=feature.name%></span><i class="fas fa-minus-square"></i><% end %></div>
+			<% end %>
+			</ul>
+    </div>
+    <div class="col-sm">
+      <ul>
+      	<h5>Available Features</h5>
+      <% @features.reject{|a| @package.features.map{|b| b.id}.include?(a.id)}.each do |feature|%>
+      	<div><%= link_to manager_package_add_feature_path(@package.id, feature.id), method: :post  do %>
+          <span class="badge badge-dark mr-1"><%=feature.name%></span><i class="fas fa-plus-square"></i><% end %></div>
+			<% end %>
+			</ul>
+    </div>
+  </div>
+
+
+<%= link_to 'Edit', edit_manager_package_path(@package) %> |
+<%= link_to 'Back', manager_packages_path %>
+</div>
