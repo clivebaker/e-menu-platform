@@ -24,24 +24,30 @@
   <li class="nav-item">
     <a class="nav-link active" id="details-tab" data-toggle="tab" href="#details" role="tab" aria-controls="details" aria-selected="true"><%= t('menu.details')%></a>
   </li>
+  <% if feature_match(:images, @menu.restaurant_features)%>
   <li class="nav-item">
     <a class="nav-link" id="image-tab" data-toggle="tab" href="#image" role="tab" aria-controls="image" aria-selected="false"><%= t('menu.image')%></a>
   </li>
+  <% end %>
   <li class="nav-item">
     <a class="nav-link" id="options-tab" data-toggle="tab" href="#options" role="tab" aria-controls="options" aria-selected="false"><%= t('menu.options')%></a>
   </li>
-  <li class="nav-item">
+<!--   <li class="nav-item">
     <a class="nav-link" id="extras-tab" data-toggle="tab" href="#extras" role="tab" aria-controls="extras" aria-selected="false"><%= t('menu.extras')%></a>
-  </li>
+  </li> -->
   <li class="nav-item">
     <a class="nav-link" id="categories-tab" data-toggle="tab" href="#categories" role="tab" aria-controls="categories" aria-selected="false"><%= t('menu.categories')%></a>
   </li>
+  <% if feature_match(:nutrition, @menu.restaurant_features)%>
   <li class="nav-item">
     <a class="nav-link" id="nutrition-tab" data-toggle="tab" href="#nutrition" role="tab" aria-controls="nutrition" aria-selected="false"><%= t('menu.nutrition')%></a>
   </li>
+  <% end %>
+  <% if feature_match(:provenance, @menu.restaurant_features)%>
   <li class="nav-item">
     <a class="nav-link" id="provenance-tab" data-toggle="tab" href="#provenance" role="tab" aria-controls="provenance" aria-selected="false"><%= t('menu.provenance')%></a>
   </li>
+  <% end %>
 </ul>
 <div class="tab-content" id="myTabContent">
   <div class="tab-pane fade pt-3  pb-3 show active" id="details" role="tabpanel" aria-labelledby="details-tab">

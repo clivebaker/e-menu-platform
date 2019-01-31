@@ -57,9 +57,9 @@
 
 
       </div>
+      <% if feature_match(:images, @menu.restaurant_features)%>
       <div class="col-sm-6">
         <% if @menu.image.attached? %>
-
         <div class="row">
           <div class="col-lg-3">
               <strong>Image:</strong>
@@ -69,11 +69,10 @@
           </div>
         </div>
       <% end %>
-
-
       </div>
-    </div>
+      <% end %>
 
+    </div>
 
 
     <div class="row border-top mt-3 pt-3">
@@ -125,10 +124,11 @@
 
 
       </div>
+
+
       <div class="col-sm-6">
 
-
-
+<% if feature_match(:nutrition, @menu.restaurant_features)%>
         <div class="row">
           <div class="col-lg-3">
               <strong>Calories:</strong>
@@ -145,6 +145,10 @@
               <%= @menu.nutrition.html_safe if @menu.nutrition %>
           </div>
         </div>
+  <% end %>
+        
+
+<% if feature_match(:provenance, @menu.restaurant_features) %>
         <div class="row border-top mt-3 pt-3">
           <div class="col-lg-3">
               <strong>Provenance:</strong>
@@ -153,11 +157,11 @@
               <%= @menu.provenance.html_safe if @menu.provenance %>
           </div>
         </div>
-
+  <% end %>
+      
 
       </div>
     </div>
-
 
 
 
