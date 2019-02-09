@@ -32,6 +32,10 @@ Rails.application.routes.draw do
     get 'home/dashboard'
     get 'home/menu'
 
+    get 'live_tables/:restaurant_id' => 'live#tables', as: :live_tables
+    get 'live_items/:restaurant_id' => 'live#items', as: :live_items
+
+
     resources :features
     resources :packages do
       post 'add_feature/:feature_id', action: :add_feature, as: :add_feature

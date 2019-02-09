@@ -1,0 +1,35 @@
+<div class="container-fluid  bg-light border  mt-5 mb-2">
+  <div class="row m-2">
+    <div class="col">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Table Number</th>
+            <th>Table Code</th>
+            <th>Started</th>
+            <th>State</th>
+            <th>Password</th>
+            <th>Current Total</th>
+            <th>Table Total</th>
+          </tr>
+        </thead>
+        <tbody>
+        <% @restaurant_tables.each do |restaurant_table| %>
+          <% restaurant_table.tables_live.each do |table|%>
+          <tr class="p-3 mb-2">
+            <td><%= restaurant_table.number%></td>
+            <td><%=restaurant_table.code%></td>
+            <td><%= table.created_at %></td>
+            <td><%= table.aasm_state %></td>
+            <td><%= table.password %></td>
+            <td><%= number_to_currency table.table_items.reject{|a| a.paid}.map{|e| e.price_a}.inject(:+) || 0, unit: "£"%></td>
+            <td><%= number_to_currency table.table_items.map{|e| e.price_a}.inject(:+) || 0, unit: "£"%></td>
+          </tr>
+          <% end %>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+

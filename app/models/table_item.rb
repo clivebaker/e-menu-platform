@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class TableItem < ApplicationRecord
+ 	
+ 	include AASM
   belongs_to :table
   belongs_to :menu
 
@@ -52,6 +54,21 @@ class TableItem < ApplicationRecord
 				 '- please choose three options'
 		end			
 	end
+
+
+  aasm do
+    state :order, initial: true
+    state :ready
+    state :paid
+
+    event :ready do
+      transitions from: :order, to: :ready
+    end
+    event :paid do
+      transitions from: :ready, to: :paid
+    end
+
+  end
 
 
 

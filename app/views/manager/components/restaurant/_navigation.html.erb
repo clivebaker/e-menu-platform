@@ -25,16 +25,25 @@
           </div>
         </li>
 
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Management
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                   <%= link_to("Live Tables", manager_live_tables_path(@restaurant), class: "nav-link") %>
+                   <%= link_to("Live Items", manager_live_items_path(@restaurant), class: "nav-link") %>
+             
+          </div>
+        </li>
+
+
           <% if can? :manage, :admin_dropdown%>
 
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Administration
           </a>
-
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-
-
                 <%= link_to("Features", manager_features_path(@restaurant), class: "nav-link") if can? :manage, Feature %>
                 <%#= link_to("Packages", manager_packages_path(@restaurant), class: "nav-link") %>
           </div>

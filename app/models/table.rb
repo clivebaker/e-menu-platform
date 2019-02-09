@@ -11,6 +11,14 @@ class Table < ApplicationRecord
 
   scope :live, -> { where(aasm_state: 'started') }
 
+  def has_live_items?
+    table_items.count > 0
+  end
+
+  def live_items
+    table_items
+  end
+
 
   has_many :table_items
 

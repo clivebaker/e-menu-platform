@@ -7,8 +7,9 @@ class RestaurantTable < ApplicationRecord
   has_many :tables
 
   validates_uniqueness_of :number, scope: :restaurant, on: :create, message: 'must be unique'
-  validates_uniqueness_of :code, on: :create, message: 'must be unique'
-  validates_numericality_of :number, on: :create, message: 'is not a number'
+  validates_uniqueness_of :code, on: [:update, :create], message: 'must be unique'
+  validates_numericality_of :number, on: [:update, :create], message: 'is not a number'
+  validates_numericality_of :number_seats, on: [:update, :create], message: 'is not a number'
 
   delegate :name, to: :restaurant, prefix: true
   delegate :live, to: :tables, prefix: true

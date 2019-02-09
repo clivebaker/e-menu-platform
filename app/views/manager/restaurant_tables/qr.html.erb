@@ -4,8 +4,8 @@
       <div class="col-lg-6 qr">
         <div class="py-2 m-2">
           <%= raw create_qr(restaurant_table.code).as_html %>
-            <div class="col p-2 qr-url">
-              <%= "#{ENV["QR_DOMAIN"]}#{"/home/register_table/"}#{restaurant_table.code}" %>
+            <div class="col p-2">
+              <%= restaurant_table.code %>
             </div>
         </div>
       </div>
