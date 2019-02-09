@@ -11,4 +11,16 @@ class RestaurantUser < ApplicationRecord
   def display_name
     email
   end
+
+  def role?(role)
+          
+ # binding.pry
+    roles.include? role.to_s
+  end
+
+
+
+
+
+  
 end

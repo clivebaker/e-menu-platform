@@ -10,7 +10,7 @@ class CustomListsController < Manager::BaseController
   # GET /custom_lists
   # GET /custom_lists.json
   def index
-    @custom_lists = CustomList.all
+    @custom_lists = CustomList.where(restaurant_id: @restaurant.id)
   end
 
   # GET /custom_lists/1

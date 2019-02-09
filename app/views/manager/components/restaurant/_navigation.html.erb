@@ -1,9 +1,6 @@
     <div class="nav-scroller bg-white shadow-sm">
       <nav class="nav nav-underline">
         <%= link_to "Dashboard", manager_home_dashboard_path, class: "nav-link" %>
-
-        <!-- <a class="nav-link" href="#">Galleries</a> -->
-        <!-- <a class="nav-link" href="#">Reviews</a> -->
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Configuration
@@ -25,17 +22,24 @@
                 <% if @restaurant.present? && @restaurant.id %> 
                   <%= link_to("View Menus", manager_home_menu_path(), class: "nav-link") %>
                 <% end %>
-              <div class="dropdown-divider"></div>
-                <%= link_to("Features", manager_features_path(@restaurant), class: "nav-link") %>
-                <%= link_to("Packages", manager_packages_path(@restaurant), class: "nav-link") %>
-
-      <!--       <a class="dropdown-item" href="#">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
-            
-            <a class="dropdown-item" href="#">Something else here</a> -->
           </div>
         </li>
 
+          <% if can? :manage, :admin_dropdown%>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Administration
+          </a>
+
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+
+                <%= link_to("Features", manager_features_path(@restaurant), class: "nav-link") if can? :manage, Feature %>
+                <%#= link_to("Packages", manager_packages_path(@restaurant), class: "nav-link") %>
+          </div>
+        </li>
+        <% end %>
 
       </nav>
     </div>

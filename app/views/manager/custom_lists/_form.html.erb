@@ -40,7 +40,7 @@
     <div class="col">
       <div class="form-group ">
         <%= form.label :constraint %>
-        <%= form.select :constraint, options_for_select(options), {prompt: "Choose constraint"}, {class: 'form-control'} %>
+        <%= form.select :constraint, options_for_select(options, custom_list.constraint), {prompt: "Choose constraint"}, {class: 'form-control'} %>
       </div>
     </div>
   </div>

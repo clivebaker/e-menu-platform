@@ -2,7 +2,7 @@
 
 <%= form_with(model: [:manager, @restaurant, @custom_list, custom_list_item], local: true) do |form| %>
   <% if custom_list_item.errors.any? %>
-    <div id="error_explanation">
+     <div id="error_explanation" class="alert alert-danger">
       <h2><%= pluralize(custom_list_item.errors.count, "error") %> prohibited this custom_list_item from being saved:</h2>
 
       <ul>

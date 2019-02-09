@@ -17,6 +17,11 @@
           <i class="fa fa-home"></i> <%= t('topnav.home')%>
         <% end %>
       </li>      
+      <li class="nav-item">
+        <%= link_to restaurant_list_path, class: 'nav-link' do %>
+          <i class="fa fa-search"></i> <%= t('topnav.list_restaurants')%>
+        <% end %>
+      </li>      
     </ul>
       
 

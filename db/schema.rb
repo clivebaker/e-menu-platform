@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_28_152001) do
+ActiveRecord::Schema.define(version: 2019_02_08_210044) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -175,7 +175,7 @@ ActiveRecord::Schema.define(version: 2019_01_28_152001) do
     t.inet "last_sign_in_ip"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "roles", array: true
+    t.text "roles", default: [], array: true
     t.index ["email"], name: "index_restaurant_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_restaurant_users_on_reset_password_token", unique: true
   end
@@ -194,6 +194,7 @@ ActiveRecord::Schema.define(version: 2019_01_28_152001) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "restaurant_user_id"
+    t.string "slug"
     t.index ["cuisine_id"], name: "index_restaurants_on_cuisine_id"
     t.index ["restaurant_user_id"], name: "index_restaurants_on_restaurant_user_id"
   end

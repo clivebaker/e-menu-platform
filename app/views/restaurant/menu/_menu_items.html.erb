@@ -1,0 +1,9 @@
+<ul class="menu">
+  <% category.children.each do |sub| %>
+    <li class='menu-<%= sub.node_type%>'>
+      <%= render("restaurant/menu/section", sub: sub) if sub.node_type != 'item' %>
+      <%= render("restaurant/menu/item", sub: sub, table: table) if sub.node_type == 'item' || sub.available %>
+      <%= render 'restaurant/menu/menu_items', category: sub, table: table %>
+    </li>
+  <% end %>
+</ul>

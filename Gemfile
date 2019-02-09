@@ -48,6 +48,7 @@ gem 'aasm'
 gem 'rqrcode'
 gem 'stripe'
 
+gem 'cancancan'
 gem 'globalize', git: 'https://github.com/globalize/globalize'
 gem 'jstree-rails-4'
 gem 'trix-rails', require: 'trix'

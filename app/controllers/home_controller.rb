@@ -19,6 +19,8 @@ class HomeController < ApplicationController
     end
   end
 
+ 
+
   def set_locale
     language = Language.find(params[:language_id])
     cookies[:locale] = language.locale

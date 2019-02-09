@@ -20,4 +20,24 @@ class Restaurant < ApplicationRecord
 
   delegate :name, to: :cuisine, prefix: true
   delegate :ids, to: :features, prefix: true
+
+
+  before_create :set_slug
+
+
+  def set_slug
+    
+    if slug.blank? 
+
+      token_chars = ('A'..'Z').to_a.delete_if { |i| i == 'O' } + ('1'..'9').to_a
+      token_length = 6
+      self.slug = Array.new(token_length) { token_chars[rand(token_chars.length)] }.join
+      
+    end
+
+
+  end
+
+
+
 end

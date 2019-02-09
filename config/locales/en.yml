@@ -1,4 +1,8 @@
 en:
+  restaurant:
+    heading: Choose a restaurant to book a table
+    view_menu: VIEW MENU
+    book_table: BOOK A TABLE
   messages:
     table_created_successfully: Table was successfully started.
     table_incorrect_password: Cannot join table. Incorrect Password
@@ -6,6 +10,7 @@ en:
   topnav:
     site: e-me.nu
     home: Home
+    list_restaurants: Restaurant List
   furniture: 
     enter_table_code: Enter your Table Code
     enter_table_code_submit: Submit

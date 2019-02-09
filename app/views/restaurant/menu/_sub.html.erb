@@ -1,0 +1,34 @@
+<!-- <ul class="menu"> -->
+<% category.children.each do |sub| %>
+  <li class='menu-<%= sub.node_type%>'>
+
+
+    <div class="container">
+      <div class="row ">
+        <div class="col">
+          <span class=" <%= sub.node_type != "item" ? "font-weight-bold" : ""%>"><%=sub.name%> 
+
+    			  <% sub.menu_item_categorisation.each do |category| %>
+    			    <i class="<%= category.icon %>"></i>
+    			  <% end %>
+
+          </span>
+        </div>
+        <div class="col-2">
+          <%= sub.prices_joined.map{|a| number_to_currency(a, unit: "£")}.join(" / ") if sub.prices_joined%>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <i><p class=""><%=sub.description%></p></i>
+        </div>
+         <div class="col-2">
+          &nbsp;
+        </div>
+      </div>
+    </div>
+      
+  <%= render 'tables/sub', category: sub %>
+  </li>
+<% end %>
+<!-- </ul> -->

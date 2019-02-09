@@ -16,9 +16,9 @@
       <tr>
         <td><%= custom_list.name %></td>
         <td><%= constraint_to_human custom_list.constraint %></td>
-        <td><%= link_to 'Show', manager_restaurant_custom_list_path(@restaurant, custom_list) %></td>
-        <td><%= link_to 'Edit', edit_manager_restaurant_custom_list_path(@restaurant, custom_list) %></td>
-        <td><%= link_to 'Destroy', manager_restaurant_custom_lists_path(@restaurant), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Manage Options', manager_restaurant_custom_list_path(@restaurant, custom_list) %></td>
+        <td><%= link_to 'Edit List name', edit_manager_restaurant_custom_list_path(@restaurant, custom_list) %></td>
+        <td><%= link_to 'Delete List', manager_restaurant_custom_lists_path(@restaurant), method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>

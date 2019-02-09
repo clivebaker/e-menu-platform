@@ -23,7 +23,7 @@ module Manager
     # GET /menus/new
     def new
       @menu = Menu.new
-
+      @menu.restaurant = @restaurant
       @menu.node_type = params[:node_type]
     end
 

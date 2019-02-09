@@ -2,7 +2,7 @@
           <!-- Modal -->
           <div class="modal fade" id="item-<%=sub.id%>" tabindex="-1" role="dialog" aria-labelledby="item-<%=sub.id%>-label" aria-hidden="true">
             <div class="modal-dialog  modal-lg" role="document">
-              <%= form_tag table_add_item_path(table.id,sub.id), remote: true do %>
+              <%#= form_tag table_add_item_path(table.id,sub.id), remote: true do %>
               <div class="modal-content">
                 <div class="modal-header">
                   <div class="container modal-title" id="item-<%=sub.id%>-label">
@@ -49,16 +49,13 @@
                         <div class="container">
                           <div class="row">
                             <% if feature_match(:images, sub.restaurant_features) %>
-                        
                             <div class="col-lg-3">
-                        
                               <%= image_tag sub.image.variant(resize: "200x200"), class: "img-fluid" if sub.image.attached? %>
-                        
-                              </div>
+                            </div>
                             <% end %>    
     
                             <div class="col">
-                              <div class="menu-description ml-3"><%=sub.description %></div>
+                              <div class="menu-description ml-3"><%=sub.description%></div>
                               <div class="menu-description ml-3">
                                 <%=custom_list_options(sub.custom_lists).html_safe%>
                               </div>
@@ -71,8 +68,8 @@
 
                   <%#= sub.inspect%>
 
-<%= render('tables/modal_components/nutrition', sub: sub) if feature_match(:nutrition, sub.restaurant_features)%>
-<%= render('tables/modal_components/provenance', sub: sub) if feature_match(:provenance, sub.restaurant_features)%>
+<%= render('restaurant/menu/modal_components/nutrition', sub: sub) if feature_match(:nutrition, sub.restaurant_features)%>
+<%= render('restaurant/menu/modal_components/provenance', sub: sub) if feature_match(:provenance, sub.restaurant_features)%>
 
               
 
@@ -83,28 +80,16 @@
                   <div class="container">
                   <div class="row">
                     <div class="col-lg-9">
-                      <% if feature_match(:ordering, sub.restaurant_features) %>
-                      <% if feature_match(:order_customer_name, sub.restaurant_features) %>
-                      <div class="form-group">
-                        <%= label_tag t('menu.who_for'), nil, class: "menu-label-who" %>
-                        <%= text_field_tag :for, nil, id: "customer_for_#{sub.id}" %>
-                      </div>
-                      <% end %>
-  <% end %>
 
 
                     </div>
                     <div class="col-lg-3">
-                          <% if feature_match(:ordering, sub.restaurant_features) %>
-                       <button type="submit" class="btn btn-primary"><%= t('menu.buttons.add')%></button>
-                       <button type="button" class="btn btn-secondary" data-dismiss="modal"><%= t('menu.buttons.cancel')%></button>
-                       <% end %>
                     </div>
                   </div>
                 </div>
                 </div>
               </div>
-              <% end %>
+              <%# end %>
             </div>
           </div>
         <% end %>

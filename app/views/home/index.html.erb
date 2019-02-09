@@ -20,7 +20,7 @@
         <p><%= t('furniture.available_restaurants')%></p>
         <ul>
         <% @restaurants.each do |restaurant| %>
-          <li><%=restaurant.name%></li>
+          <li><%= link_to restaurant.name, restaurant_menu_path(restaurant.slug), class: 'text-warning' %></li>
         <% end %>
         </ul>
       </div>

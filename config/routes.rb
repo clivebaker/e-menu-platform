@@ -2,6 +2,14 @@
 
 Rails.application.routes.draw do
 
+  namespace :restaurant do
+    get 'list' => "home#index"
+    get 'booking/:slug' => "booking#index", as: :booking
+    get 'menu/:slug' => "menu#index", as: :menu
+  end
+
+
+
   resources :tables do
     post 'add_item/:menu_id' => 'tables#add_item', as: :add_item
     get 'pay'
@@ -17,7 +25,7 @@ Rails.application.routes.draw do
     end
   end
 
-
+  
 
   namespace :manager do
     get 'home/index'

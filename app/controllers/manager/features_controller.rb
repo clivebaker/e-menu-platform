@@ -1,7 +1,7 @@
 class Manager::FeaturesController < Manager::BaseController
  before_action :authenticate_manager_restaurant_user!
   before_action :set_feature, only: [:show, :edit, :update, :destroy]
-
+  before_action :set_restaurant
   # GET /manager/features
   # GET /manager/features.json
   def index
@@ -66,6 +66,9 @@ class Manager::FeaturesController < Manager::BaseController
     # Use callbacks to share common setup or constraints between actions.
     def set_feature
       @feature = Feature.find(params[:id])
+    end
+    def set_restaurant
+      @restaurant = current_manager_restaurant_user.restaurant
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
