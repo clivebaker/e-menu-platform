@@ -13,7 +13,7 @@
 	$("#error_explanation_<%=@menu.id%>").removeClass("d-none");
 	$("#error_detail_<%=@menu.id%>").html("<%=escape_javascript(return_string.join("")).html_safe%>");
 <% else %>
-<%  @price = @table.table_items.reject{|a| a.paid}.map{|e| e.total_price}.inject(:+) || 0%>
+<%  @price = @table.table_items.reject{|a| a.paid?}.map{|e| e.total_price}.inject(:+) || 0%>
 	$("#item-<%=@menu.id%>").modal('hide');
 	$("#error_explanation_<%=@menu.id%>").removeClass("d-none").addClass("d-none");
 	$('input:checked').prop("checked", false);

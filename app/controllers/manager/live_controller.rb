@@ -12,6 +12,16 @@ module Manager
       @restaurant_tables = RestaurantTable.where(restaurant_id: @restaurant.id).order(:number)
     end
 
+    def service
+      @table_item = TableItem.find(params[:table_item_id])
+      @table_item.service
+      @table_item.save
+      respond_to do |format|
+          format.html { redirect_to manager_live_items_path(@restaurant.id), notice: 'Item successfully moved to service.' }
+      end
+
+    end
+
     def set_restaurant
       @restaurant = Restaurant.find(params[:restaurant_id])
     end

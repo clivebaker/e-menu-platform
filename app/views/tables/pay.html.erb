@@ -250,7 +250,7 @@
 						<span>Current Bill </span><br>
 						<span class="current-bill">
 
-	<% price = @table.table_items.reject{|a| a.paid}.map{|e| e.total_price}.inject(:+) || 0 %>
+	<% price = @table.table_items.reject{|a| a.paid?}.map{|e| e.total_price}.inject(:+) || 0 %>
 							<%=number_to_currency price, unit: "£"%>								
 
 							</span>
@@ -263,10 +263,12 @@
             <%= link_to "Deselect all", "#", class: "btn btn-outline-warning mb-2 btn-sm", id: "deselect-all"%>
 						<ul class="list-group">
 							<% @table.table_items.order(:created_at).each do |item| %>
-							  <li class="list-group-item d-flex justify-content-between align-items-center rhc-item  <%=item.paid ? "item-paid" : "" %>">
+							  <li class="list-group-item d-flex justify-content-between align-items-center rhc-item  <%=item.paid? ? "item-paid" : "" %>">
 								  <div class="container-fluid">
 								  	<div class="row ">
-								  		<div class="col-sm-1 "><%= check_box_tag( :item, item.id, false, class: "item-check form-check-input", "data-price" => item.total_price*100) unless item.paid  %></div>
+								  		<div class="col-sm-1 "><%= check_box_tag( :item, item.id, false, class: "item-check form-check-input", "data-price" => item.total_price*100) if item.service?  %>
+                        <%= item.aasm_state unless item.service?  %>          
+                      </div>
 								  		<div class="col-sm-5"><%= item.name%></div>
 								  		<div class="col-sm-4 text-right"><%= item.for%></div>
 								  		<div class="col-sm-2 text-right"><%=number_to_currency item.total_price, unit: "£"%></div>

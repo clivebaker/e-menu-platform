@@ -12,11 +12,11 @@ class Table < ApplicationRecord
   scope :live, -> { where(aasm_state: 'started') }
 
   def has_live_items?
-    table_items.count > 0
+    live_items.count > 0
   end
 
   def live_items
-    table_items
+    table_items.where(aasm_state: 'ordered') #select{|e| e.ordered?}
   end
 
 

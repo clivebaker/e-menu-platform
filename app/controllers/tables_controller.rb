@@ -14,7 +14,7 @@ class TablesController < ApplicationController
   # GET /tables/1.json
   def show
     table_id = cookies[:table_id]
-    @price = @table.table_items.reject{|a| a.paid}.map{|e| e.total_price}.inject(:+) || 0
+    @price = @table.table_items.reject{|a| a.paid?}.map{|e| e.total_price}.inject(:+) || 0
     redirect_to home_index_path, alert: t('register_table.error.expired') unless @table.id == table_id.to_i
   end
 
@@ -44,6 +44,7 @@ class TablesController < ApplicationController
       for: for_person,
       custom_lists: custom_lists
     )
+    @table_item.order
 
    
   # binding.pry
@@ -82,7 +83,12 @@ class TablesController < ApplicationController
         source: token
       )
       table_items = TableItem.where(id: params[:items].split(','))
-      table_items.update_all(paid: true, token: token)
+      # table_items.update_all(paid: true, token: token)
+      table_items.each do |item|
+        item.paid
+        item.token = token
+        item.save
+      end
     rescue Exception => e
       error = e
     end
@@ -100,7 +106,7 @@ class TablesController < ApplicationController
 
   def finish
     @table = Table.find(params[:table_id])
-    price = @table.table_items.reject(&:paid).map(&:price_a).inject(:+) || 0
+    price = @table.table_items.reject(&:paid?).map(&:price_a).inject(:+) || 0
 
     respond_to do |format|
       if price.zero?

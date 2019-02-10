@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_09_175905) do
+ActiveRecord::Schema.define(version: 2019_02_09_222939) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -213,9 +213,9 @@ ActiveRecord::Schema.define(version: 2019_02_09_175905) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "for"
-    t.boolean "paid"
     t.string "token"
     t.jsonb "custom_lists", default: {}
+    t.string "aasm_state"
     t.index ["menu_id"], name: "index_table_items_on_menu_id"
     t.index ["table_id"], name: "index_table_items_on_table_id"
   end

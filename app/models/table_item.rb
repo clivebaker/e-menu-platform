@@ -57,15 +57,21 @@ class TableItem < ApplicationRecord
 
 
   aasm do
-    state :order, initial: true
-    state :ready
+    state :booked, initial: true
+    state :ordered
+    state :service
     state :paid
 
-    event :ready do
-      transitions from: :order, to: :ready
+    event :order do
+      transitions from: :booked, to: :ordered
+    end
+    event :service do
+      transitions from: :ordered, to: :service
     end
     event :paid do
-      transitions from: :ready, to: :paid
+      transitions from: :service, to: :paid
+      # transitions from: :booked, to: :paid
+      # transitions from: :prepare, to: :paid
     end
 
   end

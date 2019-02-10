@@ -32,7 +32,7 @@
                                 <% end %>
                             <% end %>
                             
-                            <%= link_to "READY",'#', class: 'btn btn-warning mt-3' %>
+                            <%= link_to "Service",manager_live_service_path(table.restaurant.id, item.id), class: 'btn btn-warning mt-3', data: { confirm: 'Are you sure?' } %>
                         </li>
                       <% end %>
                     </ul>

@@ -34,6 +34,7 @@ Rails.application.routes.draw do
 
     get 'live_tables/:restaurant_id' => 'live#tables', as: :live_tables
     get 'live_items/:restaurant_id' => 'live#items', as: :live_items
+    get 'service/:restaurant_id/item/:table_item_id' => 'live#service', as: :live_service
 
 
     resources :features
