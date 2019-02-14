@@ -4,10 +4,10 @@ module Manager
   class RestaurantsController < Manager::BaseController
     before_action :authenticate_manager_restaurant_user!
 
-    before_action :set_restaurant, only: %i[show edit update]
+    before_action :set_restaurant_new, only: %i[show edit update]
     before_action :set_cuisine, only: %i[new create show edit update]
 
-  before_action :set_features, only: [:show]
+    before_action :set_features, only: [:show]
 
 
     # GET /restaurants/new
@@ -81,8 +81,14 @@ module Manager
     private
 
     # Use callbacks to share common setup or constraints between actions.
-    def set_restaurant
-      @restaurant = Restaurant.find(params[:id])
+    def set_restaurant_new
+      
+       @restaurant = Restaurant.find(params[:id])
+       unless current_manager_restaurant_user.id == @restaurant.restaurant_user_id
+         raise NotValidRestaurant
+    end
+    
+
     end
 
     def set_cuisine

@@ -75,9 +75,6 @@ class CustomListItemsController < Manager::BaseController
     def set_custom_list
       @custom_list = CustomList.find(params[:custom_list_id])
     end
-    def set_restaurant
-      @restaurant = Restaurant.find(params[:restaurant_id])
-    end
 
 
 

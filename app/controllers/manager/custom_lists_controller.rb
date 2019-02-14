@@ -74,9 +74,6 @@ class CustomListsController < Manager::BaseController
       @custom_list = CustomList.find(params[:id])
     end
 
-    def set_restaurant
-      @restaurant = Restaurant.find(params[:restaurant_id])
-    end
 
 
     # Never trust parameters from the scary internet, only allow the white list through.

@@ -36,8 +36,9 @@ Rails.application.routes.draw do
     get 'live_items/:restaurant_id' => 'live#items', as: :live_items
     get 'service/:restaurant_id/item/:table_item_id' => 'live#service', as: :live_service
 
-
     resources :features
+      
+
     resources :packages do
       post 'add_feature/:feature_id', action: :add_feature, as: :add_feature
       post 'remove_feature/:feature_id', action: :remove_feature, as: :remove_feature

@@ -25,6 +25,8 @@
           </div>
         </li>
 
+        <% if @restaurant.present? && @restaurant.id.present?  %>
+
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Management
@@ -35,7 +37,7 @@
              
           </div>
         </li>
-
+        <% end %>
 
           <% if can? :manage, :admin_dropdown%>
 

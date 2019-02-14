@@ -81,9 +81,7 @@ module Manager
       @restaurant_table = RestaurantTable.find(params[:id])
     end
 
-    def set_restaurant
-      @restaurant = Restaurant.find(params[:restaurant_id])
-    end
+
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def restaurant_table_params

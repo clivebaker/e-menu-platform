@@ -93,9 +93,7 @@ module Manager
       @menu = Menu.find(params[:id])
     end
 
-    def set_restaurant
-      @restaurant = Restaurant.find(params[:restaurant_id])
-    end
+
 
     def set_spice_levels
       @spice_levels = SpiceLevel.all
