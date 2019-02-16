@@ -6,7 +6,11 @@ module Manager
   	  
     layout 'manager'
 
-  
+    rescue_from CanCan::AccessDenied do |exception|
+      redirect_to manager_home_index_path, notice: exception.message 
+    end
+
+
     def set_restaurant
        @restaurant = Restaurant.find(params[:restaurant_id])
       unless current_manager_restaurant_user.id == @restaurant.restaurant_user_id
