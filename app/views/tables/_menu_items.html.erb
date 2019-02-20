@@ -1,5 +1,5 @@
 <ul class="menu">
-  <% category.children.each do |sub| %>
+  <% category.children.order(:position).each do |sub| %>
     <li class='menu-<%= sub.node_type%>'>
       <%= render("tables/section", sub: sub) if sub.node_type != 'item' %>
       <%= render("tables/item", sub: sub, table: table) if sub.node_type == 'item' || sub.available %>

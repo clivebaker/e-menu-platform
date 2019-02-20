@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_09_222939) do
+ActiveRecord::Schema.define(version: 2019_02_20_225713) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -140,6 +140,7 @@ ActiveRecord::Schema.define(version: 2019_02_09_222939) do
     t.text "nutrition"
     t.text "provenance"
     t.jsonb "custom_lists", default: {}
+    t.integer "position"
     t.index ["ancestry"], name: "index_menus_on_ancestry"
     t.index ["menu_item_categorisation_id"], name: "index_menus_on_menu_item_categorisation_id"
     t.index ["restaurant_id"], name: "index_menus_on_restaurant_id"

@@ -1,5 +1,5 @@
 <ul class="management-menu">
-  <% category.children.each do |sub| %>
+  <% category.children.order(:position).each do |sub| %>
 
     <%
 
@@ -15,7 +15,7 @@
       <div class="row ">
         <% if sub.node_type != 'item' %>
         <div class="col-lg-2">
-            <%=sub.name%> 
+            <%=sub.name%>  <i class="text-warning">(Position: <%=sub.position%>)</i>
         </div>
         <% end %>
 
@@ -58,6 +58,9 @@
           <% if sub.available %>
           <i class="fa fa-check available">Available</i>
           <% end   %>
+        </div>
+        <div class="col-lg-1"> 
+          Position: <%= sub.position%>  
         </div>
         <div class="col-lg-1"> 
           <% sub.menu_item_categorisation.each do |category| %>
