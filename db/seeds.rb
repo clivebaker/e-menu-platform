@@ -4,6 +4,8 @@ Rake::Task["base_data:all"].invoke
 
 Rake::Task["base_data:restaurant"].invoke
 
+Rake::Task["gbk:restaurant"].invoke
+
 
 ## frozen_string_literal: true
 #

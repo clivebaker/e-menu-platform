@@ -1,12 +1,13 @@
     /*
     Flaticon icon font: Flaticon
-    Creation date: 13/08/2018 17:42
+    Creation date: 20/02/2019 21:25
     */
 
     @font-face {
   font-family: "Flaticon";
   src: url("/fonts/Flaticon.eot");
   src: url("/fonts/Flaticon.eot?#iefix") format("embedded-opentype"),
+       url("/fonts/Flaticon.woff2") format("woff2"),
        url("/fonts/Flaticon.woff") format("woff"),
        url("/fonts/Flaticon.ttf") format("truetype"),
        url("/fonts/Flaticon.svg#Flaticon") format("svg");
@@ -36,7 +37,7 @@
   font-smoothing: antialiased;
     }
 
-    .flaticon-fish:before { content: "\f100"; }
+.flaticon-fish:before { content: "\f100"; }
 .flaticon-nutrition:before { content: "\f101"; }
 .flaticon-cellphone:before { content: "\f102"; }
 .flaticon-pig:before { content: "\f103"; }
@@ -56,6 +57,10 @@
 .flaticon-keyboard-key-v:before { content: "\f111"; }
 .flaticon-key-h-of-a-keyboard:before { content: "\f112"; }
 .flaticon-keyboard-key-k:before { content: "\f113"; }
+.flaticon-drink:before { content: "\f114"; }
+.flaticon-wine:before { content: "\f115"; }
+.flaticon-food:before { content: "\f116"; }
+.flaticon-food-1:before { content: "\f117"; }
     
     $font-Flaticon-fish: "\f100";
     $font-Flaticon-nutrition: "\f101";
@@ -77,3 +82,9 @@
     $font-Flaticon-keyboard-key-v: "\f111";
     $font-Flaticon-key-h-of-a-keyboard: "\f112";
     $font-Flaticon-keyboard-key-k: "\f113";
+    $font-Flaticon-drink: "\f114";
+    $font-Flaticon-wine: "\f115";
+    $font-Flaticon-food: "\f116";
+    $font-Flaticon-food-1: "\f117";
+
+

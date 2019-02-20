@@ -117,6 +117,9 @@ namespace :base_data do
 		MenuItemCategorisation.create(name: "Vegetarian", icon: "fi flaticon-keyboard-key-v")
 		MenuItemCategorisation.create(name: "Halal", icon: "fi flaticon-key-h-of-a-keyboard")
 		MenuItemCategorisation.create(name: "Kosher", icon: "fi flaticon-keyboard-key-k")
+		MenuItemCategorisation.create(name: "Alcoholic", icon: "fi flaticon-wine")
+		MenuItemCategorisation.create(name: "Non-Alcholic", icon: "fi flaticon-drink")
+		MenuItemCategorisation.create(name: "Vegan", icon: "fi flaticon-food")
 	end
 
 	desc "Importing Base Data - Restaurant"

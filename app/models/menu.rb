@@ -15,7 +15,7 @@ class Menu < ApplicationRecord
   translates :name, :description, fallbacks_for_empty_translations: true
 
   validates_presence_of :name, on: %i[update create], message: "can't be blank"
-  validates_presence_of :description, on: %i[update create], message: "can't be blank", if: :node?
+  # validates_presence_of :description, on: %i[update create], message: "can't be blank", if: :node?
   validates_presence_of :price_a, on: %i[update create], message: "can't be blank", if: :node?
   validates_numericality_of :price_a, on: :create, message: 'is not a number', if: :node?
   #   validates_numericality_of :price_b, :on => :create, :message => "is not a number", if: :node?
