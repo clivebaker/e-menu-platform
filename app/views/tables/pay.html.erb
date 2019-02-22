@@ -132,7 +132,7 @@
         console.log("**--**--**")
         console.log(result.result)
         console.log("----------------------------- **")
-
+        document.location.reload(true)
         // Report to the browser that the payment was successful, prompting
         // it to close the browser payment interface.
         ev.complete('success');
@@ -148,6 +148,7 @@
         console.log("**--**--**")
         console.log(result.result)
         console.log("----------------------------- **")
+        
         ev.complete('fail');
       }
     });
