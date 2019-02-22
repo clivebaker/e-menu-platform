@@ -98,8 +98,9 @@ class TablesController < ApplicationController
         format.json { render json: { error: 'true', url: table_pay_path(@table), message: "#{t('payment.error')}: #{e.message}" } }
         format.html { redirect_to table_pay_path(@table), alert: "#{t('payment.error')}: #{e.message}" }
       else
-        format.json { render json: { error: 'false', url: table_pay_path(@table), message: t('payment.success') } }
-        format.html { redirect_to table_pay_path(@table), notice: t('payment.success') }
+        redirect_to table_pay_path(@table), notice: t('payment.success')
+#        format.json { render json: { error: 'false', url: table_pay_path(@table), message: t('payment.success') } }
+ #       format.html { redirect_to table_pay_path(@table), notice: t('payment.success') }
       end
     end
   end
