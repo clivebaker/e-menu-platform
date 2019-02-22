@@ -100,8 +100,7 @@ class TablesController < ApplicationController
       else
     #    binding.pry
     #    redirect_to table_pay_path(@table), notice: t('payment.success')
- #       format.json { render json: { error: 'false', url: table_pay_path(@table), message: t('payment.success') } }
-        format.json { redirect_to table_pay_path(@table), notice: t('payment.success') }
+        format.json { render json: { error: 'false', url: table_pay_path(@table), message: t('payment.success') } }
         format.html { redirect_to table_pay_path(@table), notice: t('payment.success') }
       end
     end
