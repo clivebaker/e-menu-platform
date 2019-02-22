@@ -28,7 +28,7 @@ namespace :gbk do
   	# 		price: ,
   	# 		position: 1,
   	# 		category: '',
-  	# 		image: nil})
+  	# 		image: 'default_image.jpg'})
 
 
 
@@ -51,7 +51,7 @@ namespace :gbk do
   		# 	description:,
   		# 	price:,
   		# 	category:,
-  		# 	image: nil
+  		# 	image: 'default_image.jpg'
   		# }
 
   		new_item = Menu.create(
@@ -101,7 +101,7 @@ namespace :gbk do
   	puts 'Importing Restaurant::GBK::Restaurant'
   	cuisine = Cuisine.order("RANDOM()").first
   	restaurant = Restaurant.create(name: 'Gourmet Burger Kitchen', address: 'Unit 177A, Intu Watford Shopping Centre, Watford',postcode: 'WD17 2TQ',telephone: '01923 230524',email: 'clive@e-me.nu', cuisine_id: cuisine.id , restaurant_user_id: restaurant_user.id)
-  	features = Feature.where("key <> 'images'")
+  	features = Feature.all #.where("key <> 'images'")
   	features.each do |feature|
   		restaurant.features << feature
   	end
@@ -186,28 +186,28 @@ namespace :gbk do
   			price: 3.95,
   			position: 1,
   			category: 'Vegetarian',
-  			image: nil})
+  			image: 'default_image.jpg'})
 			create_item(restaurant.id, first_bites, {
 				name: 'CHILLI FRIED CHICKEN BITES',
   			description: 'With sriracha mayo',
   			price: 4.65,
   			position: 2,
   			category: 'Chicken',
-  			image: nil})
+  			image: 'default_image.jpg'})
 			create_item(restaurant.id, first_bites, {
 				name: 'CHARGRILLED CHICKEN SKEWERS',
   			description: 'With chipotle mayo',
   			price: 4.65,
   			position: 3,
   			category: 'Chicken',
-  			image: nil})
+  			image: 'default_image.jpg'})
 			create_item(restaurant.id, first_bites, {
 				name: 'COURGETTE FRITTI',
   			description: 'With garlic mayo',
   			price: 4.45,
   			position: 4,
   			category: 'Vegetarian',
-  			image: nil})
+  			image: 'default_image.jpg'})
 
 
   	puts 'Importing Restaurant::GBK::GoSmaller'
@@ -220,28 +220,28 @@ namespace :gbk do
 			price: 5.65 ,
 			position: 1,
 			category: 'Beef',
-			image: nil}, [list1, list2, list3, list4, list5, list6])
+			image: 'default_image.jpg'}, [list1, list2, list3, list4, list5, list6])
 		create_item(restaurant.id, go_smaller, {
 			name: 'CLASSIC CHEESE',
 			description: 'House mayo, relish, salad. Choose from mature Cheddar, smoked Applewood or American cheese',
 			price: 6.85,
 			position: 2,
 			category: 'Beef',
-			image: nil}, [list1, list2, list3, list4, list5, list6])
+			image: 'default_image.jpg'}, [list1, list2, list3, list4, list5, list6])
 		create_item(restaurant.id, go_smaller, {
 			name: 'CLASSIC CHICKEN',
 			description: 'House mayo, relish, salad. Choose from chargrilled or panko crumbed & fried',
 			price: 6.95,
 			position: 3,
 			category: 'Chicken',
-			image: nil})
+			image: 'default_image.jpg'})
 		create_item(restaurant.id, go_smaller, {
 			name: 'CLASSIC VEGGIE',
 			description: 'Homemade & pan-fried bean patty, house mayo, relish, salad',
 			price: 5.95,
 			position: 4,
 			category: 'Vegetarian',
-			image: nil})
+			image: 'default_image.jpg'})
 
 puts 'Importing Restaurant::GBK::Beef'
   	beef = Menu.create(name: 'BEEF', parent: menu, restaurant_id: restaurant.id, node_type: 'section',position: 3)
@@ -253,14 +253,14 @@ puts 'Importing Restaurant::GBK::Beef'
 			price: 7.15,
 			position: 1,
 			category: 'Beef',
-			image: nil}, [list1, list2, list3, list4, list5, list6])
+			image: 'default_image.jpg'}, [list1, list2, list3, list4, list5, list6])
 		create_item(restaurant.id, beef, {
 			name: 'CLASSIC CHEESE',
 			description: 'House mayo, relish, salad. Choose from mature Cheddar, smoked Applewood or American cheese',
 			price: 8.35,
 			position: 2,
 			category: 'Beef',
-			image: nil}, [list1, list2, list3, list4, list5, list6])
+			image: 'default_image.jpg'}, [list1, list2, list3, list4, list5, list6])
 		create_item(restaurant.id, beef, {
 			name: 'GBK CHEESE & BACON',
 			description: 'Crispy bacon, BBQ sauce, house mayo, dill pickle, salad. Choose from mature Cheddar, smoked Applewood or American cheese
@@ -268,56 +268,56 @@ puts 'Importing Restaurant::GBK::Beef'
 			price: 9.95,
 			position: 3,
 			category: 'Beef',
-			image: nil}, [list1, list2, list3, list4, list5, list6])
+			image: 'default_image.jpg'}, [list1, list2, list3, list4, list5, list6])
 		create_item(restaurant.id, beef, {
 			name: 'THE TAXIDRIVER',
 			description: 'American cheese, homemade onion ring, Cajun relish, chipotle mayo, dill pickle, salad',
 			price: 10.15,
 			position: 4,
 			category: 'Beef',
-			image: nil}, [list1, list2, list3, list4, list5, list6])
+			image: 'default_image.jpg'}, [list1, list2, list3, list4, list5, list6])
 		create_item(restaurant.id, beef, {
 			name: 'AVO BACON',
 			description: 'Smashed avocado, crispy bacon, house mayo, relish',
 			price: 9.95,
 			position: 5,
 			category: 'Beef',
-			image: nil}, [list1, list2, list3, list4, list5, list6])
+			image: 'default_image.jpg'}, [list1, list2, list3, list4, list5, list6])
 		create_item(restaurant.id, beef, {
 			name: 'MAJOR TOM',
 			description: '30 day dry-aged steak patty, blue cheese slaw, crispy bacon, smoked Applewood cheese, beef ketchup, dill pickle',
 			price: 10.95,
 			position: 6,
 			category: 'Beef',
-			image: nil}, [list1, list2, list3, list4, list5, list6])
+			image: 'default_image.jpg'}, [list1, list2, list3, list4, list5, list6])
 		create_item(restaurant.id, beef, {
 			name: 'BLUE CHEESE',
 			description: 'Onion jam, Cajun relish, house mayo, salad. Choose from blue cheese sauce or a slice of gorgonzola',
 			price: 8.45,
 			position: 7,
 			category: 'Beef',
-			image: nil}, [list1, list2, list3, list4, list5, list6])
+			image: 'default_image.jpg'}, [list1, list2, list3, list4, list5, list6])
 		create_item(restaurant.id, beef, {
 			name: 'THE MIGHTY',
 			description: 'Two 6oz patties, mature Cheddar, crispy bacon, garlic mayo, relish, dill pickle',
 			price: 12.95,
 			position: 8,
 			category: 'Beef',
-			image: nil}, [list1, list2, list3, list4, list5, list6])
+			image: 'default_image.jpg'}, [list1, list2, list3, list4, list5, list6])
 		create_item(restaurant.id, beef, {
 			name: 'HOT DIGGITY',
 			description: 'American & mature Cheddar cheese, chilli fried egg, basil pesto mayo, habanero jam, paprika onions. Allergy - contains nuts or nuts oils',
 			price: 9.75,
 			position: 9,
 			category: 'Beef',
-			image: nil}, [list1, list2, list3, list4, list5, list6])
+			image: 'default_image.jpg'}, [list1, list2, list3, list4, list5, list6])
 		create_item(restaurant.id, beef, {
 			name: 'KIWIBURGER',
 			description: 'Mature Cheddar, beetroot, fried egg, grilled pineapple, house mayo, relish, salad',
 			price: 9.85,
 			position: 10,
 			category: 'Beef',
-			image: nil}, [list1, list2, list3, list4, list5, list6])
+			image: 'default_image.jpg'}, [list1, list2, list3, list4, list5, list6])
 
 
 puts 'Importing Restaurant::GBK::chicken'
@@ -330,7 +330,7 @@ puts 'Importing Restaurant::GBK::chicken'
 			price: 8.85,
 			position: 1,
 			category: 'Chicken',
-			image: nil}, [list2, list3, list4, list5, list6])
+			image: 'default_image.jpg'}, [list2, list3, list4, list5, list6])
 
 		create_item(restaurant.id, chicken, {
 			name: 'HEY PESTO',
@@ -338,7 +338,7 @@ puts 'Importing Restaurant::GBK::chicken'
 			price: 9.95,
 			position: 2,
 			category: 'Chicken',
-			image: nil}, [list2, list3, list4, list5, list6])
+			image: 'default_image.jpg'}, [list2, list3, list4, list5, list6])
 
 		create_item(restaurant.id, chicken, {
 			name: 'SATAY',
@@ -346,7 +346,7 @@ puts 'Importing Restaurant::GBK::chicken'
 			price: 9.75,
 			position: 3,
 			category: 'Chicken',
-			image: nil}, [list2, list3, list4, list5, list6])
+			image: 'default_image.jpg'}, [list2, list3, list4, list5, list6])
 
 		create_item(restaurant.id, chicken, {
 			name: 'CHICK CHICK BOOM',
@@ -354,7 +354,7 @@ puts 'Importing Restaurant::GBK::chicken'
 			price: 9.45,
 			position: 4,
 			category: 'Chicken',
-			image: nil}, [list2, list3, list4, list5, list6])
+			image: 'default_image.jpg'}, [list2, list3, list4, list5, list6])
 
 
 puts 'Importing Restaurant::GBK::Veggie'
@@ -367,28 +367,28 @@ puts 'Importing Restaurant::GBK::Veggie'
 			price: 7.45 ,
 			position: 1,
 			category: 'Vegetarian',
-			image: nil}, [list2, list3, list4, list5, list6])
+			image: 'default_image.jpg'}, [list2, list3, list4, list5, list6])
 		create_item(restaurant.id, veggie, {
 			name: 'FALAFEL',
 			description: 'Handmade spinach & kale falafels, jalapeno hummus, tahina sauce, sriracha sauce, rocket, pickled onions',
 			price: 8.35,
 			position: 2,
 			category: 'Vegetarian',
-			image: nil}, [list2, list3, list4, list5, list6])
+			image: 'default_image.jpg'}, [list2, list3, list4, list5, list6])
 		create_item(restaurant.id, veggie, {
 			name: 'CALIFORNIAN (VEGAN)',
 			description: 'Homemade & pan-fried bean patty, vegan Cheddar, smashed avocado, paprika onions, relish, harissa mayo, salad, sourdough bun',
 			price: 9.25,
 			position: 3,
 			category: 'Vegan',
-			image: nil}, [list2, list3, list4, list5, list6])
+			image: 'default_image.jpg'}, [list2, list3, list4, list5, list6])
 		create_item(restaurant.id, veggie, {
 			name: 'JACK-IN-A-BUN (VEGAN)',
 			description: 'Homemade butternut squash & quinoa patty, beetroot mayo, Korean pulled jackfruit, pickled onions, rocket, sourdough bun',
 			price: 8.95,
 			position: 4,
 			category: 'Vegan',
-			image: nil}, [list2, list3, list4, list5, list6])
+			image: 'default_image.jpg'}, [list2, list3, list4, list5, list6])
 
 
 puts 'Importing Restaurant::GBK::Lamb'
@@ -401,14 +401,14 @@ puts 'Importing Restaurant::GBK::Lamb'
 			price: 10.45,
 			position: 1,
 			category: 'Lamb',
-			image: nil}, [list2, list3, list4, list5, list6])
+			image: 'default_image.jpg'}, [list2, list3, list4, list5, list6])
 		create_item(restaurant.id, lamb, {
 			name: 'CLASSIC LAMB',
 			description: '6oz lamb, garlic mayo, relish, salad',
 			price: 8.95,
 			position: 2,
 			category: 'Lamb',
-			image: nil}, [list2, list3, list4, list5, list6])
+			image: 'default_image.jpg'}, [list2, list3, list4, list5, list6])
 
 
 
@@ -423,7 +423,7 @@ puts 'Importing Restaurant::GBK::Specials'
 			price: 4.90,
 			position: 1,
 			category: 'Vegetarian',
-			image: nil})
+			image: 'default_image.jpg'})
 
 puts 'Importing Restaurant::GBK::Salads'
   	salads = Menu.create(name: 'SALADS', parent: menu, restaurant_id: restaurant.id, node_type: 'section',position: 8)
@@ -435,7 +435,7 @@ puts 'Importing Restaurant::GBK::Salads'
 			price: 9.95,
 			position: 1,
 			category: 'Chicken',
-			image: nil})
+			image: 'default_image.jpg'})
 
 		create_item(restaurant.id, salads, {
 			name: 'FALAFEL SALAD',
@@ -443,7 +443,7 @@ puts 'Importing Restaurant::GBK::Salads'
 			price: 9.95,
 			position: 2,
 			category: 'Vegetarian',
-			image: nil})
+			image: 'default_image.jpg'})
 
 
 
@@ -457,7 +457,7 @@ puts 'Importing Restaurant::GBK::Fries'
 			price: 3.45,
 			position: 1,
 			category: 'Vegetarian',
-			image: nil})
+			image: 'default_image.jpg'})
 
 		create_item(restaurant.id, fries, {
 			name: 'SKINNY FRIES',
@@ -465,7 +465,7 @@ puts 'Importing Restaurant::GBK::Fries'
 			price: 3.45,
 			position: 2,
 			category: 'Vegetarian',
-			image: nil})
+			image: 'default_image.jpg'})
 
 		create_item(restaurant.id, fries, {
 			name: 'SWEET POTATO FRIES',
@@ -473,7 +473,7 @@ puts 'Importing Restaurant::GBK::Fries'
 			price: 4.25,
 			position: 3,
 			category: 'Vegetarian',
-			image: nil})
+			image: 'default_image.jpg'})
 
 		create_item(restaurant.id, fries, {
 			name: 'TRUFFLE CHEESE FRIES',
@@ -481,7 +481,7 @@ puts 'Importing Restaurant::GBK::Fries'
 			price: 4.25,
 			position: 4,
 			category: 'Vegetarian',
-			image: nil})
+			image: 'default_image.jpg'})
 
 		create_item(restaurant.id, fries, {
 			name: 'HOMEMADE ONION RINGS',
@@ -489,7 +489,7 @@ puts 'Importing Restaurant::GBK::Fries'
 			price: 3.95,
 			position: 5,
 			category: 'Vegetarian',
-			image: nil})
+			image: 'default_image.jpg'})
 
 		create_item(restaurant.id, fries, {
 			name: 'GBK HOMESLAW',
@@ -497,7 +497,7 @@ puts 'Importing Restaurant::GBK::Fries'
 			price: 3,
 			position: 6,
 			category: 'Vegetarian',
-			image: nil})
+			image: 'default_image.jpg'})
 
 		create_item(restaurant.id, fries, {
 			name: 'CHARGRILLED CORN',
@@ -505,7 +505,7 @@ puts 'Importing Restaurant::GBK::Fries'
 			price: 2.95,
 			position: 7,
 			category: 'Vegetarian',
-			image: nil})
+			image: 'default_image.jpg'})
 
 		create_item(restaurant.id, fries, {
 			name: 'BLUE CHEESE SLAW',
@@ -513,7 +513,7 @@ puts 'Importing Restaurant::GBK::Fries'
 			price: 3.25,
 			position: 8,
 			category: 'Vegetarian',
-			image: nil})
+			image: 'default_image.jpg'})
 
 		create_item(restaurant.id, fries, {
 			name: 'SIMPLE GREEN SALAD',
@@ -521,7 +521,7 @@ puts 'Importing Restaurant::GBK::Fries'
 			price: 1.55,
 			position: 9,
 			category: 'Vegetarian',
-			image: nil})
+			image: 'default_image.jpg'})
 
 
 
@@ -536,7 +536,7 @@ puts 'Importing Restaurant::GBK::Sauces'
 			price: 1.25 ,
 			position: 1,
 			category: 'Vegetarian',
-			image: nil})
+			image: 'default_image.jpg'})
 
 		create_item(restaurant.id, sauces, {
 			name: 'BACONNAISE',
@@ -544,7 +544,7 @@ puts 'Importing Restaurant::GBK::Sauces'
 			price: 1.25 ,
 			position: 2,
 			category: 'Vegetarian',
-			image: nil})
+			image: 'default_image.jpg'})
 
 		create_item(restaurant.id, sauces, {
 			name: 'BASIL PESTO MAYO',
@@ -552,7 +552,7 @@ puts 'Importing Restaurant::GBK::Sauces'
 			price: 1.25 ,
 			position: 3,
 			category: 'Vegetarian',
-			image: nil})
+			image: 'default_image.jpg'})
 
 		create_item(restaurant.id, sauces, {
 			name: 'SRIRACHA MAYO',
@@ -560,7 +560,7 @@ puts 'Importing Restaurant::GBK::Sauces'
 			price: 1.25 ,
 			position: 4,
 			category: 'Vegetarian',
-			image: nil})
+			image: 'default_image.jpg'})
 
 		create_item(restaurant.id, sauces, {
 			name: 'GARLIC MAYO',
@@ -568,7 +568,7 @@ puts 'Importing Restaurant::GBK::Sauces'
 			price: 1.25 ,
 			position: 5,
 			category: 'Vegetarian',
-			image: nil})
+			image: 'default_image.jpg'})
 
 		create_item(restaurant.id, sauces, {
 			name: 'BLUE CHEESE MAYO',
@@ -576,7 +576,7 @@ puts 'Importing Restaurant::GBK::Sauces'
 			price: 1.25 ,
 			position: 6,
 			category: 'Vegetarian',
-			image: nil})
+			image: 'default_image.jpg'})
 
 puts 'Importing Restaurant::GBK::Milkshakes'
   	milkshake = Menu.create(name: 'MILKSHAKES', parent: menu, restaurant_id: restaurant.id, node_type: 'section',position: 11)
@@ -588,7 +588,7 @@ puts 'Importing Restaurant::GBK::Milkshakes'
 			price: 4.75,
 			position: 1,
 			category: 'Non-Alcholic',
-			image: nil})
+			image: 'default_image.jpg'})
 
 		create_item(restaurant.id, milkshake, {
 			name: 'DOUBLE BELGIAN CHOCOLATE',
@@ -596,7 +596,7 @@ puts 'Importing Restaurant::GBK::Milkshakes'
 			price: 4.75,
 			position: 2,
 			category: 'Non-Alcholic',
-			image: nil})
+			image: 'default_image.jpg'})
 
 		create_item(restaurant.id, milkshake, {
 			name: 'STRAWBERRY',
@@ -604,7 +604,7 @@ puts 'Importing Restaurant::GBK::Milkshakes'
 			price: 4.75,
 			position: 3,
 			category: 'Non-Alcholic',
-			image: nil})
+			image: 'default_image.jpg'})
 
 		create_item(restaurant.id, milkshake, {
 			name: 'BANANA',
@@ -612,7 +612,7 @@ puts 'Importing Restaurant::GBK::Milkshakes'
 			price: 4.75,
 			position: 4,
 			category: 'Non-Alcholic',
-			image: nil})
+			image: 'default_image.jpg'})
 
 		create_item(restaurant.id, milkshake, {
 			name: 'SEA-SALTED CARAMEL',
@@ -620,7 +620,7 @@ puts 'Importing Restaurant::GBK::Milkshakes'
 			price: 4.75,
 			position: 5,
 			category: 'Non-Alcholic',
-			image: nil})
+			image: 'default_image.jpg'})
 
 		create_item(restaurant.id, milkshake, {
 			name: 'OREO',
@@ -628,7 +628,7 @@ puts 'Importing Restaurant::GBK::Milkshakes'
 			price: 5.25,
 			position: 6,
 			category: 'Non-Alcholic',
-			image: nil})
+			image: 'default_image.jpg'})
 
 		create_item(restaurant.id, milkshake, {
 			name: 'PEANUT BUTTER',
@@ -636,7 +636,7 @@ puts 'Importing Restaurant::GBK::Milkshakes'
 			price: 5.25,
 			position: 7,
 			category: 'Non-Alcholic',
-			image: nil})
+			image: 'default_image.jpg'})
 
 		create_item(restaurant.id, milkshake, {
 			name: 'STRAWBERRY & OREO CHEESESHAKE',
@@ -644,7 +644,7 @@ puts 'Importing Restaurant::GBK::Milkshakes'
 			price: 4.90,
 			position: 8,
 			category: 'Non-Alcholic',
-			image: nil})
+			image: 'default_image.jpg'})
 
 
 puts 'Importing Restaurant::GBK::FreshFizzy'
@@ -657,35 +657,35 @@ puts 'Importing Restaurant::GBK::FreshFizzy'
 			price: 2.70,
 			position: 1,
 			category: 'Non-Alcholic',
-			image: nil})
+			image: 'default_image.jpg'})
 		create_item(restaurant.id, fresh, {
 			name: 'GINGER & LEMONGRASS',
 			description: '',
 			price: 2.70,
 			position: 2,
 			category: 'Non-Alcholic',
-			image: nil})
+			image: 'default_image.jpg'})
 		create_item(restaurant.id, fresh, {
 			name: 'STRAWBERRY & ELDERFLOWER',
 			description: '',
 			price: 2.70,
 			position: 3,
 			category: 'Non-Alcholic',
-			image: nil})
+			image: 'default_image.jpg'})
 		create_item(restaurant.id, fresh, {
 			name: 'RHUBARB & VANILLA',
 			description: '',
 			price: 2.70,
 			position: 4,
 			category: 'Non-Alcholic',
-			image: nil})
+			image: 'default_image.jpg'})
 		create_item(restaurant.id, fresh, {
 			name: 'CLOUDY LEMONADE',
 			description: '',
 			price: 2.70,
 			position: 5,
 			category: 'Non-Alcholic',
-			image: nil})
+			image: 'default_image.jpg'})
 
 
 
@@ -699,7 +699,7 @@ puts 'Importing Restaurant::GBK::Soft'
 			price: 3.00,
 			position: 1,
 			category: 'Non-Alcholic',
-			image: nil})
+			image: 'default_image.jpg'})
 
 		create_item(restaurant.id, soft, {
 			name: 'APPLE JUICE',
@@ -707,7 +707,7 @@ puts 'Importing Restaurant::GBK::Soft'
 			price: 3.00,
 			position: 2,
 			category: 'Non-Alcholic',
-			image: nil})
+			image: 'default_image.jpg'})
 
 		create_item(restaurant.id, soft, {
 			name: 'GINGERELLA GINGER ALE',
@@ -715,7 +715,7 @@ puts 'Importing Restaurant::GBK::Soft'
 			price: 3.00,
 			position: 3,
 			category: 'Non-Alcholic',
-			image: nil})
+			image: 'default_image.jpg'})
 
 		create_item(restaurant.id, soft, {
 			name: 'COCA-COLA',
@@ -723,7 +723,7 @@ puts 'Importing Restaurant::GBK::Soft'
 			price: 2.80,
 			position: 4,
 			category: 'Non-Alcholic',
-			image: nil})
+			image: 'default_image.jpg'})
 
 		create_item(restaurant.id, soft, {
 			name: 'DIET COKE',
@@ -731,7 +731,7 @@ puts 'Importing Restaurant::GBK::Soft'
 			price: 2.70,
 			position: 5,
 			category: 'Non-Alcholic',
-			image: nil})
+			image: 'default_image.jpg'})
 
 		create_item(restaurant.id, soft, {
 			name: 'COKE ZERO',
@@ -739,7 +739,7 @@ puts 'Importing Restaurant::GBK::Soft'
 			price: 2.70,
 			position: 6,
 			category: 'Non-Alcholic',
-			image: nil})
+			image: 'default_image.jpg'})
 
 		create_item(restaurant.id, soft, {
 			name: 'SPRITE',
@@ -747,7 +747,7 @@ puts 'Importing Restaurant::GBK::Soft'
 			price: 2.70,
 			position: 7,
 			category: 'Non-Alcholic',
-			image: nil})
+			image: 'default_image.jpg'})
 
 		create_item(restaurant.id, soft, {
 			name: 'STILL WATER',
@@ -755,7 +755,7 @@ puts 'Importing Restaurant::GBK::Soft'
 			price: 2.10,
 			position: 8,
 			category: 'Non-Alcholic',
-			image: nil})
+			image: 'default_image.jpg'})
 
 		create_item(restaurant.id, soft, {
 			name: 'SPARKLING WATER',
@@ -763,7 +763,7 @@ puts 'Importing Restaurant::GBK::Soft'
 			price: 2.10,
 			position: 9,
 			category: 'Non-Alcholic',
-			image: nil})
+			image: 'default_image.jpg'})
 
 
 # puts 'Importing Restaurant::GBK::Gluten'
@@ -776,7 +776,7 @@ puts 'Importing Restaurant::GBK::Soft'
 		# 	price: ,
 		# 	position: 1,
 		# 	category: '',
-		# 	image: nil})
+		# 	image: 'default_image.jpg'})
 
 puts 'Importing Restaurant::GBK::BEER'
   	beer = Menu.create(name: 'BEER & CIDER', parent: menu, restaurant_id: restaurant.id, node_type: 'section',position: 14)
@@ -788,7 +788,7 @@ puts 'Importing Restaurant::GBK::BEER'
 			price: 4.15,
 			position: 1,
 			category: 'Alcoholic',
-			image: nil})
+			image: 'default_image.jpg'})
 
 		create_item(restaurant.id, beer, {
 			name: 'BUDVAR (500ML)',
@@ -796,7 +796,7 @@ puts 'Importing Restaurant::GBK::BEER'
 			price: 6.05,
 			position: 2,
 			category: 'Alcoholic',
-			image: nil})
+			image: 'default_image.jpg'})
 
 		create_item(restaurant.id, beer, {
 			name: 'BREWDOG PUNK IPA 500ML',
@@ -804,7 +804,7 @@ puts 'Importing Restaurant::GBK::BEER'
 			price: 6.25,
 			position: 3,
 			category: 'Alcoholic',
-			image: nil})
+			image: 'default_image.jpg'})
 
 
 		create_item(restaurant.id, beer, {
@@ -813,7 +813,7 @@ puts 'Importing Restaurant::GBK::BEER'
 			price: 4.25,
 			position: 4,
 			category: 'Alcoholic',
-			image: nil})
+			image: 'default_image.jpg'})
 
 
 		create_item(restaurant.id, beer, {
@@ -822,7 +822,7 @@ puts 'Importing Restaurant::GBK::BEER'
 			price: 5.65,
 			position: 5,
 			category: 'Alcoholic',
-			image: nil})
+			image: 'default_image.jpg'})
 
 
 		create_item(restaurant.id, beer, {
@@ -831,7 +831,7 @@ puts 'Importing Restaurant::GBK::BEER'
 			price: 5.35,
 			position: 6,
 			category: 'Alcoholic',
-			image: nil})
+			image: 'default_image.jpg'})
 
 
 		create_item(restaurant.id, beer, {
@@ -840,7 +840,7 @@ puts 'Importing Restaurant::GBK::BEER'
 			price: 4.95,
 			position: 7,
 			category: 'Alcoholic',
-			image: nil})
+			image: 'default_image.jpg'})
 
 
 		create_item(restaurant.id, beer, {
@@ -849,7 +849,7 @@ puts 'Importing Restaurant::GBK::BEER'
 			price: 4.95,
 			position: 8,
 			category: 'Alcoholic',
-			image: nil})
+			image: 'default_image.jpg'})
 
 
 
@@ -866,49 +866,49 @@ puts 'Importing Restaurant::GBK::Wine'
 			price: 19.95,
 			position: 1,
 			category: 'Alcoholic',
-			image: nil})
+			image: 'default_image.jpg'})
 		create_item(restaurant.id, wine, {
 			name: 'SOUTH ISLAND SAUVIGNON BLANC',
 			description: 'New Zeland',
 			price: 19.95,
 			position: 2,
 			category: 'Alcoholic',
-			image: nil})
+			image: 'default_image.jpg'})
 		create_item(restaurant.id, wine, {
 			name: 'AFRIKAN RIDGE MERLOT',
 			description: 'South Africa',
 			price: 15.05,
 			position: 3,
 			category: 'Alcoholic',
-			image: nil})
+			image: 'default_image.jpg'})
 		create_item(restaurant.id, wine, {
 			name: 'TAPAS TEMPRANILLO',
 			description: 'Spain',
 			price: 16.95,
 			position: 4,
 			category: 'Alcoholic',
-			image: nil})
+			image: 'default_image.jpg'})
 		create_item(restaurant.id, wine, {
 			name: 'LA BONITA MALBEC',
 			description: 'Argentina',
 			price: 20.95,
 			position: 5,
 			category: 'Alcoholic',
-			image: nil})
+			image: 'default_image.jpg'})
 		create_item(restaurant.id, wine, {
 			name: 'AFRIKAN RIDGE CHENIN BLANK',
 			description: 'South Africa',
 			price: 15.05,
 			position: 6,
 			category: 'Alcoholic',
-			image: nil})
+			image: 'default_image.jpg'})
 		create_item(restaurant.id, wine, {
 			name: 'VINOIR SYRAH ROSE',
 			description: 'Chile',
 			price: 19.95,
 			position: 7,
 			category: 'Alcoholic',
-			image: nil})
+			image: 'default_image.jpg'})
 
 
 
@@ -922,7 +922,7 @@ puts 'Importing Restaurant::GBK::Cocktail'
 			price: 5.95,
 			position: 1,
 			category: 'Alcoholic',
-			image: nil})
+			image: 'default_image.jpg'})
 
 		create_item(restaurant.id, cocktail, {
 			name: 'RHUBARB, VANILLA & VODKA',
@@ -930,7 +930,7 @@ puts 'Importing Restaurant::GBK::Cocktail'
 			price: 5.95,
 			position: 2,
 			category: 'Alcoholic',
-			image: nil})
+			image: 'default_image.jpg'})
 
 		create_item(restaurant.id, cocktail, {
 			name: 'GINGER, LEMONGRASS & GIN',
@@ -938,7 +938,7 @@ puts 'Importing Restaurant::GBK::Cocktail'
 			price: 5.95,
 			position: 3,
 			category: 'Alcoholic',
-			image: nil})
+			image: 'default_image.jpg'})
 
 		create_item(restaurant.id, cocktail, {
 			name: 'ELDERFLOWER & VODKA',
@@ -946,7 +946,7 @@ puts 'Importing Restaurant::GBK::Cocktail'
 			price: 5.95,
 			position: 4,
 			category: 'Alcoholic',
-			image: nil})
+			image: 'default_image.jpg'})
 
 		create_item(restaurant.id, cocktail, {
 			name: 'GIN & TONIC',
@@ -954,7 +954,7 @@ puts 'Importing Restaurant::GBK::Cocktail'
 			price: 5.95,
 			position: 5,
 			category: 'Alcoholic',
-			image: nil})
+			image: 'default_image.jpg'})
 
 		create_item(restaurant.id, cocktail, {
 			name: 'VODKA & GINGER ALE',
@@ -962,7 +962,7 @@ puts 'Importing Restaurant::GBK::Cocktail'
 			price: 5.95,
 			position: 6,
 			category: 'Alcoholic',
-			image: nil})
+			image: 'default_image.jpg'})
 
 
 

@@ -1,24 +1,17 @@
 
 <% @table.restaurant.menus.roots.each do |category| %>
-  <div><h3> <%= h(category.name) %></h3>
+  <div class="text-left"><h1> <%= h(category.name) %></h1>
 
-<!--  	<div class="row ">
-    <div class="col">
-    	<hr>
-      <ul>
-        <li>Menu Item</li>
-        <li>another menu</li>
-      </ul>
+    <div class="sticky-top">
+
+
+  		<nav class="nav bg-secondary text-light border-warning rounded justify-content-center">
+  			<% category.children.each do |cat| %>
+  				<%= link_to cat.name, "##{cat.name.gsub(' ','')}", class: 'nav-link menu-sub-nav text-light rounded-pill' %>
+  		  <% end %>
+  		</nav>
+
     </div>
- 	</div> -->
-
- 
-		<a name="nav" class="anchor-top"><a>
-		<nav class="nav bg-warning text-dark border-secondary rounded justify-content-center fixed">
-			<% category.children.each do |cat| %>
-				<%= link_to cat.name, "##{cat.name.gsub(' ','')}", class: 'nav-link menu-sub-nav' %>
-		  <% end %>
-		</nav>
 
 
   <% if category.children.present? %>
