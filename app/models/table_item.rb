@@ -8,6 +8,9 @@ class TableItem < ApplicationRecord
 
   delegate :name, :price_a, to: :menu, prefix: false
 
+
+  delegate :restaurant_features, to: :table, prefix: true
+
 	# validates :custom_lists, presence: true,  if: :volume_limits?
 	validate :has_custom_options?
 
@@ -64,6 +67,12 @@ class TableItem < ApplicationRecord
 
     event :order do
       transitions from: :booked, to: :ordered
+	    after do
+        if table_restaurant_features.map{|l| l.key}.include?('service')
+        	self.service
+      	end
+      end
+
     end
     event :service do
       transitions from: :ordered, to: :service

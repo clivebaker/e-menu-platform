@@ -62,10 +62,11 @@ en:
     details: Details
     image: Image
     options: Customer Options
-    description: Description and Options
+    description: Description
     extras: Extras
     categories: Categories
     nutrition: Nutrition
+    options: Options
     provenance: Provenance
     who_for: Who is this for?
     calories: Calories

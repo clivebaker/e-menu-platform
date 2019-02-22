@@ -75,6 +75,7 @@ namespace :base_data do
   	Feature.create(name: 'Payment', key: 'payment')
   	Feature.create(name: 'Ordering', key: 'ordering')
   	Feature.create(name: 'Order Customer Name', key: 'order_customer_name')
+  	Feature.create(name: 'Skip Service Stage', key: 'service')
 	end
   task spice_levels: :environment do
   	puts 'Importing Spice Levels'

@@ -61,10 +61,10 @@ namespace :gbk do
 					restaurant_id: restaurant_id, 
 					node_type: 'item', 
 					available: true, 
-					calories: 250, 
+					calories: rand(180..1200), 
 					price_a: item[:price], 
-					nutrition: 'nutrit', 
-					provenance: 'prov', 
+					nutrition: Faker::Lorem.paragraphs.join(' '), 
+					provenance: Faker::Lorem.paragraphs.join('<br>'), 
 					menu_item_categorisation_ids: [categorization(item[:category]).id], 
 					position: item[:position],
 					#spice_level_id: spice.id
@@ -191,21 +191,21 @@ namespace :gbk do
 				name: 'CHILLI FRIED CHICKEN BITES',
   			description: 'With sriracha mayo',
   			price: 4.65,
-  			position: 1,
+  			position: 2,
   			category: 'Chicken',
   			image: nil})
 			create_item(restaurant.id, first_bites, {
 				name: 'CHARGRILLED CHICKEN SKEWERS',
   			description: 'With chipotle mayo',
   			price: 4.65,
-  			position: 1,
+  			position: 3,
   			category: 'Chicken',
   			image: nil})
 			create_item(restaurant.id, first_bites, {
 				name: 'COURGETTE FRITTI',
   			description: 'With garlic mayo',
   			price: 4.45,
-  			position: 1,
+  			position: 4,
   			category: 'Vegetarian',
   			image: nil})
 
@@ -220,26 +220,26 @@ namespace :gbk do
 			price: 5.65 ,
 			position: 1,
 			category: 'Beef',
-			image: nil})
+			image: nil}, [list1, list2, list3, list4, list5, list6])
 		create_item(restaurant.id, go_smaller, {
 			name: 'CLASSIC CHEESE',
 			description: 'House mayo, relish, salad. Choose from mature Cheddar, smoked Applewood or American cheese',
 			price: 6.85,
-			position: 1,
+			position: 2,
 			category: 'Beef',
-			image: nil})
+			image: nil}, [list1, list2, list3, list4, list5, list6])
 		create_item(restaurant.id, go_smaller, {
 			name: 'CLASSIC CHICKEN',
 			description: 'House mayo, relish, salad. Choose from chargrilled or panko crumbed & fried',
 			price: 6.95,
-			position: 1,
+			position: 3,
 			category: 'Chicken',
 			image: nil})
 		create_item(restaurant.id, go_smaller, {
 			name: 'CLASSIC VEGGIE',
 			description: 'Homemade & pan-fried bean patty, house mayo, relish, salad',
 			price: 5.95,
-			position: 1,
+			position: 4,
 			category: 'Vegetarian',
 			image: nil})
 
@@ -330,31 +330,31 @@ puts 'Importing Restaurant::GBK::chicken'
 			price: 8.85,
 			position: 1,
 			category: 'Chicken',
-			image: nil}, [list1, list2, list3, list4, list5, list6])
+			image: nil}, [list2, list3, list4, list5, list6])
 
 		create_item(restaurant.id, chicken, {
 			name: 'HEY PESTO',
 			description: 'Crispy bacon, mature Cheddar, basil pesto, basil pesto mayo, relish, salad. Allergy - contains nuts or nuts oils',
 			price: 9.95,
-			position: 1,
+			position: 2,
 			category: 'Chicken',
-			image: nil}, [list1, list2, list3, list4, list5, list6])
+			image: nil}, [list2, list3, list4, list5, list6])
 
 		create_item(restaurant.id, chicken, {
 			name: 'SATAY',
 			description: 'Warm satay sauce, garlic mayo, rocket, paprika onions, pickled onions, relish. Allergy - contains nuts or nuts oils',
 			price: 9.75,
-			position: 1,
+			position: 3,
 			category: 'Chicken',
-			image: nil}, [list1, list2, list3, list4, list5, list6])
+			image: nil}, [list2, list3, list4, list5, list6])
 
 		create_item(restaurant.id, chicken, {
 			name: 'CHICK CHICK BOOM',
 			description: 'Chilli fried chicken, garlic mayo, blue cheese slaw, jalapenos, dill pickle',
 			price: 9.45,
-			position: 1,
+			position: 4,
 			category: 'Chicken',
-			image: nil}, [list1, list2, list3, list4, list5, list6])
+			image: nil}, [list2, list3, list4, list5, list6])
 
 
 puts 'Importing Restaurant::GBK::Veggie'
@@ -367,28 +367,28 @@ puts 'Importing Restaurant::GBK::Veggie'
 			price: 7.45 ,
 			position: 1,
 			category: 'Vegetarian',
-			image: nil}, [list1, list2, list3, list4, list5, list6])
+			image: nil}, [list2, list3, list4, list5, list6])
 		create_item(restaurant.id, veggie, {
 			name: 'FALAFEL',
 			description: 'Handmade spinach & kale falafels, jalapeno hummus, tahina sauce, sriracha sauce, rocket, pickled onions',
 			price: 8.35,
-			position: 1,
+			position: 2,
 			category: 'Vegetarian',
-			image: nil}, [list1, list2, list3, list4, list5, list6])
+			image: nil}, [list2, list3, list4, list5, list6])
 		create_item(restaurant.id, veggie, {
 			name: 'CALIFORNIAN (VEGAN)',
 			description: 'Homemade & pan-fried bean patty, vegan Cheddar, smashed avocado, paprika onions, relish, harissa mayo, salad, sourdough bun',
 			price: 9.25,
-			position: 1,
+			position: 3,
 			category: 'Vegan',
-			image: nil}, [list1, list2, list3, list4, list5, list6])
+			image: nil}, [list2, list3, list4, list5, list6])
 		create_item(restaurant.id, veggie, {
 			name: 'JACK-IN-A-BUN (VEGAN)',
 			description: 'Homemade butternut squash & quinoa patty, beetroot mayo, Korean pulled jackfruit, pickled onions, rocket, sourdough bun',
 			price: 8.95,
-			position: 1,
+			position: 4,
 			category: 'Vegan',
-			image: nil}, [list1, list2, list3, list4, list5, list6])
+			image: nil}, [list2, list3, list4, list5, list6])
 
 
 puts 'Importing Restaurant::GBK::Lamb'
@@ -401,14 +401,14 @@ puts 'Importing Restaurant::GBK::Lamb'
 			price: 10.45,
 			position: 1,
 			category: 'Lamb',
-			image: nil}, [list1, list2, list3, list4, list5, list6])
+			image: nil}, [list2, list3, list4, list5, list6])
 		create_item(restaurant.id, lamb, {
 			name: 'CLASSIC LAMB',
 			description: '6oz lamb, garlic mayo, relish, salad',
 			price: 8.95,
-			position: 1,
+			position: 2,
 			category: 'Lamb',
-			image: nil}, [list1, list2, list3, list4, list5, list6])
+			image: nil}, [list2, list3, list4, list5, list6])
 
 
 
@@ -441,7 +441,7 @@ puts 'Importing Restaurant::GBK::Salads'
 			name: 'FALAFEL SALAD',
 			description: 'Handmade spinach & kale falafels, avocado, jalapeno hummus, olives, feta, tomatoes, cucumber, pickled onions, tahina sauce, pomegranate dressing',
 			price: 9.95,
-			position: 1,
+			position: 2,
 			category: 'Vegetarian',
 			image: nil})
 
@@ -463,7 +463,7 @@ puts 'Importing Restaurant::GBK::Fries'
 			name: 'SKINNY FRIES',
 			description: '',
 			price: 3.45,
-			position: 1,
+			position: 2,
 			category: 'Vegetarian',
 			image: nil})
 
@@ -471,7 +471,7 @@ puts 'Importing Restaurant::GBK::Fries'
 			name: 'SWEET POTATO FRIES',
 			description: '',
 			price: 4.25,
-			position: 1,
+			position: 3,
 			category: 'Vegetarian',
 			image: nil})
 
@@ -479,7 +479,7 @@ puts 'Importing Restaurant::GBK::Fries'
 			name: 'TRUFFLE CHEESE FRIES',
 			description: 'Chunky fries with truffle cheese sauce, Grana Padano shavings and parsley',
 			price: 4.25,
-			position: 1,
+			position: 4,
 			category: 'Vegetarian',
 			image: nil})
 
@@ -487,7 +487,7 @@ puts 'Importing Restaurant::GBK::Fries'
 			name: 'HOMEMADE ONION RINGS',
 			description: '',
 			price: 3.95,
-			position: 1,
+			position: 5,
 			category: 'Vegetarian',
 			image: nil})
 
@@ -495,7 +495,7 @@ puts 'Importing Restaurant::GBK::Fries'
 			name: 'GBK HOMESLAW',
 			description: 'Cabbage, spring onions, carrot, celeriac, pomegranate seeds, vinaigrette dressing',
 			price: 3,
-			position: 1,
+			position: 6,
 			category: 'Vegetarian',
 			image: nil})
 
@@ -503,7 +503,7 @@ puts 'Importing Restaurant::GBK::Fries'
 			name: 'CHARGRILLED CORN',
 			description: 'With chipotle butter and coriander',
 			price: 2.95,
-			position: 1,
+			position: 7,
 			category: 'Vegetarian',
 			image: nil})
 
@@ -511,7 +511,7 @@ puts 'Importing Restaurant::GBK::Fries'
 			name: 'BLUE CHEESE SLAW',
 			description: 'Red cabbage, blue cheese sauce, red chilli, jalapenos',
 			price: 3.25,
-			position: 1,
+			position: 8,
 			category: 'Vegetarian',
 			image: nil})
 
@@ -519,7 +519,7 @@ puts 'Importing Restaurant::GBK::Fries'
 			name: 'SIMPLE GREEN SALAD',
 			description: 'Mixed leaves, toasted seeds, vinaigrette dressing',
 			price: 1.55,
-			position: 1,
+			position: 9,
 			category: 'Vegetarian',
 			image: nil})
 
@@ -542,7 +542,7 @@ puts 'Importing Restaurant::GBK::Sauces'
 			name: 'BACONNAISE',
 			description: '',
 			price: 1.25 ,
-			position: 1,
+			position: 2,
 			category: 'Vegetarian',
 			image: nil})
 
@@ -550,7 +550,7 @@ puts 'Importing Restaurant::GBK::Sauces'
 			name: 'BASIL PESTO MAYO',
 			description: 'Contains nuts or nut oils',
 			price: 1.25 ,
-			position: 1,
+			position: 3,
 			category: 'Vegetarian',
 			image: nil})
 
@@ -558,7 +558,7 @@ puts 'Importing Restaurant::GBK::Sauces'
 			name: 'SRIRACHA MAYO',
 			description: '',
 			price: 1.25 ,
-			position: 1,
+			position: 4,
 			category: 'Vegetarian',
 			image: nil})
 
@@ -566,7 +566,7 @@ puts 'Importing Restaurant::GBK::Sauces'
 			name: 'GARLIC MAYO',
 			description: '',
 			price: 1.25 ,
-			position: 1,
+			position: 5,
 			category: 'Vegetarian',
 			image: nil})
 
@@ -574,7 +574,7 @@ puts 'Importing Restaurant::GBK::Sauces'
 			name: 'BLUE CHEESE MAYO',
 			description: '',
 			price: 1.25 ,
-			position: 1,
+			position: 6,
 			category: 'Vegetarian',
 			image: nil})
 
@@ -594,7 +594,7 @@ puts 'Importing Restaurant::GBK::Milkshakes'
 			name: 'DOUBLE BELGIAN CHOCOLATE',
 			description: '',
 			price: 4.75,
-			position: 1,
+			position: 2,
 			category: 'Non-Alcholic',
 			image: nil})
 
@@ -602,7 +602,7 @@ puts 'Importing Restaurant::GBK::Milkshakes'
 			name: 'STRAWBERRY',
 			description: '',
 			price: 4.75,
-			position: 1,
+			position: 3,
 			category: 'Non-Alcholic',
 			image: nil})
 
@@ -610,7 +610,7 @@ puts 'Importing Restaurant::GBK::Milkshakes'
 			name: 'BANANA',
 			description: '',
 			price: 4.75,
-			position: 1,
+			position: 4,
 			category: 'Non-Alcholic',
 			image: nil})
 
@@ -618,7 +618,7 @@ puts 'Importing Restaurant::GBK::Milkshakes'
 			name: 'SEA-SALTED CARAMEL',
 			description: '',
 			price: 4.75,
-			position: 1,
+			position: 5,
 			category: 'Non-Alcholic',
 			image: nil})
 
@@ -626,7 +626,7 @@ puts 'Importing Restaurant::GBK::Milkshakes'
 			name: 'OREO',
 			description: '',
 			price: 5.25,
-			position: 1,
+			position: 6,
 			category: 'Non-Alcholic',
 			image: nil})
 
@@ -634,7 +634,7 @@ puts 'Importing Restaurant::GBK::Milkshakes'
 			name: 'PEANUT BUTTER',
 			description: '',
 			price: 5.25,
-			position: 1,
+			position: 7,
 			category: 'Non-Alcholic',
 			image: nil})
 
@@ -642,7 +642,7 @@ puts 'Importing Restaurant::GBK::Milkshakes'
 			name: 'STRAWBERRY & OREO CHEESESHAKE',
 			description: '',
 			price: 4.90,
-			position: 1,
+			position: 8,
 			category: 'Non-Alcholic',
 			image: nil})
 
@@ -662,28 +662,28 @@ puts 'Importing Restaurant::GBK::FreshFizzy'
 			name: 'GINGER & LEMONGRASS',
 			description: '',
 			price: 2.70,
-			position: 1,
+			position: 2,
 			category: 'Non-Alcholic',
 			image: nil})
 		create_item(restaurant.id, fresh, {
 			name: 'STRAWBERRY & ELDERFLOWER',
 			description: '',
 			price: 2.70,
-			position: 1,
+			position: 3,
 			category: 'Non-Alcholic',
 			image: nil})
 		create_item(restaurant.id, fresh, {
 			name: 'RHUBARB & VANILLA',
 			description: '',
 			price: 2.70,
-			position: 1,
+			position: 4,
 			category: 'Non-Alcholic',
 			image: nil})
 		create_item(restaurant.id, fresh, {
 			name: 'CLOUDY LEMONADE',
 			description: '',
 			price: 2.70,
-			position: 1,
+			position: 5,
 			category: 'Non-Alcholic',
 			image: nil})
 
@@ -705,7 +705,7 @@ puts 'Importing Restaurant::GBK::Soft'
 			name: 'APPLE JUICE',
 			description: '100% Fresh Juice',
 			price: 3.00,
-			position: 1,
+			position: 2,
 			category: 'Non-Alcholic',
 			image: nil})
 
@@ -713,7 +713,7 @@ puts 'Importing Restaurant::GBK::Soft'
 			name: 'GINGERELLA GINGER ALE',
 			description: '330ml',
 			price: 3.00,
-			position: 1,
+			position: 3,
 			category: 'Non-Alcholic',
 			image: nil})
 
@@ -721,7 +721,7 @@ puts 'Importing Restaurant::GBK::Soft'
 			name: 'COCA-COLA',
 			description: '330ml',
 			price: 2.80,
-			position: 1,
+			position: 4,
 			category: 'Non-Alcholic',
 			image: nil})
 
@@ -729,7 +729,7 @@ puts 'Importing Restaurant::GBK::Soft'
 			name: 'DIET COKE',
 			description: '330ml',
 			price: 2.70,
-			position: 1,
+			position: 5,
 			category: 'Non-Alcholic',
 			image: nil})
 
@@ -737,7 +737,7 @@ puts 'Importing Restaurant::GBK::Soft'
 			name: 'COKE ZERO',
 			description: '330ml',
 			price: 2.70,
-			position: 1,
+			position: 6,
 			category: 'Non-Alcholic',
 			image: nil})
 
@@ -745,7 +745,7 @@ puts 'Importing Restaurant::GBK::Soft'
 			name: 'SPRITE',
 			description: '330ml',
 			price: 2.70,
-			position: 1,
+			position: 7,
 			category: 'Non-Alcholic',
 			image: nil})
 
@@ -753,7 +753,7 @@ puts 'Importing Restaurant::GBK::Soft'
 			name: 'STILL WATER',
 			description: '500ml',
 			price: 2.10,
-			position: 1,
+			position: 8,
 			category: 'Non-Alcholic',
 			image: nil})
 
@@ -761,7 +761,7 @@ puts 'Importing Restaurant::GBK::Soft'
 			name: 'SPARKLING WATER',
 			description: '500ml',
 			price: 2.10,
-			position: 1,
+			position: 9,
 			category: 'Non-Alcholic',
 			image: nil})
 
@@ -794,7 +794,7 @@ puts 'Importing Restaurant::GBK::BEER'
 			name: 'BUDVAR (500ML)',
 			description: 'Czech premium lager (5.0%)',
 			price: 6.05,
-			position: 1,
+			position: 2,
 			category: 'Alcoholic',
 			image: nil})
 
@@ -802,7 +802,7 @@ puts 'Importing Restaurant::GBK::BEER'
 			name: 'BREWDOG PUNK IPA 500ML',
 			description: 'Classic pale, hoppy IPA (5.6%)',
 			price: 6.25,
-			position: 1,
+			position: 3,
 			category: 'Alcoholic',
 			image: nil})
 
@@ -811,7 +811,7 @@ puts 'Importing Restaurant::GBK::BEER'
 			name: 'DAURA DAMM',
 			description: 'Pale, gluten free lager (5.4%)',
 			price: 4.25,
-			position: 1,
+			position: 4,
 			category: 'Alcoholic',
 			image: nil})
 
@@ -820,7 +820,7 @@ puts 'Importing Restaurant::GBK::BEER'
 			name: 'HOLLOWS GINGER BEER',
 			description: 'All natural & gluten free (4.0%)',
 			price: 5.65,
-			position: 1,
+			position: 5,
 			category: 'Alcoholic',
 			image: nil})
 
@@ -829,7 +829,7 @@ puts 'Importing Restaurant::GBK::BEER'
 			name: 'OLD RASCAL CIDER',
 			description: 'Medium dry Somerset cider (4.5%)',
 			price: 5.35,
-			position: 1,
+			position: 6,
 			category: 'Alcoholic',
 			image: nil})
 
@@ -838,7 +838,7 @@ puts 'Importing Restaurant::GBK::BEER'
 			name: 'THE WILD BEER CO. NEBULA',
 			description: 'Hazy, tropical IPA (5%)',
 			price: 4.95,
-			position: 1,
+			position: 7,
 			category: 'Alcoholic',
 			image: nil})
 
@@ -847,7 +847,7 @@ puts 'Importing Restaurant::GBK::BEER'
 			name: 'TARAS BOULBA',
 			description: 'Extra hoppy Belgian ale (4.5%)',
 			price: 4.95,
-			position: 1,
+			position: 8,
 			category: 'Alcoholic',
 			image: nil})
 
@@ -871,42 +871,42 @@ puts 'Importing Restaurant::GBK::Wine'
 			name: 'SOUTH ISLAND SAUVIGNON BLANC',
 			description: 'New Zeland',
 			price: 19.95,
-			position: 1,
+			position: 2,
 			category: 'Alcoholic',
 			image: nil})
 		create_item(restaurant.id, wine, {
 			name: 'AFRIKAN RIDGE MERLOT',
 			description: 'South Africa',
 			price: 15.05,
-			position: 1,
+			position: 3,
 			category: 'Alcoholic',
 			image: nil})
 		create_item(restaurant.id, wine, {
 			name: 'TAPAS TEMPRANILLO',
 			description: 'Spain',
 			price: 16.95,
-			position: 1,
+			position: 4,
 			category: 'Alcoholic',
 			image: nil})
 		create_item(restaurant.id, wine, {
 			name: 'LA BONITA MALBEC',
 			description: 'Argentina',
 			price: 20.95,
-			position: 1,
+			position: 5,
 			category: 'Alcoholic',
 			image: nil})
 		create_item(restaurant.id, wine, {
 			name: 'AFRIKAN RIDGE CHENIN BLANK',
 			description: 'South Africa',
 			price: 15.05,
-			position: 1,
+			position: 6,
 			category: 'Alcoholic',
 			image: nil})
 		create_item(restaurant.id, wine, {
 			name: 'VINOIR SYRAH ROSE',
 			description: 'Chile',
 			price: 19.95,
-			position: 1,
+			position: 7,
 			category: 'Alcoholic',
 			image: nil})
 
@@ -928,7 +928,7 @@ puts 'Importing Restaurant::GBK::Cocktail'
 			name: 'RHUBARB, VANILLA & VODKA',
 			description: '',
 			price: 5.95,
-			position: 1,
+			position: 2,
 			category: 'Alcoholic',
 			image: nil})
 
@@ -936,7 +936,7 @@ puts 'Importing Restaurant::GBK::Cocktail'
 			name: 'GINGER, LEMONGRASS & GIN',
 			description: '',
 			price: 5.95,
-			position: 1,
+			position: 3,
 			category: 'Alcoholic',
 			image: nil})
 
@@ -944,7 +944,7 @@ puts 'Importing Restaurant::GBK::Cocktail'
 			name: 'ELDERFLOWER & VODKA',
 			description: '',
 			price: 5.95,
-			position: 1,
+			position: 4,
 			category: 'Alcoholic',
 			image: nil})
 
@@ -952,7 +952,7 @@ puts 'Importing Restaurant::GBK::Cocktail'
 			name: 'GIN & TONIC',
 			description: 'Sipsmith London Dry Gin with tonic & lemon',
 			price: 5.95,
-			position: 1,
+			position: 5,
 			category: 'Alcoholic',
 			image: nil})
 
@@ -960,7 +960,7 @@ puts 'Importing Restaurant::GBK::Cocktail'
 			name: 'VODKA & GINGER ALE',
 			description: 'Sipsmith Sipping Vodka with ginger ale & lime',
 			price: 5.95,
-			position: 1,
+			position: 6,
 			category: 'Alcoholic',
 			image: nil})
 

@@ -36,41 +36,12 @@
                   </div>
                 </div>
                 <div class="accordion border" id="accordionExample-<%=sub.id%>">
-                  <div class="card">
-                    <div class="card-header" id="headingOne-<%=sub.id%>">
-                      <h5 class="mb-0">
-                        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne-<%=sub.id%>" aria-expanded="true" aria-controls="collapseOne-<%=sub.id%>">
-                          <%= t('menu.description')%>
-                        </button>
-                      </h5>
-                    </div>
-                    <div id="collapseOne-<%=sub.id%>" class="collapse show" aria-labelledby="headingOne-<%=sub.id%>" data-parent="#accordionExample-<%=sub.id%>">
-                      <div class="card-body">
-                        <div class="container">
-                          <div class="row">
-                            <% if feature_match(:images, sub.restaurant_features) %>
-                        
-                            <div class="col-lg-3">
-                        
-                              <%= image_tag sub.image.variant(resize: "200x200"), class: "img-fluid" if sub.image.attached? %>
-                        
-                              </div>
-                            <% end %>    
-    
-                            <div class="col">
-                              <div class="menu-description ml-3"><%=sub.description %></div>
-                              <div class="menu-description ml-3">
-                                <%=custom_list_options(sub.custom_lists).html_safe%>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                  
 
                   <%#= sub.inspect%>
 
+<%= render('tables/modal_components/description', sub: sub) %>
+<%= render('tables/modal_components/options', sub: sub) %>
 <%= render('tables/modal_components/nutrition', sub: sub) if feature_match(:nutrition, sub.restaurant_features)%>
 <%= render('tables/modal_components/provenance', sub: sub) if feature_match(:provenance, sub.restaurant_features)%>
 
