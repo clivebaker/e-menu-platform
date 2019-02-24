@@ -11,7 +11,22 @@ threads threads_count, threads_count
 
 # Specifies the `port` that Puma will listen on to receive requests; default is 3000.
 #
-port        ENV.fetch('PORT') { 3000 }
+
+
+
+
+if rails_env == "production"
+  workers 4
+  threads 1, 16
+  stdout_redirect "#{shared_dir}/log/puma.stdout.log", "#{shared_dir}/log/puma.stderr.log", true
+  bind "unix://#{shared_dir}/tmp/sockets/puma.sock"
+  pidfile "#{shared_dir}/tmp/pids/puma.pid"
+  state_path "#{shared_dir}/tmp/pids/puma.state"
+else
+  port        ENV.fetch("PORT") { 3000 }
+end
+
+
 
 # Specifies the `environment` that Puma will run in.
 #
