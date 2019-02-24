@@ -56,6 +56,7 @@ gem 'trix-rails', require: 'trix'
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'sidekiq'
 gem 'yandex-translator'
+gem 'execjs'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -63,6 +64,11 @@ group :development, :test do
 
   # gem 'factory_girl_rails', '~> 4.5.0'
   gem 'rspec-rails'
+
+  gem 'capistrano'
+  gem 'capistrano-rails'
+  gem 'capistrano-rvm'
+
 end
 
 group :development do
