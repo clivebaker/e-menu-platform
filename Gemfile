@@ -56,7 +56,7 @@ gem 'trix-rails', require: 'trix'
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'sidekiq'
 gem 'yandex-translator'
-gem 'execjs'
+gem 'therubyracer'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
