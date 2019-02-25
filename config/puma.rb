@@ -13,9 +13,10 @@ threads threads_count, threads_count
 #
 
 
+environment ENV.fetch('RAILS_ENV') { 'development' }
 
 
-if rails_env == "production"
+if environment == "production"
   workers 4
   threads 1, 16
   stdout_redirect "#{shared_dir}/log/puma.stdout.log", "#{shared_dir}/log/puma.stderr.log", true
@@ -30,7 +31,6 @@ end
 
 # Specifies the `environment` that Puma will run in.
 #
-environment ENV.fetch('RAILS_ENV') { 'development' }
 
 # Specifies the number of `workers` to boot in clustered mode.
 # Workers are forked webserver processes. If using threads and workers together
