@@ -46,7 +46,7 @@ namespace :deploy do
   after :restart, :clear_cache do
     on roles(:web), in: :groups, limit: 3, wait: 10 do
       execute 'sudo service emenu restart'
-    #  execute 'service emenu_sidekiq restart'
+      execute 'sudo service emenu_sidekiq restart'
 
     end
   end
