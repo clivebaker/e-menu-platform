@@ -76,6 +76,7 @@ namespace :base_data do
   	Feature.create(name: 'Ordering', key: 'ordering')
   	Feature.create(name: 'Order Customer Name', key: 'order_customer_name')
   	Feature.create(name: 'Skip Service Stage', key: 'service')
+  	Feature.create(name: 'Menu in Sections', key: 'menu_in_sections')
 	end
   task spice_levels: :environment do
   	puts 'Importing Spice Levels'
@@ -197,6 +198,9 @@ namespace :base_data do
   	puts 'Importing Restaurant::Menu'
   	menu = Menu.create(name: 'Main Menu', restaurant_id: restaurant.id, node_type: 'menu')
   	menu.translate
+
+  	restaurant.active_menu_ids.push(menu.id)
+  	restaurant.save
 
   	puts 'Importing Restaurant::Starters'
   	starters = Menu.create(name: 'Starters', parent: menu, restaurant_id: restaurant.id, node_type: 'section')

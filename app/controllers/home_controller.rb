@@ -49,7 +49,13 @@ class HomeController < ApplicationController
     end
     respond_to do |format|
       if @table.present?
-        format.html { redirect_to table_path(@table.id), notice: t('messages.table_created_successfully') }
+
+        if @table.restaurant_features.map{|s| s.key.to_sym}.include?("menu_in_sections".to_sym)
+          format.html { redirect_to table_sectioned_menus_path(@table), notice: t('messages.table_created_successfully') }
+        else
+          format.html { redirect_to table_path(@table.id), notice: t('messages.table_created_successfully') }
+        end
+
       else
         format.html { redirect_to register_table_path(@restaurant_table.code), alert: t('messages.table_incorrect_password') }
       end

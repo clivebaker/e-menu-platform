@@ -176,6 +176,10 @@ namespace :gbk do
   	menu = Menu.create(name: 'GBK', restaurant_id: restaurant.id, node_type: 'menu')
   	menu.translate
 
+  	restaurant.active_menu_ids.push(menu.id)
+  	restaurant.save
+
+
   	puts 'Importing Restaurant::GBK::FirstBites'
   	first_bites = Menu.create(name: 'FIRST BITES', parent: menu, restaurant_id: restaurant.id, node_type: 'section',position: 1)
 		first_bites.translate
