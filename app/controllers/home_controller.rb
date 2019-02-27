@@ -12,7 +12,13 @@ class HomeController < ApplicationController
     @table = Table.find_by(id: table_id, restaurant_table_id: @restaurant_table.id, aasm_state: :started) if table_id && @restaurant_table
     respond_to do |format|
       if @table.present?
-        format.html { redirect_to table_path(@table.id), notice: t('messages.table_joined_successfully') }
+
+        if @table.restaurant_features.map{|s| s.key.to_sym}.include?("menu_in_sections".to_sym)
+          format.html { redirect_to table_sectioned_menus_path(@table), notice: t('messages.table_joined_successfully') }
+        else
+          format.html { redirect_to table_path(@table.id), notice: t('messages.table_joined_successfully') }
+        end
+
       else
         format.html
       end
@@ -49,6 +55,8 @@ class HomeController < ApplicationController
     end
     respond_to do |format|
       if @table.present?
+
+        # binding.pry
 
         if @table.restaurant_features.map{|s| s.key.to_sym}.include?("menu_in_sections".to_sym)
           format.html { redirect_to table_sectioned_menus_path(@table), notice: t('messages.table_created_successfully') }
