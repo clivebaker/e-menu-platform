@@ -15,6 +15,9 @@ Rails.application.routes.draw do
     get 'pay'
     post 'stripe'
     get 'finish'
+    get 'sectioned_menus'
+    get 'sectioned_menus/:menu_id' => 'tables#sectioned_menus', as: 'sectioned_menus_choice'
+
   end
   require 'sidekiq/web'
   mount Sidekiq::Web => '/sidekiq'
@@ -48,6 +51,9 @@ Rails.application.routes.draw do
     resources :restaurants do
       post 'add_feature/:feature_id', action: :add_feature, as: :add_feature
       post 'remove_feature/:feature_id', action: :remove_feature, as: :remove_feature
+      get 'active', action: :active
+      post 'toggle_active', action: :toggle_active
+
 
       resources :menus
       resources :restaurant_tables do

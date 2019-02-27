@@ -1,0 +1,46 @@
+<main role="main" class="container">
+  <div class="my-3 p-3 bg-white rounded shadow-sm">
+	  <h3 class="border-bottom border-gray pb-2 mb-0">Choose Active Menu</h3>
+		
+
+	  	<table class="table">
+	  		<thead>
+	  		<tr>
+	  			<th>Name</th>
+	  			<th class="text-center">Active Menu?</th>
+	  			<th></th>
+	  		</tr>
+				</thead>
+				<tbody>
+			
+					<% @restaurant.menus.roots.each do |category| %>
+					<tr>
+						<td><%= category.name %></td>
+						<td class="text-center">
+							<% css = 'times-circle' %>
+							<% if @restaurant.active_menu_ids.include?(category.id) %>
+							<% css = 'check-circle' %>
+							<% end %>
+
+							<i class="fa fa-<%=css%>"></i>
+						</td>
+						<td>
+							<% if @restaurant.active_menu_ids.include?(category.id) %>
+								<%= link_to "Set Inactive", manager_restaurant_toggle_active_path(@restaurant, menu_id: category.id), method: :post %>
+							<% else %>
+								<%= link_to "Set Active", manager_restaurant_toggle_active_path(@restaurant, menu_id: category.id), method: :post %>
+							<% end %>						
+
+						</td>
+					</tr>
+
+
+					<% end %>
+				</tbody>
+	  	</table>
+
+
+
+		<%= link_to 'Back', manager_home_dashboard_path %>
+	</div>
+</main>

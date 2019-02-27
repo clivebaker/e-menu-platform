@@ -12,6 +12,7 @@
                <%= link_to("Add Restaurant", new_manager_restaurant_path, class: "nav-link")  %>
               <% end %>
               <% if @restaurant.present? && @restaurant.id %> 
+                <%= link_to("Active Menus", manager_restaurant_active_path(@restaurant), class: "nav-link") %>
                 <%= link_to("Menus", manager_restaurant_menus_path(@restaurant), class: "nav-link") %>
                 <%= link_to("Custom Lists", manager_restaurant_custom_lists_path(@restaurant), class: "nav-link") %>
                 <%= link_to("Tables", manager_restaurant_restaurant_tables_path(@restaurant), class: "nav-link") %>

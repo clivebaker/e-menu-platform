@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class TablesController < ApplicationController
-  before_action :set_table, only: %i[show edit update destroy]
-  before_action :authenticate_manager_restaurant_user!, except: %i[show pay stripe finish add_item]
+  before_action :set_table, only: %i[ show edit update destroy]
+  before_action :authenticate_manager_restaurant_user!, except: %i[sectioned_menus show pay stripe finish add_item]
   skip_before_action :verify_authenticity_token, only: %i[pay stripe]
   # GET /tables
   # GET /tables.json
@@ -14,6 +14,14 @@ class TablesController < ApplicationController
   # GET /tables/1.json
   def show
     table_id = cookies[:table_id]
+    @price = @table.table_items.reject{|a| a.paid?}.map{|e| e.total_price}.inject(:+) || 0
+    redirect_to home_index_path, alert: t('register_table.error.expired') unless @table.id == table_id.to_i
+  end
+  def sectioned_menus
+    @menu_id = params[:menu_id].to_i if params[:menu_id].present?
+    
+    table_id = cookies[:table_id]
+    @table = Table.find(table_id)
     @price = @table.table_items.reject{|a| a.paid?}.map{|e| e.total_price}.inject(:+) || 0
     redirect_to home_index_path, alert: t('register_table.error.expired') unless @table.id == table_id.to_i
   end

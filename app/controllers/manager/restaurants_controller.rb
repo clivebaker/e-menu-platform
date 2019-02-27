@@ -5,7 +5,9 @@ module Manager
     before_action :authenticate_manager_restaurant_user!
 
     before_action :set_restaurant_new, only: %i[show edit update]
+    before_action :set_restaurant, only: %i[active toggle_active]
     before_action :set_cuisine, only: %i[new create show edit update]
+
 
     before_action :set_features, only: [:show]
 
@@ -21,6 +23,34 @@ module Manager
 
     def show; end
 
+
+    def active
+
+      
+    end
+    def toggle_active
+
+
+        menu_id = params[:menu_id].to_i
+        message = ""
+
+        if @restaurant.active_menu_ids.include?(menu_id)
+          @restaurant.active_menu_ids.delete(menu_id)
+          message = "deactivated"
+        else
+          @restaurant.active_menu_ids.push(menu_id)        
+          message = "activated"
+        end
+          @restaurant.save  
+
+       respond_to do |format|
+          format.html { redirect_to manager_restaurant_active_path(@restaurant), notice: "Menu was successfully #{message}." }
+          format.json { render :show, status: :created, location: @restaurant }
+      end       
+
+
+      
+    end
 
   def add_feature
     

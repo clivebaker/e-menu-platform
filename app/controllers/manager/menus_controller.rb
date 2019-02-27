@@ -16,6 +16,11 @@ module Manager
       @updated_menu = params[:updated_menu].to_i if params[:updated_menu]
     end
 
+
+
+
+
+
     # GET /menus/1
     # GET /menus/1.json
     def show; end

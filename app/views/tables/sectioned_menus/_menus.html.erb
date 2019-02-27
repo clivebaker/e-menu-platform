@@ -4,18 +4,25 @@
   <%#= binding.pry %>
   <% if @table.restaurant.active_menu_ids.include?(category.id) %>
 
+    <% 
+    if @menu_id.blank?
+      @menu_id = category.children.first.id
+    end
+     %>
+
     <div class="text-left"><h1> <%= h(category.name) %></h1>
       <div class="sticky-top">
     		<nav class="nav bg-secondary text-light border-warning rounded justify-content-center">
     			<% category.children.each do |cat| %>
-    				<%= link_to cat.name, "##{cat.name.gsub(' ','')}", class: 'nav-link menu-sub-nav text-light rounded-pill' %>
+            <%= link_to cat.name, table_sectioned_menus_choice_path(@table, cat.id), class: 'nav-link menu-sub-nav text-light rounded-pill' %>
+            <%#= link_to cat.name, "##{cat.name.gsub(' ','')}", class: 'nav-link menu-sub-nav text-light rounded-pill' %>
     		  <% end %>
     		</nav>
       </div>
       <% if category.children.present? %>
         <div id="submenu">
         	<ul class="menu">          
-            <%= render 'tables/menu_items', category: category, table: @table %>
+            <%= render('tables/sectioned_menus/menu_items', category: category, table: @table) if @menu_id.present? %>
         	</ul>
         </div>
       <% end %>
