@@ -2,11 +2,9 @@ module Api
 	module V1
 		class MenuController < ApiController 
       def index
-        @restaurant = Restaurant.find(params[:id])
-        @menus = Menu.where(restaurant_id: @restaurant, ancestry: nil)
-        @sorted_menus = Menu.sort_by_ancestry(@menus)
+        restaurant = Restaurant.find(params[:id])
         ret = Menu.arrange_serializable
-        ret = ret.select{|r| r['restaurant_id']==3}
+        ret = ret.select{|r| r['restaurant_id']==restaurant.id}
         render json: ret
       end
     end  
