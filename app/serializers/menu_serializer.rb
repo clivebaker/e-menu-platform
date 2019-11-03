@@ -1,3 +1,8 @@
+
+
 class MenuSerializer < ActiveModel::Serializer
-  attributes :id
+
+  attributes :id, :image
+
+
 end
