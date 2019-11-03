@@ -13,6 +13,7 @@ module Manager
     # GET /menus.json
     def index
       @menus = Menu.where(restaurant_id: @restaurant, ancestry: nil)
+      @sorted_menus = Menu.sort_by_ancestry(@menus)
       @updated_menu = params[:updated_menu].to_i if params[:updated_menu]
     end
 
