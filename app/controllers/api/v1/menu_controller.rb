@@ -10,7 +10,7 @@ module Api
       end
 
     def menu_json restaurant_id
-      Rails.cache.fetch("api/restaurant/#{restaurant_id}/menu", expires_in: 12.hours) do
+      Rails.cache.fetch("api/restaurant/#{restaurant_id}/menu", expires_in: 30.minutes) do
         return_json(restaurant_id)
       end
     end
