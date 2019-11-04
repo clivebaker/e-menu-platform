@@ -4,6 +4,15 @@ class Menu < ApplicationRecord
   belongs_to :restaurant
   belongs_to :spice_level, optional: true
 
+  after_save :clear_cache
+
+
+
+def clear_cache
+  # binding.pry
+  Rails.cache.delete("api/restaurant/#{restaurant_id}/menu")
+end
+
   # belongs_to :menu_item_categorisation, optional: true
   has_and_belongs_to_many :menu_item_categorisation
   has_and_belongs_to_many :cook_level

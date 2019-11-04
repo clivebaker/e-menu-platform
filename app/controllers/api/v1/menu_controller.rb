@@ -3,9 +3,6 @@ module Api
 		class MenuController < ApiController 
       def index
         restaurant = Restaurant.find(params[:id])
-  
-
-
         render json: menu_json(restaurant.id)
       end
 
@@ -17,7 +14,6 @@ module Api
 
 
     def  return_json restaurant_id
-
       ret3 = Menu.arrange_serializable do |parent, children|
         url = url_for(parent.image) if parent.image.attached?
         {
