@@ -1,6 +1,34 @@
 module Api
 	module V1
-		class MenuController < ApiController 
+    class MenuController < ApiController 
+      
+      def menu_item
+        menu = Menu.find(params[:id])
+        json = {
+          id: menu.id, 
+          name: menu.name, 
+          price:  ("%.2f" % menu.price_a).to_f,
+          description: menu.description
+        }
+        render json: json
+      end
+      def menu_optionals
+        resp = []
+        
+        items = params[:items]
+        CustomListItem.where(id: items.split(',')).each do |item|
+        resp << {
+          id: item.id, 
+          name: item.name, 
+          price: ("%.2f" % item.price).to_f,
+          description: item.description
+        }
+        end if items.present?
+        render json: resp
+      end
+
+
+
       def index
         restaurant = Restaurant.find(params[:id])
         render json: menu_json(restaurant.id)

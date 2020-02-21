@@ -25,6 +25,9 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       get 'menu/:id' => 'menu#index'
+      get 'menu_item/:id', to: 'menu#menu_item'
+      get 'menu_optionals', to: 'menu#menu_optionals'
+      get 'menu_optionals/:items', to: 'menu#menu_optionals'
     end
   end
 
