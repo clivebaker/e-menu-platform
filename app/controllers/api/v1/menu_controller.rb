@@ -54,7 +54,7 @@ module Api
           items = []
           lists[key].each do |item|
             list_item = CustomListItem.find(item)
-            items << {name: list_item.name, id: list_item.id}
+            items << {name: list_item.name, id: list_item.id, price: list_item.price}
           end
 
           # CustomList
