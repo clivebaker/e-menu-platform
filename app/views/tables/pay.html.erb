@@ -267,11 +267,27 @@
 							  <li class="list-group-item d-flex justify-content-between align-items-center rhc-item  <%=item.paid? ? "item-paid" : "" %>">
 								  <div class="container-fluid">
 								  	<div class="row ">
-								  		<div class="col-sm-1 "><%= check_box_tag( :item, item.id, false, class: "item-check form-check-input", "data-price" => item.total_price*100) if item.service?  %>
+								  		<div class="col-sm-6 ">
+<!--
+                      <div class="custom-control custom-checkbox">
+                        <%#= check_box_tag( :item, item.id, false, id: "customCheck-#{item.id}", class: "custom-control-label iterm-check", "data-price" => item.total_price*100) if item.service?  %>                       
+                        <label class="custom-control-label" for="customCheck-<%=item.id%>"><%= item.name%></label>
+                      </div>
+ -->
+
+<div class="custom-control custom-checkbox">
+  <input type="checkbox" class="item-check custom-control-input" id="customCheck-<%=item.id%>" data-price="<%=item.total_price*100%>">
+  <label class="custom-control-label pt-1" for="customCheck-<%=item.id%>"><%= item.name%></label>
+</div>
+
                         <%= item.aasm_state unless item.service?  %>          
                       </div>
-								  		<div class="col-sm-5"><%= item.name%></div>
-								  		<div class="col-sm-4 text-right"><%= item.for%></div>
+								  	
+								  		<div class="col-sm-4 text-right">
+                      
+                      <%= item.for%>
+
+                      </div>
 								  		<div class="col-sm-2 text-right"><%=number_to_currency item.total_price, unit: "£"%></div>
 								  	</div>
 
@@ -281,7 +297,7 @@
                         <% item.custom_lists[list_id].each do |list_item_id| %>
                           <% list_item = CustomListItem.find(list_item_id) %>
                           <div class="row">
-                            <div class="col-sm-1">&nbsp;</div>
+                            <div class="col-sm-1">xx&nbsp;</div>
                             <div class="col-sm-9">- <%= "#{custom_list.name}: #{list_item.name}" %>&nbsp;&nbsp;<%= "(#{number_to_currency(list_item.price, unit: "£")})"  if list_item.price > 0 %></div>
                             <div class="col-sm-2 text-right"></div>
                           </div>
