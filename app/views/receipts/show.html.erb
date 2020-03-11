@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Uuid:</strong>
+  <%= @receipt.uuid %>
+</p>
+
+<p>
+  <strong>Restaurant:</strong>
+  <%= @receipt.restaurant %>
+</p>
+
+<p>
+  <strong>Basket total:</strong>
+  <%= @receipt.basket_total %>
+</p>
+
+<p>
+  <strong>Items:</strong>
+  <%= @receipt.items %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @receipt.email %>
+</p>
+
+<p>
+  <strong>Stripe token:</strong>
+  <%= @receipt.stripe_token %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @receipt.status %>
+</p>
+
+<p>
+  <strong>Is ready:</strong>
+  <%= @receipt.is_ready %>
+</p>
+
+<%= link_to 'Edit', edit_receipt_path(@receipt) %> |
+<%= link_to 'Back', receipts_path %>

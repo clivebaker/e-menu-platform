@@ -2,10 +2,14 @@
 
 Rails.application.routes.draw do
 
+  resources :receipts do 
+    post 'is_ready'
+  end
   namespace :restaurant do
     get 'list' => "home#index"
     get 'booking/:slug' => "booking#index", as: :booking
     get 'menu/:slug' => "menu#index", as: :menu
+
   end
 
 
@@ -40,6 +44,7 @@ Rails.application.routes.draw do
 
     get 'live_tables/:restaurant_id' => 'live#tables', as: :live_tables
     get 'live_items/:restaurant_id' => 'live#items', as: :live_items
+    get 'live_orders/:restaurant_id' => 'live#orders', as: :live_orders
     get 'service/:restaurant_id/item/:table_item_id' => 'live#service', as: :live_service
 
     resources :features

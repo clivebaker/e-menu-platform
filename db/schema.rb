@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_27_123621) do
+ActiveRecord::Schema.define(version: 2020_03_11_094402) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -153,6 +153,21 @@ ActiveRecord::Schema.define(version: 2019_02_27_123621) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "receipts", force: :cascade do |t|
+    t.string "uuid"
+    t.bigint "restaurant_id"
+    t.integer "basket_total"
+    t.jsonb "items"
+    t.string "email"
+    t.string "stripe_token"
+    t.string "status"
+    t.boolean "is_ready"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "name"
+    t.index ["restaurant_id"], name: "index_receipts_on_restaurant_id"
+  end
+
   create_table "restaurant_tables", force: :cascade do |t|
     t.integer "number"
     t.bigint "restaurant_id"
@@ -236,6 +251,7 @@ ActiveRecord::Schema.define(version: 2019_02_27_123621) do
   add_foreign_key "menus", "menu_item_categorisations"
   add_foreign_key "menus", "restaurants"
   add_foreign_key "menus", "spice_levels"
+  add_foreign_key "receipts", "restaurants"
   add_foreign_key "restaurant_tables", "restaurants"
   add_foreign_key "restaurants", "cuisines"
   add_foreign_key "restaurants", "restaurant_users"

@@ -1,0 +1,42 @@
+<div class="container-fluid mt-5 mb-2">
+  <div class="row m-2">
+
+        <% @restaurant.receipts.where(is_ready: false).each do |receipt| %>
+         <%#= receipt.inspect%>
+           
+              <div class=" col-sm-3">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">Order: <%=receipt.name%></h5>
+               
+                  <p class="card-text">
+                    <ul class="list-group">
+                      <% receipt.items['items'].each do |item| %>
+                        <li class="list-group-item">
+                            <div class="row">
+                              <div class="col"><%= item['item']%></div>
+                            </div>
+                            <div class="row">
+                              <div class="col"><small><%= item['optionals'].join(', ')%></small></div>
+                            </div>
+                            
+                            
+                         </li>
+                      <% end %>
+                    </ul>
+                  </p>
+                            <%= link_to "Ready?",receipt_is_ready_path(receipt.id), method: :post, class: 'btn btn-warning mt-3', data: { confirm: 'Are you sure?' } %>
+                 <!--  -->
+                  <!-- <a href="#" class="card-link">Another link</a> -->
+                </div>
+              </div>
+              </div>
+            <% end %>
+
+    
+
+
+
+  </div>
+</div>
+

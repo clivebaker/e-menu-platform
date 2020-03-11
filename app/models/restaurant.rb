@@ -5,6 +5,7 @@ class Restaurant < ApplicationRecord
 
   belongs_to :restaurant_user
 
+  has_many :receipts
   has_many :menus
   has_many :restaurant_tables
   has_many :custom_lists

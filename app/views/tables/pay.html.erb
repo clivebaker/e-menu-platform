@@ -277,7 +277,7 @@
 
 <div class="custom-control custom-checkbox">
   <input type="checkbox" class="item-check custom-control-input" id="customCheck-<%=item.id%>" data-price="<%=item.total_price*100%>">
-  <label class="custom-control-label pt-1" for="customCheck-<%=item.id%>"><%= item.name%></label>
+  <label class="custom-control-label pt-1checkout" for="customCheck-<%=item.id%>"><%= item.name%></label>
 </div>
 
                         <%= item.aasm_state unless item.service?  %>          
