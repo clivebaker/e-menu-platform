@@ -25,7 +25,7 @@ module Manager
       end
 
       def after_sign_out_path_for(_resource)
-        manager_home_index_path
+        new_manager_restaurant_user_session_path
       end
 
       # protected
