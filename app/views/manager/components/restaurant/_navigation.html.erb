@@ -49,6 +49,9 @@
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <%= link_to("Features", manager_features_path(@restaurant), class: "nav-link") if can? :manage, Feature %>
+                <%= link_to("Settings", manager_settings_path(@restaurant), class: "nav-link") if can? :manage, Setting %>
+                <%= link_to("Templates", manager_templates_path(@restaurant), class: "nav-link") if can? :manage, Template %>
+                
                 <%#= link_to("Packages", manager_packages_path(@restaurant), class: "nav-link") %>
           </div>
         </li>

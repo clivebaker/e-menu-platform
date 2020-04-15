@@ -21,8 +21,9 @@
       </div>
       <% if category.children.present? %>
         <div id="submenu">
-        	<ul class="menu">          
-            <%= render('tables/sectioned_menus/menu_items', category: category, table: @table) if @menu_id.present? %>
+        	<ul class="menu">   
+          				<% # TODO: TEMPLATE CHOICE %>       
+            <%= render("tables/sectioned_menus/#{@template}/menu_items_section", category: category, table: @table) if @menu_id.present? %>
         	</ul>
         </div>
       <% end %>

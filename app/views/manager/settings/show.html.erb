@@ -1,0 +1,20 @@
+<div class="container">
+
+<p>
+  <strong>Name:</strong>
+  <%= @manager_setting.name %>
+</p>
+
+<p>
+  <strong>Key:</strong>
+  <%= @manager_setting.key %>
+</p>
+
+<p>
+  <strong>Category:</strong>
+  <%= @manager_setting.category %>
+</p>
+
+<%= link_to 'Edit', edit_manager_setting_path(@manager_setting) %> |
+<%= link_to 'Back', manager_settings_path %>
+</div>

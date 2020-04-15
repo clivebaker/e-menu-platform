@@ -1,0 +1,43 @@
+<!-- item -->
+<div class="">
+
+
+  <%=@template%>
+  <div class="row ">
+    
+    <% if feature_match(:images, sub.restaurant_features) %>
+        <div class="col-md-2 d-none d-md-block">
+          <% if sub.image.attached? %>
+            <%= image_tag sub.image.variant(resize: "120x120"), class: "img-fluid"  %>
+          <% end %>
+        </div>
+    <% end %>
+
+    <div class="col-8 col-md-6">
+        <%=sub.name%> 
+        <% sub.menu_item_categorisation.each do |category| %>
+          <i class="<%= category.icon %>"></i>
+        <% end %>
+        <div class="menu-description"><%=sub.description%></div>
+    </div>
+
+    <div class="col-2 col-md-2 text-right">
+       <%= sub.prices_joined.map{|a| number_to_currency(a, unit: "£")}.join(" / ") if sub.prices_joined%>
+    </div>
+
+    <div class="col-2 col-md-2 text-right">
+      <% if sub.available %>
+      <% icon = feature_match(:ordering, sub.restaurant_features) ? 'plus' : 'info' %>
+      <%= button_tag class: "btn btn-outline-primary btn-sm add-menu-item",  "data-toggle" => "modal", "data-target" => "#item-#{sub.id}" do %><i class="fa fa-<%=icon%>"></i><% end %>
+      <% else %>
+        <div class="btn btn-danger unavailable">UNAVAILABLE</div>
+      <% end %>
+    </div>
+
+  </div>
+</div>
+
+
+
+<!-- / item -->
+<%= render("tables/modal_components/#{@template}/modal", sub: sub, table: table)  %>

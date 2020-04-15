@@ -13,16 +13,22 @@ class TablesController < ApplicationController
   # GET /tables/1
   # GET /tables/1.json
   def show
+
     table_id = cookies[:table_id]
     @price = @table.table_items.reject{|a| a.paid?}.map{|e| e.total_price}.inject(:+) || 0
+    @restaurant = @table.restaurant
+    @template = @restaurant.template.first.key 
     redirect_to home_index_path, alert: t('register_table.error.expired') unless @table.id == table_id.to_i
   end
   def sectioned_menus
+   
     @menu_id = params[:menu_id].to_i if params[:menu_id].present?
     
     table_id = cookies[:table_id]
     @table = Table.find(table_id)
     @price = @table.table_items.reject{|a| a.paid?}.map{|e| e.total_price}.inject(:+) || 0
+    @restaurant = @table.restaurant
+    @template = @restaurant.template.first.key 
     redirect_to home_index_path, alert: t('register_table.error.expired') unless @table.id == table_id.to_i
   end
 

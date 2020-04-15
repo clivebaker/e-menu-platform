@@ -10,6 +10,7 @@ class Restaurant < ApplicationRecord
   has_many :restaurant_tables
   has_many :custom_lists
   has_and_belongs_to_many :features
+  has_and_belongs_to_many :template
 
   # has_many :tables, through: :restaurant_tables
 

@@ -14,8 +14,9 @@
       </div>
       <% if category.children.present? %>
         <div id="submenu">
-        	<ul class="menu">          
-            <%= render 'tables/menu_items', category: category, table: @table %>
+        	<ul class="menu">      
+           				<% # TODO: TEMPLATE CHOICE %>   
+            <%= render "tables/long_menus/#{@template}/menu_items_long", category: category, table: @table %>
         	</ul>
         </div>
       <% end %>

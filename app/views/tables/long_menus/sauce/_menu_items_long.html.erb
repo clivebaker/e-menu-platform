@@ -1,0 +1,10 @@
+<ul class="menu">
+  <% category.children.order(:position).each do |sub| %>
+    <li class='menu-<%= sub.node_type%>'>
+    				<% # TODO: TEMPLATE CHOICE %>
+      <%= render("tables/long_menus/#{@template}/section", sub: sub) if sub.node_type != 'item' %>
+      <%= render("tables/long_menus/#{@template}/item", sub: sub, table: table) if sub.node_type == 'item' || sub.available %>
+      <%= render "tables/long_menus/#{@template}/menu_items_long", category: sub, table: table %>
+    </li>
+  <% end %>
+</ul>

@@ -1,0 +1,18 @@
+<ul class="menu">
+
+
+  <%#= category.children.order(:position)%>
+  <% category.children.each do |sub| %>
+    
+
+  	<% if sub.id == @menu_id || sub.parent.id == @menu_id %>
+	    <li class='menu-<%= sub.node_type%>'>
+	      <%= render("tables/sectioned_menus/#{@template}/section", sub: sub) if sub.node_type != 'item' %>
+	      <%= render("tables/sectioned_menus/#{@template}/item", sub: sub, table: table) if sub.node_type == 'item' || sub.available %>
+				<% # TODO: TEMPLATE CHOICE %>
+	      <%= render "tables/sectioned_menus/#{@template}/menu_items_section", category: sub, table: table %>
+	    </li>
+	  <% end %>
+   
+  <% end %>
+</ul>

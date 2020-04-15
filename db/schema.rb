@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_11_094402) do
+ActiveRecord::Schema.define(version: 2020_04_15_124932) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -99,6 +99,14 @@ ActiveRecord::Schema.define(version: 2020_03_11_094402) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "language_code"
+  end
+
+  create_table "manager_settings", force: :cascade do |t|
+    t.string "name"
+    t.string "key"
+    t.string "category"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "menu_item_categorisations", force: :cascade do |t|
@@ -213,8 +221,14 @@ ActiveRecord::Schema.define(version: 2020_03_11_094402) do
     t.bigint "restaurant_user_id"
     t.string "slug"
     t.integer "active_menu_ids", default: [], array: true
+    t.string "path"
     t.index ["cuisine_id"], name: "index_restaurants_on_cuisine_id"
     t.index ["restaurant_user_id"], name: "index_restaurants_on_restaurant_user_id"
+  end
+
+  create_table "restaurants_templates", id: false, force: :cascade do |t|
+    t.bigint "restaurant_id", null: false
+    t.bigint "template_id", null: false
   end
 
   create_table "spice_levels", force: :cascade do |t|
@@ -244,6 +258,13 @@ ActiveRecord::Schema.define(version: 2020_03_11_094402) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["restaurant_table_id"], name: "index_tables_on_restaurant_table_id"
+  end
+
+  create_table "templates", force: :cascade do |t|
+    t.string "name"
+    t.string "key"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   add_foreign_key "custom_list_items", "custom_lists"

@@ -1,0 +1,33 @@
+
+<div class="container">
+
+<h1>Manager Settings</h1>
+
+<table class='table'>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Key</th>
+      <th>Category</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @manager_settings.each do |manager_setting| %>
+      <tr>
+        <td><%= manager_setting.name %></td>
+        <td><%= manager_setting.key %></td>
+        <td><%= manager_setting.category %></td>
+        <td><%= link_to 'Show', manager_setting_path(manager_setting) %></td>
+        <td><%= link_to 'Edit', edit_manager_setting_path(manager_setting) %></td>
+        <td><%= link_to 'Destroy', manager_setting_path(manager_setting), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Manager Setting', new_manager_setting_path %>
+</div>

@@ -2,6 +2,7 @@
 
 Rails.application.routes.draw do
 
+
   resources :receipts do 
     post 'is_ready'
   end
@@ -48,8 +49,8 @@ Rails.application.routes.draw do
     get 'service/:restaurant_id/item/:table_item_id' => 'live#service', as: :live_service
 
     resources :features
-      
-
+    resources :templates  
+    resources :settings
     resources :packages do
       post 'add_feature/:feature_id', action: :add_feature, as: :add_feature
       post 'remove_feature/:feature_id', action: :remove_feature, as: :remove_feature
@@ -61,6 +62,7 @@ Rails.application.routes.draw do
       post 'remove_feature/:feature_id', action: :remove_feature, as: :remove_feature
       get 'active', action: :active
       post 'toggle_active', action: :toggle_active
+      post 'add_template', action: :add_template
 
 
       resources :menus
@@ -86,6 +88,10 @@ Rails.application.routes.draw do
   post 'home/start_table/:table_id' => 'home#start_table', via: %i[get post], as: :start_table
   get 'home/table'
   post 'home/set_locale/:language_id' => 'home#set_locale', as: :home_set_locale
+
+
+   get '/:name', to: 'restaurant/menu#name'
+
 
   root 'home#index'
 end

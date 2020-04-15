@@ -21,7 +21,11 @@ module Manager
     # GET /restaurants/1/edit
     def edit; end
 
-    def show; end
+    def show
+
+      @templates = Template.all
+
+    end
 
 
     def active
@@ -52,29 +56,28 @@ module Manager
       
     end
 
-  def add_feature
-    
-    @restaurant = Restaurant.find(params[:restaurant_id])
-    feature = Feature.find(params[:feature_id])
+    def add_template
+      #binding.pry
+      @restaurant = Restaurant.find(params[:restaurant_id])
+      template = Template.find(params[:template_id])
+      @restaurant.template.destroy_all
+      @restaurant.template << template
+      redirect_to manager_restaurant_path(@restaurant)
+    end
+  
 
-    @restaurant.features << feature
-
-    redirect_to manager_restaurant_path(@restaurant)
-
-  end
-
+    def add_feature
+      @restaurant = Restaurant.find(params[:restaurant_id])
+      feature = Feature.find(params[:feature_id])
+      @restaurant.features << feature
+      redirect_to manager_restaurant_path(@restaurant)
+    end
+  
   def remove_feature
-    
-    
     @restaurant = Restaurant.find(params[:restaurant_id])
     feature = Feature.find(params[:feature_id])
-
     @restaurant.features.delete(feature)
-
     redirect_to manager_restaurant_path(@restaurant)
-
-
-
   end
 
 
@@ -130,7 +133,7 @@ module Manager
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def restaurant_params
-      params.require(:restaurant).permit(:name, :address, :postcode, :telephone, :email, :twitter, :facebook, :opening_times, :is_chain, :cuisine_id, :restaurant_user_id, :slug)
+      params.require(:restaurant).permit(:name, :address, :postcode, :telephone, :email, :twitter, :facebook, :opening_times, :is_chain, :cuisine_id, :restaurant_user_id, :slug, :path)
     end
   end
 end

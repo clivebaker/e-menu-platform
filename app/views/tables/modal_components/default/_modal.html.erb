@@ -40,10 +40,10 @@
 
                   <%#= sub.inspect%>
 
-<%= render('tables/modal_components/description', sub: sub) %>
-<%= render('tables/modal_components/options', sub: sub) %>
-<%= render('tables/modal_components/nutrition', sub: sub) if feature_match(:nutrition, sub.restaurant_features)%>
-<%= render('tables/modal_components/provenance', sub: sub) if feature_match(:provenance, sub.restaurant_features)%>
+                <%= render("tables/modal_components/#{@template}/description", sub: sub) %>
+                <%= render("tables/modal_components/#{@template}/options", sub: sub) %>
+                <%= render("tables/modal_components/#{@template}/nutrition", sub: sub) if feature_match(:nutrition, sub.restaurant_features)%>
+                <%= render("tables/modal_components/#{@template}/provenance", sub: sub) if feature_match(:provenance, sub.restaurant_features)%>
 
               
 

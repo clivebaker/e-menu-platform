@@ -9,9 +9,9 @@ class Ability
        user ||= RestaurantUser.new # guest user (not logged in)
 
 
-
         if user.role? :admin
           can :manage, :all
+          can :manage, Setting
          # can :manage, :admin_dropdown
         end
 

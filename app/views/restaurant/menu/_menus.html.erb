@@ -6,11 +6,11 @@
 
 
       <div class="sticky-top">
-    		<nav class="nav bg-secondary text-light border-warning rounded justify-content-center">
+    		<div class="pt-1 bg-secondary text-light" style=' height:30px; overflow-x: scroll;'>
     			<% category.children.each do |cat| %>
-    				<%= link_to cat.name, "##{cat.name.gsub(' ','')}", class: 'nav-link menu-sub-nav text-light rounded-pill' %>
+    				<%= link_to cat.name, "##{cat.name.gsub(' ','')}", class: 'pl-1 text-light ' %>
     		  <% end %>
-    		</nav>
+    		</div>
       </div>
 
 

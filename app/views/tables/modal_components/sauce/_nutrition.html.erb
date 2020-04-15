@@ -1,0 +1,21 @@
+                 <% if sub.nutrition.present? %>
+
+                  <div class="card">
+                    <div class="card-header" id="headingTwo-<%=sub.id%>">
+                      <h5 class="mb-0">
+                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo-<%=sub.id%>" aria-expanded="false" aria-controls="collapseTwo-<%=sub.id%>">
+                          <%= t('menu.nutrition')%>
+                        </button>
+                      </h5>
+                    </div>
+                    <div id="collapseTwo-<%=sub.id%>" class="collapse" aria-labelledby="headingTwo-<%=sub.id%>" data-parent="#accordionExample-<%=sub.id%>">
+                      <div class="card-body menu-description ml-3">
+                        <%= t('menu.calories')%><br>
+                        <%= sub.calories%><br><br>
+                         <%= sub.nutrition.html_safe if sub.nutrition %>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <% end %>
+  

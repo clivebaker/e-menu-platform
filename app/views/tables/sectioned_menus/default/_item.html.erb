@@ -1,7 +1,7 @@
 <!-- item -->
 <div class="">
 
-
+  <%=@restaurant%>
   <div class="row ">
     
     <% if feature_match(:images, sub.restaurant_features) %>
@@ -39,4 +39,4 @@
 
 
 <!-- / item -->
-<%= render('tables/modal_components/modal', sub: sub, table: table)  %>
+<%= render("tables/modal_components/#{@template}/modal", sub: sub, table: table)  %>

@@ -1,0 +1,27 @@
+
+<% @table.restaurant.menus.roots.each do |category| %>
+
+  <%#= binding.pry %>
+  <% if @table.restaurant.active_menu_ids.include?(category.id) %>
+
+    <div class="text-left"><h1> <%= h(category.name) %></h1>
+      <div class="sticky-top">
+    		<nav class="nav bg-secondary text-light border-warning rounded justify-content-center">
+    			<% category.children.each do |cat| %>
+    				<%= link_to cat.name, "##{cat.name.gsub(' ','')}", class: 'nav-link menu-sub-nav text-light rounded-pill' %>
+    		  <% end %>
+    		</nav>
+      </div>
+      <% if category.children.present? %>
+        <div id="submenu">
+        	<ul class="menu">      
+           				<% # TODO: TEMPLATE CHOICE %>   
+            <%= render "tables/long_menus/#{@template}/menu_items_long", category: category, table: @table %>
+        	</ul>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+<% end %>
+
+
