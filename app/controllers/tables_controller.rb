@@ -28,6 +28,7 @@ class TablesController < ApplicationController
     @table = Table.find(table_id)
     @price = @table.table_items.reject{|a| a.paid?}.map{|e| e.total_price}.inject(:+) || 0
     @restaurant = @table.restaurant
+    # binding.pry
     @template = @restaurant.template.first.key 
     redirect_to home_index_path, alert: t('register_table.error.expired') unless @table.id == table_id.to_i
   end
@@ -99,10 +100,13 @@ class TablesController < ApplicationController
       table_items = TableItem.where(id: params[:items].split(','))
       # table_items.update_all(paid: true, token: token)
       table_items.each do |item|
+
         item.paid
         item.token = token
         item.save
       end
+      # binding.pry
+
     rescue Exception => e
       error = e
     end
