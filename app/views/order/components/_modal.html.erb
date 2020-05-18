@@ -1,6 +1,6 @@
-<% main_item = item['id']%>
-<% start_price = item['price_a'].to_f %>
-<div class="modal fade" id="item-<%=item['id']%>" tabindex="-1" role="dialog" aria-labelledby="<%=item['name']%>" aria-hidden="true">
+<% main_item = item[:id]%>
+<% start_price = item[:price_a].to_f %>
+<div class="modal fade" id="item-<%=item[:id]%>" tabindex="-1" role="dialog" aria-labelledby="<%=item[:name]%>" aria-hidden="true">
   <div class="modal-dialog" role="document">
 
   <div class='row'>
@@ -9,7 +9,7 @@
         <div class="modal-content bg-light">
           <div class="modal-header">
             <div class="row">
-              <div class='col'><%=image_tag item['image'], class: "img-fluid" if item['image'].present?%></div>
+              <div class='col'><%=image_tag item[:image], class: "img-fluid" if item[:image].present?%></div>
             </div>    
             <button type="button" class="close text-dark" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
@@ -18,15 +18,15 @@
           <div class="modal-body text-dark">
             <div class="row">
               <div class='col'>
-                <h5 class="modal-title" id="<%=item.name%>"><%=item.name%></h5>
+                <h5 class="modal-title" id="<%=item[:name]%>"><%=item[:name]%></h5>
               </div>
             </div>      
             <div class="row pt-2">
-              <div class='col'><small><%=item['description']%></small></div>
+              <div class='col'><small><%=item[:description]%></small></div>
             </div>
             <div class="row border-top mt-2 pt-1">
               <div class='col'>
-                <% item['custom_lists'].each_with_index do |list, index| %>
+                <% item[:custom_lists].each_with_index do |list, index| %>
                   <div class="row ml-1 ">
                     <div class='col text-danger'>
                     <% custom_list = custom_list_object(list[0])%>
@@ -66,7 +66,7 @@
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
             <%= link_to add_to_basket_path(@path, main_item), class: "btn btn-primary", id: "add-to-basket-#{main_item}" do %>
-                Add to Order - <span class='button-price-<%=main_item%>'><%=number_to_currency(item.price_a, unit: '£')%></span>
+                Add to Order - <span class='button-price-<%=main_item%>'><%=number_to_currency(item[:price_a], unit: '£')%></span>
             <% end %>
             
           </div>

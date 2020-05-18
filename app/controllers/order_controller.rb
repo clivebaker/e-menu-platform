@@ -170,7 +170,23 @@ puts items = @basket['ids']
       @path = params[:path]
       @restaurant = Restaurant.find_by(path: @path)
       
-      @menu =  @restaurant.menus
+      @menu =   @restaurant.menus
+      @menu2 = @restaurant.menus.arrange_serializable(order: :position) do |parent, children|
+        image = (parent.image if image.present?)
+        
+        {
+          id: parent.id,
+          name: parent.name,
+          node_type: parent.node_type,
+          children: children,
+          ancestry: parent.ancestry,
+          css_class: parent.css_class,
+          price_a: parent.price_a,
+          image: image , 
+          description: parent.description,
+          custom_lists: parent.custom_lists
+        }
+      end
       #@restaurants = Restaurant.all if @restaurant.blank?
 
       if cookies[:basket]

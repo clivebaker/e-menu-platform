@@ -2,7 +2,7 @@
   <div class='row'>
     <div class='col-sm-12 col-md-12 col-lg-12 col-xl-8'>
       <% menu.each do |m| %>
-        <% if  m.node_type == 'menu' %>
+        <% if  m[:node_type] == 'menu' %>
       <div class="row">
         <div class="col"> 
           <div class="container">
@@ -27,13 +27,13 @@
                 <div class="row">
 
 
-                  <% m.children.each do |section| %>
-                    <% if section.node_type == 'section' %>
+                  <% m[:children].each do |section| %>
+                    <% if section[:node_type] == 'section' %>
                       <div class="col-sm-12 col-lg-12 text-light p-4"> 
-                        <h2 class="text-left section-title"><%= section.name %>  </h2>
+                        <h2 class="text-left section-title"><%= section[:name] %></h2>
                         <div class='row'>
-                          <% section.children.each do |item| %>
-                            <%= render 'order/components/item', item: item, secondary_colour: false, no_background: false if section.node_type == 'section'  %>
+                          <% section[:children].each do |item| %>
+                            <%= render 'order/components/item', item: item, secondary_colour: false, no_background: false if section[:node_type] == 'section'  %>
                           <% end  %>
                         </div>
                       </div>
