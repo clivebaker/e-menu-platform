@@ -1,0 +1,43 @@
+<% 
+# colour = 'bg-light-70 text-dark' unless no_background  
+# colour = 'bg-orange-70 text-light' if ['King Prawn','Poffertjes','Salad Box','The Fizz', 'Hand Cut Fries with Rosmary and Truffle salt'].include?(item["name"])
+%>
+
+<% if item.node_type == 'section' %>
+  <div class="col-sm-12 col-md-6 p-1 <%= item.css_class if item.css_class.present?%>">
+    <div class="order-item rounded" data-toggle="modal" data-target="#exampleModal">
+      <div class="row">
+        <div class="col text-danger">
+          <strong><%=item.name%></strong>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <% if item.children.present? %>
+            <% item.children.each do |child| %>
+              <%= render 'order/components/item', item: child, no_background: true %>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+      </div>
+</div>
+
+<% else %>
+    <div class="item-default <%= item.ancestry.split('/').count == 3 ? 'col' : 'col-sm-12 col-md-6' %> p-1 <%= item.css_class if item.css_class.present?%>">
+      <div class=" p-1 rounded cursor-pointer" data-toggle="modal" data-target="#item-<%=item.id%>">
+        <div class="row pb-1">
+          <div class='col item-title'><strong><%=item.name%></strong></div>
+          <div class='col-4 text-right'><strong><%=number_to_currency(item.price_a, unit: '£')%></strong></div>
+        </div>
+        <% if item["image"].present? or item.description.present? %>
+          <div class="row pt-2">
+            <% if item.image.attached? %><div class='col-3'><%=image_tag item.image, class: 'img-fluid'%></div><% end %>
+            <% if item.description.present? %><div class='col'><small><i><%=item.description%></i></small></div><% end %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  <%= render 'order/components/modal', item: item%>
+<% end %>
+

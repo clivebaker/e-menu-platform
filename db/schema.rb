@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_18_115929) do
+ActiveRecord::Schema.define(version: 2020_05_18_154920) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -149,6 +149,7 @@ ActiveRecord::Schema.define(version: 2020_05_18_115929) do
     t.text "provenance"
     t.jsonb "custom_lists", default: {}
     t.integer "position"
+    t.string "css_class"
     t.index ["ancestry"], name: "index_menus_on_ancestry"
     t.index ["menu_item_categorisation_id"], name: "index_menus_on_menu_item_categorisation_id"
     t.index ["restaurant_id"], name: "index_menus_on_restaurant_id"
@@ -226,6 +227,7 @@ ActiveRecord::Schema.define(version: 2020_05_18_115929) do
     t.string "css_font_class"
     t.text "custom_css"
     t.text "custom_styles"
+    t.string "url"
     t.index ["cuisine_id"], name: "index_restaurants_on_cuisine_id"
     t.index ["restaurant_user_id"], name: "index_restaurants_on_restaurant_user_id"
   end

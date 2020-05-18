@@ -1,0 +1,67 @@
+<div class="container-fluid p-0 m-0 background-color" style="background: url('/images/restaurant/thesauce/main-bg2.jpg') no-repeat fixed center;">
+  <div class='row'>
+    <div class='col-sm-12 col-md-12 col-lg-12 col-xl-8'>
+      <% menu.each do |m| %>
+        <% if  m.node_type == 'menu' %>
+      <div class="row">
+        <div class="col"> 
+          <div class="container">
+            <div class="row">
+              <div class="col text-left"> 
+                <%#= image_tag @restaurant.logo.variant(resize_to_limit: [300, 300]) if @restaurant.logo.attached? %>
+              </div>
+              <div class="col text-right text-dark"> 
+                <div class='row'>
+                  <div class='col pt-3'>
+                      <h3>
+                        <%= link_to basket_path(@path) do %>
+                          <i class="fas fa-shopping-basket"></i> <%= number_to_currency(@basket_item_total, unit: '£') %>
+                        <% end if @basket %>
+                      </h3>
+                  </div>
+                </div>
+              </div> 
+            </div>
+            <div class='row'>
+              <div class='col-sm-12 col-md-12 col-lg-12 col-xl-12'>
+                <div class="row">
+
+
+                  <% m.children.each do |section| %>
+                    <% if section.node_type == 'section' %>
+                      <div class="col-sm-12 col-lg-12 text-light p-4"> 
+                        <h2 class="text-left section-title"><%= section.name %>  </h2>
+                        <div class='row'>
+                          <% section.children.each do |item| %>
+                            <%= render 'order/components/item', item: item, secondary_colour: false, no_background: false if section.node_type == 'section'  %>
+                          <% end  %>
+                        </div>
+                      </div>
+                    <% end %>
+                  <% end %>
+
+
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      
+    <% end %>
+
+    <% end %>
+
+
+  </div>
+          <div class='col-sm-12 col-md-12 col-lg-12 col-xl-4 border'>
+            <div class='col-sm-auto' >
+              <%= render 'order/components/basket'%>
+              </div>
+          </div>
+</div>
+
+  </div>

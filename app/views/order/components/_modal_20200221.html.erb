@@ -1,0 +1,51 @@
+<div class="modal fade modal-sm" id="item-<%=item['id']%>" tabindex="-1" role="dialog" aria-labelledby="<%=item['name']%>" aria-hidden="true">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content bg-dark">
+      <div class="modal-header">
+        <h5 class="modal-title" id="<%=item['name']%>"><%=item['name']%></h5>
+        <button type="button" class="close text-light" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class='col-4'><%=image_tag item['image'], class: "img-fluid" if item['image'].present?%></div>
+          <div class='col'><small><%=item['description']%></small></div>
+          <div class='col-2'><%=number_with_precision(item['price_a'], precision: 2)%></div>
+        </div>
+        <div class="row border-top mt-2 pt-1">
+          <div class='col'>
+            <div class="accordion bg-dark" id="accordion">
+              <% item['custom_lists'].each_with_index do |list, index| %>
+              <div class="card bg-dark">
+                <div class="card-header" id="heading-<%=list['custom_list_id']%>">
+                  <h2 class="mb-0">
+                    <button class="btn btn-link text-danger" type="button" data-toggle="collapse" data-target="#collapse-<%=list['custom_list_id']%>" aria-expanded="true" aria-controls="collapse-<%=list['id']%>">
+                      <%= list['name'] %>
+                    </button>
+                  </h2>
+                </div>
+                <div id="collapse-<%=list['custom_list_id']%>" class="collapse <%= index == 0 ? 'show' : ''%>" aria-labelledby="heading-<%=list['custom_list_id']%>" data-parent="#accordion">
+                  <div class="card-body">
+                  <% list['items'].each do |item| %>
+                    <% if list['constraint'] == '*' %>
+                      <%= check_box_tag "item-#{item['id']}", "item-#{item['id']}" %> <small><%=item['name']%></small><br>
+                    <% else %>
+                      <%= radio_button_tag "item-#{list['custom_list_id']}", "item-#{list['custom_list_id']}" %> <small><%=item['name']%></small><br>
+                    <% end %>
+                  <% end %>
+                  </div>
+                </div>
+              </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Add to Order</button>
+      </div>
+    </div>
+  </div>
+</div>

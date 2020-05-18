@@ -1,0 +1,54 @@
+<% content_for :js do%>
+
+<script>
+
+  $(function(){
+
+    BASE_URL = '<%=add_to_basket_base_path(@path)%>'
+    $('.selection-item').change(function(){
+        item = $(this)
+        start_price = item.data('start_price')*1
+        scope = item.data('scope')
+        calculate_price(start_price, scope)
+    });
+
+
+    function calculate_price(start_price, scope){
+
+        price = start_price
+        // alert('item: ' + scope + " price:"+ price)
+        optionals = []
+
+        $.each($('.selection-item-radio-'+scope+':checked'), function( index, value ) {
+          price += ($(this).data('price')*1);
+          optionals.push($(this).data('id'))
+        });
+
+        $.each($('.selection-item-'+scope+':checked'), function( index, value ) {
+          price += ($(this).data('price')*1);
+          optionals.push($(this).data('id'))
+        });
+
+        new_price = parseInt(price * 100) / 100
+        $(".button-price-"+scope).html("£"+ new_price)
+        $("#optionals-"+scope).html(optionals.join(','))
+        $('#add-to-basket-' + scope).attr("href", BASE_URL + '/' + scope + '/' + optionals.join(','))
+    };
+
+
+  });
+
+</script>
+
+<% end %>
+
+
+<div class="container-fluid p-0 m-0">
+  <div class="row">
+    <div class="col"> 
+      <%= render 'all' if @restaurant.blank? %>
+      <%= render 'order/components/restaurant_auto', menu: @menu if @restaurant.present? %>
+    </div>
+  </div>
+</div>
+

@@ -106,11 +106,7 @@ module TablesHelper
 
 
   def feature_match(feature, restaurant_features)
-
-
     restaurant_features.map{|s| s.key.to_sym}.include?(feature.to_sym)
-
-    
   end
 
 

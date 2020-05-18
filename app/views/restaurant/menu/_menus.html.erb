@@ -2,13 +2,15 @@
 <% @restaurant.menus.roots.each do |category| %>
  <% if @restaurant.active_menu_ids.include?(category.id) %>
 
-	  <div><h3> <%= h(category.name) %></h3>
+	  <div>
+		
+		<!-- <h3><%= h(category.name) %></h3> -->
 
 
-      <div class="sticky-top">
-    		<div class="pt-1 bg-secondary text-light" style=' height:30px; overflow-x: scroll;'>
+      <div class="sticky-top pt-5">
+    		<div class="bg-secondary text-dark p-2" style='  overflow-x: scroll;'>
     			<% category.children.each do |cat| %>
-    				<%= link_to cat.name, "##{cat.name.gsub(' ','')}", class: 'pl-1 text-light ' %>
+    				<%= link_to cat.name, "##{cat.name.gsub(' ','')}", class: 'p-2 text-light ' %>
     		  <% end %>
     		</div>
       </div>

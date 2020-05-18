@@ -1,0 +1,268 @@
+<% content_for :js do %>
+
+
+<script type="text/javascript">
+
+
+	// $(function(){
+
+    ITEMS = []
+    PRICE = 0
+	
+    var stripe = Stripe('<%=@publish_stripe_api_key%>');
+    var elements = stripe.elements();
+
+    // Custom styling can be passed to options when creating an Element.
+    // (Note that this demo uses a wider set of styles than the guide below.)
+    var style = {
+      base: {
+        color: '#32325d',
+        // lineHeight: '18px',
+        fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+        fontSmoothing: 'antialiased',
+        fontSize: '16px',
+        '::placeholder': {
+          color: '#aab7c4'
+        }
+      },
+      invalid: {
+        color: '#fa755a',
+        iconColor: '#fa755a'
+      }
+    };
+
+    // Create an instance of the card Element.
+    var card = elements.create('card', {style: style});
+
+    // Add an instance of the card Element into the `card-element` <div>.
+    card.mount('#card-element');
+
+    // Handle real-time validation errors from the card Element.
+    card.addEventListener('change', function(event) {
+      var displayError = document.getElementById('card-errors');
+      if (event.error) {
+        displayError.textContent = event.error.message;
+        $('#card-errors').removeClass("invisible");
+        $("#please-wait").addClass("invisible");
+        $("#main-payment-form").removeClass("invisible");
+      } else {
+        displayError.textContent = '';
+        $('#card-errors').addClass("invisible");
+
+      }
+    });
+
+    // Handle form submission.
+    var form = document.getElementById('payment-form');
+    console.log('Create the Form')
+    form.addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      stripe.createToken(card).then(function(result) {
+        if (result.error) {
+          // Inform the user if there was an error.
+          var errorElement = document.getElementById('card-errors');
+          errorElement.textContent = result.error.message;
+          $('#card-errors').removeClass("invisible")
+          $("#please-wait").addClass("invisible");
+          $("#main-payment-form").removeClass("invisible");
+        } else {
+          // Send the token to your server.
+          stripeTokenHandler(result.token);
+        }
+      });
+    });
+
+    // Submit the form with the token ID.
+    function stripeTokenHandler(token) {
+      // Insert the token ID into the form so it gets submitted to the server
+      var form = document.getElementById('payment-form');
+      var hiddenInput = document.createElement('input');
+      hiddenInput.setAttribute('type', 'hidden');
+      hiddenInput.setAttribute('name', 'token');
+      hiddenInput.setAttribute('value', token.id);
+      form.appendChild(hiddenInput);
+      console.log("AM I GETTING THIS FAR 1")
+      console.log(hiddenInput)
+      // Submit the form
+      form.submit();
+    }
+
+
+    $('#name').change(function() {   
+      val = $(this).val()
+      // alert('val')
+      if (val.length < 1){
+        alert("Please enter a name");
+        $('.submit-payment').addClass('invisible')
+      } else {
+        console.log('Show Submit Button')
+        $('.submit-payment').removeClass('invisible')
+      }
+      
+    });
+
+
+
+  // Stripe AP
+
+    console.log("<%=stripe_path(@path)%>.json")
+    // apple pay
+    var paymentRequest = stripe.paymentRequest({
+      country: 'GB',
+      currency: 'gbp',
+      total: {
+        label: 'e-me.nu payment',
+        amount: <%=@basket_item_total%>,
+      },
+      requestPayerName: true,
+      requestPayerEmail: true,
+    });
+
+
+    var prButton = elements.create('paymentRequestButton', {
+      paymentRequest: paymentRequest,
+    });
+    console.log(paymentRequest)
+
+    paymentRequest.on('token', function(ev) {
+      // Send the token to your server to charge it!
+      fetch('<%=stripe_path(@path)%>.json', {
+        method: 'POST',
+        body: JSON.stringify({token: ev.token.id, price: <%=@basket_item_total%>, items: []}),
+        headers: {'content-type': 'application/json'},
+      })
+      .then(function(response) {
+        if (response.ok) {
+          result = response.json();
+          console.log("----------------------------- **")
+          console.log("RESPONSE OKOKOKOKOKOK")
+          
+          console.log(response.json())
+          console.log("**--**--**")
+          console.log(result.result)
+          console.log("----------------------------- **")
+          document.location.reload(true)
+          // Report to the browser that the payment was successful, prompting
+          // it to close the browser payment interface.
+          ev.complete('success');
+        } else {
+          result = response.json();
+          // Report to the browser that the payment failed, prompting it to
+          // re-show the payment interface, or show an error message and close
+          // the payment interface.
+          console.log("----------------------------- **")
+          console.log("RESPONSE NOTOKNOTOK")
+          
+          console.log(response.json())
+          console.log("**--**--**")
+          console.log(result.result)
+          console.log("----------------------------- **")
+          
+          ev.complete('fail');
+        }
+      });
+    });
+    // Check the availability of the Payment Request API first.
+    paymentRequest.canMakePayment().then(function(result) {
+      if (result) {
+        prButton.mount('#payment-request-button');
+      } else {
+        document.getElementById('payment-request-button').style.display = 'none';
+      }
+    });
+// Finish stripe AP
+
+
+
+
+
+
+
+
+
+// });
+
+
+</script>
+
+<% end %>
+
+
+<div class='container-fluid pb-2'  style="background: url('/images/restaurant/thesauce/main-bg2.jpg') no-repeat fixed center;">
+  <div class='container'>
+
+    <div class="row  justify-content-center ">
+      <div class='col-sm-12 col-md-8 col-lg-6'>
+        <div class="row">
+          <div class='col text-center'>
+              <%= image_tag @restaurant.logo.variant(resize_to_limit: [300, 300]) if @restaurant.logo.attached? %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row bg-dark">
+      <div class='col text-center text-light'>
+          <h1>PAYMENT</h1>
+          <h2><%= number_to_currency(@basket_item_total.to_f / 100.to_f, unit: '£') %></h2>
+          <%#=@stripe%>
+      </div>
+    </div>
+
+
+
+
+    <script src="https://js.stripe.com/v3/"></script>
+      <div class="row bg-dark  justify-content-center ">
+        <div class="col-sm-12 col-md-6 m-2 text-center">
+          <div id="please-wait" class="invisible">
+            <h3 class="text-light">Please Wait</h3>
+            <div class="progress">
+              <div class="progress-bar progress-bar-striped  progress-bar-animated bg-warning" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+          </div>
+          <div id='main-payment-form'>
+            <div id="payment-request-button">
+              <!-- A Stripe Element will be inserted here. -->
+            </div>
+            <form action="<%=stripe_path(@path)%>" method="post" id="payment-form">
+           
+    <div class="row bg-dark">
+      <div class='col text-center text-light'>
+        
+
+
+             <%= label_tag :name %>
+             <%= text_field_tag :name,  nil, class: "border p-2 bg-light" %>
+      </div>
+    </div>
+
+
+            <%= hidden_field_tag :price, @basket_item_total %>
+                <label for="card-element">
+                  <!-- Credit or debit card -->
+                </label>
+                <div id="card-element" class="border p-2 bg-light">
+                  <!-- A Stripe Element will be inserted here. -->
+                </div>
+                <!-- Used to display form errors. -->
+              <div id="card-errors" class='alert alert-danger invisible mt-2' role="alert"></div>
+              <button  class="btn btn-warning mt-2 submit-payment mb-3 invisible">Submit Payment</button>
+            </form>
+            <%=link_to "#{@restaurant.name} Menu", restaurant_url_path(@path), class: 'btn btn-warning'%>
+          </div>
+        </div>
+      </div>
+
+
+
+
+  </div>
+</div>
+
+
+
+
+
+

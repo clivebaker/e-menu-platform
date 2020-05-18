@@ -84,6 +84,19 @@ Rails.application.routes.draw do
     }
   end
 
+
+  get 'order/remove_from_basket/:path/:uuid', to: 'order#remove_from_basket', as: :remove_from_basket
+  get 'order/receipt/:path/:uuid', to: 'order#receipt', as: :order_receipt
+  get 'order/checkout/:path', to: 'order#checkout', as: :checkout
+  post 'order/stripe/:path', to: 'order#stripe', as: :stripe
+  get 'order/basket/:path', to: 'order#basket', as: :basket
+  get 'order/add_to_basket/:path', to: 'order#add_to_basket', as: :add_to_basket_base
+  get 'order/add_to_basket/:path/:main_item', to: 'order#add_to_basket', as: :add_to_basket
+  get 'order/add_to_basket/:path/:main_item/:items', to: 'order#add_to_basket', as: :add_to_basket_items
+  get 'order/:path', to: 'order#index', as: :restaurant_path
+
+
+
   get 'home_mobile/index'
   get 'home/index'
   post 'home/register_table'

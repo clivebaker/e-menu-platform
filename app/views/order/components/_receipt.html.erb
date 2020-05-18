@@ -1,0 +1,45 @@
+
+        <div class="row bg-light text-dark text-left">
+          <div class="col mb-3">
+            <h1><%=@restaurant.name%></h1>
+            <div><strong>Payment Date: </strong><%=@receipt.created_at.strftime("%d %B %Y - %H:%M")%></div>
+            <div><strong>Receipt Number: </strong><%=@receipt.uuid%></div>
+            <div><strong>Name: </strong><%=@receipt.name%></div>
+    
+
+          </div>
+        </div>
+
+
+        <div class="row bg-light text-dark text-left">
+          <div class="col">
+           <table class='table'>
+              <thead>
+                <tr>
+                  <th>Item</th>
+                  <th>Extras</th>
+                  <th>Total</th>
+                </tr>
+              </thead>
+              <tbody>
+              <% items =  @receipt.items['items']%>
+          
+                <% items.each do |item|%>
+                <tr>
+                  <td><%= item['item'] %></td>
+                  <td><%= item['optionals'].join(', ') %></td>
+                  <td class='text-right'><%= number_to_currency(item['total'], unit: '£') %></td>
+                </tr>
+                <% end %>
+                <tr>
+                  <td>Total</td>
+                  <td></td>
+                  <td class='text-right'><%= number_to_currency(@receipt.basket_total/100.to_f, unit: '£') %></td>
+                </tr>
+              </tbody>
+            </table> 
+          </div>
+        </div>
+
+
+ 
