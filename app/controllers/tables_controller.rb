@@ -13,25 +13,27 @@ class TablesController < ApplicationController
   # GET /tables/1
   # GET /tables/1.json
   def show
-
     table_id = cookies[:table_id]
     @price = @table.table_items.reject{|a| a.paid?}.map{|e| e.total_price}.inject(:+) || 0
     @restaurant = @table.restaurant
     @template = @restaurant.template.first.key 
-    redirect_to home_index_path, alert: t('register_table.error.expired') unless @table.id == table_id.to_i
-  end
-  def sectioned_menus
-   
-    @menu_id = params[:menu_id].to_i if params[:menu_id].present?
     
-    table_id = cookies[:table_id]
-    @table = Table.find(table_id)
-    @price = @table.table_items.reject{|a| a.paid?}.map{|e| e.total_price}.inject(:+) || 0
-    @restaurant = @table.restaurant
-    # binding.pry
-    @template = @restaurant.template.first.key 
+    @menu_id = params[:menu_id].to_i if params[:menu_id].present?
+
+
+
     redirect_to home_index_path, alert: t('register_table.error.expired') unless @table.id == table_id.to_i
   end
+  # def sectioned_menus
+  #   @menu_id = params[:menu_id].to_i if params[:menu_id].present?
+  #   table_id = cookies[:table_id]
+  #   @table = Table.find(table_id)
+  #   @price = @table.table_items.reject{|a| a.paid?}.map{|e| e.total_price}.inject(:+) || 0
+  #   @restaurant = @table.restaurant
+  #   # binding.pry
+  #   @template = @restaurant.template.first.key 
+  #   redirect_to home_index_path, alert: t('register_table.error.expired') unless @table.id == table_id.to_i
+  # end
 
   # GET /tables/new
   def new
@@ -82,25 +84,28 @@ class TablesController < ApplicationController
 
   def stripe
     error = nil
+    status = nil
     @table = Table.find(params[:table_id])
+    @restaurant = @table.restaurant
 
-    Stripe.api_key = 'sk_test_hOj5WqYB26UV1v5uuqXsADSG'
+    Stripe.api_key = ENV['STRIPE_API_KEY'] || Rails.application.credentials.dig(:stripe, :api_key) 
+
     token = params[:token]
     price = params[:price].to_i
 
     Rails.logger.debug("Payment Token: #{token}")
     Rails.logger.debug("Payment Price: #{price}")
+
     begin
-      Stripe::Charge.create(
+      status = Stripe::Charge.create(
         amount: price,
         currency: 'gbp',
-        description: 'e-me.nu charge',
+        description: '#{@restaurant.name} charge',
         source: token
       )
       table_items = TableItem.where(id: params[:items].split(','))
       # table_items.update_all(paid: true, token: token)
       table_items.each do |item|
-
         item.paid
         item.token = token
         item.save
@@ -124,11 +129,39 @@ class TablesController < ApplicationController
       if error.present?
         redirect_to table_pay_path(@table), alert: "#{t('payment.error')}: #{e.message}" 
       else
-        redirect_to table_pay_path(@table), notice: t('payment.success') 
+
+        # binding.pry
+       @receipt =  Receipt.create(
+          uuid: SecureRandom.uuid,
+          restaurant_id: @table.restaurant_id,
+          basket_total: price,
+          items: table_items.map{|a| {name: a.menu.name, price: a.price_a, custom_items: custom_item_list(a)}},
+          #email: '',
+          #name: '',
+          stripe_token: token,
+          status: status,
+          is_ready: true,
+        )
+        puts "************************************************************************"
+        puts 'RECEIPT TO BE CREATED AT'
+        puts "************************************************************************"
+        redirect_to table_pay_path(@table, receipt_uuid: @receipt.uuid), notice: t('payment.success') 
       end
-
-
   end
+
+  def custom_item_list(item)
+    ret = []
+    item.custom_lists.keys.each do |list_id|
+      custom_list = CustomList.find(list_id)
+        item.custom_lists[list_id].each do |list_item_id|
+          list_item = CustomListItem.find(list_item_id)
+            ret << {list_name: custom_list.name, item_name: list_item.name, price: list_item.price }
+        end
+    end
+    ret
+  end
+
+
 
   def finish
     @table = Table.find(params[:table_id])
@@ -189,7 +222,8 @@ class TablesController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_table
-    @table = Table.find(params[:id])
+    @table = Table.find(params[:id]) if params[:id].present?    
+    @table = Table.find(params[:table_id]) if params[:table_id].present? 
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

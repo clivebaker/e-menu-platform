@@ -20,8 +20,15 @@ class ReceiptsController < ApplicationController
   # GET /receipts/1/edit
   def edit
   end
+  def view_receipt
+    @receipt = Receipt.find_by(uuid: params[:uuid])
+    @restaurant = @receipt.restaurant
+    respond_to do |format|
+        format.html
+        format.json 
+    end
 
-
+  end
   def is_ready
     @receipt = Receipt.find(params[:receipt_id])
     @receipt.is_ready = !@receipt.is_ready?

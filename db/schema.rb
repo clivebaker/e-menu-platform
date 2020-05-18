@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_15_124932) do
+ActiveRecord::Schema.define(version: 2020_05_18_115929) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -222,6 +222,10 @@ ActiveRecord::Schema.define(version: 2020_04_15_124932) do
     t.string "slug"
     t.integer "active_menu_ids", default: [], array: true
     t.string "path"
+    t.string "css_font_url"
+    t.string "css_font_class"
+    t.text "custom_css"
+    t.text "custom_styles"
     t.index ["cuisine_id"], name: "index_restaurants_on_cuisine_id"
     t.index ["restaurant_user_id"], name: "index_restaurants_on_restaurant_user_id"
   end

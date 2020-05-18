@@ -1,0 +1,52 @@
+
+        <div class="row bg-light text-dark text-left">
+          <div class="col mb-3">
+            <h1><%=@restaurant.name%></h1>
+            <div><strong>Payment Date: </strong><%=@receipt.created_at.strftime("%d %B %Y - %H:%M")%></div>
+            <div><strong>Receipt Number: </strong><%=@receipt.uuid%></div>
+            <div><strong>Name: </strong><%=@receipt.name%></div>
+    
+
+          </div>
+        </div>
+
+
+        <div class="row bg-light text-dark text-left">
+          <div class="col">
+           <table class='table'>
+              <thead>
+                <tr>
+                  <th>Item</th>
+                  <th>Extras</th>
+                  <th class='text-right'>Total</th>
+                </tr>
+              </thead>
+              <tbody>
+              <% items =  @receipt.items%>
+          
+                <% items.each do |item|%>
+                  <% 
+                  total = item['price'].to_f*100
+                  total += item['custom_items'].map{|d| (d['price'].to_f*100)}.inject(:+) if item['custom_items'].present?
+                  
+                  %>
+                  
+                <tr>
+                  <td><%= item['name'] %></td>
+                  <td><%= item['custom_items'].map{|f| f['item_name']}.join(', ') %></td>
+              
+                  <td class='text-right'><%= number_to_currency(total/100.to_f, unit: '£') %></td>
+                </tr>
+                <% end %>
+                <tr>
+                  <td><strong>Total</strong></td>
+                  <td></td>
+                  <td class='text-right'><strong><%= number_to_currency(@receipt.basket_total/100.to_f, unit: '£') %></strong></td>
+                </tr>
+              </tbody>
+            </table> 
+          </div>
+        </div>
+
+
+ 

@@ -243,10 +243,10 @@
     </div>
   </div>
 
-
-<div class="container-fluid mb-0">
+<div class="container-fluid bg-dark mb-0">
+<div class="container mb-0">
 	<div class="row">
-			<div class="col-lg-6 bg-secondary ">
+			<div class="col-lg-12 bg-secondary ">
 				
 				<div class="row text-white pt-3 pb-3">
 					<div class="col text-center">
@@ -268,29 +268,25 @@
 							<% @table.table_items.order(:created_at).each do |item| %>
 							  <li class="list-group-item d-flex justify-content-between align-items-center rhc-item  <%=item.paid? ? "item-paid" : "" %>">
 								  <div class="container-fluid">
-								  	<div class="row ">
-								  		<div class="col-sm-6 ">
-<!--
-                      <div class="custom-control custom-checkbox">
-                        <%#= check_box_tag( :item, item.id, false, id: "customCheck-#{item.id}", class: "custom-control-label iterm-check", "data-price" => item.total_price*100) if item.service?  %>                       
-                        <label class="custom-control-label" for="customCheck-<%=item.id%>"><%= item.name%></label>
-                      </div>
- -->
-
-<div class="custom-control custom-checkbox">
-  <input type="checkbox" class="item-check custom-control-input" id="customCheck-<%=item.id%>" data-id=<%=item.id%> data-price="<%=item.total_price*100%>">
-  <label class="custom-control-label pt-1checkout" for="customCheck-<%=item.id%>"><%= item.name%></label>
-</div>
-
-                        <%= item.aasm_state unless item.service?  %>          
+								  
+                  	<div class="row ">
+								  		<div class="col-5 ">
+                        <% unless item.paid? %>
+                          <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="item-check custom-control-input" id="customCheck-<%=item.id%>" data-id=<%=item.id%> data-price="<%=item.total_price*100%>">
+                            <label class="custom-control-label pt-1checkout" for="customCheck-<%=item.id%>"><%= item.name%></label>
+                          </div>
+                        <% else %>
+                          <div class='d-inline-block mr-1'><%= item.aasm_state unless item.service?  %> - <%= item.name%></div> 
+                        <% end %>
                       </div>
 								  	
-								  		<div class="col-sm-4 text-right">
-                      
-                      <%= item.for%>
-
+								  		<div class="col-3 text-right">
+                        <%= item.for%>
                       </div>
-								  		<div class="col-sm-2 text-right"><%=number_to_currency item.total_price, unit: "£"%></div>
+								  		<div class="col-4 text-right">
+                        <%=number_to_currency item.total_price, unit: "£"%>
+                      </div>
 								  	</div>
 
 
@@ -299,7 +295,7 @@
                         <% item.custom_lists[list_id].each do |list_item_id| %>
                           <% list_item = CustomListItem.find(list_item_id) %>
                           <div class="row">
-                            <div class="col-sm-1">xx&nbsp;</div>
+                            <div class="col-sm-1">&nbsp;</div>
                             <div class="col-sm-9">- <%= "#{custom_list.name}: #{list_item.name}" %>&nbsp;&nbsp;<%= "(#{number_to_currency(list_item.price, unit: "£")})"  if list_item.price > 0 %></div>
                             <div class="col-sm-2 text-right"></div>
                           </div>
@@ -316,7 +312,7 @@
 				</div>
 
 			</div>
-			<div class="col-lg-6 wrapper pt-5 text-center bg-dark text-light">
+			<div class="col-lg-12 wrapper pt-5 text-center bg-dark text-light">
 
 
 
@@ -339,7 +335,7 @@
   <i>Please choose the items that you will be paying for. "select all" if you are paying the whole bill.</i>
 </p>
 
-<%=link_to "CHECKOUT", "#", class: "btn btn-warning btn-block mt-2 invisible", id: "checkout-button"%>
+<%=link_to "CHECKOUT", "javascript: return:false;", class: "btn btn-warning btn-block mt-2 invisible", id: "checkout-button"%>
 
 
 
@@ -386,15 +382,22 @@
   </div>
 </div>
 
- <%=link_to "Not Finished?", table_path(@table), class: "btn btn-secondary  mt-2  mb-3 "%>
+
+    <%=link_to "Not Finished?", table_path(@table), class: "btn btn-secondary  mt-2  mb-3 "%>
+ 
+ 	
 
 <% else %>
 
 
 	<h1>Thank you for your business!!!!</h1>
-	<%=link_to "Close Table", table_finish_path(@table), class: "btn btn-warning  mt-2 mb-2"%>
-	<%=link_to "Not Finished?", table_path(@table), class: "btn btn-secondary  mt-2 mb-2 "%>
 
+
+
+  <%= link_to "View Receipt", view_receipt_receipts_path(params[:receipt_uuid]), class: 'btn btn-primary', target: params[:receipt_uuid] if params[:receipt_uuid].present? %>
+	<%=link_to "Close Table", table_finish_path(@table), class: "btn btn-warning  mt-2 mb-2"%>
+  <%=link_to "Not Finished?", table_path(@table), class: "btn btn-secondary  mt-2  mb-3 "%>
+ 
 <% end %>
 
 			</div>
@@ -404,6 +407,8 @@
 
 
 
+
+</div>
 
 </div>
 

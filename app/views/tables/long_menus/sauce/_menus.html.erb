@@ -4,8 +4,10 @@
   <%#= binding.pry %>
   <% if @table.restaurant.active_menu_ids.include?(category.id) %>
 
-    <div class="text-left"><h1> <%= h(category.name) %></h1>
-      <div class="sticky-top">
+    <div class="text-left menu" style='<%= @restaurant.css_font_class if @restaurant.css_font_class.present?  %> <%= @restaurant.custom_styles if @restaurant.custom_styles.present?  %>'> 
+
+    <%= "(Template: #{@template})" if Rails.env == 'development' %>
+      <div class="sticky-top pt-5">
     		<nav class="nav bg-secondary text-light border-warning rounded justify-content-center">
     			<% category.children.each do |cat| %>
     				<%= link_to cat.name, "##{cat.name.gsub(' ','')}", class: 'nav-link menu-sub-nav text-light rounded-pill' %>

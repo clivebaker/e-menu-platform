@@ -10,11 +10,13 @@
     end
      %>
 
-    <div class="text-left"><h1> <%= h(category.name) %></h1>
+    <div class="text-left menu" style='<%= @restaurant.css_font_class if @restaurant.css_font_class.present?  %> <%= @restaurant.custom_styles if @restaurant.custom_styles.present?  %>'> 
+     <%= "(Template: #{@template})" if Rails.env == 'development' %>
+     
       <div class="sticky-top">
     		<nav class="nav bg-secondary text-light border-warning rounded justify-content-center">
     			<% category.children.each do |cat| %>
-            <%= link_to cat.name, table_sectioned_menus_choice_path(@table, cat.id), class: 'nav-link menu-sub-nav text-light rounded-pill' %>
+            <%= link_to cat.name, table_choice_path(@table, cat.id), class: 'nav-link menu-sub-nav text-light rounded-pill' %>
             <%#= link_to cat.name, "##{cat.name.gsub(' ','')}", class: 'nav-link menu-sub-nav text-light rounded-pill' %>
     		  <% end %>
     		</nav>

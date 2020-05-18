@@ -5,6 +5,9 @@ Rails.application.routes.draw do
 
   resources :receipts do 
     post 'is_ready'
+    collection do 
+      get 'view_receipt/:uuid', to: 'receipts#view_receipt', as: :view_receipt
+    end
   end
   namespace :restaurant do
     get 'list' => "home#index"
@@ -20,8 +23,8 @@ Rails.application.routes.draw do
     get 'pay'
     post 'stripe'
     get 'finish'
-    get 'sectioned_menus'
-    get 'sectioned_menus/:menu_id' => 'tables#sectioned_menus', as: 'sectioned_menus_choice'
+    # get 'sectioned_menus'
+    get 'sectioned_menus/:menu_id' => 'tables#show', as: 'sectioned_menus_choice'
 
   end
   require 'sidekiq/web'

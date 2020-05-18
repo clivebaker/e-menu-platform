@@ -5,10 +5,12 @@
 		<div class="col-lg">
 		  <div class="row">
 				<div class="col">
+        <% 
+        menu_type = "long_menus"
+        menu_type = 'sectioned_menus' if  @table.restaurant_features.map{|s| s.key.to_sym}.include?("menu_in_sections".to_sym)         
+        %>
+				<%=render "tables/#{menu_type}/#{@template}/menus"%>
 
-          <%#=render 'tables/long_menus/default/filter'%>
-          				<% # TODO: TEMPLATE CHOICE %>       
-					<%=render 'tables/long_menus/default/menus'%>
 				</div>
 			</div>
     </div>
