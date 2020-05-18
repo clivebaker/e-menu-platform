@@ -1,7 +1,7 @@
 <div class="container-fluid mt-5 mb-2">
   <div class="row m-2">
 
-        <% @restaurant.receipts.where(is_ready: false).each do |receipt| %>
+        <% @restaurant.receipts.where(is_ready: false, source: :takeaway).each do |receipt| %>
          <%#= receipt.inspect%>
            
               <div class=" col-sm-3">

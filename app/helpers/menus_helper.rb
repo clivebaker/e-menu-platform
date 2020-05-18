@@ -25,8 +25,15 @@ module MenusHelper
     CustomListItem.where(id: items).map{|g| g.name}.join(", ")
   end
 
-  def custom_list(key)
-    CustomList.find(key).name    
+  def custom_list(id)
+    CustomList.find(id).name    
+  end
+
+  def custom_list_object(id)
+    CustomList.find(id)    
+  end
+  def custom_list_item(id)
+    CustomListItem.find(id) 
   end
   def custom_list_constraint(key)
     constraint_to_human CustomList.find(key).constraint 

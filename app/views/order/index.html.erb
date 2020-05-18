@@ -16,7 +16,7 @@
     function calculate_price(start_price, scope){
 
         price = start_price
-        // alert('item: ' + scope + " price:"+ price)
+        console.log('item: ' + scope + " price:"+ price)
         optionals = []
 
         $.each($('.selection-item-radio-'+scope+':checked'), function( index, value ) {
@@ -33,6 +33,10 @@
         $(".button-price-"+scope).html("£"+ new_price)
         $("#optionals-"+scope).html(optionals.join(','))
         $('#add-to-basket-' + scope).attr("href", BASE_URL + '/' + scope + '/' + optionals.join(','))
+
+      console.log(optionals)
+      console.log(optionals)
+  console.log("href", BASE_URL + '/' + scope + '/' + optionals.join(','))
     };
 
 

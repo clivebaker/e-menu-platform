@@ -29,31 +29,35 @@
                 <% item['custom_lists'].each_with_index do |list, index| %>
                   <div class="row ml-1 ">
                     <div class='col text-danger'>
-                      <strong>LIST NAME<%#= list[:name] %></strong>
+                    <% custom_list = custom_list_object(list[0])%>
+                      <strong><%= custom_list.name %></strong>
                     </div>
                   </div>
-                  LIST ITEM
-                  <% list.items.each do |item| %>
-                    <% if list['constraint'] == '*' %>
+                 <% list[1].each do |item_id| %>
+
+
+
+                    <% cli = custom_list_item(item_id)%>
+                    <% if custom_list.constraint == '*' %>
                       <div class="row m-2 p-1 border">
                         <div class='col'>
-                          <%= check_box_tag "item-#{item['id']}", "item-#{item['id']}", nil, class: "selection-item selection-item-#{main_item}", 'data-price' => ("%.2f" % item['price']).to_f, 'data-start_price' => start_price, 'data-scope' => main_item, 'data-id' => item['id']  %> <small><%=item['name']%></small>
+                          <%= check_box_tag "item-#{cli.id}", "item-#{cli.id}", nil, class: "selection-item selection-item-#{main_item}", 'data-price' => ("%.2f" % cli.price).to_f, 'data-start_price' => start_price, 'data-scope' => main_item, 'data-id' => cli.id  %> <small><%=cli.name%></small>
                         </div>
                         <div class='col-4 text-right'>
-                          <small><%=number_to_currency(item['price'], unit: '+£') if item['price'].to_f > 0.0 %></small>
+                          <small><%=number_to_currency(cli.price, unit: '+£') if cli.price.to_f > 0.0 %></small>
                         </div>
                       </div>
                     <% else %>
                       <div class="row m-2 p-1 border">
                         <div class='col'>
-                          <%= radio_button_tag "item-#{list['custom_list_id']}", "item-#{list['custom_list_id']}", nil, 'data-price' => ("%.2f" % item['price']).to_f ,class: "selection-item selection-item-radio-#{main_item}", 'data-scope' => main_item, 'data-start_price' => start_price, 'data-id' => item['id'] %> <small><%=item['name']%></small>
+                          <%= radio_button_tag "item-#{custom_list.id}", "item-#{custom_list.id}", nil, 'data-price' => ("%.2f" % cli.price).to_f ,class: "selection-item selection-item-radio-#{main_item}", 'data-scope' => main_item, 'data-start_price' => start_price, 'data-id' => cli.id %> <small><%=cli.name%></small>
                         </div>
                       <div class='col-4 text-right'>
-                          <small><%=number_to_currency(item['price'], unit: '+£') if item['price'].to_f > 0.0 %></small>
+                          <small><%=number_to_currency(cli.price, unit: '+£') if cli.price.to_f > 0.0 %></small>
                         </div>
                       </div>
                     <% end %>
-                  <% end if false%>
+                  <% end %>
                 <% end %>
               </div>
             </div>
@@ -62,7 +66,7 @@
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
             <%= link_to add_to_basket_path(@path, main_item), class: "btn btn-primary", id: "add-to-basket-#{main_item}" do %>
-                Add to Order - <span class='button-price-<%=main_item%>'><%=number_to_currency(item['price_a'], unit: '£')%></span>
+                Add to Order - <span class='button-price-<%=main_item%>'><%=number_to_currency(item.price_a, unit: '£')%></span>
             <% end %>
             
           </div>

@@ -44,30 +44,44 @@ class OrderController < ApplicationController
       @basket_item_total =  (@basket['items'].map{|d| d['total']}.inject(:+)*100.to_f).to_i
     end
     @publish_stripe_api_key = ENV['PUBLISH_STRIPE_API_KEY'] || Rails.application.credentials.dig(:stripe, :publish_api_key) 
-    # Stripe.api_key = ENV['STRIPE_API_KEY'] || Rails.application.credentials.dig(:stripe, :api_key) 
-
-    # @intent = Stripe::PaymentIntent.create({
-    #   amount: @basket_item_total,
-    #   currency: 'gbp',
-    #   # Verify your integration in this guide by including this parameter
-    #   metadata: {integration_check: 'accept_a_payment'},
-    # })
-
 
 
 end
 
 
 def stripe
-    @path = params[:path]
-    @restaurant = Restaurant.find_by(path: @path)
+  @path = params[:path]
+  @name = params[:name]
+  @restaurant = Restaurant.find_by(path: @path)
     @basket = cookies[:basket]
     if @basket
       @basket = JSON.parse(@basket)
       @basket_item_count = @basket['count']
       @basket_item_total =  @basket['items'].map{|d| d['total']}.inject(:+)
     end
-    Stripe.api_key =  ENV['STRIPE_API_KEY'] || Rails.application.credentials.dig(:stripe, :api_key) 
+ 
+
+    puts "****************************************************************"
+    puts "****************************************************************"
+    puts "****************************************************************"
+
+
+puts items = @basket['ids']
+# table_items = TableItem.where(id: params[:items].split(','))
+# # table_items.update_all(paid: true, token: token)
+# table_items.each do |item|
+#   item.paid
+#   item.token = token
+#   item.save
+# end
+
+
+    puts "****************************************************************"
+    puts "****************************************************************"
+    puts "****************************************************************"
+
+
+    Stripe.api_key = ENV['STRIPE_API_KEY'] || Rails.application.credentials.dig(:stripe, :api_key) 
 
     token = params[:token]
     price = params[:price].to_i
@@ -85,49 +99,59 @@ def stripe
 
 
     cookies.delete :basket
-    @receipt = Receipt.create(
-      restaurant: @path,
+ 
+
+    @receipt =  Receipt.create(
+      uuid: SecureRandom.uuid,
+      restaurant_id: @restaurant.id,
       basket_total: price,
-      items: @basket, 
+      items: @basket,
+      #email: '',
+      name: @name,
       stripe_token: token,
       status: @status,
-      name: params[:name]
-    ) 
+      is_ready: false,
+      source: :takeaway
+    )
 
 
-
-    body =  {
-        restaurant_id: @restaurant.emenu_id,
-        uuid: @receipt.uuid,
-        basket_total: price,
-        items: @basket,
-        stripe_token: token,
-        status: @status,
-        is_ready: false,
-        name: @receipt.name
-    }
-    puts "****************************************************************"
-    puts "****************************************************************"
-    puts "****************************************************************"
-    puts "BODY: #{body}"
-    resp = Faraday.post("#{Rails.configuration.platform_api_path}/receipts") do |req|
-      req.headers['Content-Type'] = 'application/json'
-      req.body = body.to_json
-    end
+    # body =  {
+    #     restaurant_id: @restaurant.emenu_id,
+    #     uuid: @receipt.uuid,
+    #     basket_total: price,
+    #     items: @basket,
+    #     stripe_token: token,
+    #     status: @status,
+    #     is_ready: false,
+    #     name: @receipt.name
+    # }
+    # puts "****************************************************************"
+    # puts "****************************************************************"
+    # puts "****************************************************************"
+    # puts "BODY: #{body}"
+    # resp = Faraday.post("#{Rails.configuration.platform_api_path}/receipts") do |req|
+    #   req.headers['Content-Type'] = 'application/json'
+    #   req.body = body.to_json
+    # end
 
 
 
     rescue Exception => e
       error = e
-    end
+
+    puts e
+    
+  end
+
+    
 
 
 
 
     if error.present?
-      redirect_to receipt_path(@path, @receipt.uuid), alert: "Payment Error: #{e.message}" 
+      redirect_to order_receipt_path(@path, @receipt.uuid), alert: "Payment Error: #{e.message}" 
     else
-      redirect_to receipt_path(@path, @receipt.uuid), notice: "Payment Successful"
+      redirect_to order_receipt_path(@path, @receipt.uuid), notice: "Payment Successful"
     end
 
 
@@ -158,6 +182,8 @@ def stripe
     end
   
     def add_to_basket
+
+
       path = params[:path]
 
       @basket = JSON.parse(cookies[:basket]) if cookies[:basket]
@@ -165,19 +191,18 @@ def stripe
       basket_ids =  @basket.present? ? @basket['ids'] : []
 
       main_item = params[:main_item]
-      items = params[:items]
+      items = params[:items].split(',') if params[:items].present?
+      
+      menu_item = Menu.find(main_item)
+      optionals = CustomListItem.where(id: items)
    
-      response_m = HTTParty.get("#{Rails.configuration.platform_api_path}/api/v1/menu_item/#{main_item}")
-      menu_item = JSON.parse(response_m.body)
+     
 
-      response_mi = HTTParty.get("#{Rails.configuration.platform_api_path}/api/v1/menu_optionals/#{items}")
-      optionals = JSON.parse(response_mi.body)
-
-      total = ("%.2f" % menu_item['price']).to_f
-      total += optionals.map{|s| ("%.2f" % s['price']).to_f }.inject(:+) if optionals.present?
+      total = ("%.2f" % menu_item.price_a).to_f
+      total += optionals.map{|s| ("%.2f" % s.price).to_f }.inject(:+) if optionals.present?
       uuid = SecureRandom.uuid
-      basket_items << {uuid: uuid, total: total ,item: menu_item['name'] , optionals: optionals.map{|s| s['name']} }
-      basket_ids << {uuid: uuid, total: total,item: menu_item['id'], optionals: optionals.map{|s| s['id'] }}
+      basket_items << {uuid: uuid, total: total ,item: menu_item.name , optionals: optionals.map{|s| s.name} }
+      basket_ids << {uuid: uuid, total: total,item: menu_item.id, optionals: optionals.map{|s| s.id }}
 
       cookies[:basket] = {
         restaurant: path,
@@ -186,19 +211,7 @@ def stripe
         ids: basket_ids 
     }.to_json
 
-      puts "**********************************************************"
-      puts "**********************************************************"
-      puts "**********************************************************"
-      puts main_item.inspect
-      puts items.inspect
-      puts "**********************************************************"
-      puts "**********************************************************"
-    
-      puts menu_item.inspect
-      puts optionals.inspect
-      puts "**********************************************************"
-      puts "**********************************************************"
-
+  
         respond_to do |format|
           format.html { redirect_to restaurant_path_path(path), notice: 'Added to basket' }
         end
