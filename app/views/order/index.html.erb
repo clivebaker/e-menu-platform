@@ -9,6 +9,43 @@
         item = $(this)
         start_price = item.data('start_price')*1
         scope = item.data('scope')
+
+       lists = $('#required-lists').val()
+       console.log('Lists:' + lists)
+       valid = []
+
+       $.each(lists.split(','), function (i, v){
+       console.log('value_list:' + v )
+         
+          instance_valid = false   
+         $.each($('.selection-item-required-'+v), function( index, value ) {
+           item = $(this)
+           is_checked = (item.is(':checked'));
+            if (is_checked){
+              instance_valid = true
+            }
+      //     console.log(is_checked)
+      //     console.log(scope)
+         });
+          valid.push(instance_valid)
+
+        });
+        required_options = true
+        $.each(valid, function (i,v){
+          if (v==false){
+            required_options = false
+          }
+        });
+        if (required_options){
+          $('#required-message-' + scope).hide();
+          $('#add-to-basket-' + scope).removeClass('disabled');
+         
+        }
+
+
+        console.log(valid)
+        console.log(required_options)
+
         calculate_price(start_price, scope)
     });
 
@@ -18,6 +55,8 @@
         price = start_price
         console.log('item: ' + scope + " price:"+ price)
         optionals = []
+
+
 
         $.each($('.selection-item-radio-'+scope+':checked'), function( index, value ) {
           price += ($(this).data('price')*1);
@@ -35,8 +74,8 @@
         $('#add-to-basket-' + scope).attr("href", BASE_URL + '/' + scope + '/' + optionals.join(','))
 
       console.log(optionals)
-      console.log(optionals)
-  console.log("href", BASE_URL + '/' + scope + '/' + optionals.join(','))
+ 
+      console.log("href", BASE_URL + '/' + scope + '/' + optionals.join(','))
     };
 
 
