@@ -249,10 +249,10 @@
 
 
                 <%= hidden_field_tag :price, @basket_item_total %>
-                <label for="card-element">
+                <label for="card-element" class='submit-payment invisible'>
                   <!-- Credit or debit card -->
                 </label>
-                <div id="card-element" class="border p-2 bg-light">
+                <div id="card-element" class="border p-2 bg-light submit-payment invisible">
                   <!-- A Stripe Element will be inserted here. -->
                 </div>
                 <!-- Used to display form errors. -->
