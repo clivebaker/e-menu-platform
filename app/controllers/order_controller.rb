@@ -77,23 +77,12 @@ def stripe
     puts "****************************************************************"
     puts "****************************************************************"
 
-
-puts items = @basket['ids']
-# table_items = TableItem.where(id: params[:items].split(','))
-# # table_items.update_all(paid: true, token: token)
-# table_items.each do |item|
-#   item.paid
-#   item.token = token
-#   item.save
-# end
-
+    puts items = @basket['ids']
 
     puts "****************************************************************"
     puts "****************************************************************"
     puts "****************************************************************"
 
-
-    # Stripe.api_key = ENV['STRIPE_API_KEY'] || Rails.application.credentials.dig(:stripe, :api_key) 
     Stripe.api_key = @restaurant.stripe_api_key
 
     token = params[:token]
@@ -102,6 +91,7 @@ puts items = @basket['ids']
     Rails.logger.debug("Payment Token: #{token}")
     Rails.logger.debug("Payment Price: #{price}")
     begin
+      puts "*************** AA"
      @status = Stripe::Charge.create(
         amount: price,
         currency: 'gbp',
@@ -109,11 +99,11 @@ puts items = @basket['ids']
         source: token
       )
       
-
+      puts "*************** BB"
 
     cookies.delete :basket
  
-
+    puts "*************** CC"
     @receipt =  Receipt.create(
       uuid: SecureRandom.uuid,
       restaurant_id: @restaurant.id,
@@ -127,38 +117,30 @@ puts items = @basket['ids']
       is_ready: false,
       source: :takeaway
     )
-
-
-    # body =  {
-    #     restaurant_id: @restaurant.emenu_id,
-    #     uuid: @receipt.uuid,
-    #     basket_total: price,
-    #     items: @basket,
-    #     stripe_token: token,
-    #     status: @status,
-    #     is_ready: false,
-    #     name: @receipt.name
-    # }
-    # puts "****************************************************************"
-    # puts "****************************************************************"
-    # puts "****************************************************************"
-    # puts "BODY: #{body}"
-    # resp = Faraday.post("#{Rails.configuration.platform_api_path}/receipts") do |req|
-    #   req.headers['Content-Type'] = 'application/json'
-    #   req.body = body.to_json
-    # end
-
-
-
+    puts "*************** DD"
     rescue Exception => e
       error = e
-
+      puts "*************** EE: #{e}"
     puts e
-    
   end
 
     
 
+  puts "****************************************************************"
+  puts "status: #{@status.inspect} ***********************************"
+  puts "****************************************************************"
+
+
+  
+
+  puts "****************************************************************"
+  puts "RECEIPT: #{@receipt.inspect} ***********************************"
+  puts "****************************************************************"
+
+
+  puts "****************************************************************"
+  puts "ERROR: #{error} ************************************************"
+  puts "****************************************************************"
 
 
 
