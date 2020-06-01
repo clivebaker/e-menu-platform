@@ -2,6 +2,14 @@
 
 module TablesHelper
 
+  def get_list_names(ids)
+
+    cl = CustomList.where(id: ids)
+    names = cl.map{|n| n.name}  
+    names.join(" and ")
+  
+  end
+
   def custom_list_options(custom_lists, constraints = [])
     valid_list_found = false
     ret_string = "<strong>#{t('menu.choose_below')}</strong><br>"

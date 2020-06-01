@@ -107,11 +107,11 @@
                 <input type='hidden' value='<%=required_lists.uniq.join(',')%>' id='required-lists'>
               </div>
             </div>
-            <div id='required-message-<%= main_item%>'><strong>Please choose the required options before you can add the item to the basket</strong></div>
+            <div id='required-message-<%= main_item%>'><strong>Please choose a <span  class=' text-danger'><%= get_list_names(required_lists.uniq)%></span> before you can add the item to the basket</strong></div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-            <%= link_to add_to_basket_path(@path, main_item), class: "btn btn-primary disabled", id: "add-to-basket-#{main_item}" do %>
+            <%= link_to add_to_basket_path(@path, main_item), class: "btn btn-primary #{required_lists.present? ? 'disabled' : ''}", id: "add-to-basket-#{main_item}" do %>
                 Add to Order - <span class='button-price-<%=main_item%>'><%=number_to_currency(item[:price_a], unit: '£')%></span>
             <% end %>
             
