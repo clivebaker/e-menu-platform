@@ -26,6 +26,8 @@ class Restaurant < ApplicationRecord
 
   before_create :set_slug
 
+  has_one_attached :image
+
 
   def set_slug
     

@@ -11,6 +11,11 @@ module MenusHelper
   #   end
   #   return_string << '</ul>'
   # end
+  def get_menu_image(item_id)
+    m = Menu.find(item_id)
+    m.image if m.image.attached?
+  end
+
 
   def checked?(menu_custom_lists, custom_list_id, item_id)
     checked = ""

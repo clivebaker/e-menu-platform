@@ -32,7 +32,10 @@
         </div>
         <% if item[:image].present? or item[:description].present? %>
           <div class="row pt-2">
-            <% #if item[:image].attached? %><div class='col-3'><%=image_tag item[:image], class: 'img-fluid'%></div><%# end %>
+         <% if feature_match(:images, @restaurant.features) %>
+          <% image = get_menu_image(item[:id]) %>
+            <% if image.present? %><div class='col-3'><%=image_tag url_for(image), class: 'img-fluid'%></div><% end %>
+            <% end %>
             <% if item[:description].present? %><div class='col'><small><i><%=item[:description]%></i></small></div><% end %>
           </div>
         <% end %>

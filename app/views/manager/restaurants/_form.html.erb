@@ -23,6 +23,28 @@
   </div>
 
        
+
+ <div class="row">
+      <div class="col">
+        <div class="form-group ">
+          <%= form.label :image %>
+          <%= form.file_field :image %>
+        </div>
+      </div>
+      <div class="col">
+        <div class="form-group ">
+           <% if restaurant.image.attached? %>
+              <%= image_tag restaurant.image.variant(resize: "200x200"), class: "img-fluid"  %>
+            <% end %>
+        </div>
+      </div>
+    </div>
+
+
+
+
+
+
   <div class="row">
     <div class="col">
       <div class="form-group ">

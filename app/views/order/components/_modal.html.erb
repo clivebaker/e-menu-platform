@@ -12,21 +12,36 @@
         <div class="modal-content bg-light">
           <div class="modal-header">
             <div class="row">
-              <div class='col'><%=image_tag item[:image], class: "img-fluid" if item[:image].present?%></div>
+
+
+<% image = get_menu_image(item[:id]) %>
+             
             </div>    
             <button type="button" class="close text-dark" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body text-dark">
+            
+            
+            
+            
             <div class="row">
+              <% if feature_match(:images, @restaurant.features) %> <% if image.present? %><div class='col-3'><%=image_tag url_for(image), class: 'img-fluid'%></div><% end %><% end %>
               <div class='col'>
                 <h5 class="modal-title" id="<%=item[:name]%>"><%=item[:name]%></h5>
+                <div ><small><%=item[:description]%></small></div>
+               <% if feature_match(:provenance, @restaurant.features) %> <div ><small><strong>Provenance: </strong><%=item[:provenance].html_safe%></small></div><% end %>
+               <% if feature_match(:nutrition, @restaurant.features) %> <div ><small><strong>Nutrition: </strong><%=item[:nutrition].html_safe%> <strong>Calories: </strong> <%= item[:calories] %></small></div><% end %>
+            
               </div>
             </div>      
             <div class="row pt-2">
-              <div class='col'><small><%=item[:description]%></small></div>
             </div>
+
+
+
+
             <div class="row border-top mt-2 pt-1">
               <div class='col'>
                 <% custom_lists = []#item[:custom_lists]%>

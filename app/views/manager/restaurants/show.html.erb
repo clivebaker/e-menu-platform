@@ -15,6 +15,22 @@
                   <%= @restaurant.name %>
                 </p>
               </div>
+
+              <div class="media text-muted pt-3">
+                <p class="media-body pb-3 mb-0  lh-125 border-bottom border-gray">
+                  <strong class="d-block text-gray-dark">Image</strong>
+                  <% if @restaurant.image.attached? %>
+                    <%= image_tag @restaurant.image.variant(resize: "200x200"), class: "img-fluid"  %>
+                  <% end %>
+                </p>
+              </div>
+
+
+
+
+
+
+
               <div class="media text-muted pt-3">
                 <p class="media-body pb-3 mb-0  lh-125 border-bottom border-gray">
                   <strong class="d-block text-gray-dark">Path</strong>

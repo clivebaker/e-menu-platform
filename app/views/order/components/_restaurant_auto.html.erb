@@ -7,9 +7,17 @@
         <div class="col"> 
           <div class="container">
             <div class="row">
-              <div class="col text-left"> 
-                <%#= image_tag @restaurant.logo.variant(resize_to_limit: [300, 300]) if @restaurant.logo.attached? %>
+              <div class="col text-left mt-1"> 
+                
+                
+                <% if @restaurant.image.attached? %>
+                  <%= image_tag @restaurant.image.variant(resize: "200x200"), class: "img-fluid"  %>
+                <% end %>                
+                
+                
               </div>
+
+
               <div class="col text-right text-dark"> 
                 <div class='row'>
                   <div class='col pt-3'>
@@ -21,7 +29,11 @@
                   </div>
                 </div>
               </div> 
+
+
+              
             </div>
+            
             <div class='row'>
               <div class='col-sm-12 col-md-12 col-lg-12 col-xl-12'>
                 <div class="row">

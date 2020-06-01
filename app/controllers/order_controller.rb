@@ -198,7 +198,10 @@ puts items = @basket['ids']
           price_a: parent.price_a,
           image: image , 
           description: parent.description,
-          custom_lists: parent.custom_lists
+          custom_lists: parent.custom_lists,
+          nutrition: parent.nutrition,
+          provenance: parent.provenance, 
+          calories: parent.calories
         }
       end
       #@restaurants = Restaurant.all if @restaurant.blank?
