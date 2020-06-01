@@ -144,12 +144,15 @@ def stripe
 
 
 
+  respond_to do |format|
     if error.present?
-      redirect_to order_receipt_path(@path, @receipt.uuid), alert: "Payment Error: #{e.message}" 
+      format.html { redirect_to order_receipt_path(@path, @receipt.uuid), alert: "Payment Error: #{e.message}" } 
+      format.js { render json: {error: false, path: order_receipt_path(@path, @receipt.uuid)} }
     else
-      redirect_to order_receipt_path(@path, @receipt.uuid), notice: "Payment Successful"
+      format.html { redirect_to order_receipt_path(@path, @receipt.uuid), notice: "Payment Successful" }
+      format.js { render json: {error: true, path: order_receipt_path(@path, @receipt.uuid)} }
     end
-
+  end
 
 
   end
