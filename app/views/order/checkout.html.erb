@@ -225,12 +225,7 @@
             </div>
           </div>
           <div id='main-payment-form'>
-            <div id="payment-request-button">
-              <!-- A Stripe Element will be inserted here. -->
-            </div>
-            <form action="<%=stripe_path(@path)%>" method="post" id="payment-form">
-           
-
+          <form action="<%=stripe_path(@path)%>" method="post" id="payment-form">
 
             <div class="row bg-dark">
               <div class='col text-center text-light'>
@@ -238,8 +233,6 @@
                     <%= text_field_tag :name,  nil, class: "border p-2 bg-light" %>
               </div>
             </div>
-
-
             <div class="row bg-dark pt-2">
               <div class='col text-center text-light'>
                     <%= label_tag "Collection Time" %>
@@ -247,8 +240,15 @@
               </div>
             </div>
 
+            <div class="row bg-dark">
+              <div class='col'>
 
-            <%= hidden_field_tag :price, @basket_item_total %>
+            <div id="payment-request-button">
+              <!-- A Stripe Element will be inserted here. -->
+            </div>
+
+
+                <%= hidden_field_tag :price, @basket_item_total %>
                 <label for="card-element">
                   <!-- Credit or debit card -->
                 </label>
@@ -256,10 +256,14 @@
                   <!-- A Stripe Element will be inserted here. -->
                 </div>
                 <!-- Used to display form errors. -->
-              <div id="card-errors" class='alert alert-danger invisible mt-2' role="alert"></div>
-              <button  class="btn btn-warning mt-2 submit-payment mb-3 invisible">Submit Payment</button>
-            </form>
-            <%=link_to "#{@restaurant.name} Menu", restaurant_path_path(@path), class: 'btn btn-warning'%>
+                <div id="card-errors" class='alert alert-danger invisible mt-2' role="alert"></div>
+                <button  class="btn btn-warning mt-2 submit-payment mb-3 invisible">Submit Payment</button>
+              </div>
+            </div>
+          </form>
+                <%=link_to "#{@restaurant.name} Menu", restaurant_path_path(@path), class: 'btn btn-warning'%>
+
+
           </div>
         </div>
       </div>
