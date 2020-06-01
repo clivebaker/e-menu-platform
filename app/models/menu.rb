@@ -5,7 +5,7 @@ class Menu < ApplicationRecord
   belongs_to :spice_level, optional: true
 
   after_save :clear_cache
-
+  default_scope {where(is_deleted: false)}
 
 
 def clear_cache

@@ -84,7 +84,8 @@ module Manager
     # DELETE /menus/1.json
     def destroy
       parent_id = @menu.parent.present? ? @menu.parent.id : nil
-      @menu.destroy
+      @menu.is_deleted = true
+      @menu.save
       respond_to do |format|
         format.html { redirect_to manager_restaurant_menus_path(@restaurant, updated_menu: parent_id), notice: 'Menu was successfully destroyed.' }
         format.json { head :no_content }

@@ -5,6 +5,9 @@
   <thead>
     <tr>
 
+      <th>Date</th>
+      <th>Name</th>
+      <th>Collection Time</th>
       <th>Basket total</th>
       <th>Items</th>
       <th>Is ready</th>
@@ -12,11 +15,22 @@
   </thead>
 
   <tbody>
-    <% @receipts.each do |receipt| %>
+    <% @receipts.order(created_at: :desc).each do |receipt| %>
       <tr>
-
+        <td><%= receipt.created_at %></td>
+        <td><%= receipt.name %></td>
+        <td><%= receipt.collection_time %></td>
         <td><%= number_to_currency(receipt.basket_total/100, unit: '£') %></td>
-        <td><%= receipt.items %></td>
+        <%
+        items = ""
+        receipt.items['items'].each do |item|
+        
+        options = item['optionals']
+        
+        items << "<li>#{item['item']} options:  #{options.join(', ')}</li>"
+        end
+        %>
+        <td><ul><%= items.html_safe %></ul></td>
         <td><%= receipt.is_ready %></td>
 
       </tr>
