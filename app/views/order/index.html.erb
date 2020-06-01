@@ -7,20 +7,23 @@
     BASE_URL = '<%=add_to_basket_base_path(@path)%>'
     $('.selection-item').change(function(){
         item = $(this)
+     
+
         start_price = item.data('start_price')*1
         scope = item.data('scope')
+        console.log("scope: " + scope)
 
-       lists = $('#required-lists').val()
-       console.log('Lists:' + lists)
-       valid = []
+      lists = $('#required-lists-' + scope ).val()
+      console.log('Lists:' + lists)
+      valid = []
 
-       $.each(lists.split(','), function (i, v){
-       console.log('value_list:' + v )
-         
-          instance_valid = false   
-         $.each($('.selection-item-required-'+v), function( index, value ) {
-           item = $(this)
-           is_checked = (item.is(':checked'));
+      $.each(lists.split(','), function (i, v){
+      console.log('value_list:' + v )
+
+        instance_valid = false   
+        $.each($('.selection-item-required-'+v), function( index, value ) {
+          item = $(this)
+          is_checked = (item.is(':checked'));
             if (is_checked){
               instance_valid = true
             }
@@ -43,8 +46,12 @@
         }
 
 
+        console.log("Valid")
         console.log(valid)
+        console.log("/valid")
+        console.log('required_options')
         console.log(required_options)
+        console.log('/required_options')
 
         calculate_price(start_price, scope)
     });
@@ -73,7 +80,9 @@
         $("#optionals-"+scope).html(optionals.join(','))
         $('#add-to-basket-' + scope).attr("href", BASE_URL + '/' + scope + '/' + optionals.join(','))
 
+      console.log("Optionals")
       console.log(optionals)
+      console.log("/Optionals")
  
       console.log("href", BASE_URL + '/' + scope + '/' + optionals.join(','))
     };
