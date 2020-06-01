@@ -38,12 +38,23 @@ class OrderController < ApplicationController
     @path = params[:path]
     @restaurant = Restaurant.find_by(path: @path)
     @basket = cookies[:basket]
+
+    
+    t = Time.new + 30.minutes
+    rounded_t = Time.local(t.year, t.month, t.day, t.hour, t.min/15*15)
+    @delivery_time_options = ["ASAP"]
+    until rounded_t > Time.local(t.year, t.month, t.day, 22, 00)
+      @delivery_time_options << rounded_t.strftime("%H:%M")
+      rounded_t = rounded_t + 30.minutes
+    end
+
     if @basket
       @basket = JSON.parse(@basket)
       @basket_item_count = @basket['count']
       @basket_item_total =  (@basket['items'].map{|d| d['total']}.inject(:+)*100.to_f).to_i
     end
-    @publish_stripe_api_key = ENV['PUBLISH_STRIPE_API_KEY'] || Rails.application.credentials.dig(:stripe, :publish_api_key) 
+    # @publish_stripe_api_key = ENV['PUBLISH_STRIPE_API_KEY'] || Rails.application.credentials.dig(:stripe, :publish_api_key) 
+    @publish_stripe_api_key = @restaurant.stripe_publish_api_key
 
 
 end
@@ -52,6 +63,7 @@ end
 def stripe
   @path = params[:path]
   @name = params[:name]
+  @collection_time = params[:collection_time]
   @restaurant = Restaurant.find_by(path: @path)
     @basket = cookies[:basket]
     if @basket
@@ -81,7 +93,8 @@ puts items = @basket['ids']
     puts "****************************************************************"
 
 
-    Stripe.api_key = ENV['STRIPE_API_KEY'] || Rails.application.credentials.dig(:stripe, :api_key) 
+    # Stripe.api_key = ENV['STRIPE_API_KEY'] || Rails.application.credentials.dig(:stripe, :api_key) 
+    Stripe.api_key = @restaurant.stripe_api_key
 
     token = params[:token]
     price = params[:price].to_i
@@ -108,6 +121,7 @@ puts items = @basket['ids']
       items: @basket,
       #email: '',
       name: @name,
+      collection_time: @collection_time,
       stripe_token: token,
       status: @status,
       is_ready: false,

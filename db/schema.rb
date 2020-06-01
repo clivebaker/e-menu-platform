@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_18_175126) do
+ActiveRecord::Schema.define(version: 2020_05_28_154459) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -175,6 +175,7 @@ ActiveRecord::Schema.define(version: 2020_05_18_175126) do
     t.datetime "updated_at", null: false
     t.string "name"
     t.string "source"
+    t.string "collection_time"
     t.index ["restaurant_id"], name: "index_receipts_on_restaurant_id"
   end
 
@@ -229,6 +230,8 @@ ActiveRecord::Schema.define(version: 2020_05_18_175126) do
     t.text "custom_css"
     t.text "custom_styles"
     t.string "url"
+    t.string "stripe_api_key"
+    t.string "stripe_publish_api_key"
     t.index ["cuisine_id"], name: "index_restaurants_on_cuisine_id"
     t.index ["restaurant_user_id"], name: "index_restaurants_on_restaurant_user_id"
   end

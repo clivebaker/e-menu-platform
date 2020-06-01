@@ -228,15 +228,22 @@
             </div>
             <form action="<%=stripe_path(@path)%>" method="post" id="payment-form">
            
-    <div class="row bg-dark">
-      <div class='col text-center text-light'>
-        
 
 
-             <%= label_tag :name %>
-             <%= text_field_tag :name,  nil, class: "border p-2 bg-light" %>
-      </div>
-    </div>
+            <div class="row bg-dark">
+              <div class='col text-center text-light'>
+                    <%= label_tag :name %>
+                    <%= text_field_tag :name,  nil, class: "border p-2 bg-light" %>
+              </div>
+            </div>
+
+
+            <div class="row bg-dark pt-2">
+              <div class='col text-center text-light'>
+                    <%= label_tag "Collection Time" %>
+                    <%= select_tag :collection_time, options_for_select(@delivery_time_options), { class: "border p-2 bg-light"} %>
+              </div>
+            </div>
 
 
             <%= hidden_field_tag :price, @basket_item_total %>

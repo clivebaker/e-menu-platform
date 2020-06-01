@@ -1,0 +1,29 @@
+
+<h1>Receipts</h1>
+
+<table class='table'>
+  <thead>
+    <tr>
+
+      <th>Basket total</th>
+      <th>Items</th>
+      <th>Is ready</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @receipts.each do |receipt| %>
+      <tr>
+
+        <td><%= number_to_currency(receipt.basket_total/100, unit: '£') %></td>
+        <td><%= receipt.items %></td>
+        <td><%= receipt.is_ready %></td>
+
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Receipt', new_receipt_path %>

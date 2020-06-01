@@ -1,3 +1,9 @@
+<% content_for :channels do %>
+
+  <%= javascript_include_tag 'cable'%>
+
+<% end %>
+
 <div class="container-fluid mt-5 mb-2">
   <div class="row m-2">
 
@@ -8,6 +14,7 @@
               <div class="card">
                 <div class="card-body">
                   <h5 class="card-title">Order: <%=receipt.name%></h5>
+                 <h6 class="card-title">Collection Time: <%=receipt.collection_time%></h6>
                
                   <p class="card-text">
                     <ul class="list-group">

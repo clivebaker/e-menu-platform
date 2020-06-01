@@ -26,6 +26,13 @@ module Manager
     end
 
 
+    def receipts
+
+ 
+      @restaurant = Restaurant.find(params[:restaurant_id])
+      @receipts = @restaurant.receipts
+    end
+
 
   end
 end
