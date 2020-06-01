@@ -31,8 +31,8 @@
               <div class='col'>
                 <h5 class="modal-title" id="<%=item[:name]%>"><%=item[:name]%></h5>
                 <div ><small><%=item[:description]%></small></div>
-               <% if feature_match(:provenance, @restaurant.features) %> <div ><small><strong>Provenance: </strong><%=item[:provenance].html_safe%></small></div><% end %>
-               <% if feature_match(:nutrition, @restaurant.features) %> <div ><small><strong>Nutrition: </strong><%=item[:nutrition].html_safe%> <strong>Calories: </strong> <%= item[:calories] %></small></div><% end %>
+               <% if feature_match(:provenance, @restaurant.features) %><% if item[:provenance].present? %> <div ><small><strong>Provenance: </strong><%=item[:provenance].html_safe%></small></div><% end %><% end %>
+               <% if feature_match(:nutrition, @restaurant.features) %> <div ><small><% if item[:nutrition].present? %><strong>Nutrition: </strong><%=item[:nutrition].html_safe%><% end %><% if item[:calories].present? %><strong>Calories: </strong> <%= item[:calories] %><% end %></small></div><% end %>
             
               </div>
             </div>      
