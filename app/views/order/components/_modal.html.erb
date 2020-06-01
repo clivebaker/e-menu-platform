@@ -100,14 +100,14 @@
                           <%# if cli.id != 131 or ( main_item == 168 and index != 5 ) %>
                           <%# if  cli.id != 79 %>
                          
-                          <%= check_box_tag "item-#{cli.id}", "item-#{cli.id}-#{main_item}", nil, id:"custom-item-#{cli.id}", class: "selection-item selection-item-#{main_item}", 'data-price' => ("%.2f" % cli.price).to_f, 'data-start_price' => start_price, 'data-scope' => main_item,'data-constraint' => custom_list.constraint, 'data-id' => cli.id  %> <small><%=cli.name%></small>
+                          <%= check_box_tag "item-#{cli.id}", "item-#{cli.id}-#{main_item}", nil, id:"custom-item-#{cli.id}", class: "selection-item selection-item-#{main_item}", 'data-price' => ("%.2f" % cli.price).to_f, 'data-start_price' => start_price, 'data-scope' => main_item,'data-constraint' => custom_list.constraint, 'data-id' => cli.id  %> <small><strong><%=cli.name%></strong> <% if cli.description.present?%>  <i>- <%=cli.description%></i><% end %></small>
                           <%# else %>
                             <%# binding.pry if index == 5 %>
                             <%#=  "item-#{cli.id} item-#{cli.id}-#{main_item} selection-item selection-item-#{main_item} #{("%.2f" % cli.price).to_f} #{start_price} #{main_item} #{custom_list.constraint} #{cli.id}  <small>#{cli.name}</small>"%>
                           <%#end %>
             <%# end %>
                         </div>
-                        <div class='col-4 text-right'>
+                        <div class='col-2 text-right'>
                           <small><%=number_to_currency(cli.price, unit: '+£') if cli.price.to_f > 0.0 %></small>
                         </div>
                       </div>
@@ -115,9 +115,9 @@
                       <div class="row m-2 p-1 border">
                         <div class='col'>
                           <% required_lists << custom_list.id%>
-                          <%= radio_button_tag "item-#{custom_list.id}", "item-#{custom_list.id}", nil, 'data-price' => ("%.2f" % cli.price).to_f ,class: "selection-item selection-item-radio-#{main_item}  selection-item-required-#{custom_list.id}", 'data-scope' => main_item, 'data-constraint' => custom_list.constraint, 'data-start_price' => start_price, 'data-id' => cli.id %> <small><%=cli.name%></small>
+                          <%= radio_button_tag "item-#{custom_list.id}", "item-#{custom_list.id}", nil, 'data-price' => ("%.2f" % cli.price).to_f ,class: "selection-item selection-item-radio-#{main_item}  selection-item-required-#{custom_list.id}", 'data-scope' => main_item, 'data-constraint' => custom_list.constraint, 'data-start_price' => start_price, 'data-id' => cli.id %> <small><strong><%=cli.name%></strong>  <% if cli.description.present?%>  <i>- <%=cli.description%></i><% end %></small>
                         </div>
-                      <div class='col-4 text-right'>
+                      <div class='col-2 text-right'>
                           <small><%=number_to_currency(cli.price, unit: '+£') if cli.price.to_f > 0.0 %></small>
                         </div>
                       </div>
