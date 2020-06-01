@@ -133,9 +133,14 @@
         headers: {'content-type': 'application/json'},
       })
       .then(function(response) {
+          console.log("CCCCCCCCCCCCCCCCCC")
+          console.log(response)
+          console.log("DCCCCCCCCCCCCCCCCC")
+
         if (response.ok) {
-          result = response.json();
+          // result = response.json();
           console.log("----------------------------- **")
+          console.log(response)
           console.log("RESPONSE OKOKOKOKOKOK")
           
           console.log(response.json())
