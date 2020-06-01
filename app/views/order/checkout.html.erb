@@ -127,46 +127,61 @@
 
     paymentRequest.on('token', function(ev) {
       // Send the token to your server to charge it!
-      fetch('<%=stripe_path(@path)%>.json', {
-        method: 'POST',
-        body: JSON.stringify({token: ev.token.id, price: <%=@basket_item_total%>, items: []}),
-        headers: {'content-type': 'application/json'},
-      })
-      .then(function(response) {
+      
+      
+$.ajax({
+  url: "<%=stripe_path(@path)%>.json",
+  context: document.body,
+  data: {token: ev.token.id, price: <%=@basket_item_total%>, items: []}, 
+  method: 'POST',
+  mimeType:'application/json',
+}).done(function(response) {
+  console.log("RESPONSE OKOKOKOKOKOK")
+  console.log(response)
+});
+      
+      
+      
+    //    fetch('<%=stripe_path(@path)%>.json', {
+    //     method: 'POST',
+    //     body: JSON.stringify({token: ev.token.id, price: <%=@basket_item_total%>, items: []}),
+    //     headers: {'content-type': 'application/json'},
+    //   })
+    //   .then(function(response) {
 
 
-        if (response.ok) {
-          // result = response.json();
-          console.log("BBBBBB **")
-          console.log(response)
-          console.log(response.body)
-          console.log(response.body.path)
-          console.log("CCCC **")
-          console.log("RESPONSE OKOKOKOKOKOK")
+    //     if (response.ok) {
+    //       // result = response.json();
+    //       console.log("BBBBBB **")
+    //       console.log(response)
+    //       console.log(response.body)
+    //       console.log(response.body.json())
+    //       console.log("CCCC **")
+    //       console.log("RESPONSE OKOKOKOKOKOK")
           
-          // document.location.reload(true)
-          // window.location.replace('https://eat.emenunow.com' + result.path)
-          //  console.log(result.path)
+    //       // document.location.reload(true)
+    //       // window.location.replace('https://eat.emenunow.com' + result.path)
+    //       //  console.log(result.path)
      
-          // Report to the browser that the payment was successful, prompting
-          // it to close the browser payment interface.
-          ev.complete('success');
-        } else {
-          result = response.json();
-          // Report to the browser that the payment failed, prompting it to
-          // re-show the payment interface, or show an error message and close
-          // the payment interface.
-          console.log("----------------------------- **")
-          console.log("RESPONSE NOTOKNOTOK")
+    //       // Report to the browser that the payment was successful, prompting
+    //       // it to close the browser payment interface.
+    //       ev.complete('success');
+    //     } else {
+    //       result = response.json();
+    //       // Report to the browser that the payment failed, prompting it to
+    //       // re-show the payment interface, or show an error message and close
+    //       // the payment interface.
+    //       console.log("----------------------------- **")
+    //       console.log("RESPONSE NOTOKNOTOK")
           
-          console.log(response.json())
-          console.log("**--**--**")
-          console.log(result.result)
-          console.log("----------------------------- **")
+    //       console.log(response.json())
+    //       console.log("**--**--**")
+    //       console.log(result.result)
+    //       console.log("----------------------------- **")
           
-          ev.complete('fail');
-        }
-      });
+    //       ev.complete('fail');
+    //     }
+    //   });
     });
     // Check the availability of the Payment Request API first.
     paymentRequest.canMakePayment().then(function(result) {

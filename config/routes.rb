@@ -89,7 +89,9 @@ Rails.application.routes.draw do
   get 'order/remove_from_basket/:path/:uuid', to: 'order#remove_from_basket', as: :remove_from_basket
   get 'order/receipt/:path/:uuid', to: 'order#receipt', as: :order_receipt
   get 'order/checkout/:path', to: 'order#checkout', as: :checkout
+  get 'order/checkoutx/:path', to: 'order#checkoutx', as: :checkoutx
   post 'order/stripe/:path', to: 'order#stripe', as: :stripe
+  post 'order/stripex/:path', to: 'order#stripex', as: :stripex
   get 'order/basket/:path', to: 'order#basket', as: :basket
   get 'order/add_to_basket/:path', to: 'order#add_to_basket', as: :add_to_basket_base
   get 'order/add_to_basket/:path/:main_item', to: 'order#add_to_basket', as: :add_to_basket

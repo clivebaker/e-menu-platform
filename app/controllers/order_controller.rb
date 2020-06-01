@@ -1,6 +1,6 @@
 class OrderController < ApplicationController
-  before_action :authenticate_user!, except: [:index, :add_to_basket, :stripe, :receipt, :basket, :checkout, :remove_from_basket]
-  skip_before_action :verify_authenticity_token, only: %i[stripe]
+  before_action :authenticate_user!, except: [:index, :add_to_basket, :stripe,:stripex, :receipt, :basket, :checkout,:checkoutx, :remove_from_basket]
+  skip_before_action :verify_authenticity_token, only: %i[stripe stripex]
   def remove_from_basket
     @path = params[:path]
     @restaurant = Restaurant.find_by(path: @path)
@@ -157,6 +157,24 @@ def stripe
 
   end
 
+
+
+
+
+
+  def stripex
+    
+    puts token = params[:token]
+    puts price = params[:price].to_i
+  
+    respond_to do |format|
+        format.json { render json: {ok: true, error: false, path: 'http://clivebaker.com'} }
+    end
+  
+  
+    end
+  
+  
 
   def receipt
     @path = params[:path]
