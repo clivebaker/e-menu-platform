@@ -128,11 +128,13 @@
     paymentRequest.on('token', function(ev) {
       // Send the token to your server to charge it!
       
+      name = $('#name').val()
+      collection_time = $('#collection_time').val()
       
 $.ajax({
   url: "<%=stripe_path(@path)%>.json",
   context: document.body,
-  data: {token: ev.token.id, price: <%=@basket_item_total%>, items: []}, 
+  data: {token: ev.token.id, price: <%=@basket_item_total%>, items: [], collection_time: collection_time, name: name}, 
   method: 'POST',
   mimeType:'application/json',
 }).done(function(response) {
