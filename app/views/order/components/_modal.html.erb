@@ -83,7 +83,7 @@
                <% required_lists = []%>
                 <% il.each_with_index do |list, index| %>
                   <div class="row ml-1 ">
-                    <div class='col text-danger'>
+                    <div class='col modal-please-choose'>
                     <% custom_list = custom_list_object(list[0])%>
                       <% message = "Please choose #{custom_list.constraint} option" unless custom_list.constraint == '*' %>
                       <% message = "Optional" if custom_list.constraint == '*' %>
