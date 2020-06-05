@@ -40,7 +40,7 @@ class OrderController < ApplicationController
     @basket = cookies[:basket]
 
     
-    t = Time.new + 30.minutes
+    t = Time.new.in_time_zone('Europe/London') + 30.minutes
     rounded_t = Time.local(t.year, t.month, t.day, t.hour, t.min/15*15)
     @delivery_time_options = ["ASAP"]
     until rounded_t > Time.local(t.year, t.month, t.day, 22, 00)

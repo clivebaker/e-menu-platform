@@ -8,7 +8,7 @@
     <div class="order-item rounded" data-toggle="modal" data-target="#exampleModal">
       <div class="row">
         <div class="col text-danger">
-          <strong><%=item[:name]%></strong>
+          <strong class='section-name'><%=item[:name]%></strong>
         </div>
       </div>
       <div class="row">
@@ -27,8 +27,8 @@
     <div class="item-default <%= item[:ancestry].split('/').count == 3 ? 'col' : 'col-sm-12 col-md-6' %> p-1 <%= item[:css_class] if item[:css_class].present?%>">
       <div class=" p-1 rounded cursor-pointer" data-toggle="modal" data-target="#item-<%=item[:id]%>">
         <div class="row pb-1">
-          <div class='col item-title'><strong><%=item[:name]%></strong></div>
-          <div class='col-4 text-right'><strong><%=number_to_currency(item[:price_a], unit: '£')%></strong></div>
+          <div class='col item-title'><strong  class='item-name'><%=item[:name]%></strong></div>
+          <div class='col-4 text-right'><strong  class='item-name'><%=number_to_currency(item[:price_a], unit: '£')%></strong></div>
         </div>
         <% if item[:image].present? or item[:description].present? %>
           <div class="row pt-2">
