@@ -56,6 +56,7 @@ class OrderController < ApplicationController
     end
     # @publish_stripe_api_key = ENV['PUBLISH_STRIPE_API_KEY'] || Rails.application.credentials.dig(:stripe, :publish_api_key) 
     @publish_stripe_api_key = @restaurant.stripe_publish_api_key
+    @google_maps_api_key = Rails.application.credentials.dig(:google, :maps_api_key) 
 
 
 end
