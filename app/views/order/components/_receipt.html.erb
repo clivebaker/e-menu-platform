@@ -6,6 +6,8 @@
             <div><strong>Receipt Number: </strong><%=@receipt.uuid%></div>
             <div><strong>Name: </strong><%=@receipt.name%></div>
             <div><strong>Collection Time: </strong><%=@receipt.collection_time%></div>
+            <% if @receipt.telephone.present? %><div><strong>Telephone: </strong><%=@receipt.telephone%></div><% end %>
+            <% if @receipt.address.present? %><div><strong>Collection Time: </strong><%=@receipt.collection_time%></div><% end %>
     
 
           </div>

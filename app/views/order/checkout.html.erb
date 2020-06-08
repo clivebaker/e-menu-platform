@@ -134,8 +134,8 @@
       
       name = $('#name').val()
       collection_time = $('#collection_time').val()
-      address = $('#street_number').val() + ', ' + $('#route').val() + ', ' + $('#locality').val() + ', ' + $('#administrative_area_level_1').val() + ', ' + $('#postal_code').val() + ', ' + $('#country').val()
-
+      address = $('#address').val()
+      
 $.ajax({
   url: "<%=stripe_path(@path)%>.json",
   context: document.body,
@@ -182,11 +182,11 @@ $(function(){
   if (type == 'delivery'){
     $('#collection-button').removeClass('btn-primary').addClass('btn-outline-secondary')
     $('#delivery-button').removeClass('btn-outline-secondary').addClass('btn-primary')
-    $('#address').removeClass('invisible');
+    $('#address-form').removeClass('invisible');
   } else {
     $('#delivery-button').removeClass('btn-primary').addClass('btn-outline-secondary')
     $('#collection-button').removeClass('btn-outline-secondary').addClass('btn-primary')
-    $('#address').addClass('invisible');
+    $('#address-form').addClass('invisible');
   }
 
   
@@ -252,7 +252,7 @@ function fillInAddress() {
     if (componentForm[addressType]) {
       var val = place.address_components[i][componentForm[addressType]];
       document.getElementById(addressType).value = val;
-        address = $('#street_number').val() + ', ' + $('#route').val() + ', ' + $('#locality').val() + ', ' + $('#administrative_area_level_1').val() + ', ' + $('#postal_code').val() + ', ' + $('#country').val()
+        address = $('#street_number').val() + ', ' + $('#route').val() + ', ' + $('#locality').val() + ', ' + $('#postal_code').val() + ', ' + $('#administrative_area_level_1').val() + ', '  + $('#country').val()
         $('#address').val(address)
     }
   }
@@ -342,7 +342,7 @@ function geolocate() {
               </div>
             </div>
 
-            <div id='address' class="row bg-dark invisible">
+            <div id='address-form' class="row bg-dark invisible">
               <div class='col text-left text-light form-group'>
    <%= label_tag :address %>
     <div id="locationField">
@@ -356,7 +356,7 @@ function geolocate() {
 
 
                  
-                    <%#= text_field_tag :address,  nil, class: "border p-2 bg-light" %>
+                    <%= hidden_field_tag :address,  nil, class: "border p-2 bg-light" %>
 
         <input type='hidden' class="field" id="street_number" disabled="true"/>
         <input type='hidden' class="field" id="route" disabled="true"/>

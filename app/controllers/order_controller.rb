@@ -38,7 +38,6 @@ class OrderController < ApplicationController
     @path = params[:path]
     @restaurant = Restaurant.find_by(path: @path)
     @basket = cookies[:basket]
-
     delay_time_minutes = @restaurant.delay_time_minutes
     delay_time_minutes = 30 if delay_time_minutes.blank? 
     
@@ -71,7 +70,9 @@ def stripe
 
 
 
-
+  @address = params[:address]
+  @telephone = params[:telephone]
+  
   error = false
   @path = params[:path]
   @name = params[:name]
@@ -112,7 +113,9 @@ def stripe
       stripe_token: token,
       status: @status,
       is_ready: false,
-      source: :takeaway
+      source: :takeaway, 
+      telephone: @telephone,
+      address: @address
     )
     rescue Exception => e
       error = true
