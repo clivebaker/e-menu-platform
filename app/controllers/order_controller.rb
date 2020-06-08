@@ -39,8 +39,10 @@ class OrderController < ApplicationController
     @restaurant = Restaurant.find_by(path: @path)
     @basket = cookies[:basket]
 
+    delay_time_minutes = @restaurant.delay_time_minutes
+    delay_time_minutes = 30 if delay_time_minutes.blank? 
     
-    t = Time.new.in_time_zone('Europe/London') + 30.minutes
+    t = Time.new.in_time_zone('Europe/London') + delay_time_minutes.minutes
     rounded_t = Time.local(t.year, t.month, t.day, t.hour, t.min/15*15)
     @delivery_time_options = ["ASAP"]
     until rounded_t > Time.local(t.year, t.month, t.day, 22, 00)
