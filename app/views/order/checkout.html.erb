@@ -90,6 +90,8 @@
     }
 
 
+
+
     $('#name').change(function() {   
       val = $(this).val()
       // alert('val')
@@ -100,8 +102,9 @@
         console.log('Show Submit Button')
         $('.submit-payment').removeClass('invisible')
       }
-      
     });
+
+
 
 
 
@@ -176,9 +179,11 @@ $(function(){
   if (type == 'delivery'){
     $('#collection-button').removeClass('btn-primary').addClass('btn-outline-secondary')
     $('#delivery-button').removeClass('btn-outline-secondary').addClass('btn-primary')
+    $('#address').removeClass('invisible')
   } else {
     $('#delivery-button').removeClass('btn-primary').addClass('btn-outline-secondary')
     $('#collection-button').removeClass('btn-outline-secondary').addClass('btn-primary')
+    $('#address').addClass('invisible')
   }
 
   
@@ -275,7 +280,7 @@ function geolocate() {
   <div class='container'>
 
     <div class="row  justify-content-center ">
-      <div class='col-sm-12 col-md-8 col-lg-6'>
+      <div class='col-sm-12 col-md-12 col-lg-12'>
         <div class="row">
           <div class='col text-center'>
               <%#= image_tag @restaurant.logo.variant(resize_to_limit: [300, 300]) if @restaurant.logo.attached? %>
@@ -308,45 +313,60 @@ function geolocate() {
           <form action="<%=stripe_path(@path)%>" method="post" id="payment-form">
 
             <div class="row bg-dark">
-              <div class='col text-center text-light pb-2'>
+              <div class='col-sm-12 col-md-6 text-center text-light pb-2'>
                     <%= link_to 'Collection', '#',  class: "btn btn-primary type-button", 'data-type': 'collection', id: 'collection-button' %>
                     <%= link_to 'Delivery', '#',  class: "btn btn-outline-secondary type-button", 'data-type': 'delivery', id: 'delivery-button'  %>
                     <%= hidden_field_tag :type,  'collection', id: 'delivery-collection-type', class: "border p-2 bg-light" %>
               </div>
-            </div>
-            <div class="row bg-dark">
-              <div class='col text-center text-light'>
-                    <%= label_tag :name %>
-                    <%= text_field_tag :name,  nil, class: "border p-2 bg-light" %>
-              </div>
-            </div>
-            <div class="row bg-dark">
-              <div class='col text-center text-light'>
-                    <%= label_tag :telephone %>
-                    <%= text_field_tag :telephone,  nil, class: "border p-2 bg-light" %>
-              </div>
-            </div>
-            <div class="row bg-dark">
-              <div class='col text-center text-light'>
+              <div class='col-sm-12 col-md-6 text-center text-light'>
 
+                    <%= select_tag :collection_time, options_for_select(@delivery_time_options), { class: "border p-2 bg-light form-control"} %>
+              </div>
+
+
+
+            </div>
+            <div class="row bg-dark">
+              <div class='col-sm-12 col-md-6 text-left text-light form-group'>
+                    <%= label_tag :name %>
+                    <%= text_field_tag :name,  nil, class: "border p-2 bg-light form-control" %>
+              </div>
+              <div class='col-sm-12 col-md-6 text-left text-light form-group'>
+                    <%= label_tag :telephone %>
+                    <%= text_field_tag :telephone,  nil, class: "border p-2 bg-light form-control" %>
+              </div>
+            </div>
+
+            <div id='address' class="row bg-dark invisible">
+              <div class='col text-left text-light form-group'>
+   <%= label_tag :address %>
     <div id="locationField">
       <input id="autocomplete"
              placeholder="Enter your address"
              onFocus="geolocate()"
-             type="text"/>
+             type="text" 
+             name='address'
+             class='form-control'/>
     </div>
 
 
-                    <%= label_tag :address %>
-                    <%= text_field_tag :address,  nil, class: "border p-2 bg-light" %>
+                 
+                    <%#= text_field_tag :address,  nil, class: "border p-2 bg-light" %>
+
+        <input type='hidden' class="field" id="street_number" disabled="true"/>
+        <input type='hidden' class="field" id="route" disabled="true"/>
+        <input type='hidden' class="field" id="locality" disabled="true"/>
+        <input type='hidden' class="field" id="administrative_area_level_1" disabled="true"/>
+        <input type='hidden' class="field" id="postal_code" disabled="true"/>
+        <input type='hidden' class="field" id="country" disabled="true"/>
+
+
+
+
+
               </div>
             </div>
-            <div class="row bg-dark pt-2">
-              <div class='col text-center text-light'>
-                    <%= label_tag "Collection Time" %>
-                    <%= select_tag :collection_time, options_for_select(@delivery_time_options), { class: "border p-2 bg-light"} %>
-              </div>
-            </div>
+
 
             <div class="row bg-dark">
               <div class='col'>
