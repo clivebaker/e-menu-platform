@@ -61,6 +61,15 @@ end
 
 
 def stripe
+
+
+  puts "****************************************************************"
+  puts "RECEIPT: #{params.inspect} ***********************************"
+  puts "****************************************************************"
+
+
+
+
   error = false
   @path = params[:path]
   @name = params[:name]
@@ -73,16 +82,7 @@ def stripe
       @basket_item_total =  @basket['items'].map{|d| d['total']}.inject(:+)
     end
  
-
-    puts "****************************************************************"
-    puts "****************************************************************"
-    puts "****************************************************************"
-
-    puts items = @basket['ids']
-
-    puts "****************************************************************"
-    puts "****************************************************************"
-    puts "****************************************************************"
+    items = @basket['ids']
 
     Stripe.api_key = @restaurant.stripe_api_key
 
@@ -92,7 +92,6 @@ def stripe
     Rails.logger.debug("Payment Token: #{token}")
     Rails.logger.debug("Payment Price: #{price}")
     begin
-      puts "*************** AA"
      @status = Stripe::Charge.create(
         amount: price,
         currency: 'gbp',
@@ -100,9 +99,6 @@ def stripe
         source: token
       )
       
-      puts "*************** BB"
-
-    puts "*************** CC"
     @receipt =  Receipt.create(
       uuid: SecureRandom.uuid,
       restaurant_id: @restaurant.id,
@@ -116,10 +112,8 @@ def stripe
       is_ready: false,
       source: :takeaway
     )
-    puts "*************** DD"
     rescue Exception => e
       error = true
-      puts "*************** EE: #{e}"
     puts e
   end
 
@@ -130,22 +124,12 @@ def stripe
  
   end
 
-
-  puts "****************************************************************"
-  puts "status: #{@status.inspect} ***********************************"
-  puts "****************************************************************"
-
-
   
 
   puts "****************************************************************"
   puts "RECEIPT: #{@receipt.inspect} ***********************************"
   puts "****************************************************************"
 
-
-  puts "****************************************************************"
-  puts "ERROR: #{error} ************************************************"
-  puts "****************************************************************"
 
 
 

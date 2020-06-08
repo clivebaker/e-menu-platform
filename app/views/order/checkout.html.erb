@@ -172,6 +172,8 @@ $.ajax({
 
 $(function(){
 
+
+
   $('.type-button').click(function(){
     type = $(this).data('type')
     $('#delivery-collection-type').val(type)
@@ -179,11 +181,11 @@ $(function(){
   if (type == 'delivery'){
     $('#collection-button').removeClass('btn-primary').addClass('btn-outline-secondary')
     $('#delivery-button').removeClass('btn-outline-secondary').addClass('btn-primary')
-    $('#address').removeClass('invisible')
+    $('#address').removeClass('invisible');
   } else {
     $('#delivery-button').removeClass('btn-primary').addClass('btn-outline-secondary')
     $('#collection-button').removeClass('btn-outline-secondary').addClass('btn-primary')
-    $('#address').addClass('invisible')
+    $('#address').addClass('invisible');
   }
 
   
