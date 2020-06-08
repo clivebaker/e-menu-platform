@@ -181,29 +181,37 @@ def stripe
   end
 
     def index
+
       @path = params[:path]
       @restaurant = Restaurant.find_by(path: @path)
       
       @menu =   @restaurant.menus
-      @menu2 = @restaurant.menus.arrange_serializable(order: :position) do |parent, children|
-        image = (parent.image if image.present?)
-        
-        {
-          id: parent.id,
-          name: parent.name,
-          node_type: parent.node_type,
-          children: children,
-          ancestry: parent.ancestry,
-          css_class: parent.css_class,
-          price_a: parent.price_a,
-          image: image , 
-          description: parent.description,
-          custom_lists: parent.custom_lists,
-          nutrition: parent.nutrition,
-          provenance: parent.provenance, 
-          calories: parent.calories
-        }
-      end
+      
+      
+      @menu2 = get_serialized_menu(@restaurant)
+      
+      # @menu2 = @restaurant.menus.arrange_serializable(order: :position) do |parent, children|
+      #   image = (parent.image if image.present?)  
+      #   {
+      #     id: parent.id,
+      #     name: parent.name,
+      #     node_type: parent.node_type,
+      #     children: children,
+      #     ancestry: parent.ancestry,
+      #     css_class: parent.css_class,
+      #     price_a: parent.price_a,
+      #     image: image , 
+      #     description: parent.description,
+      #     custom_lists: parent.custom_lists,
+      #     nutrition: parent.nutrition,
+      #     provenance: parent.provenance, 
+      #     calories: parent.calories
+      #   }
+      # end
+
+
+
+
       #@restaurants = Restaurant.all if @restaurant.blank?
 
       if cookies[:basket]
@@ -214,6 +222,35 @@ def stripe
 
     end
   
+
+
+    def get_serialized_menu restaurant
+      Rails.cache.fetch("restaurant_order_menu_#{@restaurant.id}", expires_in: 3.hours) do
+        @menu2 = @restaurant.menus.arrange_serializable(order: :position) do |parent, children|
+          image = (parent.image if image.present?)  
+          {
+            id: parent.id,
+            name: parent.name,
+            node_type: parent.node_type,
+            children: children,
+            ancestry: parent.ancestry,
+            css_class: parent.css_class,
+            price_a: parent.price_a,
+            image: image , 
+            description: parent.description,
+            custom_lists: parent.custom_lists,
+            nutrition: parent.nutrition,
+            provenance: parent.provenance, 
+            calories: parent.calories
+          }
+        end
+  
+      end
+    end
+
+
+
+
     def add_to_basket
       # my_logger ||= Logger.new("#{Rails.root}/log/basket.log")
       path = params[:path]

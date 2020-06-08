@@ -26,22 +26,31 @@ module MenusHelper
   end
 
   def custom_list_items(items)
-    #binding.pry
-    CustomListItem.where(id: items).map{|g| g.name}.join(", ")
+    Rails.cache.fetch("custom_list_items_#{items.join('-')}", expires_in: 3.hours) do
+      CustomListItem.where(id: items).map{|g| g.name}.join(", ")
+    end 
   end
 
   def custom_list(id)
-    CustomList.find(id).name    
+    Rails.cache.fetch("custom_list_name_#{id}", expires_in: 3.hours) do
+      CustomList.find(id).name    
+    end
   end
 
   def custom_list_object(id)
-    CustomList.find(id)    
+    Rails.cache.fetch("custom_list_#{id}", expires_in: 3.hours) do
+      CustomList.find(id)    
+    end
   end
   def custom_list_item(id)
-    CustomListItem.find(id) 
+    Rails.cache.fetch("custom_list_item_#{id}", expires_in: 3.hours) do
+      CustomListItem.find(id) 
+    end
   end
   def custom_list_constraint(key)
-    constraint_to_human CustomList.find(key).constraint 
+    Rails.cache.fetch("custom_list_constraint_#{key}", expires_in: 3.hours) do
+      constraint_to_human CustomList.find(key).constraint 
+    end
   end
 
 
