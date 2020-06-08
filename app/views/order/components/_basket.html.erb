@@ -22,8 +22,8 @@
                 <% @basket['items'].each do |item|%>
                 <tr>
                   <td><%= link_to remove_from_basket_path(@path, item['uuid']), data: { confirm: 'Are you sure?' }  do %><i class="fas fa-minus-circle text-danger"></i><% end %></td>
-                  <td><%= item['item'] %></td>
-                  <td><%= item['optionals'].join(', ') %></td>
+                  <td><%= item['item'].html_safe  %></td>
+                  <td><%= item['optionals'].join('<br> ').html_safe %></td>
                   <td class='text-right'><%= number_to_currency(item['total'], unit: '£') %></td>
                 </tr>
                 <% end if @basket %>

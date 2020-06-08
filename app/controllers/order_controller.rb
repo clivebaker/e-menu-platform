@@ -213,8 +213,7 @@ def stripe
     end
   
     def add_to_basket
-
-
+      # my_logger ||= Logger.new("#{Rails.root}/log/basket.log")
       path = params[:path]
 
       @basket = JSON.parse(cookies[:basket]) if cookies[:basket]
@@ -226,14 +225,37 @@ def stripe
       
       menu_item = Menu.find(main_item)
       optionals = CustomListItem.where(id: items)
-   
+      @restaurant = menu_item.restaurant
+      puts "#############################################################################"
+      puts "#############################################################################"
+
+      sort_order = @restaurant.custom_list_ids
+      lookup = {}
+      sort_order.each_with_index do |item, index|
+        lookup[item] = index
+      end
+
+      cl = optionals.sort_by do |item|
+        lookup.fetch(item.custom_list_id)
+      end
+      
+
+
+      # puts optionals
+      # my_logger.info("#############################################################################")
+      # my_logger.info(optionals)
+      # my_logger.info("#############################################################################")
+      # my_logger.info(cl)
+      # my_logger.info("#############################################################################")
      
 
       total = ("%.2f" % menu_item.price_a).to_f
-      total += optionals.map{|s| ("%.2f" % s.price).to_f }.inject(:+) if optionals.present?
+      total += cl.map{|s| ("%.2f" % s.price).to_f }.inject(:+) if optionals.present?
       uuid = SecureRandom.uuid
-      basket_items << {uuid: uuid, total: total ,item: menu_item.name , optionals: optionals.map{|s| s.name} }
-      basket_ids << {uuid: uuid, total: total,item: menu_item.id, optionals: optionals.map{|s| s.id }}
+
+    
+      basket_items << {uuid: uuid, total: total ,item: "<i>#{menu_item.parent.name}</i> - <strong>#{menu_item.name}</strong>" , optionals: cl.map{|s| "<i>#{s.custom_list_name}</i> - <strong>#{s.name}</strong>" } }
+      basket_ids << {uuid: uuid, total: total,item: menu_item.id, optionals: cl.map{|s| s.id }}
 
       cookies[:basket] = {
         restaurant: path,

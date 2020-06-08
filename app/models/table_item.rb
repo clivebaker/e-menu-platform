@@ -6,7 +6,7 @@ class TableItem < ApplicationRecord
   belongs_to :table
   belongs_to :menu
 
-  delegate :name, :price_a, to: :menu, prefix: false
+  delegate :name, :price_a, to: :menu, prefix: false, allow_nil: true
 
 
   delegate :restaurant_features, to: :table, prefix: true

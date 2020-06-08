@@ -21,10 +21,10 @@
                       <% receipt.items['items'].each do |item| %>
                         <li class="list-group-item">
                             <div class="row">
-                              <div class="col"><%= item['item']%></div>
+                              <div class="col"><%= item['item'].html_safe%></div>
                             </div>
                             <div class="row">
-                              <div class="col"><small><%= item['optionals'].join(', ')%></small></div>
+                              <div class="col"><small><%= item['optionals'].join('<br> ').html_safe%></small></div>
                             </div>
                             
                             
