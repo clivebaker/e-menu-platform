@@ -134,11 +134,12 @@
       
       name = $('#name').val()
       collection_time = $('#collection_time').val()
-      
+      address = $('#street_number').val() + ', ' + $('#route').val() + ', ' + $('#locality').val() + ', ' + $('#administrative_area_level_1').val() + ', ' + $('#postal_code').val() + ', ' + $('#country').val()
+
 $.ajax({
   url: "<%=stripe_path(@path)%>.json",
   context: document.body,
-  data: {token: ev.token.id, price: <%=@basket_item_total%>, items: [], collection_time: collection_time, name: name}, 
+  data: {token: ev.token.id, price: <%=@basket_item_total%>, items: [], collection_time: collection_time, name: name, address: address}, 
   method: 'POST',
   mimeType:'application/json',
 }).done(function(response) {
@@ -251,6 +252,8 @@ function fillInAddress() {
     if (componentForm[addressType]) {
       var val = place.address_components[i][componentForm[addressType]];
       document.getElementById(addressType).value = val;
+        address = $('#street_number').val() + ', ' + $('#route').val() + ', ' + $('#locality').val() + ', ' + $('#administrative_area_level_1').val() + ', ' + $('#postal_code').val() + ', ' + $('#country').val()
+        $('#address').val(address)
     }
   }
 }
