@@ -135,11 +135,12 @@
       name = $('#name').val()
       collection_time = $('#collection_time').val()
       address = $('#address').val()
+      telephone = $('#telephone').val()
       
 $.ajax({
   url: "<%=stripe_path(@path)%>.json",
   context: document.body,
-  data: {token: ev.token.id, price: <%=@basket_item_total%>, items: [], collection_time: collection_time, name: name, address: address}, 
+  data: {token: ev.token.id, price: <%=@basket_item_total%>, items: [], collection_time: collection_time, name: name, address: address, telephone: telephone}, 
   method: 'POST',
   mimeType:'application/json',
 }).done(function(response) {
