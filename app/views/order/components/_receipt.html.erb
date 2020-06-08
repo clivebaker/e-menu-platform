@@ -5,7 +5,8 @@
             <div><strong>Payment Date: </strong><%=@receipt.created_at.strftime("%d %B %Y - %H:%M")%></div>
             <div><strong>Receipt Number: </strong><%=@receipt.uuid%></div>
             <div><strong>Name: </strong><%=@receipt.name%></div>
-            <div><strong>Collection Time: </strong><%=@receipt.collection_time%></div>
+            <div><strong>Type: </strong><%=@receipt.delivery_or_collection%></div>
+            <div><strong>Time: </strong><%=@receipt.collection_time%></div>
             <% if @receipt.telephone.present? %><div><strong>Telephone: </strong><%=@receipt.telephone%></div><% end %>
             <% if @receipt.address.present? %><div><strong>Address: </strong><%=@receipt.address%></div><% end %>
     

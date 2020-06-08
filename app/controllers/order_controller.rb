@@ -77,6 +77,7 @@ def stripe
   error = false
   @path = params[:path]
   @name = params[:name]
+  @delivery_or_collection = params[:type]
   @collection_time = params[:collection_time]
   @restaurant = Restaurant.find_by(path: @path)
     @basket = cookies[:basket]
@@ -116,7 +117,8 @@ def stripe
       is_ready: false,
       source: :takeaway, 
       telephone: @telephone,
-      address: @address
+      address: @address,
+      delivery_or_collection: @delivery_or_collection
     )
     rescue Exception => e
       error = true

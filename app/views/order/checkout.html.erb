@@ -136,11 +136,11 @@
       collection_time = $('#collection_time').val()
       address = $('#address').val()
       telephone = $('#telephone').val()
-      
+      delivery_collection_type = $('#delivery-collection-type').val()
 $.ajax({
   url: "<%=stripe_path(@path)%>.json",
   context: document.body,
-  data: {token: ev.token.id, price: <%=@basket_item_total%>, items: [], collection_time: collection_time, name: name, address: address, telephone: telephone}, 
+  data: {token: ev.token.id, price: <%=@basket_item_total%>, items: [], collection_time: collection_time, name: name, address: address, telephone: telephone, type: delivery_collection_type}, 
   method: 'POST',
   mimeType:'application/json',
 }).done(function(response) {
