@@ -8,7 +8,7 @@ class Restaurant < ApplicationRecord
   has_many :receipts
   has_many :menus
   has_many :restaurant_tables
-  has_many :custom_lists
+  has_many :custom_lists, -> { order(position: :asc) }
   has_and_belongs_to_many :features
   has_and_belongs_to_many :template
 

@@ -120,8 +120,32 @@
             <h6>Available customer options</h6>
           </div>
         </div>
-        
-        <% @menu.custom_lists.keys.each do |key| %>
+        <%= %>
+
+
+          <%
+                sort_order = @restaurant.custom_list_ids
+                b = @menu.custom_lists.keys.map{|s| s.to_i}
+
+                lookup = {}
+                sort_order.each_with_index do |item, index|
+                  lookup[item] = index
+                end
+
+              # cl = b
+                cl = b.sort_by do |item|
+                   lookup.fetch(item)
+                end
+                
+                
+                
+                %>
+
+
+
+
+        <% cl.each do |k| %>
+        <% key = k.to_s%>
         <div class="row">
           <div class="col-lg-3">
               <strong><%=custom_list(key)%></strong>

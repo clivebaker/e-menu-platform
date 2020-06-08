@@ -77,6 +77,8 @@ Rails.application.routes.draw do
       end
       resources :custom_lists do 
         resources :custom_list_items
+        post :up
+        post :down
       end
     end
     devise_for :restaurant_users, path: 'manager', controllers: {

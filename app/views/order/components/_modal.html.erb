@@ -50,19 +50,22 @@
                 <% end %>
 
                 <%
-                sort_order=['1', '2', '3', '*']
+                sort_order = @restaurant.custom_list_ids
                 lookup = {}
                 sort_order.each_with_index do |item, index|
                   lookup[item] = index
                 end
 
                 cl = custom_lists.sort_by do |item|
-                  lookup.fetch(item.constraint)
+                  lookup.fetch(item.id)
                 end
                 
                 
                 
                 %>
+
+
+
                 <% 
                 lookup2 = {}
                 custom_list_sort_order = cl.map{|a| a.id} 

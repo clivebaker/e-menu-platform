@@ -7,7 +7,7 @@
     <tr>
       <th>Name</th>
       <th>Constraint</th>
-      <th colspan="3"></th>
+      <th colspan="4"></th>
     </tr>
   </thead>
 
@@ -18,7 +18,8 @@
         <td><%= constraint_to_human custom_list.constraint %></td>
         <td><%= link_to 'Manage Options', manager_restaurant_custom_list_path(@restaurant, custom_list) %></td>
         <td><%= link_to 'Edit List name', edit_manager_restaurant_custom_list_path(@restaurant, custom_list) %></td>
-        <td><%= link_to 'Delete List', manager_restaurant_custom_lists_path(@restaurant), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to_if !custom_list.custom_list_items.present?, 'Delete List', manager_restaurant_custom_list_path(@restaurant, custom_list), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%=link_to 'up', manager_restaurant_custom_list_up_path(@restaurant, custom_list), method: :post unless custom_list.first? %> -- <%=link_to 'down', manager_restaurant_custom_list_down_path(@restaurant, custom_list), method: :post unless custom_list.last? %></td>
       </tr>
     <% end %>
   </tbody>

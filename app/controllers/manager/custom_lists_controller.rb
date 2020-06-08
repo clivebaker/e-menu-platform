@@ -28,6 +28,24 @@ class CustomListsController < Manager::BaseController
   def edit
   end
 
+  def up
+
+    @restaurant = Restaurant.find(params[:restaurant_id])
+    @custom_list = CustomList.find(params[:custom_list_id])
+    @custom_list.move_higher
+    @custom_list.save
+    redirect_to manager_restaurant_custom_lists_path(@restaurant)
+  end
+  def down
+
+    @restaurant = Restaurant.find(params[:restaurant_id])
+    @custom_list = CustomList.find(params[:custom_list_id])
+    @custom_list.move_lower
+    @custom_list.save
+    redirect_to manager_restaurant_custom_lists_path(@restaurant)
+  end
+
+
   # POST /custom_lists
   # POST /custom_lists.json
   def create
