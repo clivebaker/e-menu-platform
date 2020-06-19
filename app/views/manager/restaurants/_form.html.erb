@@ -87,7 +87,7 @@
     <div class="col">
       <div class="form-group ">
         <%= form.label :cuisine_id %>
-        <%= form.select :cuisine_id,  options_for_select(@cuisines.map{|a| [a.name, a.id]}), {prompt: "Choose cuisine"}, {class: 'form-control  form-control-sm'} %>
+        <%= form.select :cuisine_id,  options_for_select(@cuisines.map{|a| [a.name, a.id]}, restaurant.cuisine_id ), {prompt: "Choose cuisine"}, {class: 'form-control  form-control-sm'} %>
       </div>
     </div>
   </div>

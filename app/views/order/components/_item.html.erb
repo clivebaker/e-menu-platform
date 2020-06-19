@@ -6,7 +6,7 @@
 <% if item[:node_type] == 'section' %>
   <div class="col-sm-12 col-md-6 p-1 <%= item[:css_class] if item[:css_class].present?%>">
     <div class="order-item rounded" data-toggle="modal" data-target="#exampleModal">
-      <div class="row">
+      <div class="row  cursor-pointer">
         <div class="col text-danger">
           <strong class='section-name'><%=item[:name]%></strong>
         </div>
@@ -27,7 +27,7 @@
     <div class="item-default <%= item[:ancestry].split('/').count == 3 ? 'col' : 'col-sm-12 col-md-6' %> p-1 <%= item[:css_class] if item[:css_class].present?%>">
       <div class=" p-1 rounded cursor-pointer" data-toggle="modal" data-target="#item-<%=item[:id]%>">
         <div class="row pb-1">
-          <div class='col item-title'><strong  class='item-name'><%=item[:name]%></strong></div>
+          <div class='col item-title'><strong  class='item-name '><%=item[:name]%></strong></div>
           <div class='col-4 text-right'><strong  class='item-name'><%=number_to_currency(item[:price_a], unit: '£')%></strong></div>
         </div>
         <% if item[:image].present? or item[:description].present? %>
@@ -41,6 +41,6 @@
         <% end %>
       </div>
     </div>
-  <%= render 'order/components/modal', item: item%>
+  <%= render 'order/components/modal', item: item if is_takeaway_or_delivery?(@restaurant)%>
 <% end %>
 

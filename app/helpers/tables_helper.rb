@@ -113,11 +113,25 @@ module TablesHelper
 
 
 
-  def feature_match(feature, restaurant_features)
-    restaurant_features.map{|s| s.key.to_sym}.include?(feature.to_sym)
-  end
-
-
+    def feature_match(feature, restaurant_features)
+      restaurant_features.map{|s| s.key.to_sym}.include?(feature.to_sym)
+    end
+  
+    def is_delivery?(restaurant)
+      feature_match('delivery_service', restaurant.features)
+    end
+    def is_takeaway?(restaurant)
+      feature_match('takeaway_service_enabled', restaurant.features)
+    end
+    
+    def is_takeaway_or_delivery?(restaurant)
+      ret = false
+      del = is_delivery?(restaurant)
+      take = is_takeaway?(restaurant)
+      ret = del if del
+      ret = take if take
+      ret
+    end
 
 
 end
