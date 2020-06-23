@@ -9,7 +9,7 @@
     ITEMS = []
     PRICE = 0
 	
-  var stripe = Stripe('pk_test_WK72bUcdjoVsncoNFQGrFkcv');
+  var stripe = Stripe('<%=@publish_stripe_api_key%>');
   var elements = stripe.elements();
 
   // Custom styling can be passed to options when creating an Element.
@@ -254,8 +254,9 @@
 						<span>Current Bill </span><br>
 						<span class="current-bill">
 
-	<% price = @table.table_items.reject{|a| a.paid?}.map{|e| e.total_price}.inject(:+) || 0 %>
-							<%=number_to_currency price, unit: "£"%>								
+	<% price = @table.table_items.reject{|a| a.paid?}.reject{|a| a.ready?}.map{|e| e.total_price}.inject(:+) || 0 %>
+					
+          <%=number_to_currency price, unit: "£"%>								
 
 							</span>
 					</div>
@@ -277,7 +278,7 @@
 								  
                   	<div class="row ">
 								  		<div class="col-5 ">
-                        <% unless item.paid? or item.ready? %>
+                        <% unless (item.paid? or item.ready?) %>
                           <div class="custom-control custom-checkbox">
                             <% if item.aasm_state != 'ordered' %>
                               <input type="checkbox" class="item-check custom-control-input" id="customCheck-<%=item.id%>" data-id=<%=item.id%> data-price="<%=item.total_price*100%>">
@@ -393,8 +394,9 @@
 </div>
 
 
-    <%=link_to "Not Finished?", table_path(@table), class: "btn btn-secondary  mt-2  mb-3 "%>
- 
+    <%=link_to "Not Finished?", table_path(@table), class: "btn btn-secondary  mt-2 mb-2"%>
+ <%= link_to "View Receipt", view_receipt_receipts_path(params[:receipt_uuid]), class: 'btn btn-primary   mt-2 mb-2', target: params[:receipt_uuid] if params[:receipt_uuid].present? %>
+
  	
 
 <% else %>
@@ -404,7 +406,7 @@
 
 
 
-  <%= link_to "View Receipt", view_receipt_receipts_path(params[:receipt_uuid]), class: 'btn btn-primary', target: params[:receipt_uuid] if params[:receipt_uuid].present? %>
+  <%=link_to "View Receipt", view_receipt_receipts_path(params[:receipt_uuid]), class: 'btn btn-primary mt-2 mb-2', target: params[:receipt_uuid] if params[:receipt_uuid].present? %>
 	<%=link_to "Close Table", table_finish_path(@table), class: "btn btn-warning  mt-2 mb-2"%>
   <%=link_to "Not Finished?", table_path(@table), class: "btn btn-secondary  mt-2  mb-3 "%>
  

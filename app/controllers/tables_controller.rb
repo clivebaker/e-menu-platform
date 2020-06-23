@@ -80,15 +80,17 @@ class TablesController < ApplicationController
 
   def pay
     @table = Table.find(params[:table_id])
+    @publish_stripe_api_key = @table.restaurant.stripe_publish_api_key
   end
 
   def stripe
     error = nil
     status = nil
+    
     @table = Table.find(params[:table_id])
     @restaurant = @table.restaurant
 
-    Stripe.api_key = ENV['STRIPE_API_KEY'] || Rails.application.credentials.dig(:stripe, :api_key) 
+    Stripe.api_key = @restaurant.stripe_api_key
 
     token = params[:token]
     price = params[:price].to_i

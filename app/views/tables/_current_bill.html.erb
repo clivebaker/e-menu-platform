@@ -13,7 +13,12 @@
 				<div class="col">
 					<ul class="list-group">
 						<% @table.table_items.order(:created_at).each do |item| %>
-						  <li class="list-group-item d-flex justify-content-between align-items-center rhc-item  <%=item.paid? ? "item-paid" : "" %>">
+						  <% paid = false 
+                if item.paid? or item.ready?
+                  paid = true
+                end        
+              %>
+						  <li class="list-group-item d-flex justify-content-between align-items-center rhc-item  <%=paid ? "item-paid" : "" %>">
 							  <div class="container">
 							  	<div class="row">
 							  		<div class="col-sm-6"><%= item.name%></div>
