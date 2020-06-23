@@ -16,9 +16,21 @@ class Table < ApplicationRecord
   end
 
   def live_items
-    table_items.where(aasm_state: 'ordered') #select{|e| e.ordered?}
+    table_items.where(aasm_state: ['ordered', 'service', 'paid']) #select{|e| e.ordered?}
+  end
+  def all_ready
+    items = table_items.where.not(aasm_state: 'ready')
+    items.blank?
   end
 
+
+  def current_total
+    table_items.reject{|a| a.paid?}.reject{|a| a.ready?}.map{|e| e.price_a || 0}.inject(:+) || 0
+  end
+
+  def total
+    table_items.map{|e| e.price_a || 0}.inject(:+) || 0
+  end
 
   has_many :table_items
 

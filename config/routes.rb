@@ -3,6 +3,7 @@
 Rails.application.routes.draw do
 
 
+  resources :delivery_postcodes
   resources :receipts do 
     post 'is_ready'
     collection do 
@@ -23,6 +24,7 @@ Rails.application.routes.draw do
     get 'pay'
     post 'stripe'
     get 'finish'
+    get 'manager_finish'
     # get 'sectioned_menus'
     get 'sectioned_menus/:menu_id' => 'tables#show', as: 'sectioned_menus_choice'
 
@@ -51,6 +53,7 @@ Rails.application.routes.draw do
     get 'live_orders/:restaurant_id' => 'live#orders', as: :live_orders
     get 'receipts/:restaurant_id' => 'live#receipts', as: :receipts
     get 'service/:restaurant_id/item/:table_item_id' => 'live#service', as: :live_service
+    get 'ready/:restaurant_id/item/:table_item_id' => 'live#ready', as: :live_ready
 
     resources :features
     resources :templates  

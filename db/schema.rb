@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_08_152347) do
+ActiveRecord::Schema.define(version: 2020_06_22_131549) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -74,6 +74,15 @@ ActiveRecord::Schema.define(version: 2020_06_08_152347) do
     t.string "constraint"
     t.integer "position"
     t.index ["restaurant_id"], name: "index_custom_lists_on_restaurant_id"
+  end
+
+  create_table "delivery_postcodes", force: :cascade do |t|
+    t.string "prefix"
+    t.integer "delivery_fee"
+    t.bigint "restaurant_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["restaurant_id"], name: "index_delivery_postcodes_on_restaurant_id"
   end
 
   create_table "features", force: :cascade do |t|
@@ -285,6 +294,7 @@ ActiveRecord::Schema.define(version: 2020_06_08_152347) do
 
   add_foreign_key "custom_list_items", "custom_lists"
   add_foreign_key "custom_lists", "restaurants"
+  add_foreign_key "delivery_postcodes", "restaurants"
   add_foreign_key "menus", "menu_item_categorisations"
   add_foreign_key "menus", "restaurants"
   add_foreign_key "menus", "spice_levels"

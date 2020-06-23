@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Delivery Postcodes</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Prefix</th>
+      <th>Delivery fee</th>
+      <th>Restaurant</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @delivery_postcodes.each do |delivery_postcode| %>
+      <tr>
+        <td><%= delivery_postcode.prefix %></td>
+        <td><%= delivery_postcode.delivery_fee %></td>
+        <td><%= delivery_postcode.restaurant %></td>
+        <td><%= link_to 'Show', delivery_postcode %></td>
+        <td><%= link_to 'Edit', edit_delivery_postcode_path(delivery_postcode) %></td>
+        <td><%= link_to 'Destroy', delivery_postcode, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Delivery Postcode', new_delivery_postcode_path %>

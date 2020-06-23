@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Prefix:</strong>
+  <%= @delivery_postcode.prefix %>
+</p>
+
+<p>
+  <strong>Delivery fee:</strong>
+  <%= @delivery_postcode.delivery_fee %>
+</p>
+
+<p>
+  <strong>Restaurant:</strong>
+  <%= @delivery_postcode.restaurant %>
+</p>
+
+<%= link_to 'Edit', edit_delivery_postcode_path(@delivery_postcode) %> |
+<%= link_to 'Back', delivery_postcodes_path %>

@@ -2,25 +2,20 @@
   <div class="row m-2">
 
 
-
-
-
-
         <% @restaurant_tables.each do |restaurant_table| %>
           <% restaurant_table.tables_live.each do |table|%>
-
             <% if table.has_live_items? %>
               <div class=" col-sm-3">
               <div class="card">
                 <div class="card-body">
-                  <h5 class="card-title">Table Number: <%=table.restaurant_table_number%></h5>
-               
+                  <h5 class="card-title">Table Number: <%=table.restaurant_table_number%></h5>               
                   <p class="card-text">
                     <ul class="list-group">
                       <% table.live_items.order(:created_at).each do |item| %>
                         <li class="list-group-item">
                             <div class="row">
                               <div class="col"><%= item.name%></div>
+                              <div class='col text-right'><%= item.aasm_state %></div>
                             </div>
                             <% item.custom_lists.keys.each do |list_id| %>
                               <% custom_list = CustomList.find(list_id) %>
@@ -31,8 +26,9 @@
                                   </div>
                                 <% end %>
                             <% end %>
-                            
-                            <%= link_to "Service",manager_live_service_path(table.restaurant.id, item.id), class: 'btn btn-warning mt-3', data: { confirm: 'Are you sure?' } %>
+                            <%=%>
+                            <%= link_to "Service",manager_live_service_path(table.restaurant.id, item.id), class: 'btn btn-warning mt-3', data: { confirm: 'Are you sure?' } if item.aasm_state=='ordered' %>
+                            <%= link_to "Ready?",manager_live_ready_path(table.restaurant.id, item.id), class: 'btn btn-warning mt-3', data: { confirm: 'Are you sure?' } if item.aasm_state=='paid' %>
                         </li>
                       <% end %>
                     </ul>

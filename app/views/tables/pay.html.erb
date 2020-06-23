@@ -133,6 +133,7 @@
         console.log(result.result)
         console.log("----------------------------- **")
         document.location.reload(true)
+        console.log(response);
         // Report to the browser that the payment was successful, prompting
         // it to close the browser payment interface.
         ev.complete('success');
@@ -266,18 +267,27 @@
             <%= link_to "Deselect all", "#", class: "btn btn-outline-warning mb-2 btn-sm", id: "deselect-all"%>
 						<ul class="list-group">
 							<% @table.table_items.order(:created_at).each do |item| %>
-							  <li class="list-group-item d-flex justify-content-between align-items-center rhc-item  <%=item.paid? ? "item-paid" : "" %>">
+              <% paid = false 
+                if item.paid? or item.ready?
+                  paid = true
+                end        
+              %>
+							  <li class="list-group-item d-flex justify-content-between align-items-center rhc-item  <%=paid ? "item-paid" : "" %>">
 								  <div class="container-fluid">
 								  
                   	<div class="row ">
 								  		<div class="col-5 ">
-                        <% unless item.paid? %>
+                        <% unless item.paid? or item.ready? %>
                           <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="item-check custom-control-input" id="customCheck-<%=item.id%>" data-id=<%=item.id%> data-price="<%=item.total_price*100%>">
-                            <label class="custom-control-label pt-1checkout" for="customCheck-<%=item.id%>"><%= item.name%></label>
+                            <% if item.aasm_state != 'ordered' %>
+                              <input type="checkbox" class="item-check custom-control-input" id="customCheck-<%=item.id%>" data-id=<%=item.id%> data-price="<%=item.total_price*100%>">
+                              <label class="custom-control-label pt-1checkout" for="customCheck-<%=item.id%>"><%= item.name%></label>
+                            <% else %>
+                              <div class=''>Waiting for service - <%= item.name%></div> 
+                            <% end %>
                           </div>
                         <% else %>
-                          <div class='d-inline-block mr-1'><%= item.aasm_state unless item.service?  %> - <%= item.name%></div> 
+                          <div class='d-inline-block mr-1'><%= 'paid' %> - <%= item.name%></div> 
                         <% end %>
                       </div>
 								  	

@@ -165,7 +165,7 @@ class TablesController < ApplicationController
 
   def finish
     @table = Table.find(params[:table_id])
-    price = @table.table_items.reject(&:paid?).map(&:price_a).inject(:+) || 0
+    price = @table.current_total
 
     respond_to do |format|
       if price.zero?
@@ -174,6 +174,22 @@ class TablesController < ApplicationController
         format.html { redirect_to root_path(@table), notice: t('table.close.success') }
       else
         format.html { redirect_to table_pay_path(@table), notice: t('table.close.error') }
+      end
+    end
+  end
+
+
+  def manager_finish
+    @table = Table.find(params[:table_id])
+    price = @table.current_total
+
+    respond_to do |format|
+      if price.zero?
+        @table.finish
+        @table.save
+        format.html { redirect_to manager_live_tables_path(@table.restaurant), notice: t('table.close.success') }
+      else
+        format.html { redirect_to manager_live_tables_path(@table.restaurant), notice: t('table.close.error') }
       end
     end
   end

@@ -64,6 +64,7 @@ class TableItem < ApplicationRecord
     state :ordered
     state :service
     state :paid
+    state :ready
 
     event :order do
       transitions from: :booked, to: :ordered
@@ -79,6 +80,12 @@ class TableItem < ApplicationRecord
     end
     event :paid do
       transitions from: :service, to: :paid
+      # transitions from: :booked, to: :paid
+      # transitions from: :prepare, to: :paid
+    end
+
+    event :finish do
+      transitions from: :paid, to: :ready
       # transitions from: :booked, to: :paid
       # transitions from: :prepare, to: :paid
     end

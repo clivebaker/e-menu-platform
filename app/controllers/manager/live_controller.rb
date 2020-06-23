@@ -22,7 +22,13 @@ module Manager
       respond_to do |format|
           format.html { redirect_to manager_live_items_path(@restaurant.id), notice: 'Item successfully moved to service.' }
       end
-
+    end
+    def ready
+      @table_item = TableItem.find(params[:table_item_id])
+      @table_item.finish!
+      respond_to do |format|
+          format.html { redirect_to manager_live_items_path(@restaurant.id), notice: 'Item successfully finished.' }
+      end
     end
 
 
