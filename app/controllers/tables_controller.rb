@@ -129,19 +129,52 @@ class TablesController < ApplicationController
       if error.present?
         redirect_to table_pay_path(@table), alert: "#{t('payment.error')}: #{e.message}" 
       else
+        items = table_items.map{|a| {item: a.menu.name, total: a.price_a, optionals: custom_item_list(a)}}
 
-        # binding.pry
-       @receipt =  Receipt.create(
+        @receipt =  Receipt.create(
           uuid: SecureRandom.uuid,
-          restaurant_id: @table.restaurant_id,
+          restaurant_id: @restaurant.id,
           basket_total: price,
-          items: table_items.map{|a| {name: a.menu.name, price: a.price_a, custom_items: custom_item_list(a)}},
+          items: {items: items, count: items.count, restaturant: @restaurant.name},
           #email: '',
-          #name: '',
+          name: '',
+          collection_time: Time.now,
           stripe_token: token,
           status: status,
-          is_ready: true,
+          is_ready: false,
+          source: :dinein, 
+          telephone: '',
+          address: '',
+          delivery_or_collection: ''
         )
+    
+
+        # {
+        #   "ids": 
+        #   [
+        #     {"item": 154, "uuid": "2249aafe-50d1-4edb-80b5-17d35c74f3eb", "total": 3.95, "optionals": [155]}, 
+        #     {"item": 151, "uuid": "af87feac-7e3a-4304-8243-b98c49104251", "total": 1.25, "optionals": []}
+        #   ], 
+        #   "count": 2, 
+        #   "items": 
+        #     [
+        #       {"item": "<i>The Sweet Stuff</i> - <strong>Churros</strong>", "uuid": "2249aafe-50d1-4edb-80b5-17d35c74f3eb", "total": 3.95, "optionals": ["<i>Sweet Sauce & Toppings</i> - <strong>Vanilla Sugar</strong>"]}, 
+        #       {"item": "<i>Cold Drinks</i> - <strong>Still Water</strong>", "uuid": "af87feac-7e3a-4304-8243-b98c49104251", "total": 1.25, "optionals": []}
+        #     ], 
+        #   "restaurant": "thesauce"
+        # }
+        
+        
+        
+        
+        
+        # [
+        #   {"name": "HALLOUMI BITES", "price": "3.95", "custom_items": []}, 
+        #   {"name": "CHILLI FRIED CHICKEN BITES", "price": "4.65", "custom_items": []}
+        # ]
+
+
+
         puts "************************************************************************"
         puts 'RECEIPT TO BE CREATED AT'
         puts "************************************************************************"
@@ -155,7 +188,8 @@ class TablesController < ApplicationController
       custom_list = CustomList.find(list_id)
         item.custom_lists[list_id].each do |list_item_id|
           list_item = CustomListItem.find(list_item_id)
-            ret << {list_name: custom_list.name, item_name: list_item.name, price: list_item.price }
+          # ret << {list_name: custom_list.name, item_name: list_item.name, price: list_item.price }
+          ret << "<i>#{custom_list.name}</i> - <strong>#{list_item.name}</strong>"
         end
     end
     ret

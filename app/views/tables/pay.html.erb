@@ -201,7 +201,7 @@
   function update_display(){
       $("#items").val(ITEMS)
       $("#price").val(PRICE)
-      $(".display-price").html("£" + (PRICE/100))
+      $(".display-price").html("£" + (PRICE/100).toFixed(2))
   }
 
   $(".item-check").click(function() {
