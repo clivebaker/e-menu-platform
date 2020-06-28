@@ -72,7 +72,9 @@ Rails.application.routes.draw do
       post 'add_template', action: :add_template
 
 
-      resources :menus
+      resources :menus do
+        post :clone
+      end
       resources :restaurant_tables do
         collection do
           get :qr

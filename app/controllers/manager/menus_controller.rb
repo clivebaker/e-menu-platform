@@ -57,6 +57,25 @@ module Manager
       end
     end
 
+
+    def clone
+      @menu = Menu.find(params[:menu_id])
+      @new_menu = @menu.dup
+      @new_menu.name = "#{@new_menu.name} [CLONE]"
+      respond_to do |format|
+        if @new_menu.save
+          @new_menu.translate
+          redirect_location = @new_menu.node_type == 'item' ? manager_restaurant_menu_path(@restaurant, @new_menu, updated_menu: @new_menu.id) : manager_restaurant_menus_path(@restaurant, updated_menu: @new_menu.id)
+          format.html { redirect_to redirect_location, notice: 'Menu was successfully created.' }
+          format.json { render :show, status: :created, location: @menu }
+        else
+          format.html { render :new }
+          format.json { render json: @menu.errors, status: :unprocessable_entity }
+        end
+      end
+    end
+
+
     # PATCH/PUT /menus/1
     # PATCH/PUT /menus/1.json
     def update
