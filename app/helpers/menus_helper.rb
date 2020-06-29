@@ -12,8 +12,13 @@ module MenusHelper
   #   return_string << '</ul>'
   # end
   def get_menu_image(item_id)
-    m = Menu.find(item_id)
-    m.image if m.image.attached?
+    begin
+      m = Menu.find(item_id)
+      m.image if m.image.attached?
+    rescue
+
+    end
+
   end
 
 
