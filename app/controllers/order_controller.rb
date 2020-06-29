@@ -243,7 +243,7 @@ def stripe
             nutrition: parent.nutrition,
             provenance: parent.provenance, 
             calories: parent.calories,
-            id_deleted: parent.id_deleted
+            is_deleted: parent.is_deleted
           }
         end
   
