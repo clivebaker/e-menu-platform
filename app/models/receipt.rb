@@ -10,6 +10,15 @@ class Receipt < ApplicationRecord
   end
 
 
+  after_create :email_receipt
+
+
+  def email_receipt
+    if email.present?
+      ApplicationMailer.receipt(id).deliver_now
+    end
+  end
+
     
 
 

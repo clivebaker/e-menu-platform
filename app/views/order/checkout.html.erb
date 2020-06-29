@@ -104,15 +104,22 @@
     //   }
     // });
 
+function validateEmail(email) {
+  const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  return re.test(email);
+}
 
     $('.validation_check').keyup(function() {   
       val_name = $('#name').val()
       console.log(val_name)
       val_telephone = $('#telephone').val()
       console.log(val_telephone)
+      val_email = $('#email').val()
+      console.log(val_email)
  
       valid_name = false
       valid_telephone = false
+      valid_email = false
       // alert('val')
       if (val_name.length < 3){
         // alert("Please enter a name");
@@ -122,6 +129,7 @@
         $('#name_required').html('');
         valid_name = true
       }
+
       if (val_telephone.length < 10){
         $('#telephone_required').html('*');  
         valid_telephone = false      
@@ -130,7 +138,15 @@
         valid_telephone = true
       }
 
-      if (valid_telephone & valid_name){
+      if (!validateEmail(val_email)) {
+        $('#email_required').html('*');  
+        valid_email = false      
+      } else {
+        $('#email_required').html('');
+        valid_email = true
+      }
+
+      if (valid_telephone & valid_name & valid_email){
         $('.submit-payment').removeClass('invisible');
       } else {
         $('.submit-payment').addClass('invisible')
@@ -172,11 +188,12 @@
       collection_time = $('#collection_time').val()
       address = $('#address').val()
       telephone = $('#telephone').val()
+      email = $('#email').val()
       delivery_collection_type = $('#delivery-collection-type').val()
 $.ajax({
   url: "<%=stripe_path(@path)%>.json",
   context: document.body,
-  data: {token: ev.token.id, price: <%=@basket_item_total%>, items: [], collection_time: collection_time, name: name, address: address, telephone: telephone, type: delivery_collection_type}, 
+  data: {token: ev.token.id, price: <%=@basket_item_total%>, items: [], collection_time: collection_time, name: name, address: address, telephone: telephone, type: delivery_collection_type, email: email}, 
   method: 'POST',
   mimeType:'application/json',
 }).done(function(response) {
@@ -377,8 +394,15 @@ $(function(){
               </div>
               <div class='col-sm-12 col-md-6 text-left text-light form-group'>
                     <%= label_tag :telephone %> <strong id='telephone_required' class=text-danger>*</strong>
-                    <%= text_field_tag :telephone,  nil, class: "border p-2 bg-light form-control validation_check" %>
+                    <%= text_field_tag :telephone,  nil, class: "border p-2 bg-light form-control validation_check", placeholder: '' %>
               </div>
+            </div>
+            <div class="row bg-dark">
+              <div class='col-sm-12 col-md-12 text-left text-light form-group'>
+                    <%= label_tag :email %> <strong id='email_required' class=text-danger>*</strong>
+                    <%= email_field_tag :email,  nil, class: "border p-2 bg-light form-control validation_check", placeholder: 'for your email receipt' %>
+              </div>
+
             </div>
           <% if is_delivery?(@restaurant)%>
             <div id='address-form' class="row bg-dark invisible">
@@ -415,9 +439,9 @@ $(function(){
             <div class="row bg-dark">
               <div class='col'>
 
-            <div id="payment-request-button" class='submit-payment invisible'>
-              <!-- A Stripe Element will be inserted here. -->
-            </div>
+                <div id="payment-request-button" class='submit-payment invisible'>
+                  <!-- A Stripe Element will be inserted here. -->
+                </div>
 
 
                 <%= hidden_field_tag :price, @basket_item_total %>

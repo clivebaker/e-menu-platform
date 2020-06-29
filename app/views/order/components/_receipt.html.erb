@@ -1,4 +1,9 @@
 
+
+
+
+
+
         <div class="row bg-light text-dark text-left pt-2">
           <div class="col mb-3">
             <h1><%=@restaurant.name%></h1>
@@ -7,6 +12,7 @@
             <div><strong>Name: </strong><%=@receipt.name%></div>
             <div><strong>Type: </strong><%=@receipt.delivery_or_collection%></div>
             <div><strong>Time: </strong><%=@receipt.collection_time%></div>
+            <% if @receipt.email.present? %><div><strong>Email: </strong><%=@receipt.email%></div><% end %>
             <% if @receipt.telephone.present? %><div><strong>Telephone: </strong><%=@receipt.telephone%></div><% end %>
             <% if @receipt.address.present? %><div><strong>Address: </strong><%=@receipt.address%></div><% end %>
     

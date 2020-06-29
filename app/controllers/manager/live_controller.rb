@@ -3,7 +3,7 @@
 module Manager
   class LiveController < Manager::BaseController
     before_action :authenticate_manager_restaurant_user!, except: [:index]
-    before_action :set_restaurant
+    before_action :set_restaurant, except: [:send_receipt]
     
     def tables
       @restaurant_tables = RestaurantTable.where(restaurant_id: @restaurant.id).order(:number)
@@ -31,6 +31,15 @@ module Manager
       end
     end
 
+
+
+    def send_receipt
+        @receipt = Receipt.find(params[:receipt_id])
+        @receipt.email_receipt
+        respond_to do |format|
+          format.html { redirect_to manager_receipts_path(@receipt.restaurant.id), notice: 'Receipt Sent.' }
+        end
+    end
 
     def receipts
 

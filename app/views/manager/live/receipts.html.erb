@@ -14,6 +14,7 @@
       <th>Basket total</th>
       <th>Item</th>
       <th>Is ready</th>
+      <th>Email</th>
     </tr>
   </thead>
 
@@ -38,7 +39,8 @@
         %>
         <td><ul><%= items.html_safe %></ul></td>
         <td><%= receipt.is_ready %></td>
-
+        <td><%= receipt.email %></td>
+        <td><% if receipt.email.present? %><%= link_to 'Send Again', manager_send_receipts_path(receipt.id) %><% end %></td>
       </tr>
     <% end %>
   </tbody>

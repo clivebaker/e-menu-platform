@@ -7,6 +7,8 @@ class Menu < ApplicationRecord
   after_save :clear_cache
   default_scope {where(is_deleted: false)}
 
+  scope :live_menus, -> { where(is_deleted: false) }
+
 
 def clear_cache
   # binding.pry

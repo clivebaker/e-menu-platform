@@ -3,7 +3,7 @@
 Rails.application.routes.draw do
 
 
-  resources :delivery_postcodes
+
   resources :receipts do 
     post 'is_ready'
     collection do 
@@ -52,6 +52,7 @@ Rails.application.routes.draw do
     get 'live_items/:restaurant_id' => 'live#items', as: :live_items
     get 'live_orders/:restaurant_id' => 'live#orders', as: :live_orders
     get 'receipts/:restaurant_id' => 'live#receipts', as: :receipts
+    get 'send_receipt/:receipt_id' => 'live#send_receipt', as: :send_receipts
     get 'service/:restaurant_id/item/:table_item_id' => 'live#service', as: :live_service
     get 'ready/:restaurant_id/item/:table_item_id' => 'live#ready', as: :live_ready
 
@@ -65,6 +66,9 @@ Rails.application.routes.draw do
 
     resources :cuisines
     resources :restaurants do
+
+      resources :delivery_postcodes
+      
       post 'add_feature/:feature_id', action: :add_feature, as: :add_feature
       post 'remove_feature/:feature_id', action: :remove_feature, as: :remove_feature
       get 'active', action: :active

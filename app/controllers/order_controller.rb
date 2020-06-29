@@ -73,6 +73,7 @@ def stripe
 
   @address = params[:address]
   @telephone = params[:telephone]
+  email = params[:email]
   
   error = false
   @path = params[:path]
@@ -109,7 +110,7 @@ def stripe
       restaurant_id: @restaurant.id,
       basket_total: price,
       items: @basket,
-      #email: '',
+      email: email,
       name: @name,
       collection_time: @collection_time,
       stripe_token: token,
@@ -241,7 +242,8 @@ def stripe
             custom_lists: parent.custom_lists,
             nutrition: parent.nutrition,
             provenance: parent.provenance, 
-            calories: parent.calories
+            calories: parent.calories,
+            id_deleted: parent.id_deleted
           }
         end
   
