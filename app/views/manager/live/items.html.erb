@@ -18,6 +18,7 @@
                               <div class='col text-right'><%= item.aasm_state %></div>
                             </div>
                             <% item.custom_lists.keys.each do |list_id| %>
+                              <% begin %>
                               <% custom_list = CustomList.find(list_id) %>
                                 <% item.custom_lists[list_id].each do |list_item_id| %>
                                   <% list_item = CustomListItem.find(list_item_id) %>
@@ -25,6 +26,8 @@
                                     <div class="col">- <%= "#{custom_list.name}: #{list_item.name}" %></div>
                                   </div>
                                 <% end %>
+                              <% rescue
+                              end%>
                             <% end %>
                             <%=%>
                             <%= link_to "Service",manager_live_service_path(table.restaurant.id, item.id), class: 'btn btn-warning mt-3', data: { confirm: 'Are you sure?' } if item.aasm_state=='ordered' %>
