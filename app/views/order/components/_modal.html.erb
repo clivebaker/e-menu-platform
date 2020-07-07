@@ -27,7 +27,7 @@
             
             
             <div class="row">
-              <% if feature_match(:images, @restaurant.features) %> <% if image.present? %><div class='col-3'><%=image_tag url_for(image), class: 'img-fluid'%></div><% end %><% end %>
+              <% if feature_match(:images, @restaurant.features) %> <% if image.present? %><div class='col-3'><%= image_tag image.variant(resize: "200x200"), class: 'img-fluid' %><%#=image_tag url_for(image), class: 'img-fluid'%></div><% end %><% end %>
               <div class='col'>
                 <h5 class="modal-title" id="<%=item[:name]%>"><%=item[:name]%></h5>
                 <div ><small><%=item[:description]%></small></div>
