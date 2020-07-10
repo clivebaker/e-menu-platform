@@ -47,6 +47,8 @@ module Manager
         end
           @restaurant.save  
 
+          Rails.cache.delete("restaurant_order_menu_#{@restaurant.id}")
+
        respond_to do |format|
           format.html { redirect_to manager_restaurant_active_path(@restaurant), notice: "Menu was successfully #{message}." }
           format.json { render :show, status: :created, location: @restaurant }
