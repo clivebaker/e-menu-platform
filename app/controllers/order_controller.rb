@@ -272,7 +272,7 @@ def stripe
 
 
     def get_serialized_menu restaurant
-       Rails.cache.fetch("restaurant_order_menu_#{@restaurant.id}", expires_in: 3.hours) do
+      #  Rails.cache.fetch("restaurant_order_menu_#{@restaurant.id}", expires_in: 3.hours) do
         
         active_ids = @restaurant.active_menu_ids
 
@@ -300,7 +300,7 @@ def stripe
           }
 
     
-         end
+        #  end
   
       end
     end
