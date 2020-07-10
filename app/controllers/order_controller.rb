@@ -1,5 +1,5 @@
 class OrderController < ApplicationController
-  before_action :authenticate_user!, except: [:index, :add_to_basket, :stripe,:stripex, :receipt, :basket, :checkout,:checkoutx, :remove_from_basket]
+  before_action :authenticate_user!, except: [:pay, :index, :add_to_basket, :stripe,:stripex, :receipt, :basket, :checkout,:checkoutx, :remove_from_basket]
   skip_before_action :verify_authenticity_token, only: %i[stripe stripex]
   def remove_from_basket
     @path = params[:path]
@@ -55,12 +55,47 @@ class OrderController < ApplicationController
       @basket_item_total =  (@basket['items'].map{|d| d['total']}.inject(:+)*100.to_f).to_i
     end
     # @publish_stripe_api_key = ENV['PUBLISH_STRIPE_API_KEY'] || Rails.application.credentials.dig(:stripe, :publish_api_key) 
-    @publish_stripe_api_key = @restaurant.stripe_publish_api_key
-    @google_maps_api_key = Rails.application.credentials.dig(:google, :maps_api_key) 
+
+    # @google_maps_api_key = Rails.application.credentials.dig(:google, :maps_api_key) 
 
 
 end
 
+def pay
+  @path = params[:path]
+  @service_type = params[:service_type]
+  @restaurant = Restaurant.find_by(path: @path)
+  @publish_stripe_api_key = @restaurant.stripe_publish_api_key
+
+  if @basket
+    @basket = JSON.parse(@basket)
+    @basket_item_count = @basket['count']
+    @basket_item_total =  (@basket['items'].map{|d| d['total']}.inject(:+)*100.to_f).to_i
+  end
+
+
+  @total_payment = params[:total].to_f
+
+
+
+  @service_type = params[:service_type] 
+  @collection_time = params[:collection_time] 
+  @table_number = params[:table_number]
+  @name = params[:name] 
+  @telephone = params[:telephone] 
+  @email = params[:email] 
+  @house_number = params[:house_number] 
+  @street = params[:street] 
+  @postcode = params[:postcode]
+  @basket = params[:basket] 
+  @delivery_fee = params[:delivery_fee] 
+
+
+
+
+
+
+end
 
 def stripe
 
@@ -71,15 +106,24 @@ def stripe
 
 
 
-  @address = params[:address]
-  @telephone = params[:telephone]
-  email = params[:email]
+
+  @service_type = params[:service_type] 
+  @collection_time = params[:collection_time] 
+  @table_number = params[:table_number]
+  @name = params[:name] 
+  @telephone = params[:telephone] 
+  @email = params[:email] 
+  @house_number = params[:house_number] 
+  @street = params[:street] 
+  @postcode = params[:postcode]
+  @basket = params[:basket] 
+  @delivery_fee = params[:delivery_fee] 
+
+  @address = "#{@house_number}, #{@street}, #{@postcode}" 
   
   error = false
   @path = params[:path]
-  @name = params[:name]
-  @delivery_or_collection = params[:type]
-  @collection_time = params[:collection_time]
+
   @restaurant = Restaurant.find_by(path: @path)
     @basket = cookies[:basket]
     if @basket
@@ -93,6 +137,7 @@ def stripe
     Stripe.api_key = @restaurant.stripe_api_key
 
     token = params[:token]
+
     price = params[:price].to_i
 
     Rails.logger.debug("Payment Token: #{token}")
@@ -110,7 +155,7 @@ def stripe
       restaurant_id: @restaurant.id,
       basket_total: price,
       items: @basket,
-      email: email,
+      email: @email,
       name: @name,
       collection_time: @collection_time,
       stripe_token: token,
@@ -119,7 +164,9 @@ def stripe
       source: :takeaway, 
       telephone: @telephone,
       address: @address,
-      delivery_or_collection: @delivery_or_collection
+      delivery_or_collection: @service_type,
+      delivery_fee: @delivery_fee , 
+      table_number: @table_number
     )
     rescue Exception => e
       error = true
@@ -142,15 +189,15 @@ def stripe
 
 
 
-  respond_to do |format|
-    if error
-      format.html { redirect_to order_receipt_path(@path, @receipt.uuid), alert: "Payment Error: #{e.message}" } 
-      format.json { render json: {ok: true, error: true, path: order_receipt_path(@path, @receipt.uuid)} }
-    else
-      format.html { redirect_to order_receipt_path(@path, @receipt.uuid), notice: "Payment Successful" }
-      format.json { render json: {ok: true, error: false, path: order_receipt_path(@path, @receipt.uuid)} }
+    respond_to do |format|
+      if error
+        format.html { redirect_to order_receipt_path(@path, @receipt.uuid), alert: "Payment Error: #{e.message}" } 
+        format.json { render json: {ok: true, error: true, path: order_receipt_path(@path, @receipt.uuid)} }
+      else
+        format.html { redirect_to order_receipt_path(@path, @receipt.uuid), notice: "Payment Successful" }
+        format.json { render json: {ok: true, error: false, path: order_receipt_path(@path, @receipt.uuid)} }
+      end
     end
-  end
 
 
   end
@@ -187,7 +234,6 @@ def stripe
       @restaurant = Restaurant.find_by(path: @path)
       
       @menu =   @restaurant.menus
-      
       
       @menu2 = get_serialized_menu(@restaurant)
       
@@ -226,8 +272,15 @@ def stripe
 
 
     def get_serialized_menu restaurant
-      Rails.cache.fetch("restaurant_order_menu_#{@restaurant.id}", expires_in: 3.hours) do
-        @menu2 = @restaurant.menus.arrange_serializable(order: :position) do |parent, children|
+       Rails.cache.fetch("restaurant_order_menu_#{@restaurant.id}", expires_in: 3.hours) do
+        
+        active_ids = @restaurant.active_menu_ids
+
+          @menu2 = @restaurant.menus.where(root_node_id: active_ids).arrange_serializable(order: :position) do |parent, children|
+
+          
+
+          
           image = (parent.image if image.present?)  
           {
             id: parent.id,
@@ -245,7 +298,9 @@ def stripe
             calories: parent.calories,
             is_deleted: parent.is_deleted
           }
-        end
+
+    
+         end
   
       end
     end

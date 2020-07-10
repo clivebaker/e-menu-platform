@@ -4,11 +4,17 @@ class Menu < ApplicationRecord
   belongs_to :restaurant
   belongs_to :spice_level, optional: true
 
+  before_save :set_root_node_id
   after_save :clear_cache
   default_scope {where(is_deleted: false)}
 
   scope :live_menus, -> { where(is_deleted: false) }
 
+
+
+  def set_root_node_id
+    self.root_node_id = root.id
+  end
 
 def clear_cache
   # binding.pry

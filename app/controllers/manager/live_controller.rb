@@ -45,7 +45,7 @@ module Manager
 
  
       @restaurant = Restaurant.find(params[:restaurant_id])
-      @receipts = @restaurant.receipts
+      @receipts = @restaurant.receipts.page params[:page]
     end
 
 

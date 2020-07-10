@@ -123,13 +123,19 @@ module TablesHelper
     def is_takeaway?(restaurant)
       feature_match('takeaway_service_enabled', restaurant.features)
     end
+    def is_tableservice?(restaurant)
+      feature_match('takeaway_to_table', restaurant.features)
+    end
     
+
     def is_takeaway_or_delivery?(restaurant)
       ret = false
       del = is_delivery?(restaurant)
       take = is_takeaway?(restaurant)
+      table = is_tableservice?(restaurant)
       ret = del if del
       ret = take if take
+      ret = table if table
       ret
     end
 

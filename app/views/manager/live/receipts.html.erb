@@ -1,6 +1,6 @@
 
 <h1>Receipts</h1>
-
+<%= paginate @receipts %>
 <table class='table'>
   <thead>
     <tr>
@@ -8,12 +8,14 @@
       <th>Date</th>
       <th>Name</th>
       <th>Type</th>
+      <th>Table Number</th>
       <th>Telephone</th>
       <th>Address</th>
       <th>Time</th>
       <th>Basket total</th>
+      <th>Delivery Fee</th>
       <th>Item</th>
-      <th>Is ready</th>
+      
       <th>Email</th>
     </tr>
   </thead>
@@ -24,10 +26,13 @@
         <td><%= receipt.created_at.in_time_zone('Europe/London').strftime('%Y-%m-%d %H:%M') %></td>
         <td><%= receipt.name %></td>
         <td><%= receipt.delivery_or_collection %></td>
+        <td><%= receipt.table_number %></td>
         <td><%= receipt.telephone %></td>
-        <td><%= receipt.address %></td>
+        <td><%= receipt.address if receipt.delivery_or_collection == 'delivery' %></td>
         <td><%= receipt.collection_time %></td>
-        <td><%= number_to_currency(receipt.basket_total/100, unit: '£') %></td>
+        <td><%= number_to_currency(receipt.basket_total/100.to_f, unit: '£') %></td>
+        <td><%= number_to_currency(receipt.delivery_fee.to_f, unit: '£') %></td>
+        
         <%
         items = ""
         receipt.items['items'].each do |item|
@@ -38,14 +43,12 @@
         end
         %>
         <td><ul><%= items.html_safe %></ul></td>
-        <td><%= receipt.is_ready %></td>
+   
         <td><%= receipt.email %></td>
         <td><% if receipt.email.present? %><%= link_to 'Send Again', manager_send_receipts_path(receipt.id) %><% end %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
+<%= paginate @receipts %>
 
-<br>
-
-<%= link_to 'New Receipt', new_receipt_path %>
