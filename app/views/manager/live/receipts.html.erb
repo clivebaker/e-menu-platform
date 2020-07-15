@@ -37,9 +37,9 @@
         items = ""
         receipt.items['items'].each do |item|
         
-        options = item['optionals']
-        
-        items << "<li>#{item['item']}<br> #{options.join('<br> ')}</li>"
+          options = item['optionals']   
+          items << "<li>#{item['item']} <br><strong>Note:</strong> #{item['note']}<br> #{options.join('<br> ')}</li>"
+    
         end
         %>
         <td><ul><%= items.html_safe %></ul></td>

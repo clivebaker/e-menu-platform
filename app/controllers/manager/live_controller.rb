@@ -3,7 +3,7 @@
 module Manager
   class LiveController < Manager::BaseController
     before_action :authenticate_manager_restaurant_user!, except: [:index]
-    before_action :set_restaurant, except: [:send_receipt]
+    before_action :set_restaurant, except: [:send_receipt, :orders_broadcast]
     
     def tables
       @restaurant_tables = RestaurantTable.where(restaurant_id: @restaurant.id).order(:number)
@@ -46,6 +46,10 @@ module Manager
  
       @restaurant = Restaurant.find(params[:restaurant_id])
       @receipts = @restaurant.receipts.page params[:page]
+    end
+
+    def orders_broadcast
+      Receipt.last.broadcast
     end
 
 

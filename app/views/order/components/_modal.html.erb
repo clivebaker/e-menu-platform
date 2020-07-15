@@ -130,6 +130,7 @@
 
 
                 <input type='hidden' value='<%=required_lists.uniq.join(',')%>' id="required-lists-<%= main_item %>">
+                <%= text_field_tag "notes-#{main_item}", nil,  placeholder: "Tell the Kitchen: Allergies etc...", class: 'form-control selection-item ', 'data-scope' => main_item, 'data-start_price' => start_price %>
               </div>
             </div>
             <div id='required-message-<%= main_item%>'><% if required_lists.present? %><strong>Please choose a <span  class=' text-danger'><%= get_list_names(required_lists.uniq)%></span> before you can add the item to the basket</strong><% end %></div>

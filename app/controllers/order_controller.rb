@@ -150,6 +150,8 @@ def stripe
         source: token
       )
       
+
+
     @receipt =  Receipt.create(
       uuid: SecureRandom.uuid,
       restaurant_id: @restaurant.id,
@@ -175,9 +177,7 @@ def stripe
 
     
   unless error
-
    cookies.delete :basket
- 
   end
 
   
@@ -191,7 +191,7 @@ def stripe
 
     respond_to do |format|
       if error
-        format.html { redirect_to order_receipt_path(@path, @receipt.uuid), alert: "Payment Error: #{e.message}" } 
+        format.html { redirect_to checkout_path(@path), alert: "Payment Error: #{e.message}" } 
         format.json { render json: {ok: true, error: true, path: order_receipt_path(@path, @receipt.uuid)} }
       else
         format.html { redirect_to order_receipt_path(@path, @receipt.uuid), notice: "Payment Successful" }
@@ -237,39 +237,13 @@ def stripe
       
       @menu2 = get_serialized_menu(@restaurant)
       
-      # @menu2 = @restaurant.menus.arrange_serializable(order: :position) do |parent, children|
-      #   image = (parent.image if image.present?)  
-      #   {
-      #     id: parent.id,
-      #     name: parent.name,
-      #     node_type: parent.node_type,
-      #     children: children,
-      #     ancestry: parent.ancestry,
-      #     css_class: parent.css_class,
-      #     price_a: parent.price_a,
-      #     image: image , 
-      #     description: parent.description,
-      #     custom_lists: parent.custom_lists,
-      #     nutrition: parent.nutrition,
-      #     provenance: parent.provenance, 
-      #     calories: parent.calories
-      #   }
-      # end
-
-
-
-
-      #@restaurants = Restaurant.all if @restaurant.blank?
-
       if cookies[:basket]
         @basket = JSON.parse(cookies[:basket])
         @basket_item_count = @basket['count']
         @basket_item_total = @basket['items'].map{|d| d['total']}.inject(:+)
       end
-
     end
   
-
 
     def get_serialized_menu restaurant
         Rails.cache.fetch("restaurant_order_menu_#{@restaurant.id}", expires_in: 3.hours) do
@@ -310,6 +284,7 @@ def stripe
 
     def add_to_basket
       # my_logger ||= Logger.new("#{Rails.root}/log/basket.log")
+      # binding.pry
       path = params[:path]
 
       @basket = JSON.parse(cookies[:basket]) if cookies[:basket]
@@ -318,6 +293,7 @@ def stripe
 
       main_item = params[:main_item]
       items = params[:items].split(',') if params[:items].present?
+      note = params[:note]
       
       menu_item = Menu.find(main_item)
       optionals = CustomListItem.where(id: items)
@@ -336,28 +312,19 @@ def stripe
       end
       
 
-
-      # puts optionals
-      # my_logger.info("#############################################################################")
-      # my_logger.info(optionals)
-      # my_logger.info("#############################################################################")
-      # my_logger.info(cl)
-      # my_logger.info("#############################################################################")
-     
-
       total = ("%.2f" % menu_item.price_a).to_f
       total += cl.map{|s| ("%.2f" % s.price).to_f }.inject(:+) if optionals.present?
       uuid = SecureRandom.uuid
 
     
-      basket_items << {uuid: uuid, total: total ,item: "<i>#{menu_item.parent.name}</i> - <strong>#{menu_item.name}</strong>" , optionals: cl.map{|s| "<i>#{s.custom_list_name}</i> - <strong>#{s.name}</strong>" } }
+      basket_items << {uuid: uuid, total: total, note: note ,item: "<i>#{menu_item.parent.name}</i> - <strong>#{menu_item.name}</strong>" , optionals: cl.map{|s| "<i>#{s.custom_list_name}</i> - <strong>#{s.name}</strong>" } }
       basket_ids << {uuid: uuid, total: total,item: menu_item.id, optionals: cl.map{|s| s.id }}
-
+# binding.pry
       cookies[:basket] = {
         restaurant: path,
         count: basket_ids.count,
         items: basket_items,
-        ids: basket_ids 
+        ids: basket_ids
     }.to_json
 
   

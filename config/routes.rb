@@ -51,6 +51,7 @@ Rails.application.routes.draw do
     get 'live_tables/:restaurant_id' => 'live#tables', as: :live_tables
     get 'live_items/:restaurant_id' => 'live#items', as: :live_items
     get 'live_orders/:restaurant_id' => 'live#orders', as: :live_orders
+    get 'live_orders/broadcast/:restaurant_id' => 'live#orders_broadcast', as: :live_orders_broadcast
     get 'receipts/:restaurant_id' => 'live#receipts', as: :receipts
     get 'send_receipt/:receipt_id' => 'live#send_receipt', as: :send_receipts
     get 'service/:restaurant_id/item/:table_item_id' => 'live#service', as: :live_service
@@ -108,6 +109,7 @@ Rails.application.routes.draw do
   get 'order/add_to_basket/:path', to: 'order#add_to_basket', as: :add_to_basket_base
   get 'order/add_to_basket/:path/:main_item', to: 'order#add_to_basket', as: :add_to_basket
   get 'order/add_to_basket/:path/:main_item/:items', to: 'order#add_to_basket', as: :add_to_basket_items
+  get 'order/add_to_basket/:path/:main_item/:items/note/:note', to: 'order#add_to_basket', as: :add_to_basket_items_notes
   get 'order/:path', to: 'order#index', as: :restaurant_path
 
 

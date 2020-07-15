@@ -56,14 +56,13 @@
         calculate_price(start_price, scope)
     });
 
+ 
 
     function calculate_price(start_price, scope){
 
         price = start_price
         console.log('item: ' + scope + " price:"+ price)
         optionals = []
-
-
 
         $.each($('.selection-item-radio-'+scope+':checked'), function( index, value ) {
           price += ($(this).data('price')*1);
@@ -78,13 +77,21 @@
         new_price = parseInt(price * 100) / 100
         $(".button-price-"+scope).html("£"+ new_price)
         $("#optionals-"+scope).html(optionals.join(','))
-        $('#add-to-basket-' + scope).attr("href", BASE_URL + '/' + scope + '/' + optionals.join(','))
+        note = $("#notes-"+scope).val()
+        
+        if (note.length < 1){
+          url = BASE_URL + '/' + scope + '/' + optionals.join(',')
+          $('#add-to-basket-' + scope).attr("href", url)
+          console.log("href", url)
+        } else {
+          opt = optionals.join(',')
+          if (opt.length < 1){opt = 'nil'}
+          url = BASE_URL + '/' + scope + '/' + opt
+          $('#add-to-basket-' + scope).attr("href", url + '/note/' + encodeURIComponent(note).replace(/\./g, '%2E'))
+          console.log("href", url + '/note/' + encodeURIComponent(note).replace(/\./g, '%2E'))
+        }
 
-      console.log("Optionals")
-      console.log(optionals)
-      console.log("/Optionals")
  
-      console.log("href", BASE_URL + '/' + scope + '/' + optionals.join(','))
     };
 
 

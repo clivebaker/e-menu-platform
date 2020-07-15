@@ -231,9 +231,13 @@ $('#delivery-info').hide();
 
 <% end %>
 
-
-
-
+<% if  alert.present? %>
+<div class="row container-fluid  bg-danger p-3 ">
+  <div class='col text-light' >
+    <%= alert %>
+  </div>
+  </div>
+<% end %>
 <div class='container-fluid pb-2' ><!--  style="background: url('/images/restaurant/thesauce/main-bg2.jpg') no-repeat fixed center;" -->
   <div class='container mt-2'>
     
