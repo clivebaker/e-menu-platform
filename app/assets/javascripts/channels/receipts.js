@@ -1,6 +1,11 @@
 
     //console.log("Connecting to channel: WordOfTheDayChannel")
-    App.snippets = App.cable.subscriptions.create('ReceiptsChannel', { 
+    App.snippets = App.cable.subscriptions.create(
+      {
+        channel: 'ReceiptsChannel', 
+        restaurant_id: document.getElementById('restaurant_id').value,
+      },
+      { 
       connected: function(data){
         console.log("Connected to ReceiptsChannel!");
        

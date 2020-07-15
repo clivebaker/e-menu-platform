@@ -6,8 +6,7 @@ class Receipt < ApplicationRecord
 
 
 		data = {html: ApplicationController.render(partial: "manager/live/order_items", locals: { restaurant: restaurant_id })}   #, locals: {weather: self})}
-
-    ActionCable.server.broadcast("receipts_channel", data)
+    ActionCable.server.broadcast("receipts_channel_#{restaurant_id}", data)
   
   end
 

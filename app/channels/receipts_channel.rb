@@ -3,7 +3,8 @@
 class ReceiptsChannel < ApplicationCable::Channel
 
   def subscribed
-    stream_from "receipts_channel"
+    # binding.pry
+    stream_from "receipts_channel_#{params[:restaurant_id]}"
   end
 
 
