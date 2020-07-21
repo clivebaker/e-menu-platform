@@ -20,6 +20,8 @@ class Restaurant < ApplicationRecord
   validates_presence_of :postcode, on: %i[create update], message: "can't be blank"
   validates_presence_of :telephone, on: %i[create update], message: "can't be blank"
   validates_presence_of :email, on: %i[create update], message: "can't be blank"
+  validates_uniqueness_of :path, on: %i[create update], message: "must be unique"
+  validates_uniqueness_of :restaurant_user_id, on: %i[create update], message: "must be unique"
 
   delegate :name, to: :cuisine, prefix: true
   delegate :ids, to: :features, prefix: true

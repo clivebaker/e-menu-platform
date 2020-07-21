@@ -10,7 +10,6 @@
     <p><%= link_to 'Privacy Policy', 'https://www.emenunow.com/privacy-policy', target: 'privacy'%> | <%= link_to 'Terms and Conditions', 'https://www.emenunow.com/terms-and-conditions', target: 'terms'%></p>
 		  <p><small><%=t('footer.e_menu_copyright')%></small></p>
 		  <p><small><%=t('footer.disclaimer').html_safe%></small> </p>
-      <%= link_to 'broadcast orders', manager_live_orders_broadcast_path(@restaurant), remote: true if Rails.env == 'development' and @restaurant.present? %>
-		</div>
+ 		</div>
 	</div>
 </footer>

@@ -58,4 +58,20 @@ end
   def translate
     TranslateJob.perform_later self
   end
+
+
+
+
+  def clone_with_modifications!(attributes = nil, parent = nil, original_id_field_name = nil)
+    #binding.pry
+    clone = self.class.create!(self.attributes.merge('id' => nil).merge('ancestry' => nil).merge(attributes))
+    # clone.send("#{original_id_field_name}=", self.id) if original_id_field_name
+    clone.parent = parent
+    self.children.each { |child| child.clone_with_modifications!(attributes, clone, original_id_field_name) }
+    clone.save!
+    clone
+  end
+
+
+
 end
