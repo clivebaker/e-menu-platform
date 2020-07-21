@@ -19,6 +19,7 @@ class Menu < ApplicationRecord
 def clear_cache
   # binding.pry
   Rails.cache.delete("api/restaurant/#{restaurant_id}/menu")
+  Rails.cache.delete("restaurant_order_menu_#{restaurant_id}")
 end
 
   # belongs_to :menu_item_categorisation, optional: true
