@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_10_223602) do
+ActiveRecord::Schema.define(version: 2020_07_29_081532) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -63,6 +63,7 @@ ActiveRecord::Schema.define(version: 2020_07_10_223602) do
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "cloned_from"
     t.index ["custom_list_id"], name: "index_custom_list_items_on_custom_list_id"
   end
 
@@ -73,6 +74,7 @@ ActiveRecord::Schema.define(version: 2020_07_10_223602) do
     t.datetime "updated_at", null: false
     t.string "constraint"
     t.integer "position"
+    t.integer "cloned_from"
     t.index ["restaurant_id"], name: "index_custom_lists_on_restaurant_id"
   end
 
@@ -162,6 +164,7 @@ ActiveRecord::Schema.define(version: 2020_07_10_223602) do
     t.string "css_class"
     t.boolean "is_deleted", default: false
     t.integer "root_node_id"
+    t.jsonb "old_custom_lists"
     t.index ["ancestry"], name: "index_menus_on_ancestry"
     t.index ["menu_item_categorisation_id"], name: "index_menus_on_menu_item_categorisation_id"
     t.index ["restaurant_id"], name: "index_menus_on_restaurant_id"
