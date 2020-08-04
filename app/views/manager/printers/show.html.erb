@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @manager_printer.name %>
+</p>
+
+<p>
+  <strong>Pi interface:</strong>
+  <%= @manager_printer.pi_interface %>
+</p>
+
+<p>
+  <strong>Vendor:</strong>
+  <%= @manager_printer.vendor %>
+</p>
+
+<p>
+  <strong>Product:</strong>
+  <%= @manager_printer.product %>
+</p>
+
+<%= link_to 'Edit', edit_manager_printer_path(@manager_printer) %> |
+<%= link_to 'Back', manager_printers_path %>

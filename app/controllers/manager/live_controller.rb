@@ -26,6 +26,7 @@ module Manager
     def ready
       @table_item = TableItem.find(params[:table_item_id])
       @table_item.finish!
+
       respond_to do |format|
           format.html { redirect_to manager_live_items_path(@restaurant.id), notice: 'Item successfully finished.' }
       end
@@ -43,7 +44,7 @@ module Manager
 
     def receipts
 
- 
+      @printers = Printer.where(restaurant_id: @restaurant.id)
       @restaurant = Restaurant.find(params[:restaurant_id])
       @receipts = @restaurant.receipts.page params[:page]
     end

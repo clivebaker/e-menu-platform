@@ -4,6 +4,12 @@ Rails.application.routes.draw do
 
 
 
+
+
+
+  namespace :manager do
+    resources :printers
+  end
   resources :receipts do 
     post 'is_ready'
     collection do 
@@ -57,6 +63,7 @@ Rails.application.routes.draw do
     get 'service/:restaurant_id/item/:table_item_id' => 'live#service', as: :live_service
     get 'ready/:restaurant_id/item/:table_item_id' => 'live#ready', as: :live_ready
 
+
     resources :features
     resources :templates  
     resources :settings
@@ -69,7 +76,10 @@ Rails.application.routes.draw do
     resources :restaurants do
 
       resources :delivery_postcodes
-      
+      resources :pi_interfaces do 
+        get :request_lsusb
+        resources :printers 
+      end
       post 'add_feature/:feature_id', action: :add_feature, as: :add_feature
       post 'remove_feature/:feature_id', action: :remove_feature, as: :remove_feature
       get 'active', action: :active
@@ -96,6 +106,11 @@ Rails.application.routes.draw do
       registrations: 'manager/restaurant_users/registrations'
     }
   end
+
+
+#printing
+
+  get 'receipt/:receipt_id/print/:printer_id', to: 'manager/printers#print', as: :print_receipt
 
 
   get 'order/remove_from_basket/:path/:uuid', to: 'order#remove_from_basket', as: :remove_from_basket

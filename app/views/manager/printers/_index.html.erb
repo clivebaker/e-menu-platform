@@ -1,0 +1,31 @@
+
+<h1>Printers</h1>
+
+<table class='table'>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Vendor</th>
+      <th>Product</th>
+      <th>Printer Type</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% printers.each do |printer| %>
+      <tr>
+        <td><%= printer.name %></td>
+        <td><%= printer.vendor %></td>
+        <td><%= printer.product %></td>
+        <td><%= printer.print_type %></td>
+        <td><%= link_to 'Edit', edit_manager_restaurant_pi_interface_printer_path(@restaurant, @pi_interface, printer), method: :get %></td>
+        <td><%= link_to 'Destroy', manager_restaurant_pi_interface_printer_path(@restaurant, @pi_interface, printer), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Printer', new_manager_restaurant_pi_interface_printer_path(@restaurant, @pi_interface ) %>

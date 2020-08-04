@@ -1,0 +1,36 @@
+<div class='row m-3'>
+  <div class='col'>
+    <p>
+      <strong>Server token:</strong>
+      <%= @pi_interface.server_token %>
+    </p>
+    <p>
+      <strong>Online:</strong>
+      <%= @pi_interface.online %>
+    </p>
+    <p>
+      <strong>Updated At:</strong>
+      <%= @pi_interface.updated_at %>
+    </p>
+    <p><%= link_to 'request lsusb', manager_restaurant_pi_interface_request_lsusb_path(@restaurant, @pi_interface)%></p>
+    <p>
+      <strong>LSUSB:</strong> 
+      <br>
+      <%= @pi_interface.lsusb.gsub("\n", '<br>').html_safe if @pi_interface.lsusb.present? %>
+    </p>
+    <p>
+      <strong>LSUSB COMPARE:</strong>
+      <br>
+      <%= @pi_interface.lsusb_compare.gsub("\n", '<br>').html_safe if @pi_interface.lsusb_compare.present? %>
+    </p>
+
+    <p>
+      <strong>Printers:</strong>
+      <%= render 'manager/printers/index', printers: @pi_interface.printers %>
+        
+    </p>
+
+    <%= link_to 'Back', manager_restaurant_pi_interfaces_path(@restaurant, @pi_interface) %>
+
+  </div>
+</div>

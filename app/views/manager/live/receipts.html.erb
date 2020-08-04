@@ -46,6 +46,15 @@
    
         <td><%= receipt.email %></td>
         <td><% if receipt.email.present? %><%= link_to 'Send Again', manager_send_receipts_path(receipt.id) %><% end %></td>
+        <td><% if @printers.present? %>
+        
+          <% @printers.each do |printer|%>
+            <%= link_to printer.name, print_receipt_url(receipt.id, printer.id), remote: true %>
+          <% end %>
+        
+        <% end %>
+        
+        </td>
       </tr>
     <% end %>
   </tbody>

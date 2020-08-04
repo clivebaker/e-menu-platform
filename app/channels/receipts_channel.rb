@@ -7,5 +7,9 @@ class ReceiptsChannel < ApplicationCable::Channel
     stream_from "receipts_channel_#{params[:restaurant_id]}"
   end
 
+  def unsubscribed
+    puts 'unsubscribed'
+  end
+
 
 end
