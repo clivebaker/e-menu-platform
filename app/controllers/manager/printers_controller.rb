@@ -84,6 +84,6 @@ class Manager::PrintersController < Manager::BaseController
    end
     # Only allow a list of trusted parameters through.
     def printer_params
-      params.require(:printer).permit(:name, :pi_interface_id, :vendor, :product, :print_type)
+      params.require(:printer).permit(:name, :pi_interface_id, :vendor, :product, :print_type, :restaurant_id)
     end
 end

@@ -34,7 +34,10 @@ class ReceiptsController < ApplicationController
     @receipt.is_ready = !@receipt.is_ready?
     @receipt.save
     @restaurant = @receipt.restaurant
+    @receipt.broadcast
     redirect_to manager_live_orders_path(@restaurant.id)
+
+
   end
 
   # POST /receipts
