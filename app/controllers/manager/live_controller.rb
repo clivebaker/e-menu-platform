@@ -10,10 +10,15 @@ module Manager
     end
     def items
       @restaurant_tables = RestaurantTable.where(restaurant_id: @restaurant.id).order(:number)
+      
     end
     def order
-     
+      
     end
+    def orders
+      @printers = Printer.where(restaurant_id: @restaurant.id)
+    end
+    
 
     def service
       @table_item = TableItem.find(params[:table_item_id])
