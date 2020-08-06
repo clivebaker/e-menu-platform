@@ -11,7 +11,7 @@ class Menu < ApplicationRecord
 
   scope :live_menus, -> { where(is_deleted: false) }
 
-  delegate :name, to: :item_screen_type, prefix: true, allow_nil: true
+  delegate :name, :key, to: :item_screen_type, prefix: true, allow_nil: true
 
   def set_root_node_id
     self.root_node_id = root.id

@@ -36,10 +36,11 @@
         <%
         items = ""
         receipt.items['items'].each do |item|
-        
+          item_screen_type = ""
+          item_screen_type = "(#{item['item_screen_type_name']})" if item['item_screen_type_name'].present?
           options = item['optionals']   
-          items << "<li>#{item['item']} <br><strong>Note:</strong> #{item['note']}<br> #{options.join('<br> ')}</li>"
-    
+          items << "<li>#{item['item']} #{item_screen_type} <br><strong>Note:</strong> #{item['note']}<br> #{options.join('<br> ')}</li>"
+
         end
         %>
         <td><ul><%= items.html_safe %></ul></td>

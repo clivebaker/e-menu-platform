@@ -272,7 +272,10 @@ def stripe
             nutrition: parent.nutrition,
             provenance: parent.provenance, 
             calories: parent.calories,
-            is_deleted: parent.is_deleted
+            is_deleted: parent.is_deleted, 
+            item_screen_type_id: parent.item_screen_type_id,
+            item_screen_type_name: parent.item_screen_type_name,
+            item_screen_type_key: parent.item_screen_type_key
           }
 
     
@@ -319,8 +322,8 @@ def stripe
       uuid = SecureRandom.uuid
 
     
-      basket_items << {uuid: uuid, total: total, note: note ,item: "<i>#{menu_item.parent.name}</i> - <strong>#{menu_item.name}</strong>" , optionals: cl.map{|s| "<i>#{s.custom_list_name}</i> - <strong>#{s.name}</strong>" } }
-      basket_ids << {uuid: uuid, total: total,item: menu_item.id, optionals: cl.map{|s| s.id }}
+      basket_items << {uuid: uuid, total: total, note: note ,item: "<i>#{menu_item.parent.name}</i> - <strong>#{menu_item.name}</strong>" , optionals: cl.map{|s| "<i>#{s.custom_list_name}</i> - <strong>#{s.name}</strong>" }, item_screen_type_name: menu_item.item_screen_type_name, item_screen_type_key: menu_item.item_screen_type_key, menu_id: menu_item.id }
+      basket_ids << {uuid: uuid, total: total,item: menu_item.id, optionals: cl.map{|s| s.id }, item_screen_type_name: menu_item.item_screen_type_name }
 # binding.pry
       cookies[:basket] = {
         restaurant: path,

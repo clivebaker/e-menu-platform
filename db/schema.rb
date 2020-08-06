@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_06_084328) do
+ActiveRecord::Schema.define(version: 2020_08_06_152520) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -308,6 +308,20 @@ ActiveRecord::Schema.define(version: 2020_08_06_084328) do
     t.bigint "template_id", null: false
   end
 
+  create_table "screen_items", force: :cascade do |t|
+    t.bigint "menu_id"
+    t.bigint "restaurant_id"
+    t.boolean "ready", default: false
+    t.bigint "receipt_id"
+    t.string "item_screen_type_key"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "uuid"
+    t.index ["menu_id"], name: "index_screen_items_on_menu_id"
+    t.index ["receipt_id"], name: "index_screen_items_on_receipt_id"
+    t.index ["restaurant_id"], name: "index_screen_items_on_restaurant_id"
+  end
+
   create_table "spice_levels", force: :cascade do |t|
     t.string "name"
     t.text "icon"
@@ -360,6 +374,9 @@ ActiveRecord::Schema.define(version: 2020_08_06_084328) do
   add_foreign_key "restaurant_tables", "restaurants"
   add_foreign_key "restaurants", "cuisines"
   add_foreign_key "restaurants", "restaurant_users"
+  add_foreign_key "screen_items", "menus"
+  add_foreign_key "screen_items", "receipts"
+  add_foreign_key "screen_items", "restaurants"
   add_foreign_key "table_items", "menus"
   add_foreign_key "table_items", "tables"
   add_foreign_key "tables", "restaurant_tables"

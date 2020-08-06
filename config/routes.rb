@@ -11,10 +11,12 @@ Rails.application.routes.draw do
   # namespace :manager do
   #   resources :printers
   # end
-  resources :item_screen_types
+  resources :item_screen_types 
 
   resources :receipts do 
     post 'is_ready'
+    post 'is_item_ready/:screen_item_id', to: 'receipts#is_item_ready', as: :screen_item_ready
+    post 'item_creation_broadcast'
     post 'creation_broadcast'
     collection do 
       get 'view_receipt/:uuid', to: 'receipts#view_receipt', as: :view_receipt
@@ -121,7 +123,8 @@ Rails.application.routes.draw do
 
 #printing
 
-  get 'receipt/:receipt_id/print/:printer_id', to: 'manager/printers#print', as: :print_receipt
+get 'receipt/:receipt_id/print/:printer_id', to: 'manager/printers#print', as: :print_receipt
+get 'receipt/:receipt_id/screen_item_uuid/:uuid/print/:printer_id', to: 'manager/printers#print_item', as: :print_item_receipt
 
 
   get 'order/remove_from_basket/:path/:uuid', to: 'order#remove_from_basket', as: :remove_from_basket

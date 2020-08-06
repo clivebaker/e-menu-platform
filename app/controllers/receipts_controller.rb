@@ -36,9 +36,33 @@ class ReceiptsController < ApplicationController
     @restaurant = @receipt.restaurant
     @receipt.broadcast
     redirect_to manager_live_orders_path(@restaurant.id)
+  end
+  def is_item_ready
+    @screen_item = ScreenItem.find(params[:screen_item_id])
+    @receipt = @screen_item.receipt
+    @screen_item.ready = !@screen_item.ready?
+    @screen_item.save
+    @restaurant = @receipt.restaurant
+    path = manager_live_food_path(@restaurant) if @screen_item.item_screen_type_key == "FOOD"
+    path = manager_live_drinks_path(@restaurant) if @screen_item.item_screen_type_key == "DRINK"
+  
+    @receipt.broadcast_items
+    redirect_to path
+  end
+
+
+  
+
+
+  def item_creation_broadcast
+    @receipt = Receipt.find(params[:receipt_id])
+    @receipt.broadcast_items
+
+    # redirect_to manager_live_orders_path(@receipt.restaurant_id)
 
 
   end
+
 
   def creation_broadcast
     @receipt = Receipt.find(params[:receipt_id])
