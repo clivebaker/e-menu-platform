@@ -90,6 +90,14 @@
   <div class="row">
     <div class="col">
       <div class="form-group ">
+        <%= form.label :item_screen_type_id %>
+        <%= form.select :item_screen_type_id, options_for_select(ItemScreenType.where.not(key: 'FULL').map{|a| [a.name, a.id]}, menu.item_screen_type_id), {prompt: 'Select screen type'}, {class: 'form-control  form-control-sm'} %>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <div class="form-group ">
         <%= form.label :position %>
         <%= form.number_field :position, class: 'form-control  form-control-sm' %>
       </div>

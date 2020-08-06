@@ -2,6 +2,7 @@
 
 class Menu < ApplicationRecord
   belongs_to :restaurant
+  belongs_to :item_screen_type, optional: true
   belongs_to :spice_level, optional: true
 
   before_save :set_root_node_id
@@ -10,7 +11,7 @@ class Menu < ApplicationRecord
 
   scope :live_menus, -> { where(is_deleted: false) }
 
-
+  delegate :name, to: :item_screen_type, prefix: true, allow_nil: true
 
   def set_root_node_id
     self.root_node_id = root.id
