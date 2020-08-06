@@ -26,6 +26,7 @@
                 <% end %>
               <div class="dropdown-divider"></div>
                   <%= link_to("Printer Interfaces", manager_restaurant_pi_interfaces_path(@restaurant), class: "nav-link") %>
+                  <%= link_to("Live Screen Management", manager_restaurant_item_screens_path(@restaurant), class: "nav-link") %>
           </div>
         </li>
 
@@ -37,8 +38,23 @@
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                    <%= link_to("Live Tables", manager_live_tables_path(@restaurant), class: "nav-link") %>
-                   <%= link_to("Live Items", manager_live_items_path(@restaurant), class: "nav-link") %>
-                   <%= link_to("Live Takeaway Orders", manager_live_orders_path(@restaurant), class: "nav-link") %>
+                   <div class="dropdown-divider"></div>
+                   <h6 class="dropdown-header ml-0 pl-3"><strong>Live Screens</strong></h6>
+                   <%#= link_to("Live Items", manager_live_items_path(@restaurant), class: "nav-link") %> <%#=  temporarily removed for live screens %>
+                   <% ItemScreen.where(restaurant_id: @restaurant.id).each do |item_screen| %>
+                   
+
+                    <%
+                      path = manager_live_orders_path(@restaurant) if item_screen.item_screen_type_key == "FULL"
+                      path = manager_live_food_path(@restaurant) if item_screen.item_screen_type_key == "FOOD"
+                      path = manager_live_drinks_path(@restaurant) if item_screen.item_screen_type_key == "DRINK"
+                    
+                    %>
+                    <%= link_to("Live #{item_screen.item_screen_type_name}", path, class: "nav-link") %>
+
+                   <% end %>
+
+                   <div class="dropdown-divider"></div>
                    <%= link_to("Receipts", manager_receipts_path(@restaurant), class: "nav-link") %>
              
           </div>

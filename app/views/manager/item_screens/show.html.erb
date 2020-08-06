@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Item screen type:</strong>
+  <%= @item_screen.item_screen_type %>
+</p>
+
+<p>
+  <strong>Restaurant:</strong>
+  <%= @item_screen.restaurant %>
+</p>
+
+<p>
+  <strong>Printer:</strong>
+  <%= @item_screen.printer %>
+</p>
+
+<p>
+  <strong>On new:</strong>
+  <%= @item_screen.on_new %>
+</p>
+
+<%= link_to 'Edit', edit_item_screen_path(@item_screen) %> |
+<%= link_to 'Back', item_screens_path %>

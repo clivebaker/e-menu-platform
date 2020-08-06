@@ -58,7 +58,7 @@ class Manager::PiInterfacesController < Manager::BaseController
   def destroy
     @pi_interface.destroy
     respond_to do |format|
-      format.html { redirect_to pi_interfaces_url, notice: 'Pi interface was successfully destroyed.' }
+      format.html { redirect_to manager_restaurant_pi_interfaces_path(@restaurant), notice: 'Pi interface was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

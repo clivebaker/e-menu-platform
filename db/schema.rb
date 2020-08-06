@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_03_163723) do
+ActiveRecord::Schema.define(version: 2020_08_06_075526) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -102,6 +102,26 @@ ActiveRecord::Schema.define(version: 2020_08_03_163723) do
   create_table "features_restaurants", id: false, force: :cascade do |t|
     t.bigint "restaurant_id", null: false
     t.bigint "feature_id", null: false
+  end
+
+  create_table "item_screen_types", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "key"
+  end
+
+  create_table "item_screens", force: :cascade do |t|
+    t.bigint "item_screen_type_id"
+    t.bigint "restaurant_id"
+    t.bigint "printer_id"
+    t.boolean "on_new"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.boolean "buzz_on_new"
+    t.index ["item_screen_type_id"], name: "index_item_screens_on_item_screen_type_id"
+    t.index ["printer_id"], name: "index_item_screens_on_printer_id"
+    t.index ["restaurant_id"], name: "index_item_screens_on_restaurant_id"
   end
 
   create_table "languages", force: :cascade do |t|
@@ -325,6 +345,9 @@ ActiveRecord::Schema.define(version: 2020_08_03_163723) do
   add_foreign_key "custom_list_items", "custom_lists"
   add_foreign_key "custom_lists", "restaurants"
   add_foreign_key "delivery_postcodes", "restaurants"
+  add_foreign_key "item_screens", "item_screen_types"
+  add_foreign_key "item_screens", "printers"
+  add_foreign_key "item_screens", "restaurants"
   add_foreign_key "menus", "menu_item_categorisations"
   add_foreign_key "menus", "restaurants"
   add_foreign_key "menus", "spice_levels"

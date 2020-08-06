@@ -1,0 +1,2 @@
+class ItemScreenType < ApplicationRecord
+end

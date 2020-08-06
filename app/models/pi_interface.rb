@@ -1,7 +1,12 @@
 class PiInterface < ApplicationRecord
   has_many :printers
 
+  before_destroy :remove_printers
 
+
+  def remove_printers
+    printers.delete_all
+  end
 
   def request_lsusb
 

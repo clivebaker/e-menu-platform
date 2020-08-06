@@ -1,0 +1,44 @@
+
+
+<%= form_with(model: [:manager, restaurant, item_screen], local: true) do |form| %>
+  <% if item_screen.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(item_screen.errors.count, "error") %> prohibited this item_screen from being saved:</h2>
+
+      <ul>
+      <% item_screen.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= form.label :item_screen_type_id %>
+    <%= form.select :item_screen_type_id, options_for_select(@item_screen_types.map{|s| [s.name, s.id]}, item_screen.item_screen_type_id), {prompt: 'Choose Page Type'}, { class: "form-control"} %>
+  </div>
+
+    <%= form.hidden_field :restaurant_id, class: "form-control" %>
+
+  <div class="form-group">
+    <%= form.label :printer_id %>
+    <%= form.select :printer_id, options_for_select(@printers.map{|s| [s.name, s.id]}, item_screen.printer_id), {prompt: 'Choose Printer'}, { class: "form-control"}  %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :print_on_new %>
+    <%= form.check_box :on_new, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :buzz_on_new %>
+    <%= form.check_box :buzz_on_new, class: "form-control" %>
+  </div>
+
+
+
+
+  <div class="form-group">
+    <%= form.submit nil, class: 'btn btn-primary' %>
+  </div>
+<% end %>

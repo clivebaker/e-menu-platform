@@ -40,6 +40,17 @@ class ReceiptsController < ApplicationController
 
   end
 
+  def creation_broadcast
+    @receipt = Receipt.find(params[:receipt_id])
+    @receipt.creation_print
+    redirect_to manager_live_orders_path(@receipt.restaurant_id)
+
+
+  end
+
+  
+
+
   # POST /receipts
   # POST /receipts.json
   def create

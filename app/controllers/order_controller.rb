@@ -1,6 +1,7 @@
 class OrderController < ApplicationController
   before_action :authenticate_user!, except: [:pay, :index, :add_to_basket, :stripe,:stripex, :receipt, :basket, :checkout,:checkoutx, :remove_from_basket]
   skip_before_action :verify_authenticity_token, only: %i[stripe stripex]
+
   def remove_from_basket
     @path = params[:path]
     @restaurant = Restaurant.find_by(path: @path)
@@ -142,6 +143,7 @@ def stripe
 
     Rails.logger.debug("Payment Token: #{token}")
     Rails.logger.debug("Payment Price: #{price}")
+  
     begin
      @status = Stripe::Charge.create(
         amount: price,

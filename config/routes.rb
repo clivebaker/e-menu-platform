@@ -7,11 +7,15 @@ Rails.application.routes.draw do
 
 
 
-  namespace :manager do
-    resources :printers
-  end
+
+  # namespace :manager do
+  #   resources :printers
+  # end
+  resources :item_screen_types
+
   resources :receipts do 
     post 'is_ready'
+    post 'creation_broadcast'
     collection do 
       get 'view_receipt/:uuid', to: 'receipts#view_receipt', as: :view_receipt
     end
@@ -58,6 +62,10 @@ Rails.application.routes.draw do
     get 'live_items/:restaurant_id' => 'live#items', as: :live_items
     get 'live_orders/:restaurant_id' => 'live#orders', as: :live_orders
     get 'live_orders/broadcast/:restaurant_id' => 'live#orders_broadcast', as: :live_orders_broadcast
+    get 'live_food/:restaurant_id' => 'live#food', as: :live_food
+    get 'live_food/broadcast/:restaurant_id' => 'live#orders_broadcast', as: :live_food_broadcast
+    get 'live_drinks/:restaurant_id' => 'live#drinks', as: :live_drinks
+    get 'live_drinks/broadcast/:restaurant_id' => 'live#orders_broadcast', as: :live_drinks_broadcast
     get 'receipts/:restaurant_id' => 'live#receipts', as: :receipts
     get 'send_receipt/:receipt_id' => 'live#send_receipt', as: :send_receipts
     get 'service/:restaurant_id/item/:table_item_id' => 'live#service', as: :live_service
@@ -76,6 +84,9 @@ Rails.application.routes.draw do
     resources :restaurants do
 
       resources :delivery_postcodes
+
+      resources :item_screens
+
       resources :pi_interfaces do 
         get :request_lsusb
         resources :printers 

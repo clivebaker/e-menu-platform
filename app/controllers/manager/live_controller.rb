@@ -4,6 +4,7 @@ module Manager
   class LiveController < Manager::BaseController
     before_action :authenticate_manager_restaurant_user!, except: [:index]
     before_action :set_restaurant, except: [:send_receipt, :orders_broadcast]
+    before_action :set_item_screens, except: [:send_receipt, :orders_broadcast]
     
     def tables
       @restaurant_tables = RestaurantTable.where(restaurant_id: @restaurant.id).order(:number)
@@ -16,6 +17,12 @@ module Manager
       
     end
     def orders
+      @printers = Printer.where(restaurant_id: @restaurant.id)
+    end
+    def food
+      @printers = Printer.where(restaurant_id: @restaurant.id)
+    end
+    def drinks
       @printers = Printer.where(restaurant_id: @restaurant.id)
     end
     
@@ -58,6 +65,10 @@ module Manager
       Receipt.last.broadcast
     end
 
+    def set_item_screens
+
+      @item_screens = ItemScreen.where(restaurant_id: @restaurant.id)
+    end
 
   end
 end

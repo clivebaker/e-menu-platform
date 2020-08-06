@@ -42,9 +42,12 @@
                       <% end %>
                     </ul>
                   </p>
-                  <%= link_to "Ready?",receipt_is_ready_path(receipt.id), method: :post, class: 'btn btn-warning mt-3', data: { confirm: 'Are you sure?' } %>
-                  <% @printers.each do |printer|%>
-                    <%= link_to "Print: #{printer.name}", print_receipt_url(receipt.id, printer.id), remote: true, class: 'btn btn-info  mt-3' %>
+                  <%= link_to "Ready?",receipt_is_ready_path(receipt.id, only_path: true), method: :post, class: 'btn btn-warning mt-3', data: { confirm: 'Are you sure?' } %>
+                  <%= link_to "creation_broadcast",receipt_creation_broadcast_path(receipt.id, only_path: true), method: :post, class: 'btn btn-danger mt-3' if Rails.env=='development' %>
+
+                  <% printers.each do |printer|%>
+                  <%# binding.pry %>
+                    <%= link_to "Print: #{printer.name}", print_receipt_url(receipt.id, printer.id, only_path: true), remote: true, class: 'btn btn-info  mt-3' %>
                   <% end %>
         
                 </div>
