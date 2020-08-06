@@ -64,6 +64,9 @@
           Position: <%= sub.position%>  
         </div>
         <div class="col-lg-1"> 
+          Screen: <%= sub.item_screen_type_name%>  
+        </div>
+        <div class="col-lg-1"> 
           <% sub.menu_item_categorisation.each do |category| %>
             <i class="<%= category.icon %>"></i>
           <% end %>
