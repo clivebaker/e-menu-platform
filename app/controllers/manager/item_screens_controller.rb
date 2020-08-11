@@ -83,6 +83,6 @@ class Manager::ItemScreensController  < Manager::BaseController
     
       # Only allow a list of trusted parameters through.
     def item_screen_params
-      params.require(:item_screen).permit(:item_screen_type_id, :restaurant_id, :printer_id, :on_new, :buzz_on_new)
+      params.require(:item_screen).permit(:item_screen_type_id, :restaurant_id, :printer_id, :on_new, :buzz_on_new, :grouped)
     end
 end

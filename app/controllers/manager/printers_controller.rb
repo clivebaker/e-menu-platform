@@ -1,7 +1,7 @@
 class Manager::PrintersController < Manager::BaseController
   before_action :set_printer, only: [:show, :edit, :update, :destroy]
-  before_action :set_restaurant, except: [:print, :print_item]
-  before_action :set_pi_interface, except: [:print, :print_item]
+  before_action :set_restaurant, except: [:print, :print_item, :print_items]
+  before_action :set_pi_interface, except: [:print, :print_item, :print_items]
   
   # GET /manager/printers
   # GET /manager/printers.json
@@ -74,6 +74,12 @@ class Manager::PrintersController < Manager::BaseController
     @printer = Printer.find(params[:printer_id])    
     @screen_item = ScreenItem.find_by(uuid: params[:uuid]) 
     @screen_item.print_receipt(@printer)
+  end
+
+  def print_items
+    @printer = Printer.find(params[:printer_id])    
+    @receipt = Receipt.find(params[:receipt_id]) 
+    @receipt.print_receipt_grouped(@printer, params[:item_screen_type_key], action='print')
   end
 
 

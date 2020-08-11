@@ -10,6 +10,6 @@
     </div>
 </div>
 <div class="container-fluid mt-5 mb-2" id='current-orders'>
-  <%= render 'manager/live/order_items_screen_specific', printers: @printers, item_screen_type_key: 'FOOD' %>
+  <%= render 'manager/live/order_items_screen_specific', printers: @printers, item_screen_type_key: 'FOOD', grouped: @item_screen.grouped  %>
 </div>
 

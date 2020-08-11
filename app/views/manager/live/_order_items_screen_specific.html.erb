@@ -9,10 +9,40 @@
   </div>
 
   <div class="row m-2">
-        <% @restaurant = Restaurant.find(restaurant) if @restaurant.blank?  %>
-        <% ScreenItem.where(ready: false, restaurant_id: @restaurant.id, item_screen_type_key: item_screen_type_key).each do |screen_item| %>
-              <% receipt = screen_item.receipt%>
+        <% @restaurant = Restaurant.find(restaurant) if @restaurant.blank? 
+        @screen_items = [] %>
 
+        
+        <% @screen_items = ScreenItem.where(ready: false, restaurant_id: @restaurant.id, item_screen_type_key: item_screen_type_key) if !grouped %>
+
+        <% @screen_items = ScreenItem.where(ready: false, restaurant_id: @restaurant.id, item_screen_type_key: item_screen_type_key) if grouped %>
+
+        <%# if grouped  
+        si = ScreenItem.where(ready: false, restaurant_id: @restaurant.id, item_screen_type_key: item_screen_type_key)
+        if si.present?
+          @receipt_id = si.first.receipt_id 
+          receipt = Receipt.find(@receipt_id)
+          @screen_items = receipt.items.select{|s| s['item_screen_type_key'] == item_screen_type_key} 
+          end
+
+        end
+        %>
+
+<%#=binding.pry%>
+
+
+        <%
+        
+        shown_receipts = []
+        
+        %>
+
+        <% @screen_items.each do |screen_item| %>
+              <% receipt = screen_item.receipt if receipt.blank?%>
+              
+            
+             <%  unless  shown_receipts.include?(screen_item.receipt_id) %>
+            <% shown_receipts << screen_item.receipt_id %>
               <div class=" col-sm-6">
               <div class="card">
                 <div class="card-body">
@@ -22,8 +52,15 @@
                   <% if receipt.delivery_or_collection == 'tableservice' %><h6 class="card-title">Table Number: <%=receipt.table_number%></h6><% end %>
                  <% if receipt.telephone.present? %>  <h6 class="card-title">Telephone: <%=receipt.telephone%></h6><% end %>
                  <% if receipt.delivery_or_collection == 'delivery' %> <h6 class="card-title">Address: <%=receipt.address%></h6><% end %>
-                  
-                  <% receipt.items['items'].select{|d| d['uuid'] == screen_item.uuid}.each do |item| %>
+
+                  <%
+                  items = receipt.items['items'].select{|d| d['uuid'] == screen_item.uuid} if grouped == false
+                  items = receipt.items['items'].select{|d| d['item_screen_type_key'] == item_screen_type_key} if grouped == true
+                  %>  
+
+
+                  <% items.each do |item| %>
+              
                   <p class="card-text">
                     <ul class="list-group">
                         <li class="list-group-item">
@@ -42,18 +79,21 @@
                     </ul>
                   </p>
                   <% end %>
-                  <%= link_to "Ready?",receipt_screen_item_ready_path(receipt.id, screen_item.id, only_path: true), method: :post, class: 'btn btn-warning mt-3', data: { confirm: 'Are you sure?' } %>
+                  <%= link_to "Ready?",receipt_screen_item_ready_path(receipt.id, screen_item.id, only_path: true), method: :post, class: 'btn btn-warning mt-3', data: { confirm: 'Are you sure?' } if !grouped %>
+                  <%= link_to "Ready?",receipt_screen_items_ready_path(receipt.id, item_screen_type_key: item_screen_type_key, only_path: true), method: :post, class: 'btn btn-warning mt-3', data: { confirm: 'Are you sure?' } if grouped %>
                   <%= link_to "Item_creation_broadcast",receipt_item_creation_broadcast_path(receipt.id, only_path: true), remote: true, method: :post, class: 'btn btn-danger mt-3' if Rails.env=='development' %>
 
                   <% printers.each do |printer|%>
                   <%# binding.pry %>
-                    <%= link_to "Print: #{printer.name}", print_item_receipt_path(receipt.id, screen_item.uuid, printer.id, only_path: true), remote: true, class: 'btn btn-info  mt-3' %>
+                    <%= link_to "Print: #{printer.name}", print_item_receipt_path(receipt.id, screen_item.uuid, printer.id, only_path: true), remote: true, class: 'btn btn-info  mt-3' if !grouped  %>
+                    <%= link_to "Print: #{printer.name}", print_items_receipt_path(receipt.id, printer.id, item_screen_type_key: item_screen_type_key, only_path: true), remote: true, class: 'btn btn-info  mt-3'  if grouped %>
                   <% end %>
         
                 </div>
               </div>
               </div>
             <% end %>
+    <% end %>
 
 
   </div>

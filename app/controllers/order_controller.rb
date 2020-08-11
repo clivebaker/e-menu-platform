@@ -322,9 +322,10 @@ def stripe
       uuid = SecureRandom.uuid
 
     
-      basket_items << {uuid: uuid, total: total, note: note ,item: "<i>#{menu_item.parent.name}</i> - <strong>#{menu_item.name}</strong>" , optionals: cl.map{|s| "<i>#{s.custom_list_name}</i> - <strong>#{s.name}</strong>" }, item_screen_type_name: menu_item.item_screen_type_name, item_screen_type_key: menu_item.item_screen_type_key, menu_id: menu_item.id }
+      # WITH CATEGORY NAME basket_items << {uuid: uuid, total: total, note: note ,item: "<i>#{menu_item.parent.name}</i> - <strong>#{menu_item.name}</strong>" , optionals: cl.map{|s| "<i>#{s.custom_list_name}</i> - <strong>#{s.name}</strong>" }, item_screen_type_name: menu_item.item_screen_type_name, item_screen_type_key: menu_item.item_screen_type_key, menu_id: menu_item.id }
+      basket_items << {uuid: uuid, total: total, note: note ,item: "<i>#{menu_item.parent.name}</i> - <strong>#{menu_item.name}</strong>" , optionals: cl.map{|s| "- <strong>#{s.name}</strong>" }, item_screen_type_name: menu_item.item_screen_type_name, item_screen_type_key: menu_item.item_screen_type_key, menu_id: menu_item.id }
       basket_ids << {uuid: uuid, total: total,item: menu_item.id, optionals: cl.map{|s| s.id }, item_screen_type_name: menu_item.item_screen_type_name }
-# binding.pry
+#  binding.pry
       cookies[:basket] = {
         restaurant: path,
         count: basket_ids.count,

@@ -1,4 +1,14 @@
-<% screen_item.receipt.items['items'].select{|d| d['uuid'] == screen_item.uuid}.each do |item| %>
+
+                  <%
+                  items = screen_item.receipt.items['items'].select{|d| d['uuid'] == screen_item.uuid} if !grouped
+                  items = screen_item.items['items'].select{|d| d['item_screen_type_key'] == item_screen_type_key} if grouped
+                   %>  
+
+
+
+
+
+<% items.each do |item| %>
 <% i = item['item'].gsub("<i>","").gsub("</i>","").gsub("<strong>","").gsub("</strong>","").split(" - ")%>
 <%= i[0]%>
 <%= i[1]%>

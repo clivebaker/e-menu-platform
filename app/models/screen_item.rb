@@ -11,15 +11,19 @@ class ScreenItem < ApplicationRecord
     item_screen = nil
     item_screen = item_screens.first if item_screens.present?
 
-    if item_screen.present?
-      buzz = item_screen.buzz_on_new
-      print = item_screen.on_new
-      action = nil
-      action = 'print' if print
-      action = 'buzz' if buzz
-      action = 'print_buzz' if print and buzz
-      if action.present? and item_screen.printer.present?
-        print_receipt(item_screen.printer, action)
+
+    if !item_screen.grouped
+
+      if item_screen.present?
+        buzz = item_screen.buzz_on_new
+        print = item_screen.on_new
+        action = nil
+        action = 'print' if print
+        action = 'buzz' if buzz
+        action = 'print_buzz' if print and buzz
+        if action.present? and item_screen.printer.present? 
+          print_receipt(item_screen.printer, action)
+        end
       end
     end
   end
@@ -27,7 +31,7 @@ class ScreenItem < ApplicationRecord
 
   def print_receipt(printer, action='print')
     
-    print_receipt = ApplicationController.render(partial: "manager/live/order_item_screen_specific_print", locals: { screen_item: self, restaurant: restaurant_id })
+    print_receipt = ApplicationController.render(partial: "manager/live/order_item_screen_specific_print", locals: { grouped: false, screen_item: self, restaurant: restaurant_id })
     print_receipt = print_receipt.gsub("&amp;","&").gsub("£","")
     header = ""
     header << "Name: #{receipt.name}\n" if receipt.delivery_or_collection != 'tableservice' 
