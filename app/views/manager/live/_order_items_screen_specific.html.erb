@@ -86,7 +86,14 @@
                   <% printers.each do |printer|%>
                   <%# binding.pry %>
                     <%= link_to "Print: #{printer.name}", print_item_receipt_path(receipt.id, screen_item.uuid, printer.id, only_path: true), remote: true, class: 'btn btn-info  mt-3' if !grouped  %>
+                    <% printer_key = printer.item_screens.first.item_screen_type_key if printer.item_screens.present? %>
+                    <% if  printer_key == item_screen_type_key %>
+                      
+
+
                     <%= link_to "Print: #{printer.name}", print_items_receipt_path(receipt.id, printer.id, item_screen_type_key: item_screen_type_key, only_path: true), remote: true, class: 'btn btn-info  mt-3'  if grouped %>
+                  
+                  <% end %>
                   <% end %>
         
                 </div>
