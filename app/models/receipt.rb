@@ -15,8 +15,8 @@ class Receipt < ApplicationRecord
         ScreenItem.create(restaurant_id: restaurant_id, menu_id: item['menu_id'], receipt_id: id, item_screen_type_key: item['item_screen_type_key'], uuid: item['uuid'])
       end
       broadcast_items
-      creation_print_grouped('FOOD') if items.select{|s| s['item_screen_type_key'] == 'FOOD'}.present?
-      creation_print_grouped('DRINK') if items.select{|s| s['item_screen_type_key'] == 'DRINK'}.present?
+      creation_print_grouped('FOOD') if items['items'].select{|s| s['item_screen_type_key'] == 'FOOD'}.present?
+      creation_print_grouped('DRINK') if items['items'].select{|s| s['item_screen_type_key'] == 'DRINK'}.present?
     end
   end
 
