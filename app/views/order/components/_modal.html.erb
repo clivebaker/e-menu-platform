@@ -110,7 +110,7 @@
                           <%#end %>
             <%# end %>
                         </div>
-                        <div class='col-2 text-right'>
+                        <div class='col-3 text-right'>
                           <small><%=number_to_currency(cli.price, unit: '+£') if cli.price.to_f > 0.0 %></small>
                         </div>
                       </div>
@@ -120,7 +120,7 @@
                           <% required_lists << custom_list.id%>
                           <%= radio_button_tag "item-#{custom_list.id}", "item-#{custom_list.id}", nil, 'data-price' => ("%.2f" % cli.price).to_f ,class: "selection-item selection-item-radio-#{main_item}  selection-item-required-#{custom_list.id}", 'data-scope' => main_item, 'data-constraint' => custom_list.constraint, 'data-start_price' => start_price, 'data-id' => cli.id %> <small><strong><%=cli.name%></strong>  <% if cli.description.present?%>  <i>- <%=cli.description%></i><% end %></small>
                         </div>
-                      <div class='col-2 text-right'>
+                      <div class='col-3 text-right'>
                           <small><%=number_to_currency(cli.price, unit: '+£') if cli.price.to_f > 0.0 %></small>
                         </div>
                       </div>
