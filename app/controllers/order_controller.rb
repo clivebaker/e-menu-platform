@@ -230,26 +230,27 @@ def stripe
     @receipt = Receipt.find_by(uuid: @uuid)
   end
 
-    def index
+  def index
 
-      @path = params[:path]
-      @restaurant = Restaurant.find_by(path: @path)
-      
-      @menu =   @restaurant.menus
-      
-      @menu2 = get_serialized_menu(@restaurant)
-      
-      if cookies[:basket]
-        @basket = JSON.parse(cookies[:basket])
-        @basket_item_count = @basket['count']
-        @basket_item_total = @basket['items'].map{|d| d['total']}.inject(:+)
-      end
+    @path = params[:path]
+    @restaurant = Restaurant.find_by(path: @path)
+    
+    @menu =   @restaurant.menus
+    
+    @menu2 = get_serialized_menu(@restaurant)
+    
+    if cookies[:basket]
+      @basket = JSON.parse(cookies[:basket])
+      @basket_item_count = @basket['count']
+      @basket_item_total = @basket['items'].map{|d| d['total']}.inject(:+)
     end
-  
+  end
+
 
     def get_serialized_menu restaurant
         Rails.cache.fetch("restaurant_order_menu_#{@restaurant.id}", expires_in: 3.hours) do
         
+
         active_ids = @restaurant.active_menu_ids
 
           @menu2 = @restaurant.menus.where(root_node_id: active_ids).arrange_serializable(order: :position) do |parent, children|

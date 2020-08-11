@@ -50,6 +50,8 @@ class CustomListsController < Manager::BaseController
   # POST /custom_lists.json
   def create
     @custom_list = CustomList.new(custom_list_params)
+    Rails.cache.delete("api/restaurant/#{@restaurant.id}/menu")
+    Rails.cache.delete("restaurant_order_menu_#{@restaurant.id}")
 
     respond_to do |format|
       if @custom_list.save
@@ -65,6 +67,10 @@ class CustomListsController < Manager::BaseController
   # PATCH/PUT /custom_lists/1
   # PATCH/PUT /custom_lists/1.json
   def update
+
+    Rails.cache.delete("api/restaurant/#{@restaurant.id}/menu")
+    Rails.cache.delete("restaurant_order_menu_#{@restaurant.id}")
+
     respond_to do |format|
       if @custom_list.update(custom_list_params)
         format.html { redirect_to manager_restaurant_custom_list_path(@restaurant, @custom_list), notice: 'Custom list was successfully updated.' }

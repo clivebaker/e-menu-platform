@@ -42,7 +42,9 @@ module Manager
       @menu = Menu.new(menu_params)
       # binding.pry
       @menu.parent = Menu.find(params[:parent]) if params[:parent].present?
-
+      Rails.cache.delete("api/restaurant/#{@restaurant.id}/menu")
+      Rails.cache.delete("restaurant_order_menu_#{@restaurant.id}")
+  
       respond_to do |format|
         if @menu.save
 
@@ -79,6 +81,10 @@ module Manager
     # PATCH/PUT /menus/1
     # PATCH/PUT /menus/1.json
     def update
+
+      Rails.cache.delete("api/restaurant/#{@restaurant.id}/menu")
+      Rails.cache.delete("restaurant_order_menu_#{@restaurant.id}")
+  
       respond_to do |format|
         if @menu.update(menu_params)
 
