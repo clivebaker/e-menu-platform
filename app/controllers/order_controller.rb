@@ -101,13 +101,6 @@ end
 def stripe
 
 
-  puts "****************************************************************"
-  puts "PARAMS: #{params.inspect}"
-  puts "****************************************************************"
-
-
-
-
   @service_type = params[:service_type] 
   @collection_time = params[:collection_time] 
   @table_number = params[:table_number]
