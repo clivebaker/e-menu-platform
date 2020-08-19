@@ -25,6 +25,7 @@ class Restaurant < ApplicationRecord
 
   delegate :name, to: :cuisine, prefix: true
   delegate :ids, to: :features, prefix: true
+  delegate :live_menus, to: :menus, prefix: true
 
 
   before_create :set_slug

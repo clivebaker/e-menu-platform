@@ -228,7 +228,7 @@ def stripe
     @path = params[:path]
     @restaurant = Restaurant.find_by(path: @path)
     
-    @menu =   @restaurant.menus
+    @menu = @restaurant.menus_live_menus
     
     @menu2 = get_serialized_menu(@restaurant)
     
@@ -246,7 +246,7 @@ def stripe
 
         active_ids = @restaurant.active_menu_ids
 
-          @menu2 = @restaurant.menus.where(root_node_id: active_ids).arrange_serializable(order: :position) do |parent, children|
+          @menu2 = @restaurant.menus_live_menus.where(root_node_id: active_ids).arrange_serializable(order: :position) do |parent, children|
 
           
 
@@ -293,7 +293,7 @@ def stripe
       main_item = params[:main_item]
       items = params[:items].split(',') if params[:items].present?
       note = params[:note]
-      
+      # binding.pry
       menu_item = Menu.find(main_item)
       optionals = CustomListItem.where(id: items)
       @restaurant = menu_item.restaurant
@@ -305,6 +305,8 @@ def stripe
       sort_order.each_with_index do |item, index|
         lookup[item] = index
       end
+
+
 
       cl = optionals.sort_by do |item|
         lookup.fetch(item.custom_list_id)

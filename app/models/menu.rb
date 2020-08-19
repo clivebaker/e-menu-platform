@@ -9,7 +9,7 @@ class Menu < ApplicationRecord
   after_save :clear_cache
   default_scope {where(is_deleted: false)}
 
-  scope :live_menus, -> { where(is_deleted: false) }
+  scope :live_menus, -> { where(is_deleted: false, available: true) }
 
   delegate :name, :key, to: :item_screen_type, prefix: true, allow_nil: true
 
