@@ -2,13 +2,33 @@
     <main role="main" class="container">
 
 
-    
-      <div class="row my-3 p-3 bg-white rounded shadow-sm">
-
-      
-          <div class="col-6">
-                    <h1>Restaurant Details</h1>
+          <h1>Restaurant Details</h1>
           <% if @restaurant %>
+<!-- Tabs -->
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link " id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Home</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="finance-tab" data-toggle="tab" href="#finance" role="tab" aria-controls="finance" aria-selected="false">Finance</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="settings-tab" data-toggle="tab" href="#settings" role="tab" aria-controls="settings" aria-selected="false">Settings</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="styling-tab" data-toggle="tab" href="#styling" role="tab" aria-controls="styling" aria-selected="false">Styling</a>
+  </li>
+</ul>
+<!-- /Tabs -->
+
+<div class="tab-content" id="myTabContent">
+  <div class="tab-pane fade show " id="home" role="tabpanel" aria-labelledby="home-tab">
+  <!-- Home -->
+      <div class="row my-3 p-3 bg-white rounded shadow-sm">
+        <div class="col-12">
+
+
+
               <div class="media text-muted pt-3">
                 <p class="media-body pb-3 mb-0  lh-125 border-bottom border-gray">
                   <strong class="d-block text-gray-dark">Name</strong>
@@ -24,20 +44,7 @@
                   <% end %>
                 </p>
               </div>
-
-
-
-
-
-
-
-              <div class="media text-muted pt-3">
-                <p class="media-body pb-3 mb-0  lh-125 border-bottom border-gray">
-                  <strong class="d-block text-gray-dark">Path</strong>
-                  <%= @restaurant.path %>
-                </p>
-              </div>
-              <div class="media text-muted pt-3">
+          <div class="media text-muted pt-3">
                 <p class="media-body pb-3 mb-0 lh-125 border-bottom border-gray">
                   <strong class="d-block text-gray-dark">Cuisine</strong>
                   <%= @restaurant.cuisine_name %>
@@ -68,6 +75,21 @@
                   <strong>Facebook: </strong><%= @restaurant.facebook.blank? ?  "Not supplied" : @restaurant.facebook%>, <strong>Twitter: </strong><%= @restaurant.twitter.blank? ?  "Not supplied" : @restaurant.twitter%>
                 </p>
               </div>
+
+
+
+
+
+        </div>
+      </div>
+  <!-- /Home -->
+  </div>
+  <div class="tab-pane fade show" id="finance" role="tabpanel" aria-labelledby="finance-tab">
+  <!-- Finance -->
+    <div class="row my-3 p-3 bg-white rounded shadow-sm">
+      <div class="col-12">
+
+            
               <div class="media text-muted pt-3">
                 <p class="media-body pb-3 mb-0 lh-125 border-bottom border-gray">
                   <strong class="d-block text-gray-dark">Stripe API Key</strong>
@@ -80,22 +102,30 @@
                   <%= @restaurant.stripe_publish_api_key %>
                 </p>
               </div>
+
+
+
+      </div>
+    </div>
+  <!-- /Finance -->
+  </div>
+  <div class="tab-pane fade show active" id="settings" role="tabpanel" aria-labelledby="settings-tab">
+  <!-- Settings -->
+    <div class="row my-3 p-3 bg-white rounded shadow-sm">
+      <div class="col-12">
+
+              <div class="media text-muted pt-3">
+                <p class="media-body pb-3 mb-0  lh-125 border-bottom border-gray">
+                  <strong class="d-block text-gray-dark">Path</strong>
+                  <%= @restaurant.path %>
+                </p>
+              </div>
              <div class="media text-muted pt-3">
                 <p class="media-body pb-3 mb-0 lh-125 border-bottom border-gray">
                   <strong class="d-block text-gray-dark">Delivery / Collection - Delay Time (minutes)</strong>
                   <%= @restaurant.delay_time_minutes %>
                 </p>
               </div>
-
-
-
-
-
-
-            <% end %>
-          </div>
-          <div class="col-6">
-
 
           <div class="row">
             <div class="col-sm">
@@ -117,8 +147,6 @@
               </ul>
             </div>
           </div>
-
-
           <div class="row">
             <div class="col-sm">
                 <h5>Menu Template</h5>
@@ -132,6 +160,20 @@
                 </div>
             </div>
           </div>
+
+
+
+
+
+      </div>
+    </div>
+  <!-- /Settings -->
+  </div>
+  <div class="tab-pane fade show" id="styling" role="tabpanel" aria-labelledby="styling-tab">
+  <!-- Styling -->
+    <div class="row my-3 p-3 bg-white rounded shadow-sm">
+      <div class="col-12">
+
 
           <div class="row">
             <div class="col-sm">
@@ -165,17 +207,23 @@
                   <%= @restaurant.custom_styles %>
                 </p>
               </div>
-             
-
-
-
             </div>
           </div>
 
 
- 
 
-        </div>
+      </div>
+    </div>
+  <!-- /Styling -->
+  </div>
+</div>
+
+            <% end %>
+
+
+
+    
+      <div class="row my-3 p-3 bg-white rounded shadow-sm">
 
         <div class="d-block text-right mt-3">
           <%= link_to("Add Restaurant", new_manager_restaurant_path) unless @restaurant %>

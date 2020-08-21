@@ -20,6 +20,16 @@
       <%= link_to 'Accept', '#', class: 'btn btn-block btn-warning', id: 'accept-button', style: 'display:none;'%> 
     </div>
 </div>
+ <div class='row'>
+    <div class='col'>
+      Restaurant is busy: 
+      <%= link_to 'Clear Delay', '#', class: 'btn btn-success', id: 'accept-button'%> | 
+      <%= link_to 'Delay 10 Mins', '#', class: 'btn btn-warning', id: 'accept-button'%> | 
+      <%= link_to 'Delay 20 Mins', '#', class: 'btn btn-warning', id: 'accept-button'%> |
+      <%= link_to 'Delay 30 Mins', '#', class: 'btn btn-warning', id: 'accept-button'%> |
+      <%= link_to 'Delay 40 Mins', '#', class: 'btn btn-warning', id: 'accept-button'%> 
+    </div>
+</div>
 <div class="container-fluid mt-5 mb-2" id='current-orders'>
   <%= render 'manager/live/order_items', printers: @printers %>
 </div>

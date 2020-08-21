@@ -1,3 +1,4 @@
+
 <%= form_with(model: [:manager, restaurant], local: true) do |form| %>
   <% if restaurant.errors.any? %>
     <div id="error_explanation" class="alert alert-danger">
@@ -13,6 +14,28 @@
 
   <%= form.hidden_field :restaurant_user_id %>
         
+
+
+<!-- Tabs -->
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Home</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="finance-tab" data-toggle="tab" href="#finance" role="tab" aria-controls="finance" aria-selected="false">Finance</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="settings-tab" data-toggle="tab" href="#settings" role="tab" aria-controls="settings" aria-selected="false">Settings</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="styling-tab" data-toggle="tab" href="#styling" role="tab" aria-controls="styling" aria-selected="false">Styling</a>
+  </li>
+</ul>
+<!-- /Tabs -->
+
+<div class="tab-content" id="myTabContent">
+  <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+  <!-- Home -->
   <div class="row">
     <div class="col">
       <div class="form-group ">
@@ -21,9 +44,6 @@
       </div>
     </div>
   </div>
-
-       
-
  <div class="row">
       <div class="col">
         <div class="form-group ">
@@ -39,61 +59,6 @@
         </div>
       </div>
     </div>
-
-
-
-
-
-
-  <div class="row">
-    <div class="col">
-      <div class="form-group ">
-        <%= form.label :path %>
-        <%= form.text_field :path, class: 'form-control  form-control-sm' %>
-      </div>
-    </div>
-  </div>
-
-
-  <div class="row">
-    <div class="col">
-      <h3>Stripe</h3>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col">
-        <div class="form-group ">
-          <%= form.label :stripe_api_key %>
-          <%= form.text_field :stripe_api_key, class: 'form-control  form-control-sm', rows: 10  %>
-        </div>
-      </div>
-
-  </div>
-
-  <div class="row">
-    <div class="col">
-        <div class="form-group ">
-          <%= form.label :stripe_publish_api_key %>
-          <%= form.text_field :stripe_publish_api_key, class: 'form-control  form-control-sm', rows: 10  %>
-        </div>
-      </div>
-
-  </div>
-
-
-
-  <div class="row">
-    <div class="col">
-      <div class="form-group ">
-        <%= form.label :cuisine_id %>
-        <%= form.select :cuisine_id,  options_for_select(@cuisines.map{|a| [a.name, a.id]}, restaurant.cuisine_id ), {prompt: "Choose cuisine"}, {class: 'form-control  form-control-sm'} %>
-      </div>
-    </div>
-  </div>
-
-
-
   <div class="row">
     <div class="col">
       <div class="form-group ">
@@ -136,23 +101,62 @@
   </div>
     </div>
   </div>
-<!--   <div class="row">
-    <div class="col">
-        <div class="form-group ">
-    <%= form.label :opening_times %>
-    <%= form.text_field :opening_times, class: 'form-control  form-control-sm' %>
-  </div>
-    </div>
-  </div> -->
-<!--   <div class="row">
-    <div class="col">
-        <div class="form-group ">
-    <%= form.label :is_chain %>
-    <%= form.check_box :is_chain, class: 'form-control  form-control-sm' %>
-    </div>
-    </div>
-  </div> -->
 
+
+
+  <div class="row">
+    <div class="col">
+      <div class="form-group ">
+        <%= form.label :cuisine_id %>
+        <%= form.select :cuisine_id,  options_for_select(@cuisines.map{|a| [a.name, a.id]}, restaurant.cuisine_id ), {prompt: "Choose cuisine"}, {class: 'form-control  form-control-sm'} %>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Home -->
+  </div>
+  <div class="tab-pane fade" id="finance" role="tabpanel" aria-labelledby="finance-tab">
+  <!-- Finance -->
+
+  <div class="row">
+    <div class="col">
+      <h3>Stripe</h3>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+        <div class="form-group ">
+          <%= form.label :stripe_api_key %>
+          <%= form.text_field :stripe_api_key, class: 'form-control  form-control-sm', rows: 10  %>
+        </div>
+      </div>
+
+  </div>
+
+  <div class="row">
+    <div class="col">
+        <div class="form-group ">
+          <%= form.label :stripe_publish_api_key %>
+          <%= form.text_field :stripe_publish_api_key, class: 'form-control  form-control-sm', rows: 10  %>
+        </div>
+      </div>
+
+  </div>
+
+  <!-- Finance -->
+  </div>
+  <div class="tab-pane fade" id="settings" role="tabpanel" aria-labelledby="settings-tab">
+  <!-- Settings -->
+  <div class="row">
+    <div class="col">
+      <div class="form-group ">
+        <%= form.label :path %>
+        <%= form.text_field :path, class: 'form-control  form-control-sm' %>
+      </div>
+    </div>
+  </div>
   <div class="row">
     <div class="col">
         <div class="form-group ">
@@ -163,6 +167,10 @@
 
   </div>
 
+  <!-- Settings -->
+  </div>
+  <div class="tab-pane fade" id="styling" role="tabpanel" aria-labelledby="styling-tab">
+  <!-- Styling -->
 
 
   <div class="row">
@@ -219,10 +227,25 @@
 
   </div>
 
- 
+
+  <!-- /Styling -->
+  </div>
+</div>
 
 
- 
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
