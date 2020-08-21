@@ -25,7 +25,7 @@
                   <%= link_to("View Menus", manager_home_menu_path(), class: "nav-link") %>
                 <% end %>
               <div class="dropdown-divider"></div>
-              <% if @restaurant.id.present?%>
+              <% if @restaurant.present? and @restaurant.id.present?%>
                   <%= link_to("Printer Interfaces", manager_restaurant_pi_interfaces_path(@restaurant), class: "nav-link") %>
                   <%= link_to("Live Screen Management", manager_restaurant_item_screens_path(@restaurant), class: "nav-link") %>
 
