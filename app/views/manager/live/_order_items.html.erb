@@ -11,18 +11,30 @@
   <div class="row m-2">
         <% @restaurant = Restaurant.find(restaurant) if @restaurant.blank?  %>
         <% @restaurant.receipts.where(is_ready: false, source: :takeaway).each do |receipt| %>
-         <%#= receipt.inspect%>
+
            
               <div class=" col-sm-6">
               <div class="card">
                 <div class="card-body">
-                  <% if receipt.delivery_or_collection != 'tableservice' %><h5 class="card-title">Name: <%=receipt.name%></h5><% end %>
-                  <% if receipt.delivery_or_collection != 'tableservice' %><h6 class="card-title">Time: <%=receipt.collection_time%></h6><% end %>
-                  <h6 class="card-title">Type: <%=receipt.delivery_or_collection%></h6>
-                  <% if receipt.delivery_or_collection == 'tableservice' %><h6 class="card-title">Table Number: <%=receipt.table_number%></h6><% end %>
-                 <% if receipt.telephone.present? %>  <h6 class="card-title">Telephone: <%=receipt.telephone%></h6><% end %>
-                 <% if receipt.delivery_or_collection == 'delivery' %> <h6 class="card-title">Address: <%=receipt.address%></h6><% end %>
-               
+
+                  <div class="row m-2">
+
+                    <div class=" col">
+                    
+                      <% if receipt.delivery_or_collection != 'tableservice' %><h5 class="card-title">Name: <%=receipt.name%></h5><% end %>
+                      <% if receipt.delivery_or_collection != 'tableservice' %><h6 class="card-title">Time: <%=receipt.collection_time%></h6><% end %>
+                      <h6 class="card-title">Type: <%=receipt.delivery_or_collection%></h6>
+                      <% if receipt.delivery_or_collection == 'tableservice' %><h6 class="card-title">Table Number: <%=receipt.table_number%></h6><% end %>
+                      <% if receipt.telephone.present? %>  <h6 class="card-title">Telephone: <%=receipt.telephone%></h6><% end %>
+                      <% if receipt.delivery_or_collection == 'delivery' %> <h6 class="card-title">Address: <%=receipt.address%></h6><% end %>
+                    </div>
+                    <div class=" col-sm-5 text-right">
+                      <strong>Received: <%=receipt.created_at.in_time_zone('London').strftime('%H:%M') %> </strong>
+                    </div>
+
+
+                  </div>
+
                   <p class="card-text">
                     <ul class="list-group">
                       <% receipt.items['items'].each do |item| %>

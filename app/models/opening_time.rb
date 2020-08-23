@@ -13,10 +13,12 @@ class OpeningTime < ApplicationRecord
   end
 
 
+  def self.kitchen_delay 
+    [0,15,30,45,60]
+  end
+
   def self.days_of_week
-
     ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']
-
   end
 
   def self.available_times(step = 30)
