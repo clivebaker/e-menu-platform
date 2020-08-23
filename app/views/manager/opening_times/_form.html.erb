@@ -1,0 +1,60 @@
+<%= form_with(model: ['manager', @restaurant, manager_opening_time], local: true) do |form| %>
+  <% if manager_opening_time.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(manager_opening_time.errors.count, "error") %> prohibited this manager_opening_time from being saved:</h2>
+
+      <ul>
+      <% manager_opening_time.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+    <div class="row">
+      <div class="col-sm-2 text-right pb-1">
+        <div class="form-group ">
+          <h5><strong>Day</strong></h5>
+        </div>
+      </div>
+      <div class="col-sm-2 pb-1">
+        <div class="form-group ">
+           <h5><strong>Opening</strong></h5>
+        </div>
+      </div>
+      <div class="col-sm-2 pb-1">
+        <div class="form-group ">
+           <h5><strong>Closing</strong></h5>
+        </div>
+      </div>
+    </div>
+
+
+<%= form.hidden_field :restaurant_id, class: 'form-control' %>
+
+  <% OpeningTime.days_of_week.each do |dow| %>
+    <div class="row">
+      <div class="col-sm-2 text-right pb-1">
+        <div class="form-group ">
+          <h5><%= dow.camelcase %>: </h5>
+        </div>
+      </div>
+      <div class="col-sm-2 pb-1">
+        <div class="form-group ">
+          <% set_time = manager_opening_time.times[dow]['open'] if manager_opening_time.times.present? %>
+          <%= form.select "times[#{dow}][open]", options_for_select(OpeningTime.available_times(30).map{|a| a.strftime("%H:%M")}, set_time), {prompt: 'Choose Time'}, {class: 'form-control'} %>
+        </div>
+      </div>
+      <div class="col-sm-2 pb-1">
+        <div class="form-group ">
+          <% set_time_close = manager_opening_time.times[dow]['close'] if manager_opening_time.times.present? %>
+          <%= form.select "times[#{dow}][close]", options_for_select(OpeningTime.available_times(30).map{|a| a.strftime("%H:%M")}, set_time_close), {prompt: 'Choose Time'}, {class: 'form-control'} %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+  <div class="form-group ">
+    <%= form.submit nil, class: 'btn btn-primary' %>
+  </div>
+<% end %>

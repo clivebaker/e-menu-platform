@@ -8,6 +8,7 @@
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
              <% if current_manager_restaurant_user.restaurant %>
               <%= link_to("Details", manager_restaurant_path(current_manager_restaurant_user.restaurant), class: "nav-link")  %>
+              <%= link_to("Opening Times", manager_restaurant_opening_times_path(current_manager_restaurant_user.restaurant), class: "nav-link")  %>
               <% else %>
                <%= link_to("Add Restaurant", new_manager_restaurant_path, class: "nav-link")  %>
               <% end %>

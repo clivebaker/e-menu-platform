@@ -1,0 +1,50 @@
+
+
+<div class="container-fluid">
+  <div class="row p-3">
+		<div class="col pb-5">
+
+
+<h1>Opening Times</h1>
+
+
+  <% if @manager_opening_times.blank? %>
+
+    <%= link_to 'Create Restaurant Opening Times', new_manager_restaurant_opening_time_path(@restaurant), class: 'btn btn-primary ' %>
+
+  <% else %>
+
+    <div class="row">
+      <div class="col-sm-2 text-right pb-1">
+        <strong>Day</strong>
+      </div>
+      <div class="col-sm-2  pb-1">
+        <strong>Open</strong>
+      </div>
+      <div class="col-sm-2  pb-1">
+        <strong>Close</strong>
+      </div>
+    </div>
+
+      <% @manager_opening_time.times_array.each do |a| %>
+        <div class="row">
+      		<div class="col-sm-2 text-right pb-1">
+            <%=a.camelcase%>
+          </div>
+      		<div class="col-sm-2  pb-1">
+            <%=@manager_opening_time.times[a]['open']%>
+          </div>
+       		<div class="col-sm-2  pb-1">
+            <%=@manager_opening_time.times[a]['close']%>
+          </div>
+        </div>
+      <% end %>
+
+    <%= link_to 'Edit', edit_manager_restaurant_opening_time_path(@restaurant, @manager_opening_time) %> 
+
+
+  <% end %>
+
+</div>
+</div>
+</div>

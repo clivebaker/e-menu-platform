@@ -85,7 +85,7 @@ Rails.application.routes.draw do
 
     resources :cuisines
     resources :restaurants do
-
+      resources :opening_times
       resources :delivery_postcodes
 
       resources :item_screens
