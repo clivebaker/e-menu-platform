@@ -2,6 +2,9 @@ class Manager::OpeningTimesController < Manager::BaseController
   before_action :authenticate_manager_restaurant_user!
 
   before_action :set_manager_opening_time, only: [:index, :show, :edit, :update, :destroy]
+  before_action :set_time_settings, only: [:create, :edit, :update, :new]
+
+  
     before_action :set_restaurant
   # GET /manager/opening_times
   # GET /manager/opening_times.json
@@ -75,9 +78,15 @@ class Manager::OpeningTimesController < Manager::BaseController
         @manager_opening_time = OpeningTime.find_by(restaurant_id: params[:restaurant_id])
       end
     end
+    def set_time_settings
+        @time_settings = [0,15,30,45,60]
+    end
+
+
+    
 
     # Only allow a list of trusted parameters through.
     def manager_opening_time_params
-      params.require(:opening_time).permit(:restaurant_id, times: {})
+      params.require(:opening_time).permit(:restaurant_id, :delay_time_minutes, :kitchen_delay_minutes, times: {})
     end
 end

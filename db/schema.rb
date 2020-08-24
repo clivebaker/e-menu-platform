@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_23_161129) do
+ActiveRecord::Schema.define(version: 2020_08_24_104237) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -199,6 +199,8 @@ ActiveRecord::Schema.define(version: 2020_08_23_161129) do
     t.jsonb "times", default: {}
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "delay_time_minutes", default: 30
+    t.integer "kitchen_delay_minutes", default: 0
     t.index ["restaurant_id"], name: "index_opening_times_on_restaurant_id"
   end
 

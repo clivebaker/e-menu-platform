@@ -40,6 +40,24 @@
         </div>
       <% end %>
 
+        <div class="row border-top border-grey">
+      		<div class="col-sm-4 text-right  pb-1">
+            Time before earliest collection / delivery
+          </div>
+       		<div class="col-sm-6  pb-1">
+            <%=@manager_opening_time.delay_time_minutes%> minutes
+          </div>
+        </div>
+
+        <div class="row">
+      		<div class="col-sm-4 text-right  pb-1">
+            Current kitchen delay
+          </div>
+       		<div class="col-sm-6  pb-1">
+            <%=@manager_opening_time.kitchen_delay_minutes%> minutes
+          </div>
+        </div>
+
     <%= link_to 'Edit', edit_manager_restaurant_opening_time_path(@restaurant, @manager_opening_time) %> 
 
 

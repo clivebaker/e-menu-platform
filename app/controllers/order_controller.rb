@@ -39,16 +39,18 @@ class OrderController < ApplicationController
     @path = params[:path]
     @restaurant = Restaurant.find_by(path: @path)
     @basket = cookies[:basket]
-    delay_time_minutes = @restaurant.delay_time_minutes
-    delay_time_minutes = 30 if delay_time_minutes.blank? 
+    # delay_time_minutes = @restaurant.delay_time_minutes
+    # delay_time_minutes = 30 if delay_time_minutes.blank? 
     
-    t = Time.new.in_time_zone('Europe/London') + delay_time_minutes.minutes
-    rounded_t = Time.local(t.year, t.month, t.day, t.hour, t.min/15*15)
-    @delivery_time_options = ["ASAP"]
-    until rounded_t > Time.local(t.year, t.month, t.day, 22, 00)
-      @delivery_time_options << rounded_t.strftime("%H:%M")
-      rounded_t = rounded_t + 30.minutes
-    end
+    # t = Time.new.in_time_zone('Europe/London') + delay_time_minutes.minutes
+    # rounded_t = Time.local(t.year, t.month, t.day, t.hour, t.min/15*15)
+    # @delivery_time_options = ["ASAP"]
+    # until rounded_t > Time.local(t.year, t.month, t.day, 22, 00)
+    #   @delivery_time_options << rounded_t.strftime("%H:%M")
+    #   rounded_t = rounded_t + 30.minutes
+    # end
+    @delivery_time_options = @restaurant.available_times
+
 
     if @basket
       @basket = JSON.parse(@basket)
@@ -66,7 +68,7 @@ def pay
   @path = params[:path]
   @service_type = params[:service_type]
   @restaurant = Restaurant.find_by(path: @path)
-  @publish_stripe_api_key = @restaurant.stripe_publish_api_key
+  @publish_stripe_api_key = @restaurant.stripe_pk_api_key
 
   if @basket
     @basket = JSON.parse(@basket)
@@ -128,7 +130,7 @@ def stripe
  
     items = @basket['ids']
 
-    Stripe.api_key = @restaurant.stripe_api_key
+    Stripe.api_key = @restaurant.stripe_sk_api_key
 
     token = params[:token]
 

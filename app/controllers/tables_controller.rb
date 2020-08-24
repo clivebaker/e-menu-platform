@@ -80,7 +80,7 @@ class TablesController < ApplicationController
 
   def pay
     @table = Table.find(params[:table_id])
-    @publish_stripe_api_key = @table.restaurant.stripe_publish_api_key
+    @publish_stripe_api_key = @table.restaurant.stripe_pk_api_key
   end
 
   def stripe
@@ -90,7 +90,7 @@ class TablesController < ApplicationController
     @table = Table.find(params[:table_id])
     @restaurant = @table.restaurant
 
-    Stripe.api_key = @restaurant.stripe_api_key
+    Stripe.api_key = @restaurant.stripe_sk_api_key
 
     token = params[:token]
     price = params[:price].to_i

@@ -168,6 +168,7 @@ if (service_type == 'delivery'){
   $('#delivery-info').show();
   $('#pay-now-button').hide();
   $('#help-info').hide();
+  $('#kitchen-delay').hide();
 
 } else if (service_type == 'collection') {
 
@@ -183,6 +184,7 @@ if (service_type == 'delivery'){
   $('#delivery-info').show();
   $('#pay-now-button').hide();
   $('#help-info').hide();
+  $('#kitchen-delay').hide();
 
 } else if (service_type == 'tableservice') {
 
@@ -198,6 +200,8 @@ if (service_type == 'delivery'){
   $('#delivery-info').show();
   $('#pay-now-button').hide();
   $('#help-info').hide();
+  $('#kitchen-delay').show();
+
 
 }
 
@@ -218,6 +222,7 @@ $('#delivery-fee').hide();
 // $('#basket-total').hide();
 $('#pay-now-button').hide();
 $('#delivery-info').hide();
+$('#kitchen-delay').hide();
 
 
 
@@ -257,16 +262,23 @@ $('#delivery-info').hide();
             Please choose Service type
           </div>
         </div>
+
         <div class="row bg-dark">
           <div class='col-sm-12 col-md-12 text-center text-light pb-2'>
             <%= select_tag :service_type, options_for_select(service_types), {prompt: 'Choose Service', class: ' form-control'}%>
           </div>
         </div>
-
+        <% if @restaurant.opening_time_kitchen_delay_minutes > 0 %>
+        <div class="row bg-dark  border border-danger " id='kitchen-delay'>
+          <div class='col-sm-12 col-md-12 text-center text-danger pb-2'>
+            Please Note: The kitchen is busy and there could be up to <%= @restaurant.opening_time_kitchen_delay_minutes %> minutes delay
+          </div>
+        </div>
+        <% end %>
         <div class="row bg-dark" id='time-field'>
           <div class='col-sm-12 col-md-12 text-left text-light mb-3'>
             <%= label_tag :time %> 
-            <%= select_tag :collection_time, options_for_select(@delivery_time_options), { class: "border p-2 bg-light form-control"} %>
+            <%= select_tag :collection_time, options_for_select(@delivery_time_options.map{|s| [s[:text], s[:value]]}), { class: "border p-2 bg-light form-control"} %>
           </div>
         </div>
         <div class="row bg-dark">

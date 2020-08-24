@@ -48,6 +48,11 @@ module Manager
       respond_to do |format|
         if @menu.save
 
+          if @menu.node_type == 'menu'
+            @menu.root_node_id = @menu.id
+            @menu.save
+          end
+
           @menu.translate
           redirect_location = @menu.node_type == 'item' ? manager_restaurant_menu_path(@restaurant, @menu, updated_menu: @menu.id) : manager_restaurant_menus_path(@restaurant, updated_menu: @menu.id)
           format.html { redirect_to redirect_location, notice: 'Menu was successfully created.' }
