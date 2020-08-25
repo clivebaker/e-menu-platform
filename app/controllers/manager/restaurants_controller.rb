@@ -4,8 +4,8 @@ module Manager
   class RestaurantsController < Manager::BaseController
     before_action :authenticate_manager_restaurant_user!
 
-    before_action :set_restaurant_new, only: %i[show edit update]
-    before_action :set_restaurant, only: %i[active toggle_active]
+    before_action :set_restaurant_new, only: %i[show edit update ]
+    before_action :set_restaurant, only: %i[active toggle_active set_delay]
     before_action :set_cuisine, only: %i[new create show edit update]
 
 
@@ -113,15 +113,38 @@ module Manager
       end
     end
 
+
+    def set_delay
+   
+      value = params[:value]
+      # restaurant_id = params[:restaurant_id]
+      redirect_path = params[:redirect_path]
+
+      ot = @restaurant.opening_time
+      ot.kitchen_delay_minutes = value.to_i
+      ot.save
+
+      path = manager_live_orders_path(@restaurant) if redirect_path == 'orders'
+      path = manager_live_food_path(@restaurant) if redirect_path == 'food'
+      path = manager_live_drinks_path(@restaurant) if redirect_path == 'drinks'
+    
+   
+      respond_to do |format|
+          format.html { redirect_to path, notice: 'Kitchen Delay Updated' }
+      end
+   
+    end
+
+
     private
 
     # Use callbacks to share common setup or constraints between actions.
     def set_restaurant_new
       
-       @restaurant = Restaurant.find(params[:id])
-       unless current_manager_restaurant_user.id == @restaurant.restaurant_user_id
+      @restaurant = Restaurant.find(params[:id])
+      unless current_manager_restaurant_user.id == @restaurant.restaurant_user_id
          raise NotValidRestaurant
-    end
+      end
     
 
     end

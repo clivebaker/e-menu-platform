@@ -85,6 +85,9 @@ Rails.application.routes.draw do
 
     resources :cuisines
     resources :restaurants do
+
+      post 'set_delay'
+
       resources :opening_times
       resources :delivery_postcodes
 

@@ -6,6 +6,16 @@ module Manager
     before_action :set_restaurant, except: [:send_receipt, :orders_broadcast]
     before_action :set_item_screens, except: [:send_receipt, :orders_broadcast]
     
+    layout :layout_chooser
+
+
+    def layout_chooser
+      if ['food','drinks','orders'].include?(params[:action])
+        'live_screen_manager'
+      end
+      
+    end
+
     def tables
       @restaurant_tables = RestaurantTable.where(restaurant_id: @restaurant.id).order(:number)
     end

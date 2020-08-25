@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
+
+    <title><%= content_for?(:title) ? yield(:title) : "Restaurant Menus re-defined" %></title>
+
+    <%= stylesheet_link_tag    "application" %>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <%= javascript_include_tag "application"%>
+
+
+    <%= csrf_meta_tags %>
+  </head>
+
+  <body>
+
+    <%= render 'manager/components/global/topnav' %>
+    <%= render 'manager/components/restaurant/navigation' if current_manager_restaurant_user %>
+
+    <%= render 'components/global/messages' %>
+    <div class="container-fluid px-0">
+      <%= yield %>
+
+    </div>
+    <%= yield :js %>
+    <%= yield :channels %>
+  </body>
+</html>

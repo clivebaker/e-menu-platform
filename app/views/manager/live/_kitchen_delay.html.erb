@@ -1,0 +1,17 @@
+
+<div class='row mt-2'>
+    <div class='col-sm-3 text-center'>
+      Current Delay: <%= @restaurant.opening_time_kitchen_delay_minutes %> minutes 
+    </div>
+    <%
+      redirect_path = params[:action]
+    %>
+
+    <div class='col text-center'>
+      <%= link_to 'Clear Delay', manager_restaurant_set_delay_path(@restaurant, value: 0, redirect_path: redirect_path), method: :post, class: 'btn btn-success btn-sm', id: 'accept-button'%> | 
+      <%= link_to 'Delay 15 Mins', manager_restaurant_set_delay_path(@restaurant, value: 15, redirect_path: redirect_path), method: :post, class: 'btn btn-warning btn-sm', id: 'accept-button'%> | 
+      <%= link_to 'Delay 30 Mins', manager_restaurant_set_delay_path(@restaurant, value: 30, redirect_path: redirect_path), method: :post, class: 'btn btn-warning btn-sm', id: 'accept-button'%> | 
+      <%= link_to 'Delay 45 Mins', manager_restaurant_set_delay_path(@restaurant, value: 45, redirect_path: redirect_path), method: :post, class: 'btn btn-warning btn-sm', id: 'accept-button'%> | 
+      <%= link_to 'Delay 60 Mins', manager_restaurant_set_delay_path(@restaurant, value: 60, redirect_path: redirect_path), method: :post, class: 'btn btn-warning btn-sm', id: 'accept-button'%> | 
+    </div>
+</div>
