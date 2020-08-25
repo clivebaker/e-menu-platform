@@ -117,7 +117,8 @@ Rails.application.routes.draw do
     end
     devise_for :restaurant_users, path: 'manager', controllers: {
       sessions: 'manager/restaurant_users/sessions',
-      registrations: 'manager/restaurant_users/registrations'
+      registrations: 'manager/restaurant_users/registrations',
+      passwords: 'manager/restaurant_users/passwords'
     }
   end
 
