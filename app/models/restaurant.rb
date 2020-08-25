@@ -50,6 +50,29 @@ class Restaurant < ApplicationRecord
     end
   end
 
+  def is_open
+    t = Time.new.in_time_zone('Europe/London')
+    today_day = t.strftime("%A").downcase
+    today_opening_time = opening_time_times[today_day]['open']
+    today_closing_time = opening_time_times[today_day]['close']
+    time_today_opening = Time.parse("#{t.year}-#{t.month}-#{t.day} #{today_opening_time}:00 +01:00")
+    time_today_closing = Time.parse("#{t.year}-#{t.month}-#{t.day} #{today_closing_time}:00 +01:00") - opening_time_kitchen_delay_minutes.minutes
+    time_today_opening < t and t < time_today_closing
+  end
+  def is_closing(notice = 0)
+    t = Time.new.in_time_zone('Europe/London')
+    today_day = t.strftime("%A").downcase
+    today_opening_time = opening_time_times[today_day]['open']
+    today_closing_time = opening_time_times[today_day]['close']
+    time_today_opening = Time.parse("#{t.year}-#{t.month}-#{t.day} #{today_opening_time}:00 +01:00")
+    time_today_closing = Time.parse("#{t.year}-#{t.month}-#{t.day} #{today_closing_time}:00 +01:00") - opening_time_kitchen_delay_minutes.minutes
+
+    ((time_today_closing - t)/60).to_i
+
+    
+  end
+    
+
 
   def available_times
     dtm = opening_time_delay_time_minutes 
@@ -58,33 +81,43 @@ class Restaurant < ApplicationRecord
     t = Time.new.in_time_zone('Europe/London') + dtm.minutes
     tomorrow = Time.new.in_time_zone('Europe/London') + 1.day
     #  binding.pry
-    rounded_t = Time.local(t.year, t.month, t.day, t.hour, t.min/15*15)
+    # rounded_t = Time.local(t.year, t.month, t.day, t.hour, t.min/15*15)
+    rounded_t = Time.parse("#{t.year}-#{t.month}-#{t.day} #{t.hour}:#{t.min/15*15}:00 +01:00")
+    
     delivery_time_options = [{value: "ASAP", text: "ASAP"}]
 
-
+    
 
     today_day = t.strftime("%A").downcase
     tomorrow_day = (tomorrow).strftime("%A").downcase
     today_opening_time = opening_time_times[today_day]['open']
     today_closing_time = opening_time_times[today_day]['close']
-    time_today_opening = Time.local(t.year, t.month, t.day, today_opening_time.split(':').first, today_opening_time.split(':').last)
-    time_today_closing = Time.local(t.year, t.month, t.day, today_closing_time.split(':').first, today_closing_time.split(':').last)
+    # time_today_opening = Time.local(t.year, t.month, t.day, today_opening_time.split(':').first, today_opening_time.split(':').last)
+    # time_today_opening = Time.local(t.year, t.month, t.day, today_opening_time.split(':').first, today_opening_time.split(':').last)
+    
+    time_today_opening = Time.parse("#{t.year}-#{t.month}-#{t.day} #{today_opening_time}:00 +01:00")
+    time_today_closing = Time.parse("#{t.year}-#{t.month}-#{t.day} #{today_closing_time}:00 +01:00")
+
     
     
     tomorrow_opening_time = opening_time_times[tomorrow_day]['open']
     tomorrow_closing_time = opening_time_times[tomorrow_day]['close']
-    time_tomorrow_opening = Time.local(tomorrow.year, tomorrow.month, tomorrow.day, tomorrow_opening_time.split(':').first, tomorrow_opening_time.split(':').last)
-    time_tomorrow_closing = Time.local(tomorrow.year, tomorrow.month, tomorrow.day, tomorrow_closing_time.split(':').first, tomorrow_closing_time.split(':').last)
+    # time_tomorrow_opening = Time.local(tomorrow.year, tomorrow.month, tomorrow.day, tomorrow_opening_time.split(':').first, tomorrow_opening_time.split(':').last)
+    # time_tomorrow_closing = Time.local(tomorrow.year, tomorrow.month, tomorrow.day, tomorrow_closing_time.split(':').first, tomorrow_closing_time.split(':').last)
 
+    time_tomorrow_opening = Time.parse("#{tomorrow.year}-#{tomorrow.month}-#{tomorrow.day} #{tomorrow_opening_time}:00 +01:00")
+    time_tomorrow_closing = Time.parse("#{tomorrow.year}-#{tomorrow.month}-#{tomorrow.day} #{tomorrow_closing_time}:00 +01:00")
 
-    until rounded_t > Time.local(t.year, t.month, t.day, today_closing_time.split(':').first, today_closing_time.split(':').last)
+    
+
+    until rounded_t > time_today_closing - opening_time_kitchen_delay_minutes.minutes
       if rounded_t > t   
           delivery_time_options << {value: rounded_t.strftime("%H:%M"), text: "Today: #{rounded_t.strftime("%H:%M")}"} 
       end
       rounded_t = rounded_t + 15.minutes
     end
 
-    until rounded_t > Time.local(tomorrow.year, tomorrow.month, tomorrow.day, tomorrow_closing_time.split(':').first, tomorrow_closing_time.split(':').last)
+    until rounded_t > time_tomorrow_closing #Time.local(tomorrow.year, tomorrow.month, tomorrow.day, tomorrow_closing_time.split(':').first, tomorrow_closing_time.split(':').last)
       if rounded_t > time_tomorrow_opening   
           delivery_time_options << {value: rounded_t.strftime("%H:%M"), text: "Tomorrow: #{rounded_t.strftime("%H:%M")}"} 
       end

@@ -254,7 +254,7 @@ $('#kitchen-delay').hide();
       service_types = []
       service_types << ['Collection', 'collection'] if is_takeaway?(@restaurant) 
       service_types << ['Delivery', 'delivery'] if is_delivery?(@restaurant)
-      service_types << ['Table Service', 'tableservice'] if is_tableservice?(@restaurant)
+      service_types << ['Table Service', 'tableservice'] if is_tableservice?(@restaurant) and @restaurant.is_open
       %>
 
         <div class="row bg-dark" id='help-info'>

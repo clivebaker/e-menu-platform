@@ -16,6 +16,7 @@ module Emenu
     config.i18n.fallbacks = true
     config.autoload_paths += Dir[Rails.root.join('app', 'models', '{**}')]
 
+
     config.action_mailer.delivery_method = :mailjet_api
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers
