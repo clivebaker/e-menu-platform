@@ -1,7 +1,6 @@
-# frozen_string_literal: true
-
 Rails.application.routes.draw do
-
+ 
+  
 
 
 
@@ -163,3 +162,7 @@ get 'receipt/:receipt_id/key/:item_screen_type_key/print/:printer_id', to: 'mana
 
   root 'home#index'
 end
+
+
+
+
