@@ -65,6 +65,9 @@ class OrderController < ApplicationController
 end
 
 def pay
+
+  @redirect_domain =  Rails.application.credentials.dig(:apple_pay, :redirect_domain)
+
   @path = params[:path]
   @service_type = params[:service_type]
   @restaurant = Restaurant.find_by(path: @path)
