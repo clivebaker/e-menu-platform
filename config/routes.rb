@@ -7,6 +7,11 @@ Rails.application.routes.draw do
 
 
 
+  resources :raspberry_pi_updates do
+    collection do
+      get :ping
+    end
+  end
   # namespace :manager do
   #   resources :printers
   # end

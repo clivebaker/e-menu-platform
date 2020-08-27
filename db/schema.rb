@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_26_134014) do
+ActiveRecord::Schema.define(version: 2020_08_27_115628) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -232,6 +232,13 @@ ActiveRecord::Schema.define(version: 2020_08_26_134014) do
     t.bigint "restaurant_id"
     t.index ["pi_interface_id"], name: "index_printers_on_pi_interface_id"
     t.index ["restaurant_id"], name: "index_printers_on_restaurant_id"
+  end
+
+  create_table "raspberry_pi_updates", force: :cascade do |t|
+    t.string "version"
+    t.text "payload"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "receipts", force: :cascade do |t|

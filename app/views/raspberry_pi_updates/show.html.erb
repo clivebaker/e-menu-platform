@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Version:</strong>
+  <%= @raspberry_pi_update.version %>
+</p>
+
+<p>
+  <strong>Payload:</strong>
+  <%= @raspberry_pi_update.payload %>
+</p>
+
+<%= link_to 'Edit', edit_raspberry_pi_update_path(@raspberry_pi_update) %> |
+<%= link_to 'Back', raspberry_pi_updates_path %>

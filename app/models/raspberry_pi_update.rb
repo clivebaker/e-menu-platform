@@ -1,0 +1,2 @@
+class RaspberryPiUpdate < ApplicationRecord
+end
