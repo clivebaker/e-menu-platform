@@ -9,7 +9,7 @@ class RaspberryPiUpdatesController < ApplicationController
 
 
   def ping
-    render json: 'ok'
+    render json: {ok: true}
   end
   
 
