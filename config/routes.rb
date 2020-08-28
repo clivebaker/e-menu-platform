@@ -12,6 +12,7 @@ Rails.application.routes.draw do
     collection do
       get :latest
       get :version
+      get :files
     end
   end
   # namespace :manager do
