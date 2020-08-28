@@ -7,9 +7,23 @@ class RaspberryPiUpdatesController < ApplicationController
     @raspberry_pi_updates = RaspberryPiUpdate.all
   end
 
+  def latest
+    raspberry_pi_update = RaspberryPiUpdate.last
+    if raspberry_pi_update.present?
+      render inline: raspberry_pi_update.payload
+    else
+      render inline: "sdf"
+    end
+  end
 
-  def ping
-    render json: {ok: true}
+
+  def version
+    raspberry_pi_update = RaspberryPiUpdate.last
+    if raspberry_pi_update.present?
+      render json: {version: raspberry_pi_update.version}  
+    else
+      render json: {version: '0.0.0'} 
+    end
   end
   
 

@@ -10,7 +10,8 @@ Rails.application.routes.draw do
   resources :raspberry_pi_statuses
   resources :raspberry_pi_updates do
     collection do
-      get :ping
+      get :latest
+      get :version
     end
   end
   # namespace :manager do
