@@ -8,12 +8,12 @@ class OrderController < ApplicationController
     @basket = cookies[:basket]
     if @basket
       @basket = JSON.parse(@basket)
-      basket_items = @basket['items'].reject{|a| a['uuid'] == params[:uuid]}
+      # basket_items = @basket['items'].reject{|a| a['uuid'] == params[:uuid]}
       basket_ids = @basket['ids'].reject{|a| a['uuid'] == params[:uuid]}
       cookies[:basket] = {
         restaurant: @path,
         count: basket_ids.count,
-        items: basket_items,
+        # items: basket_items,
         ids: basket_ids 
       }.to_json
     end
@@ -55,7 +55,7 @@ class OrderController < ApplicationController
     if @basket
       @basket = JSON.parse(@basket)
       @basket_item_count = @basket['count']
-      @basket_item_total =  (@basket['items'].map{|d| d['total']}.inject(:+)*100.to_f).to_i
+      @basket_item_total =  (@basket['ids'].map{|d| d['total']}.inject(:+)*100.to_f).to_i
     end
     # @publish_stripe_api_key = ENV['PUBLISH_STRIPE_API_KEY'] || Rails.application.credentials.dig(:stripe, :publish_api_key) 
 
@@ -76,7 +76,7 @@ def pay
   if @basket
     @basket = JSON.parse(@basket)
     @basket_item_count = @basket['count']
-    @basket_item_total =  (@basket['items'].map{|d| d['total']}.inject(:+)*100.to_f).to_i
+    @basket_item_total =  (@basket['ids'].map{|d| d['total']}.inject(:+)*100.to_f).to_i
   end
 
 
@@ -128,7 +128,7 @@ def stripe
     if @basket
       @basket = JSON.parse(@basket)
       @basket_item_count = @basket['count']
-      @basket_item_total =  @basket['items'].map{|d| d['total']}.inject(:+)
+      @basket_item_total =  @basket['ids'].map{|d| d['total']}.inject(:+)
     end
  
     items = @basket['ids']
@@ -156,7 +156,7 @@ def stripe
       uuid: SecureRandom.uuid,
       restaurant_id: @restaurant.id,
       basket_total: price,
-      items: @basket,
+      items: basket_build(@basket['ids']),
       email: @email,
       name: @name,
       collection_time: @collection_time,
@@ -238,12 +238,38 @@ def stripe
     @menu2 = get_serialized_menu(@restaurant)
     
     if cookies[:basket]
-      @basket = JSON.parse(cookies[:basket])
-      @basket_item_count = @basket['count']
+      @basket_ids = JSON.parse(cookies[:basket])
+      @basket = basket_build(@basket_ids['ids'])
+      @basket_item_count = @basket_ids['count']
+      #BASKET TODO
+      # binding.pry
       @basket_item_total = @basket['items'].map{|d| d['total']}.inject(:+)
     end
   end
 
+
+  def basket_build(ids)
+    basket_items = []
+    ids.each do |id|
+      menu_item = Menu.find(id['item'])
+      optionals = CustomListItem.where(id: id['optionals'])
+      
+      sort_order = @restaurant.custom_list_ids
+      lookup = {}
+      sort_order.each_with_index do |item, index|
+        lookup[item] = index
+      end
+
+      cl = optionals.sort_by do |item|
+        lookup.fetch(item.custom_list_id)
+      end
+      basket_items << {'uuid' => id['uuid'], 'total' => id['total'], 'note' => id['note'] ,'item' => "<i>#{menu_item.parent.name}</i> - <strong>#{menu_item.name}</strong>" , 'optionals' => cl.map{|s| "- <strong>#{s.name}</strong>" }, 'item_screen_type_name' => menu_item.item_screen_type_name, 'item_screen_type_key' => menu_item.item_screen_type_key, 'menu_id' => menu_item.id }
+    end
+
+    { 'items' => basket_items }
+
+  end
+  
 
     def get_serialized_menu restaurant
         Rails.cache.fetch("restaurant_order_menu_#{@restaurant.id}", expires_in: 3.hours) do
@@ -292,7 +318,7 @@ def stripe
       path = params[:path]
 
       @basket = JSON.parse(cookies[:basket]) if cookies[:basket]
-      basket_items = @basket.present? ? @basket['items'] : []
+      # basket_items = @basket.present? ? @basket['items'] : []
       basket_ids =  @basket.present? ? @basket['ids'] : []
 
       main_item = params[:main_item]
@@ -324,13 +350,13 @@ def stripe
 
     
       # WITH CATEGORY NAME basket_items << {uuid: uuid, total: total, note: note ,item: "<i>#{menu_item.parent.name}</i> - <strong>#{menu_item.name}</strong>" , optionals: cl.map{|s| "<i>#{s.custom_list_name}</i> - <strong>#{s.name}</strong>" }, item_screen_type_name: menu_item.item_screen_type_name, item_screen_type_key: menu_item.item_screen_type_key, menu_id: menu_item.id }
-      basket_items << {uuid: uuid, total: total, note: note ,item: "<i>#{menu_item.parent.name}</i> - <strong>#{menu_item.name}</strong>" , optionals: cl.map{|s| "- <strong>#{s.name}</strong>" }, item_screen_type_name: menu_item.item_screen_type_name, item_screen_type_key: menu_item.item_screen_type_key, menu_id: menu_item.id }
-      basket_ids << {uuid: uuid, total: total,item: menu_item.id, optionals: cl.map{|s| s.id }, item_screen_type_name: menu_item.item_screen_type_name }
+   #   basket_items << {uuid: uuid, total: total, note: note ,item: "<i>#{menu_item.parent.name}</i> - <strong>#{menu_item.name}</strong>" , optionals: cl.map{|s| "- <strong>#{s.name}</strong>" }, item_screen_type_name: menu_item.item_screen_type_name, item_screen_type_key: menu_item.item_screen_type_key, menu_id: menu_item.id }
+      basket_ids << {uuid: uuid, total: total.round(2), note: note ,item: menu_item.id, optionals: cl.map{|s| s.id }, item_screen_type_key: menu_item.item_screen_type_key, menu_id: menu_item.id, item_screen_type_name: menu_item.item_screen_type_name }
 #  binding.pry
       cookies[:basket] = {
         restaurant: path,
         count: basket_ids.count,
-        items: basket_items,
+   #     items: basket_items,
         ids: basket_ids
     }.to_json
 
