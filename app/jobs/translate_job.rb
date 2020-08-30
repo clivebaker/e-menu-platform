@@ -4,7 +4,8 @@ class TranslateJob < ApplicationJob
   queue_as :default
 
   def perform(menu)
-    translator = Yandex::Translator.new(ENV['YANDEX'])
+    api_key = ENV['YANDEX'] || Rails.application.credentials.dig(:yandex, :api_key) 
+    translator = Yandex::Translator.new(api_key)
     Language.all.each do |language|
       if menu.node_type == 'item'
         translation = translator.translate menu.description, from: 'en', to: language.language_code

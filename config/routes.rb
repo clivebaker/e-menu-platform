@@ -1,13 +1,20 @@
-# frozen_string_literal: true
-
 Rails.application.routes.draw do
+ 
+  
 
 
 
 
 
 
-
+  resources :raspberry_pi_statuses
+  resources :raspberry_pi_updates do
+    collection do
+      get :latest
+      get :version
+      get :files
+    end
+  end
   # namespace :manager do
   #   resources :printers
   # end
@@ -163,3 +170,7 @@ get 'receipt/:receipt_id/key/:item_screen_type_key/print/:printer_id', to: 'mana
 
   root 'home#index'
 end
+
+
+
+

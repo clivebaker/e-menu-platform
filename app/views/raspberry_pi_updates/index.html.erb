@@ -1,0 +1,33 @@
+
+<div class='row m-3'>
+  <div class='col'>
+
+<h1>Raspberry Pi Updates</h1>
+
+<table class='table'>
+  <thead>
+    <tr>
+      <th>Version</th>
+      <th>Payload</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @raspberry_pi_updates.each do |raspberry_pi_update| %>
+      <tr>
+        <td><%= raspberry_pi_update.version %></td>
+        <td><%= raspberry_pi_update.payload %></td>
+        <td><%= link_to 'Show', raspberry_pi_update %></td>
+        <td><%= link_to 'Edit', edit_raspberry_pi_update_path(raspberry_pi_update) %></td>
+        <td><%= link_to 'Destroy', raspberry_pi_update, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Raspberry Pi Update', new_raspberry_pi_update_path %>
+  </div>
+</div>

@@ -140,7 +140,7 @@
         console.log("RESPONSE OKOKOKOKOKOK")
         console.log(response)
         ev.complete('success');
-        window.location.replace('https://eat.emenunow.com' + response.path)
+        window.location.replace('<%= @redirect_domain%>' + response.path)
       });
       
     });

@@ -1,0 +1,2 @@
+class RaspberryPiStatus < ApplicationRecord
+end
