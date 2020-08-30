@@ -354,7 +354,7 @@ def stripe
 
       main_item = params[:main_item]
       items = params[:items].split(',') if params[:items].present?
-      note = params[:note].gsub('|||','.')
+      note = params[:note].gsub('|||','.') if  params[:note].present?
       # binding.pry
       menu_item = Menu.find(main_item)
       optionals = CustomListItem.where(id: items)
