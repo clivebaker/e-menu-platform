@@ -87,8 +87,8 @@
           opt = optionals.join(',')
           if (opt.length < 1){opt = 'nil'}
           url = BASE_URL + '/' + scope + '/' + opt
-          $('#add-to-basket-' + scope).attr("href", url + '/note/' + encodeURIComponent(note).replace(/\./g, '%2E'))
-          console.log("href", url + '/note/' + encodeURIComponent(note).replace(/\./g, '%2E'))
+          $('#add-to-basket-' + scope).attr("href", url + '/note/' + encodeURIComponent(note).replace(/\./g, '%7C%7C%7C'))
+          console.log("href", url + '/note/' + encodeURIComponent(note).replace(/\./g, '%7C%7C%7C'))
         }
 
  
@@ -101,12 +101,6 @@
 
 <% end %>
 
-  <div class="row">
-    <div class="col"> 
-      emenu_basket: <%= cookies[:emenu_basket] %> <br><br>
-    
-    </div>
-  </div>
 
 
 <div class="container-fluid p-0 m-0">
