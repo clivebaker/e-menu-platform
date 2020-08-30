@@ -23,10 +23,22 @@ class OrderController < ApplicationController
       @basket_db.save
       @basket = @basket_db.contents
     end
+
+    path = restaurant_path_path(@path)
+    path = order_menu_section_path(@path, params[:section_id]) if feature_match('menu_in_sections', @restaurant.features)
+
+
     respond_to do |format|
-      format.html { redirect_to restaurant_path_path(@path), notice: 'Removed from basket' }
+      format.html { redirect_to path, notice: 'Removed from basket' }
     end
   end
+
+
+  def feature_match(feature, restaurant_features)
+    restaurant_features.map{|s| s.key.to_sym}.include?(feature.to_sym)
+  end
+
+
 
   def basket
     @path = params[:path]
@@ -392,9 +404,12 @@ def stripe
     }
     @basket_db.save
 
+      path = restaurant_path_path(path)
+      path = order_menu_section_path(@restaurant.path, params[:section_id]) if feature_match('menu_in_sections', @restaurant.features)
+
 
         respond_to do |format|
-          format.html { redirect_to restaurant_path_path(path), notice: 'Added to basket' }
+          format.html { redirect_to path, notice: 'Added to basket' }
         end
 
     end
