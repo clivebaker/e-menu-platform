@@ -1,0 +1,97 @@
+
+
+
+<div class="container-fluid p-0 m-0 background-color" >  <%# style="background: url('/images/restaurant/thesauce/main-bg2.jpg') no-repeat fixed center;" %>
+
+    <div class="container">
+      <div class="row">
+        <div class="col text-left mt-1"> 
+          <% if @restaurant.image.attached? %>
+            <%= image_tag @restaurant.image.variant(resize: "200x200"), class: "img-fluid"  %>
+          <% end %>                
+        </div>
+        <div class="col text-right text-dark"> 
+          <div class='row'>
+            <div class='col pt-3'>
+                <h3>
+                <% if is_takeaway_or_delivery?(@restaurant)%>
+                  <%= link_to checkout_path(@path) do %>
+                    <i class="fas fa-shopping-basket"></i> <%= number_to_currency(@basket_item_total, unit: '£') %>
+                  <% end if @basket %>
+                <% end %>
+                </h3>
+            </div>
+          </div>
+        </div> 
+      </div>
+    </div>
+            
+
+
+
+  <div class='row'>
+    <div class='col-sm-12 col-md-12 col-lg-12 col-xl-8 pb-4'>
+
+   
+      <% menu.each do |m| %>
+        <% if  m[:node_type] == 'menu' %>
+        <div class="row">
+          <div class="col"> 
+            <div class="container">
+            <%   nav_items =  m[:children].map{|a| {name: a[:name], id: a[:id]}} %>
+            
+            <% 
+            if params[:section_id].present?
+              current_section = params[:section_id].to_i
+            else            
+              current_section = nav_items.first[:id] 
+            end
+            %>
+
+            <div class='row bg-dark'>
+              <div class='col '>
+                <div class="scrollmenu">
+                  <% nav_items.each do |nav|%>
+                    <%= link_to nav[:name], order_menu_section_path(@restaurant.path, nav[:id]) %>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+
+
+            <div class='row'>
+              <div class='col-sm-12 col-md-12 col-lg-12 col-xl-12'>
+                <div class="row">
+                  <% m[:children].select{|a| a[:id] == current_section}.each do |section| %>
+                    <% if section[:node_type] == 'section' %>
+                      <div class="col-sm-12 col-lg-12 text-light p-4"> 
+                        <h2 class="text-left section-title"><%= section[:name] %></h2>
+                        <div class='row'>
+                          <% section[:children].each do |item| %>
+                            <%= render 'order/components/item', item: item, secondary_colour: false, no_background: false if section[:node_type] == 'section'  %>
+                          <% end  %>
+                        </div>
+                      </div>
+                    <% end %>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+
+      
+    </div>
+
+    <div class='col-sm-12 col-md-12 col-lg-12 col-xl-4 border'>
+      <div class='col-sm-auto' >
+        <%= render 'order/components/basket' if is_takeaway_or_delivery?(@restaurant)%>
+        </div>
+    </div>
+
+  </div>
+
+</div>

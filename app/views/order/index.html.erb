@@ -79,15 +79,17 @@
         $("#optionals-"+scope).html(optionals.join(','))
         note = $("#notes-"+scope).val()
         
+        section_id = <%= params[:section_id].to_i %>
+
         if (note.length < 1){
-          url = BASE_URL + '/' + scope + '/' + optionals.join(',')
+          url = BASE_URL + '/' + scope + '/' + optionals.join(',') + '?section_id='+section_id
           $('#add-to-basket-' + scope).attr("href", url)
           console.log("href", url)
         } else {
           opt = optionals.join(',')
           if (opt.length < 1){opt = 'nil'}
           url = BASE_URL + '/' + scope + '/' + opt
-          $('#add-to-basket-' + scope).attr("href", url + '/note/' + encodeURIComponent(note).replace(/\./g, '%7C%7C%7C'))
+          $('#add-to-basket-' + scope).attr("href", url + '/note/' + encodeURIComponent(note).replace(/\./g, '%7C%7C%7C')  + '?section_id='+section_id)
           console.log("href", url + '/note/' + encodeURIComponent(note).replace(/\./g, '%7C%7C%7C'))
         }
 
@@ -121,10 +123,19 @@
   </div>
 <% end %>
 
+
+
+
   <div class="row">
     <div class="col"> 
       <%= render 'all' if @restaurant.blank? %>
-      <%= render 'order/components/restaurant_auto', menu: @menu2 if @restaurant.present? %>
+      
+      <% if feature_match('menu_in_sections', @restaurant.features) %>
+        <%= render 'order/components/sections/restaurant_auto', menu: @menu2 if @restaurant.present? %>
+      <% else %>
+        <%= render 'order/components/restaurant_auto', menu: @menu2 if @restaurant.present? %>
+      <% end %>
+
     </div>
   </div>
 </div>
