@@ -242,10 +242,23 @@ def stripe
     @menu = @restaurant.menus_live_menus
     @menu2 = get_serialized_menu(@restaurant)
     
-    # binding.pry
+    
+
     if cookies['emenu_basket']
+    
+      key = JSON.parse(cookies['emenu_basket'])['key']
+      
+       key_restaurant_id = key.split('-').first.to_i
+      #  binding.pry
+       if @restaurant.id != key_restaurant_id
+        cookies.delete :emenu_basket
+        cookies['emenu_basket'] = { key: "#{@restaurant.id}-#{SecureRandom.uuid}"}.to_json
+       end
+
+
+      key = JSON.parse(cookies['emenu_basket'])['key'] 
       # binding.pry
-      @basket_db = Basket.find_or_create_by(key: JSON.parse(cookies['emenu_basket'])['key'])
+      @basket_db = Basket.find_or_create_by(key: key)
       if @basket_db.contents.present?
         @basket_ids = @basket_db.contents
         @basket = basket_build(@basket_ids['ids'])
@@ -256,6 +269,9 @@ def stripe
       # binding.pry
       cookies['emenu_basket'] = { key: "#{@restaurant.id}-#{SecureRandom.uuid}"}.to_json
     end
+
+
+
 
   end
 
