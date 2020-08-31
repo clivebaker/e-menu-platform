@@ -12,7 +12,12 @@ class OrderController < ApplicationController
    @basket = @basket_db.contents
     if @basket
       
+    
       # basket_items = @basket['items'].reject{|a| a['uuid'] == params[:uuid]}
+      remove_basket_ids = @basket['ids'].select{|a| a['uuid'] == params[:uuid]}.first
+      menu_item = Menu.find(remove_basket_ids['item'])
+
+
       basket_ids = @basket['ids'].reject{|a| a['uuid'] == params[:uuid]}
       @basket_db.contents = {
         restaurant: @path,
@@ -24,10 +29,21 @@ class OrderController < ApplicationController
       @basket = @basket_db.contents
     end
 
-    path = restaurant_path_path(@path)
-    path = order_menu_section_path(@path, params[:menu_id], params[:section_id]) if feature_match('menu_in_sections', @restaurant.features) and params[:section_id].present?
 
-    path = order_menu_path(@path, params[:menu_id]) if feature_match('menu_in_sections', @restaurant.features) and params[:section_id].blank?
+    menu_id = params[:menu_id]
+    section_id = params[:section_id]
+    
+    if params[:menu_id].blank? or params[:section_id].blank?
+      ids = menu_item.ancestry.split('/')
+      menu_id = ids.first
+      section_id = ids[1]
+    end
+
+
+
+    path = restaurant_path_path(@path)
+    path = order_menu_section_path(@path, menu_id, section_id) if feature_match('menu_in_sections', @restaurant.features) and params[:section_id].present?
+    path = order_menu_path(@path, menu_id) if feature_match('menu_in_sections', @restaurant.features) and params[:section_id].blank?
 
 
     respond_to do |format|
@@ -406,12 +422,17 @@ def stripe
     }
     @basket_db.save
 
-      path = restaurant_path_path(path)
-      path = order_menu_section_path(@restaurant.path,params[:menu_id], params[:section_id]) if feature_match('menu_in_sections', @restaurant.features)
 
+    menu_id = params[:menu_id] if  params[:menu_id].present?
+    
+      return_path = restaurant_path_path(path)
+
+
+      return_path = order_menu_section_path(path, menu_id, params[:section_id]) if feature_match('menu_in_sections', @restaurant.features)
+# binding.pry
 
         respond_to do |format|
-          format.html { redirect_to path, notice: 'Added to basket' }
+          format.html { redirect_to return_path, notice: 'Added to basket' }
         end
 
     end
