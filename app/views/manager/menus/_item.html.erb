@@ -56,6 +56,9 @@
           <%=sub.description%>
         </div>
         <div class="col-lg-1"> 
+
+          <%= link_to 'toggle', manager_restaurant_menu_path(@restaurant, sub, menu: {available: !sub.available}, index: true),method: :put %>
+
           <% if sub.available %>
           <i class="fa fa-check available">Available</i>
           <% end   %>
