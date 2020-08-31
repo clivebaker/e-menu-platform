@@ -79,8 +79,20 @@
         $("#optionals-"+scope).html(optionals.join(','))
         note = $("#notes-"+scope).val()
         
-        section_id = <%= params[:section_id].to_i %>; 
-        menu_id = <%= params[:menu_id].to_i %>;
+      <% 
+    menu_id = params[:menu_id].to_i if params[:menu_id].present?
+    menu_id = @menu2.first[:id] if params[:menu_id].blank? 
+    current_section = params[:section_id].to_i
+    if params[:section_id].blank?
+      menu = @menu2.select{|w| w[:id] == menu_id }.first
+      nav_items =  menu[:children].map{|a| {name: a[:name], id: a[:id]}} 
+      current_section = nav_items.first[:id] 
+    end
+  %>
+
+
+        section_id = <%= current_section %>; 
+        menu_id = <%= menu_id %>;
 
         if (note.length < 1){
           url = BASE_URL + '/' + scope + '/' + optionals.join(',') + '?section_id='+ section_id + '&menu_id='+menu_id
