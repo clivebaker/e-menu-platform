@@ -25,7 +25,7 @@ class OrderController < ApplicationController
     end
 
     path = restaurant_path_path(@path)
-    path = order_menu_section_path(@path, params[:section_id]) if feature_match('menu_in_sections', @restaurant.features)
+    path = order_menu_section_path(@path, params[:menu_id], params[:section_id]) if feature_match('menu_in_sections', @restaurant.features)
 
 
     respond_to do |format|
@@ -405,7 +405,7 @@ def stripe
     @basket_db.save
 
       path = restaurant_path_path(path)
-      path = order_menu_section_path(@restaurant.path, params[:section_id]) if feature_match('menu_in_sections', @restaurant.features)
+      path = order_menu_section_path(@restaurant.path,params[:menu_id], params[:section_id]) if feature_match('menu_in_sections', @restaurant.features)
 
 
         respond_to do |format|

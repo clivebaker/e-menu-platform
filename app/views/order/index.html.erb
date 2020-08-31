@@ -79,17 +79,18 @@
         $("#optionals-"+scope).html(optionals.join(','))
         note = $("#notes-"+scope).val()
         
-        section_id = <%= params[:section_id].to_i %>
+        section_id = <%= params[:section_id].to_i %>; 
+        menu_id = <%= params[:menu_id].to_i %>;
 
         if (note.length < 1){
-          url = BASE_URL + '/' + scope + '/' + optionals.join(',') + '?section_id='+section_id
+          url = BASE_URL + '/' + scope + '/' + optionals.join(',') + '?section_id='+ section_id + '&menu_id='+menu_id
           $('#add-to-basket-' + scope).attr("href", url)
           console.log("href", url)
         } else {
           opt = optionals.join(',')
           if (opt.length < 1){opt = 'nil'}
           url = BASE_URL + '/' + scope + '/' + opt
-          $('#add-to-basket-' + scope).attr("href", url + '/note/' + encodeURIComponent(note).replace(/\./g, '%7C%7C%7C')  + '?section_id='+section_id)
+          $('#add-to-basket-' + scope).attr("href", url + '/note/' + encodeURIComponent(note).replace(/\./g, '%7C%7C%7C')  + '?section_id='+section_id + '&menu_id='+menu_id)
           console.log("href", url + '/note/' + encodeURIComponent(note).replace(/\./g, '%7C%7C%7C'))
         }
 
