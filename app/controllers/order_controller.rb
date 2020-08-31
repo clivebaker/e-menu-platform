@@ -25,7 +25,9 @@ class OrderController < ApplicationController
     end
 
     path = restaurant_path_path(@path)
-    path = order_menu_section_path(@path, params[:menu_id], params[:section_id]) if feature_match('menu_in_sections', @restaurant.features)
+    path = order_menu_section_path(@path, params[:menu_id], params[:section_id]) if feature_match('menu_in_sections', @restaurant.features) and params[:section_id].present?
+
+    path = order_menu_path(@path, params[:menu_id]) if feature_match('menu_in_sections', @restaurant.features) and params[:section_id].blank?
 
 
     respond_to do |format|
