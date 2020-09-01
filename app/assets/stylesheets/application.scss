@@ -313,6 +313,13 @@ div.scrollmenu::-webkit-scrollbar {
           // border: 1px solid transparent;
           padding: 0 11px;
         }
+ 
+ 
+        .pn-ProductNav_Link:hover {
+          color: #888;
+        }
+ 
+ 
         .pn-ProductNav_Link + .pn-ProductNav_Link {
           border-left-color: #eee;
         }
