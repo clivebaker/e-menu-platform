@@ -50,7 +50,7 @@
           
           <% 
           disable_basket_link = true 
-          if @basket_item_count > 0
+          if @basket_item_count.present? and @basket_item_count > 0
             disable_basket_link = false 
           end
           %>
