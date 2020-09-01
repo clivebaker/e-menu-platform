@@ -303,9 +303,22 @@
             <div class='col pt-3'>
                 <h3>
                 <% if is_takeaway_or_delivery?(@restaurant)%>
+
+
+                        <% 
+                          disable_basket_link = true 
+                          if @basket_item_count > 0
+                            disable_basket_link = false 
+                          end
+                        %>
+
+                 <% unless disable_basket_link %>  
                   <%= link_to checkout_path(@path) do %>
                     <i class="fas fa-shopping-basket"></i> <%= number_to_currency(@basket_item_total, unit: '£') %>
                   <% end if @basket %>
+                <% end %>
+                
+                
                 <% end %>
                 </h3>
             </div>
@@ -319,13 +332,13 @@
     menu_id = menu.first[:id] if menu_id.blank? 
   %>
 
- <div class="">
-  <div class='row text-left'>
+ <div class="container-fluid ">
+  <div class='row'>
     <div class='col-sm-12 col-md-12 col-lg-12 col-xl-8 pb-1'>
       <div class="row">
       <% menu_nav = menu.map{|a| {name: a[:name], menu_id: a[:id]}}%>
         <% menu_nav.each do |menu| %>
-        <div class="col p-0 m-1"> 
+        <div class="col p-0 m-1 ml-5 mr-5"> 
         <% button_css = menu[:menu_id] == menu_id ? 'btn-outline-dark' : 'btn-dark'%>
           <%= link_to menu[:name], order_menu_path(@restaurant.path, menu[:menu_id]), class: "btn #{button_css} btn-block" %>
         </div>
@@ -334,9 +347,11 @@
     </div>
    <div class='col-xl-4 pb-1'>
   </div>
-
   </div>
 </div>
+
+
+
 
 
 

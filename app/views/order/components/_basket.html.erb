@@ -47,7 +47,14 @@
         </div>
         <div class="row pb-2 bg-light-70">
           <div class="col"> 
-            <%= link_to "CHECKOUT", checkout_path(@path), class: 'btn btn-dark btn-block'%>
+          
+          <% 
+          disable_basket_link = true 
+          if @basket_item_count > 0
+            disable_basket_link = false 
+          end
+          %>
+            <%= button_to "CHECKOUT", checkout_path(@path), disabled: disable_basket_link, method: :get,  class: 'btn btn-dark btn-block'%>
           </div>
         </div>
 
