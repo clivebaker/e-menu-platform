@@ -23,10 +23,25 @@
                   <div class='col pt-3'>
                       <h3>
                       <% if is_takeaway_or_delivery?(@restaurant)%>
+
+
+                        <% 
+                          disable_basket_link = true 
+                          if @basket_item_count.present? and @basket_item_count > 0
+                            disable_basket_link = false 
+                          end
+                        %>
+          
+                        <% unless disable_basket_link %>
+
                         <%= link_to checkout_path(@path) do %>
                           <i class="fas fa-shopping-basket"></i> <%= number_to_currency(@basket_item_total, unit: '£') %>
-                        <% end if @basket %>
+                        <% end %>
+                        
+                       
                       <% end %>
+ <% end if @basket %>
+
                       </h3>
                   </div>
                 </div>

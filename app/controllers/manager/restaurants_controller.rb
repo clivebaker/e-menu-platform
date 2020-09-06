@@ -47,6 +47,7 @@ module Manager
         end
           @restaurant.save  
 
+          Rails.cache.delete("api/restaurant/#{@restaurant.id}/menu")
           Rails.cache.delete("restaurant_order_menu_#{@restaurant.id}")
 
        respond_to do |format|

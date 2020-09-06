@@ -12,7 +12,12 @@ class OrderController < ApplicationController
    @basket = @basket_db.contents
     if @basket
       
+    
       # basket_items = @basket['items'].reject{|a| a['uuid'] == params[:uuid]}
+      remove_basket_ids = @basket['ids'].select{|a| a['uuid'] == params[:uuid]}.first
+      menu_item = Menu.find(remove_basket_ids['item'])
+
+
       basket_ids = @basket['ids'].reject{|a| a['uuid'] == params[:uuid]}
       @basket_db.contents = {
         restaurant: @path,
@@ -23,10 +28,35 @@ class OrderController < ApplicationController
       @basket_db.save
       @basket = @basket_db.contents
     end
+
+
+    menu_id = params[:menu_id]
+    section_id = params[:section_id]
+    
+    if params[:menu_id].blank? or params[:section_id].blank?
+      ids = menu_item.ancestry.split('/')
+      menu_id = ids.first
+      section_id = ids[1]
+    end
+
+
+
+    path = restaurant_path_path(@path)
+    path = order_menu_section_path(@path, menu_id, section_id) if feature_match('menu_in_sections', @restaurant.features) and params[:section_id].present?
+    path = order_menu_path(@path, menu_id) if feature_match('menu_in_sections', @restaurant.features) and params[:section_id].blank?
+
+
     respond_to do |format|
-      format.html { redirect_to restaurant_path_path(@path), notice: 'Removed from basket' }
+      format.html { redirect_to path, notice: 'Removed from basket' }
     end
   end
+
+
+  def feature_match(feature, restaurant_features)
+    restaurant_features.map{|s| s.key.to_sym}.include?(feature.to_sym)
+  end
+
+
 
   def basket
     @path = params[:path]
@@ -393,8 +423,16 @@ def stripe
     @basket_db.save
 
 
+    menu_id = params[:menu_id] if  params[:menu_id].present?
+    
+      return_path = restaurant_path_path(path)
+
+
+      return_path = order_menu_section_path(path, menu_id, params[:section_id]) if feature_match('menu_in_sections', @restaurant.features)
+# binding.pry
+
         respond_to do |format|
-          format.html { redirect_to restaurant_path_path(path), notice: 'Added to basket' }
+          format.html { redirect_to return_path, notice: 'Added to basket' }
         end
 
     end
