@@ -19,6 +19,8 @@
 
 
     <%= csrf_meta_tags %>
+
+    <%= render 'order/components/facebook_pixel' if Rails.env != 'production' and @restaurant.facebook_pixel.present? %>
   </head>
 
   <body>
