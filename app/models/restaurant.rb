@@ -31,6 +31,13 @@ class Restaurant < ApplicationRecord
   before_create :set_slug
 
   has_one_attached :image
+  has_one_attached :background_image
+
+  def background
+    if subtle_background.present? and subtle_background != 'None'
+      back = "/background/#{subtle_background}.png"
+    end
+ end
 
 
   def stripe_sk_api_key
