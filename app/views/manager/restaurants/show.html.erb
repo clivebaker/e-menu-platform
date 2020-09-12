@@ -206,6 +206,29 @@
       <div class="col-12">
 
 
+
+
+          <div class="row border-bottom border-gray">
+            <div class="col-sm-6">
+              <div class="text-muted pt-3">
+                <p class="pb-3 mb-0 lh-125 ">
+                  <strong class="d-block text-gray-dark">Background Image</strong>
+                    <%= image_tag @restaurant.background_image.variant(resize: "200x200"), class: "img-fluid" if @restaurant.background_image.attached?  %>
+                </p>
+              </div>       
+            </div>
+            <div class="col-sm-6">
+              <div class="text-muted pt-3">
+                <p class="pb-3 mb-0 lh-125 ">
+                  <strong class="d-block text-gray-dark">Subtle Background Image</strong>
+                    <%= image_tag "/background/#{@restaurant.subtle_background}.png", class: "img-fluid", width: '200' if @restaurant.subtle_background.present? and @restaurant.subtle_background != 'None'  %>
+                </p>
+              </div>       
+            </div>
+          </div>
+
+
+
           <div class="row">
             <div class="col-sm">
               <div class="media text-muted pt-3">
@@ -220,7 +243,6 @@
                   <%= @restaurant.css_font_class %>
                 </p>
               </div>
-
             </div>
           </div>
 

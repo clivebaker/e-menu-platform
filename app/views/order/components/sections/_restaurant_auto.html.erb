@@ -287,13 +287,19 @@
 
 
 
+<%
+style = "background: url('#{url_for(@restaurant.background_image)}') no-repeat fixed center;" if @restaurant.background_image.attached? and @restaurant.background.blank?
+style = "background: url('#{@restaurant.background}') ;" if @restaurant.background.present?
+%>
 
 
-<div class="container-fluid p-0 m-0 background-color" >  <%# style="background: url('/images/restaurant/thesauce/main-bg2.jpg') no-repeat fixed center;" %>
+
+
+<div class="container-fluid p-0 m-0 background-color" style="<%= style %>" >
 
     <div class="container">
       <div class="row">
-        <div class="col text-left mt-1"> 
+        <div class="col text-left mt-1 mb-3"> 
           <% if @restaurant.image.attached? %>
             <%= image_tag @restaurant.image.variant(resize: "200x200"), class: "img-fluid"  %>
           <% end %>                

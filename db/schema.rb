@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_11_155723) do
+ActiveRecord::Schema.define(version: 2020_09_12_190538) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -332,6 +332,7 @@ ActiveRecord::Schema.define(version: 2020_09_11_155723) do
     t.integer "delay_time_minutes"
     t.boolean "show_on_homepage"
     t.string "facebook_pixel"
+    t.string "subtle_background"
     t.index ["cuisine_id"], name: "index_restaurants_on_cuisine_id"
     t.index ["restaurant_user_id"], name: "index_restaurants_on_restaurant_user_id"
   end

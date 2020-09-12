@@ -306,31 +306,30 @@ $('#kitchen-delay').hide();
         <% if is_delivery?(@restaurant)%>
           <%# Address %>
           <div class="row bg-dark text-light" id='address-field' >
-            <div class='col text-left'>
+            <div class='col-sm-12 text-left'>
               <%= label_tag :address %> <strong id='address_required' class='text-danger'>*</strong>
               <div class="row bg-dark">
-                <div class='col'>
+                <div class='col-sm-12 '>
                   <%# Left %>
                   <label>House number <strong id='house_number_required' class='text-danger'>* </strong> and street <strong id='street_required' class='text-danger'>*</strong></label> 
                   <div class="row bg-dark">
-                    <div class='col-4 form-group'>
-                      <%= text_field_tag :house_number,  nil, class: "border p-2 bg-light form-control validation_check", placeholder: 'No.' %>    
+                    <div class='col-4 form-group pr-1'>
+                      <%= text_field_tag :house_number,  nil, class: "border  bg-light form-control validation_check", placeholder: 'No.' %>    
                     </div>
-                    <div class='col-8 form-group'>
-                      <%= text_field_tag :street,  nil, class: "border p-2 bg-light form-control validation_check", placeholder: 'Street' %>
+                    <div class='col-8 form-group pl-1 '>
+                      <%= text_field_tag :street,  nil, class: "border bg-light form-control validation_check", placeholder: 'Street' %>
                     </div>
                   </div>
-                 
                 </div>
-                <div class='col'>
+                <div class='col-sm-12 '>
                   <%# Right %>
                   <%= label_tag :postcode %> <strong id='postcode_required' class='text-danger'>* </strong>
                   <div class="row bg-dark">
-                    <div class='col form-group m-0 p-0 ml-2'>
+                    <div class='col form-group pr-1'>
                       <%= select_tag :postcode_prefix, options_for_select(@restaurant.delivery_postcodes.map{|a| [a.prefix, a.delivery_fee]}), {prompt: "Postcode start", class: "border p-2 bg-light form-control delivery_fee_calculate"} %>  
                       <%= hidden_field_tag :postcode %>
                     </div>
-                    <div class='col form-group m-0 p-0'>
+                    <div class='col form-group pl-1'>
                       <%= text_field_tag :postcode_suffix,  nil, class: "border p-2 bg-light form-control validation_check", placeholder: 'Post Code end' %>  
                     </div>
                   </div>
