@@ -197,13 +197,80 @@
   <!-- Styling -->
 
 
-  <div class="row">
-    <div class="col">
-      <h3>Custom Font</h3>
+  <div class="row mt-5 border-bottom border-gray">
+      <div class="col">
+        <div class="form-group ">
+          <%= form.label :background_image %>
+          <%= form.file_field :background_image %>
+        </div>
+      </div>
+      <div class="col">
+        <div class="form-group ">
+           <% if restaurant.background_image.attached? %>
+              <%= image_tag restaurant.background_image.variant(resize: "200x200"), class: "img-fluid"  %>
+            <% end %>
+        </div>
+      </div>
     </div>
+
+
+<% 
+subtle_background_list = [
+{file: 'None', name: 'None'},
+{file: 'wall4_@2X', name: 'Wall'},
+{file: 'asfalt_@2X', name: 'Asfalt'},
+{file: 'binding_light_@2X', name: 'Binding'},
+{file: 'circles-light', name: 'Circles'},
+{file: 'concrete-texture', name: 'Concrete'},
+{file: 'dark_wall_@2X', name: 'Dark Wall'},
+{file: 'debut_light_@2X', name: 'Debut Light'},
+{file: 'furley_bg_@2X', name: 'Furley'},
+{file: 'light-veneer', name: 'Light Veneer'},
+{file: 'lightpaperfibers_@2X', name: 'Paper Fibres'},
+{file: 'prism', name: 'Prism'},
+{file: 'scribble_light_@2X', name: 'Scribble'},
+]
+
+%>
+
+
+
+  <div class="row mt-3 border-bottom border-gray">
+    <div class="col">
+      <div class="row">
+          <div class="col">
+            <div class="form-group ">
+              <%= form.label :subtle_pattern_background %> <small class='text-gray text-warning'><i> WARNING: Choosing a subtle pattern  background will override the uploaded image</i></small>
+              <%= form.select :subtle_background,  options_for_select(subtle_background_list.map{|s| [s[:name], s[:file]]}, restaurant.subtle_background ), {prompt: "Choose Subtle Background"}, {class: 'form-control  form-control-sm'} %>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <div class="form-group ">
+            <div class="card-group">
+              <%subtle_background_list.reject{|a| a[:name]=="None"}.each do |subtle| %>
+
+<div class="card" style="width: 12rem;">
+  <%= image_tag "/background/#{subtle[:file]}.png", class: "img-fluid" %>
+  <div class="card-body">
+    <p class="card-text"><small><%=subtle[:name]%></small></p>
+  </div>
+</div>
+
+
+                   
+                <% end %>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
   </div>
 
-  <div class="row">
+
+
+  <div class="row mt-3">
     <div class="col">
         <div class="form-group ">
           <%= form.label :css_font_url %>
