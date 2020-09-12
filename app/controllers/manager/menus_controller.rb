@@ -99,7 +99,13 @@ module Manager
           end
 
           @menu.translate
+
+          is_index =  params[:index] == 'true'
+
+
+
           redirect_location = @menu.node_type == 'item' ? manager_restaurant_menu_path(@restaurant, @menu, updated_menu: @menu.id) : manager_restaurant_menus_path(@restaurant, updated_menu: @menu.id)
+          redirect_location = manager_restaurant_menus_path(@restaurant, updated_menu: @menu.id) if is_index 
 
           format.html { redirect_to redirect_location, notice: 'Menu was successfully updated.' }
           format.json { render :show, status: :ok, location: @menu }

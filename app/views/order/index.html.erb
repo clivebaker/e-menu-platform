@@ -79,15 +79,30 @@
         $("#optionals-"+scope).html(optionals.join(','))
         note = $("#notes-"+scope).val()
         
+      <% 
+    menu_id = params[:menu_id].to_i if params[:menu_id].present?
+    menu_id = @menu2.first[:id] if params[:menu_id].blank? 
+    current_section = params[:section_id].to_i
+    if params[:section_id].blank?
+      menu = @menu2.select{|w| w[:id] == menu_id }.first
+      nav_items =  menu[:children].map{|a| {name: a[:name], id: a[:id]}} 
+      current_section = nav_items.first[:id] 
+    end
+  %>
+
+
+        section_id = <%= current_section %>; 
+        menu_id = <%= menu_id %>;
+
         if (note.length < 1){
-          url = BASE_URL + '/' + scope + '/' + optionals.join(',')
+          url = BASE_URL + '/' + scope + '/' + optionals.join(',') + '?section_id='+ section_id + '&menu_id='+menu_id
           $('#add-to-basket-' + scope).attr("href", url)
           console.log("href", url)
         } else {
           opt = optionals.join(',')
           if (opt.length < 1){opt = 'nil'}
           url = BASE_URL + '/' + scope + '/' + opt
-          $('#add-to-basket-' + scope).attr("href", url + '/note/' + encodeURIComponent(note).replace(/\./g, '%7C%7C%7C'))
+          $('#add-to-basket-' + scope).attr("href", url + '/note/' + encodeURIComponent(note).replace(/\./g, '%7C%7C%7C')  + '?section_id='+section_id + '&menu_id='+menu_id)
           console.log("href", url + '/note/' + encodeURIComponent(note).replace(/\./g, '%7C%7C%7C'))
         }
 
@@ -121,10 +136,19 @@
   </div>
 <% end %>
 
+
+
+
   <div class="row">
     <div class="col"> 
       <%= render 'all' if @restaurant.blank? %>
-      <%= render 'order/components/restaurant_auto', menu: @menu2 if @restaurant.present? %>
+      
+      <% if feature_match('menu_in_sections', @restaurant.features) %>
+        <%= render 'order/components/sections/restaurant_auto', menu: @menu2 if @restaurant.present? %>
+      <% else %>
+        <%= render 'order/components/restaurant_auto', menu: @menu2 if @restaurant.present? %>
+      <% end %>
+
     </div>
   </div>
 </div>
