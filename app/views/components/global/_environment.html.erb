@@ -1,0 +1,11 @@
+
+<% unless Rails.env == 'production' %>
+<% 
+bg = 'bg-warning'
+bg = 'bg-info' if Rails.env=='development'
+%>
+<div class='row m-0 p-3 <%=bg%>'>
+<div class='col'>
+<%= Rails.env %> environment
+</div></div>
+<% end %>
