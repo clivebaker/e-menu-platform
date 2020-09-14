@@ -22,11 +22,11 @@
   </head>
 
   <body>
-
+    <%= render 'components/global/environment' %>
     <%#= render 'components/global/topnav' %>
 
     <%= render 'components/global/messages' %>
-    <div class="container-fluid px-0 mt-5 pt-2" style='margin-top:100px;'>
+    <div class="container-fluid px-0 mt-0 pt-0" style='margin-top:100px;'>
       <%= yield %>
       <%= render 'components/global/languages' %>
       <%= render 'components/global/footer' %>
