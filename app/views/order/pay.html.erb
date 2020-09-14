@@ -38,6 +38,7 @@
 
     // Handle real-time validation errors from the card Element.
     card.addEventListener('change', function(event) {
+      $("#submit-payment-button").attr('disabled', false);
       var displayError = document.getElementById('card-errors');
       if (event.error) {
         displayError.textContent = event.error.message;
@@ -48,7 +49,7 @@
         displayError.textContent = '';
         $('#card-errors').addClass("invisible");
         $("#submit-payment-button").removeClass("invisible");
-        $("#submit-payment-button").attr('disabled', false);
+        
 
      }
    });
@@ -89,8 +90,9 @@ $("#please-wait").removeClass("invisible");
       // Show error to your customer (e.g., insufficient funds)
       console.log(result.error.message);
        $('#card-errors').removeClass("invisible")
-       $("#submit-payment-button").addClass("invisible");
-            $("#main-payment-form").removeClass("invisible");
+       $('#card-errors').html(result.error.message)
+       $("#submit-payment-button").removeClass("invisible");
+       $("#main-payment-form").removeClass("invisible");
        $("#please-wait").addClass("invisible");
  //      $("#main-payment-form").removeClass("invisible");
     } else {
@@ -279,20 +281,20 @@ $("#please-wait").removeClass("invisible");
 </div>
 
           <form method="post" id="payment-form-success" action="<%=stripe_path(@path)%>" >
-            <%= text_field_tag :price, (@total_payment*100).to_i %>
-            <%= text_field_tag :total, @total_payment %>
-            <%= text_field_tag :service_type, @service_type %>
-            <%= text_field_tag :collection_time, @collection_time %>
-            <%= text_field_tag :table_number, @table_number %>
-            <%= text_field_tag :name, @name %>
-            <%= text_field_tag :telephone, @telephone %>
-            <%= text_field_tag :email, @email %>
-            <%= text_field_tag :house_number, @house_number %>
-            <%= text_field_tag :street, @street %>
-            <%= text_field_tag :postcode, @postcode %>
-            <%= text_field_tag :basket, @basket %>
-            <%= text_field_tag :delivery_fee, @delivery_fee %>
-            <%= text_field_tag :stripe_success_token %>
+            <%= hidden_field_tag :price, (@total_payment*100).to_i %>
+            <%= hidden_field_tag :total, @total_payment %>
+            <%= hidden_field_tag :service_type, @service_type %>
+            <%= hidden_field_tag :collection_time, @collection_time %>
+            <%= hidden_field_tag :table_number, @table_number %>
+            <%= hidden_field_tag :name, @name %>
+            <%= hidden_field_tag :telephone, @telephone %>
+            <%= hidden_field_tag :email, @email %>
+            <%= hidden_field_tag :house_number, @house_number %>
+            <%= hidden_field_tag :street, @street %>
+            <%= hidden_field_tag :postcode, @postcode %>
+            <%= hidden_field_tag :basket, @basket %>
+            <%= hidden_field_tag :delivery_fee, @delivery_fee %>
+            <%= hidden_field_tag :stripe_success_token %>
           </form>
 
 
