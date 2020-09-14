@@ -86,7 +86,7 @@
     if params[:section_id].blank?
       menu = @menu2.select{|w| w[:id] == menu_id }.first
       nav_items =  menu[:children].map{|a| {name: a[:name], id: a[:id]}} 
-      current_section = nav_items.first[:id] 
+      current_section = nav_items.first[:id] if nav_items.present?
     end
   %>
 
