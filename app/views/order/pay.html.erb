@@ -38,6 +38,7 @@
 
     // Handle real-time validation errors from the card Element.
     card.addEventListener('change', function(event) {
+      $("#submit-payment-button").attr('disabled', false);
       var displayError = document.getElementById('card-errors');
       if (event.error) {
         displayError.textContent = event.error.message;
@@ -48,7 +49,7 @@
         displayError.textContent = '';
         $('#card-errors').addClass("invisible");
         $("#submit-payment-button").removeClass("invisible");
-        $("#submit-payment-button").attr('disabled', false);
+        
 
      }
    });
@@ -90,7 +91,7 @@ $("#please-wait").removeClass("invisible");
       console.log(result.error.message);
        $('#card-errors').removeClass("invisible")
        $('#card-errors').html(result.error.message)
-       $("#submit-payment-button").addClass("invisible");
+       $("#submit-payment-button").removeClass("invisible");
        $("#main-payment-form").removeClass("invisible");
        $("#please-wait").addClass("invisible");
  //      $("#main-payment-form").removeClass("invisible");
