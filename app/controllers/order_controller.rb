@@ -109,13 +109,6 @@ def pay
   @restaurant = Restaurant.find_by(path: @path)
   @publish_stripe_api_key = @restaurant.stripe_pk_api_key
 
-  # if @basket
-  #   @basket = JSON.parse(@basket)
-  #   @basket_item_count = @basket['count']
-  #   @basket_item_total =  (@basket['ids'].map{|d| d['total']}.inject(:+)*100.to_f).to_i
-  # end
-
-
   @total_payment = params[:total].to_f
 
   @service_type = params[:service_type] 
@@ -130,9 +123,18 @@ def pay
   @basket = params[:basket] 
   @delivery_fee = params[:delivery_fee] 
 
+ 
+  @payment_in_pence = (@total_payment * 100).to_i
 
-
-
+  Stripe.api_key = @restaurant.stripe_sk_api_key
+  #Create Stripe Transaction
+  @payment_intent = Stripe::PaymentIntent.create({
+  amount: @payment_in_pence ,
+  currency: 'gbp',
+  payment_method_types: ['card'],
+  description: "#{@path} charge"  
+})
+#  binding.pry
 
 
 end
@@ -154,6 +156,8 @@ def stripe
 
   @address = "#{@house_number}, #{@street}, #{@postcode}" 
   
+
+
   error = false
   @path = params[:path]
 
@@ -170,7 +174,7 @@ def stripe
  
     items = @basket['ids']
 
-    Stripe.api_key = @restaurant.stripe_sk_api_key
+    # Stripe.api_key = @restaurant.stripe_sk_api_key
 
     token = params[:token]
 
@@ -180,42 +184,51 @@ def stripe
     Rails.logger.debug("Payment Price: #{price}")
   
     begin
-     @status = Stripe::Charge.create(
-        amount: price,
-        currency: 'gbp',
-        description: "#{@path} charge",
-        source: token
-      )
+    #  @status = Stripe::Charge.create(
+    #     amount: price,
+    #     currency: 'gbp',
+    #     description: "#{@path} charge",
+    #     source: token
+    #   )
       
+    @stripe_payment_intent = JSON.parse(params[:stripe_success_token])
+      if @stripe_payment_intent['status'] == 'succeeded'
 
 
-    @receipt =  Receipt.create(
-      uuid: SecureRandom.uuid,
-      restaurant_id: @restaurant.id,
-      basket_total: price,
-      items: basket_build(@basket['ids']),
-      email: @email,
-      name: @name,
-      collection_time: @collection_time,
-      stripe_token: token,
-      status: @status,
-      is_ready: false,
-      source: :takeaway, 
-      telephone: @telephone,
-      address: @address,
-      delivery_or_collection: @service_type,
-      delivery_fee: @delivery_fee , 
-      table_number: @table_number
-    )
-    rescue Exception => e
-      error = true
-    puts e
-  end
+        @receipt =  Receipt.create(
+          uuid: SecureRandom.uuid,
+          restaurant_id: @restaurant.id,
+          basket_total: price,
+          items: basket_build(@basket['ids']),
+          email: @email,
+          name: @name,
+          collection_time: @collection_time,
+          stripe_token: @stripe_payment_intent['id'],
+          status: @stripe_payment_intent,
+          is_ready: false,
+          source: :takeaway, 
+          telephone: @telephone,
+          address: @address,
+          delivery_or_collection: @service_type,
+          delivery_fee: @delivery_fee , 
+          table_number: @table_number
+        )
 
-    
-  unless error
-   cookies.delete :emenu_basket
-  end
+
+    end #if succeeded
+
+        rescue Exception => e
+          error = true
+        puts e
+      end
+
+        
+      unless error 
+        if @stripe_payment_intent['status'] == 'succeeded'
+      cookies.delete :emenu_basket
+      end
+      end
+
 
   
 
