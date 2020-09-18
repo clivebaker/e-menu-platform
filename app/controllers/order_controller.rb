@@ -239,9 +239,9 @@ def stripe
 
         
     if success 
-        if @stripe_payment_intent['status'] == 'succeeded'
+        # if @stripe_payment_intent['status'] == 'succeeded'
           cookies.delete :emenu_basket
-      end
+      # end
     end
 
 
