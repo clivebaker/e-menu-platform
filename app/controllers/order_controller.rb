@@ -185,13 +185,15 @@ def stripe
     Rails.logger.debug("Payment Price: #{price}")
   
     begin
-      @stripe_payment_intent = JSON.parse(params[:stripe_success_token])
-      
 
-      if @stripe_payment_intent['status'] == 'succeeded'
-        success = true
-      end 
-      
+      if params[:stripe_success_token].present?
+        @stripe_payment_intent = JSON.parse(params[:stripe_success_token])
+        if @stripe_payment_intent['status'] == 'succeeded'
+          success = true
+        end 
+      end
+
+
       if  params[:stripe_success_token].blank?
   
         Stripe.api_key = @restaurant.stripe_sk_api_key
@@ -235,6 +237,12 @@ def stripe
         rescue Exception => e
           error = true
         puts e
+        puts "****************************************************************"
+        puts "ERROR: #{e} ***********************************"
+        puts "****************************************************************"
+        puts "params: #{params} ***********************************"
+        puts "****************************************************************"
+      
       end
 
         
