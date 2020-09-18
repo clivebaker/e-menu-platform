@@ -186,10 +186,16 @@ def stripe
   
     begin
 
+      stripe_data = {}
+      stripe_token = {}
+
       if params[:stripe_success_token].present?
         @stripe_payment_intent = JSON.parse(params[:stripe_success_token])
         if @stripe_payment_intent['status'] == 'succeeded'
           success = true
+          stripe_token = @stripe_payment_intent['id']
+          stripe_data = @stripe_payment_intent
+
         end 
       end
 
@@ -204,6 +210,9 @@ def stripe
           description: "#{@path} charge",
           source: token
         )
+        stripe_token = token
+        stripe_data = @status
+
         puts @status.inspect
         success = true
       end
@@ -218,8 +227,8 @@ def stripe
             email: @email,
             name: @name,
             collection_time: @collection_time,
-            stripe_token: @stripe_payment_intent['id'],
-            status: @stripe_payment_intent,
+            stripe_token: stripe_token,
+            status: stripe_data,
             is_ready: false,
             source: :takeaway, 
             telephone: @telephone,
