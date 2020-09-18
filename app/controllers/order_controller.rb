@@ -185,7 +185,9 @@ def stripe
   
     begin
       @stripe_payment_intent = JSON.parse(params[:stripe_success_token])
-      unless @stripe_payment_intent.present?
+      
+      
+      if  params[:stripe_success_token].blank?
   
         Stripe.api_key = @restaurant.stripe_sk_api_key
   
