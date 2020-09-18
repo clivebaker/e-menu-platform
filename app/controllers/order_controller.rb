@@ -184,38 +184,44 @@ def stripe
     Rails.logger.debug("Payment Price: #{price}")
   
     begin
-    #  @status = Stripe::Charge.create(
-    #     amount: price,
-    #     currency: 'gbp',
-    #     description: "#{@path} charge",
-    #     source: token
-    #   )
-      
-    @stripe_payment_intent = JSON.parse(params[:stripe_success_token])
-      if @stripe_payment_intent['status'] == 'succeeded'
-
-
-        @receipt =  Receipt.create(
-          uuid: SecureRandom.uuid,
-          restaurant_id: @restaurant.id,
-          basket_total: price,
-          items: basket_build(@basket['ids']),
-          email: @email,
-          name: @name,
-          collection_time: @collection_time,
-          stripe_token: @stripe_payment_intent['id'],
-          status: @stripe_payment_intent,
-          is_ready: false,
-          source: :takeaway, 
-          telephone: @telephone,
-          address: @address,
-          delivery_or_collection: @service_type,
-          delivery_fee: @delivery_fee , 
-          table_number: @table_number
+      @stripe_payment_intent = JSON.parse(params[:stripe_success_token])
+      unless @stripe_payment_intent.present?
+  
+        Stripe.api_key = @restaurant.stripe_sk_api_key
+  
+         @status = Stripe::Charge.create(
+          amount: price,
+          currency: 'gbp',
+          description: "#{@path} charge",
+          source: token
         )
-
-
-    end #if succeeded
+        
+      elsif @stripe_payment_intent['status'] == 'succeeded'
+        
+        
+          @receipt =  Receipt.create(
+            uuid: SecureRandom.uuid,
+            restaurant_id: @restaurant.id,
+            basket_total: price,
+            items: basket_build(@basket['ids']),
+            email: @email,
+            name: @name,
+            collection_time: @collection_time,
+            stripe_token: @stripe_payment_intent['id'],
+            status: @stripe_payment_intent,
+            is_ready: false,
+            source: :takeaway, 
+            telephone: @telephone,
+            address: @address,
+            delivery_or_collection: @service_type,
+            delivery_fee: @delivery_fee , 
+            table_number: @table_number
+          )
+  
+      else
+        error = true
+      end #if succeeded
+  
 
         rescue Exception => e
           error = true
