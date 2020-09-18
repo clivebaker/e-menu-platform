@@ -159,6 +159,7 @@ def stripe
 
 
   error = false
+  success = false
   @path = params[:path]
 
   @restaurant = Restaurant.find_by(path: @path)
@@ -186,6 +187,10 @@ def stripe
     begin
       @stripe_payment_intent = JSON.parse(params[:stripe_success_token])
       
+
+      if @stripe_payment_intent['status'] == 'succeeded'
+        success = true
+      end 
       
       if  params[:stripe_success_token].blank?
   
@@ -197,11 +202,13 @@ def stripe
           description: "#{@path} charge",
           source: token
         )
-        
-      elsif @stripe_payment_intent['status'] == 'succeeded'
-        
-        
-          @receipt =  Receipt.create(
+        puts @status.inspect
+        success = true
+      end
+
+      if success
+ 
+        @receipt =  Receipt.create(
             uuid: SecureRandom.uuid,
             restaurant_id: @restaurant.id,
             basket_total: price,
@@ -231,11 +238,11 @@ def stripe
       end
 
         
-      unless error 
+    if success 
         if @stripe_payment_intent['status'] == 'succeeded'
-      cookies.delete :emenu_basket
+          cookies.delete :emenu_basket
       end
-      end
+    end
 
 
   
