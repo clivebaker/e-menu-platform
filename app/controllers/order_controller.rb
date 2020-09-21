@@ -142,6 +142,9 @@ end
 def stripe
 
 
+
+
+
   @service_type = params[:service_type] 
   @collection_time = params[:collection_time] 
   @table_number = params[:table_number]
@@ -157,12 +160,12 @@ def stripe
   @address = "#{@house_number}, #{@street}, #{@postcode}" 
   
 
-
   error = false
   success = false
   @path = params[:path]
 
   @restaurant = Restaurant.find_by(path: @path)
+
 
     @basket_key = JSON.parse(cookies['emenu_basket'])['key'] if cookies[:emenu_basket]
     @basket_db = Basket.find_or_create_by(key: @basket_key)
@@ -175,13 +178,8 @@ def stripe
  
     items = @basket['ids']
 
-    # Stripe.api_key = @restaurant.stripe_sk_api_key
-
-    token = params[:token]
-
     price = params[:price].to_i
 
-    Rails.logger.debug("Payment Token: #{token}")
     Rails.logger.debug("Payment Price: #{price}")
   
     begin
@@ -189,32 +187,22 @@ def stripe
       stripe_data = {}
       stripe_token = {}
 
+      # binding.pry
+      
+
       if params[:stripe_success_token].present?
-        @stripe_payment_intent = JSON.parse(params[:stripe_success_token])
+        
+        if params['apple_and_google'].present?
+          @stripe_payment_intent = params[:stripe_success_token]
+        else
+          @stripe_payment_intent = JSON.parse(params[:stripe_success_token])
+        end
+
         if @stripe_payment_intent['status'] == 'succeeded'
           success = true
           stripe_token = @stripe_payment_intent['id']
           stripe_data = @stripe_payment_intent
-
         end 
-      end
-
-
-      if  params[:stripe_success_token].blank?
-  
-        Stripe.api_key = @restaurant.stripe_sk_api_key
-  
-         @status = Stripe::Charge.create(
-          amount: price,
-          currency: 'gbp',
-          description: "#{@path} charge",
-          source: token
-        )
-        stripe_token = token
-        stripe_data = @status
-
-        puts @status.inspect
-        success = true
       end
 
       if success
