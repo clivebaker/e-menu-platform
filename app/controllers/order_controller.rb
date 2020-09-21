@@ -187,7 +187,7 @@ def stripe
       stripe_data = {}
       stripe_token = {}
 
-      binding.pry
+      # binding.pry
       
 
       if params[:stripe_success_token].present?
