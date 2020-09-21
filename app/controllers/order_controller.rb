@@ -142,6 +142,9 @@ end
 def stripe
 
 
+
+
+
   @service_type = params[:service_type] 
   @collection_time = params[:collection_time] 
   @table_number = params[:table_number]
@@ -157,12 +160,12 @@ def stripe
   @address = "#{@house_number}, #{@street}, #{@postcode}" 
   
 
-
   error = false
   success = false
   @path = params[:path]
 
   @restaurant = Restaurant.find_by(path: @path)
+
 
     @basket_key = JSON.parse(cookies['emenu_basket'])['key'] if cookies[:emenu_basket]
     @basket_db = Basket.find_or_create_by(key: @basket_key)
@@ -179,13 +182,22 @@ def stripe
 
     Rails.logger.debug("Payment Price: #{price}")
   
-    # begin
+    begin
 
       stripe_data = {}
       stripe_token = {}
 
+      # binding.pry
+      
+
       if params[:stripe_success_token].present?
-        @stripe_payment_intent = JSON.parse(params[:stripe_success_token])
+        
+        if params['apple_and_google'].present?
+          @stripe_payment_intent = params[:stripe_success_token]
+        else
+          @stripe_payment_intent = JSON.parse(params[:stripe_success_token])
+        end
+
         if @stripe_payment_intent['status'] == 'succeeded'
           success = true
           stripe_token = @stripe_payment_intent['id']
@@ -219,16 +231,16 @@ def stripe
       end #if succeeded
   
 
-      #   rescue Exception => e
-      #     error = true
-      #   puts e
-      #   puts "****************************************************************"
-      #   puts "ERROR: #{e} ***********************************"
-      #   puts "****************************************************************"
+        rescue Exception => e
+          error = true
+        puts e
+        puts "****************************************************************"
+        puts "ERROR: #{e} ***********************************"
+        puts "****************************************************************"
         puts "params: #{params} ***********************************"
-      #   puts "****************************************************************"
+        puts "****************************************************************"
       
-      # end
+      end
 
         
     if success 
