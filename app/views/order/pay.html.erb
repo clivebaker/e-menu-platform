@@ -197,7 +197,7 @@ paymentRequest.on('paymentmethod', function(ev) {
     } else {
       // Report to the browser that the confirmation was successful, prompting
       // it to close the browser payment method collection interface.
-      dataPayment = {stripe_success_token: confirmResult.paymentIntent, token: clientSecret, price: <%=@total_payment*100%>, items: [], collection_time: collection_time, name: name, telephone: telephone, service_type: delivery_collection_type, email: email, delivery_fee: delivery_fee, table_number: table_number, house_number: house_number, street: street, postcode: postcode }
+      dataPayment = {apple_and_google: true, stripe_success_token: confirmResult.paymentIntent, token: clientSecret, price: <%=@total_payment*100%>, items: [], collection_time: collection_time, name: name, telephone: telephone, service_type: delivery_collection_type, email: email, delivery_fee: delivery_fee, table_number: table_number, house_number: house_number, street: street, postcode: postcode }
       console.log(dataPayment)
       $.ajax({
         url: "<%=stripe_path(@path)%>.json",
