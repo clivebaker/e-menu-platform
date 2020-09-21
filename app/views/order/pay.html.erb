@@ -76,7 +76,7 @@ form.addEventListener('submit', function(ev) {
        $("#main-payment-form").addClass("invisible");
 $("#please-wait").removeClass("invisible");
 
-  console.log('PAYMENT FORM TRGGERED');
+//  console.log('PAYMENT FORM TRGGERED');
   ev.preventDefault();
   stripe.confirmCardPayment(clientSecret, {
     payment_method: {
@@ -88,7 +88,7 @@ $("#please-wait").removeClass("invisible");
   }).then(function(result) {
     if (result.error) {
       // Show error to your customer (e.g., insufficient funds)
-      console.log(result.error.message);
+ //     console.log(result.error.message);
        $('#card-errors').removeClass("invisible")
        $('#card-errors').html(result.error.message)
        $("#submit-payment-button").removeClass("invisible");
@@ -98,9 +98,9 @@ $("#please-wait").removeClass("invisible");
     } else {
       // The payment has been processed!
       if (result.paymentIntent.status === 'succeeded') {
-        console.log('PAYMENT SUCCESS')
-        console.log(result)
-        console.log(result.paymentIntent)
+ //       console.log('PAYMENT SUCCESS')
+ //       console.log(result)
+  //      console.log(result.paymentIntent)
         $('#stripe_success_token').val(JSON.stringify(result.paymentIntent));
         $('#payment-form-success').submit()
         
@@ -140,8 +140,8 @@ $("#please-wait").removeClass("invisible");
       hiddenInput.setAttribute('name', 'token');
       hiddenInput.setAttribute('value', token.id);
       form.appendChild(hiddenInput);
-      console.log("AM I GETTING THIS FAR 1")
-      console.log(hiddenInput)
+  //    console.log("AM I GETTING THIS FAR 1")
+   //   console.log(hiddenInput)
       // Submit the form
       form.submit();
     }
@@ -168,7 +168,7 @@ $("#please-wait").removeClass("invisible");
     });
 
 
-    console.log(paymentRequest)
+//    console.log(paymentRequest)
 
 paymentRequest.on('paymentmethod', function(ev) {
 
