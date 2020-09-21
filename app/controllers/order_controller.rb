@@ -175,16 +175,11 @@ def stripe
  
     items = @basket['ids']
 
-    # Stripe.api_key = @restaurant.stripe_sk_api_key
-
-    token = params[:token]
-
     price = params[:price].to_i
 
-    Rails.logger.debug("Payment Token: #{token}")
     Rails.logger.debug("Payment Price: #{price}")
   
-    begin
+    # begin
 
       stripe_data = {}
       stripe_token = {}
@@ -195,26 +190,7 @@ def stripe
           success = true
           stripe_token = @stripe_payment_intent['id']
           stripe_data = @stripe_payment_intent
-
         end 
-      end
-
-
-      if  params[:stripe_success_token].blank?
-  
-        Stripe.api_key = @restaurant.stripe_sk_api_key
-  
-         @status = Stripe::Charge.create(
-          amount: price,
-          currency: 'gbp',
-          description: "#{@path} charge",
-          source: token
-        )
-        stripe_token = token
-        stripe_data = @status
-
-        puts @status.inspect
-        success = true
       end
 
       if success
@@ -243,16 +219,16 @@ def stripe
       end #if succeeded
   
 
-        rescue Exception => e
-          error = true
-        puts e
-        puts "****************************************************************"
-        puts "ERROR: #{e} ***********************************"
-        puts "****************************************************************"
+      #   rescue Exception => e
+      #     error = true
+      #   puts e
+      #   puts "****************************************************************"
+      #   puts "ERROR: #{e} ***********************************"
+      #   puts "****************************************************************"
         puts "params: #{params} ***********************************"
-        puts "****************************************************************"
+      #   puts "****************************************************************"
       
-      end
+      # end
 
         
     if success 
