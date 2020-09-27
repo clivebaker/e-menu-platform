@@ -34,7 +34,14 @@
 
               <div class="media text-muted pt-3">
                 <p class="media-body pb-3 mb-0  lh-125 border-bottom border-gray">
-                  <strong class="d-block text-gray-dark">Name</strong><small>ID: <%= @restaurant.id %></small>
+                  <strong class="d-block text-gray-dark">ID</strong>
+                  <small><%= @restaurant.id %></small>
+                </p>
+              </div>
+
+              <div class="media text-muted pt-3">
+                <p class="media-body pb-3 mb-0  lh-125 border-bottom border-gray">
+                  <strong class="d-block text-gray-dark">Name</strong>
                   <%= @restaurant.name %>
                 </p>
               </div>
@@ -72,14 +79,15 @@
                   <%= @restaurant.email %>
                 </p>
               </div>
+
+
+
               <div class="media text-muted pt-3">
-                <p class="media-body pb-3 mb-0 lh-125 border-bottom border-gray">
-                  <strong class="d-block text-gray-dark">Social</strong>
-                  <strong>Facebook: </strong><%= @restaurant.facebook.blank? ?  "Not supplied" : @restaurant.facebook%>, <strong>Twitter: </strong><%= @restaurant.twitter.blank? ?  "Not supplied" : @restaurant.twitter%>
+                <p class="media-body pb-3 mb-0  lh-125 border-bottom border-gray">
+                  <strong class="d-block text-gray-dark">Path</strong>
+                  <%= @restaurant.path %>
                 </p>
               </div>
-
-
 
 
 
@@ -116,13 +124,6 @@
   <!-- Settings -->
     <div class="row my-3 p-3 bg-white rounded shadow-sm">
       <div class="col-12">
-
-              <div class="media text-muted pt-3">
-                <p class="media-body pb-3 mb-0  lh-125 border-bottom border-gray">
-                  <strong class="d-block text-gray-dark">Path</strong>
-                  <%= @restaurant.path %>
-                </p>
-              </div>
 
           <div class="row">
             <div class="col-sm">
@@ -185,6 +186,12 @@
                 <p class="media-body pb-3 mb-0 lh-125 border-bottom border-gray">
                   <strong class="d-block text-gray-dark">Facebook Pixels</strong>
                   <%= @restaurant.facebook_pixel %>
+                </p>
+              </div>
+              <div class="media text-muted pt-3">
+                <p class="media-body pb-3 mb-0 lh-125 border-bottom border-gray">
+                  <strong class="d-block text-gray-dark">Social</strong>
+                  <strong>Facebook: </strong><%= @restaurant.facebook.blank? ?  "Not supplied" : @restaurant.facebook%>, <strong>Twitter: </strong><%= @restaurant.twitter.blank? ?  "Not supplied" : @restaurant.twitter%>
                 </p>
               </div>
 
