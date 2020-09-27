@@ -30,18 +30,19 @@
     <%= form.hidden_field :restaurant_id %>
 
   <div class="form-group">
-    <%= form.label :vendor %>
+    <%= form.label :vendor %><i class='text-warning'> Please input 0x BEFORE the vendor code e.g "<strong>0fe6</strong>:811e" is: 0x0fe6 </i>
     <%= form.text_field :vendor, class: "form-control" %>
   </div>
 
   <div class="form-group">
-    <%= form.label :product %>
+    <%= form.label :product %> <i class='text-warning'>Please input 0x BEFORE the vendor code e.g "0fe6:<strong>811e</strong>" is: 0x811e </i>
     <%= form.text_field :product, class: "form-control" %>
   </div>
 
   <div class="form-group">
     <%= form.label :print_type %>
-    <%= form.text_field :print_type, class: "form-control" %>
+    <%= form.select :print_type, options_for_select(['Generic', 'esc/pos'], printer.print_type), {prompt: 'Choose Printer Protocol'}, {class: "form-control"}%>
+
   </div>
 
   <div class="form-group">
