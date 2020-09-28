@@ -456,12 +456,13 @@ def stripe
     @basket_db.save
 
 
-    menu_id = params[:menu_id] if  params[:menu_id].present?
+      menu_id = params[:menu_id] if  params[:menu_id].present?
     
       return_path = restaurant_path_path(path)
 
+      # binding.pry
 
-      return_path = order_menu_section_path(path, menu_id, params[:section_id]) if feature_match('menu_in_sections', @restaurant.features)
+      return_path = order_menu_section_path(path, menu_id, params[:section_id]) if feature_match('menu_in_sections', @restaurant.features) and menu_id.present?
 # binding.pry
 
         respond_to do |format|
