@@ -462,7 +462,8 @@ def stripe
 
       # binding.pry
 
-      return_path = order_menu_section_path(path, menu_id, params[:section_id]) if feature_match('menu_in_sections', @restaurant.features) and menu_id.present?
+      return_path = order_menu_path(path, menu_id) if feature_match('menu_in_sections', @restaurant.features) and menu_id.present?
+      return_path = order_menu_section_path(path, menu_id, params[:section_id]) if feature_match('menu_in_sections', @restaurant.features) and menu_id.present? and params[:section_id].present?
 # binding.pry
 
         respond_to do |format|
