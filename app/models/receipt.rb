@@ -8,9 +8,9 @@ class Receipt < ApplicationRecord
   delegate :id, to: :restaurant, prefix: true
 
 
-  def mylogger
-    @@my_logger ||= Logger.new("#{Rails.root}/log/mylog.log")
-  end
+  # def mylogger
+  #   @@my_logger ||= Logger.new("#{Rails.root}/log/mylog.log")
+  # end
 
 
   def item_breakdown
@@ -145,7 +145,7 @@ class Receipt < ApplicationRecord
     header << "Address: #{address}\n" if delivery_or_collection == 'delivery'
     header << "\n\n"
     data = {print_type: printer.print_type, action: action, header: header, print_receipt: print_receipt, printer_vendor: printer.vendor, printer_product: printer.product}
-    mylogger.debug("PRINTING PRIMARY: #{printer.inspect}")
+   # mylogger.debug("PRINTING PRIMARY: #{printer.inspect}")
     ActionCable.server.broadcast("printers_channel_#{restaurant_id}_#{printer.pi_interface_server_token}", data)
   end
 
@@ -184,7 +184,7 @@ class Receipt < ApplicationRecord
     header << "Address: #{address}\n" if delivery_or_collection == 'delivery'
     header << "\n\n"
     data = {print_type: printer.print_type, action: action, header: header, print_receipt: print_receipt, printer_vendor: printer.vendor, printer_product: printer.product}
-    mylogger.debug("PRINTING SECONDARY: #{printer.inspect}")
+  #  mylogger.debug("PRINTING SECONDARY: #{printer.inspect}")
     ActionCable.server.broadcast("printers_channel_#{restaurant_id}_#{printer.pi_interface_server_token}", data)
   end
 
