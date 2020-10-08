@@ -14,27 +14,11 @@
 
         
         <% @screen_items = ScreenItem.where(ready: false, restaurant_id: @restaurant.id, item_screen_type_key: item_screen_type_key) if !grouped %>
-
-        <% @screen_items = ScreenItem.where(ready: false, restaurant_id: @restaurant.id, item_screen_type_key: item_screen_type_key) if grouped %>
-
-        <%# if grouped  
-        si = ScreenItem.where(ready: false, restaurant_id: @restaurant.id, item_screen_type_key: item_screen_type_key)
-        if si.present?
-          @receipt_id = si.first.receipt_id 
-          receipt = Receipt.find(@receipt_id)
-          @screen_items = receipt.items.select{|s| s['item_screen_type_key'] == item_screen_type_key} 
-          end
-
-        end
-        %>
-
-<%#=binding.pry%>
+        <% @screen_items = ScreenItem.where(ready: false, restaurant_id: @restaurant.id, item_screen_type_key: item_screen_type_key)  if grouped %>
 
 
         <%
-        
         shown_receipts = []
-        
         %>
 
         <% @screen_items.each do |screen_item| %>
@@ -56,6 +40,7 @@
                   <%
                   items = receipt.items['items'].select{|d| d['uuid'] == screen_item.uuid} if grouped == false
                   items = receipt.items['items'].select{|d| d['item_screen_type_key'] == item_screen_type_key} if grouped == true
+                  items = receipt.items['items'].select{|d| d['secondary_item_screen_type_key'] == item_screen_type_key} if grouped == true if items.blank?
                   %>  
 
 
