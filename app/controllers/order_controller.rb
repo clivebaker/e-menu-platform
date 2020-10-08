@@ -321,7 +321,10 @@ def stripe
       cl = optionals.sort_by do |item|
         lookup.fetch(item.custom_list_id)
       end
-      basket_items << {'uuid' => id['uuid'], 'total' => id['total'], 'note' => id['note'] ,'item' => "<i>#{menu_item.parent.name}</i> - <strong>#{menu_item.name}</strong>" , 'optionals' => cl.map{|s| "- <strong>#{s.name}</strong>" }, 'item_screen_type_name' => menu_item.item_screen_type_name, 'item_screen_type_key' => menu_item.item_screen_type_key, 'menu_id' => menu_item.id }
+      basket_items << {'uuid' => id['uuid'], 'total' => id['total'], 'note' => id['note'] ,'item' => "<i>#{menu_item.parent.name}</i> - <strong>#{menu_item.name}</strong>" , 'optionals' => cl.map{|s| "- <strong>#{s.name}</strong>" }, 'item_screen_type_name' => menu_item.item_screen_type_name, 'item_screen_type_key' => menu_item.item_screen_type_key, 'menu_id' => menu_item.id, 'secondary_item_screen_type_name' => menu_item.secondary_item_screen_type_name, 'secondary_item_screen_type_key' => menu_item.secondary_item_screen_type_key }
+
+      
+
     end
 
     { 'items' => basket_items }
@@ -358,7 +361,11 @@ def stripe
             is_deleted: parent.is_deleted, 
             item_screen_type_id: parent.item_screen_type_id,
             item_screen_type_name: parent.item_screen_type_name,
-            item_screen_type_key: parent.item_screen_type_key
+            item_screen_type_key: parent.item_screen_type_key,
+ 
+            secondary_item_screen_type_id: parent.secondary_item_screen_type_id,
+            secondary_item_screen_type_name: parent.secondary_item_screen_type_name,
+            secondary_item_screen_type_key: parent.secondary_item_screen_type_key
           }
 
     
@@ -410,10 +417,7 @@ def stripe
       uuid = SecureRandom.uuid
 
     
-      # WITH CATEGORY NAME basket_items << {uuid: uuid, total: total, note: note ,item: "<i>#{menu_item.parent.name}</i> - <strong>#{menu_item.name}</strong>" , optionals: cl.map{|s| "<i>#{s.custom_list_name}</i> - <strong>#{s.name}</strong>" }, item_screen_type_name: menu_item.item_screen_type_name, item_screen_type_key: menu_item.item_screen_type_key, menu_id: menu_item.id }
-   #   basket_items << {uuid: uuid, total: total, note: note ,item: "<i>#{menu_item.parent.name}</i> - <strong>#{menu_item.name}</strong>" , optionals: cl.map{|s| "- <strong>#{s.name}</strong>" }, item_screen_type_name: menu_item.item_screen_type_name, item_screen_type_key: menu_item.item_screen_type_key, menu_id: menu_item.id }
       basket_ids << {uuid: uuid, total: total.round(2), note: note ,item: menu_item.id, optionals: cl.map{|s| s.id }, item_screen_type_key: menu_item.item_screen_type_key, menu_id: menu_item.id, item_screen_type_name: menu_item.item_screen_type_name }
-#  binding.pry
       @basket_db.contents = {
         restaurant: path,
         count: basket_ids.count,

@@ -3,6 +3,9 @@
 class Menu < ApplicationRecord
   belongs_to :restaurant
   belongs_to :item_screen_type, optional: true
+
+
+
   belongs_to :spice_level, optional: true
 
   before_save :set_root_node_id
@@ -22,6 +25,21 @@ def clear_cache
   Rails.cache.delete("api/restaurant/#{restaurant_id}/menu")
   Rails.cache.delete("restaurant_order_menu_#{restaurant_id}")
 end
+
+def secondary_item_screen_type
+  ItemScreenType.find(secondary_item_screen_type_id) if secondary_item_screen_type_id.present?
+end
+def secondary_item_screen_type_name
+  secondary_item_screen_type.name if secondary_item_screen_type.present?
+end
+def secondary_item_screen_type_key
+  secondary_item_screen_type.key if secondary_item_screen_type.present?
+end
+
+
+
+
+
 
   # belongs_to :menu_item_categorisation, optional: true
   has_and_belongs_to_many :menu_item_categorisation
