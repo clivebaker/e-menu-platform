@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_12_190538) do
+ActiveRecord::Schema.define(version: 2020_10_08_111408) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -194,6 +194,7 @@ ActiveRecord::Schema.define(version: 2020_09_12_190538) do
     t.integer "root_node_id"
     t.jsonb "old_custom_lists"
     t.bigint "item_screen_type_id"
+    t.integer "secondary_item_screen_type_id"
     t.index ["ancestry"], name: "index_menus_on_ancestry"
     t.index ["item_screen_type_id"], name: "index_menus_on_item_screen_type_id"
     t.index ["menu_item_categorisation_id"], name: "index_menus_on_menu_item_categorisation_id"
@@ -351,6 +352,7 @@ ActiveRecord::Schema.define(version: 2020_09_12_190538) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "uuid"
+    t.boolean "secondary", default: false
     t.index ["menu_id"], name: "index_screen_items_on_menu_id"
     t.index ["receipt_id"], name: "index_screen_items_on_receipt_id"
     t.index ["restaurant_id"], name: "index_screen_items_on_restaurant_id"
