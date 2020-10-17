@@ -38,6 +38,7 @@
 
     // Handle real-time validation errors from the card Element.
     card.addEventListener('change', function(event) {
+      $("#submit-payment-button").attr('disabled', false);
       var displayError = document.getElementById('card-errors');
       if (event.error) {
         displayError.textContent = event.error.message;
@@ -47,30 +48,88 @@
       } else {
         displayError.textContent = '';
         $('#card-errors').addClass("invisible");
+        $("#submit-payment-button").removeClass("invisible");
+        
 
-      }
-    });
+     }
+   });
+
+
+card.on('change', ({error}) => {
+  const displayError = document.getElementById('card-errors');
+  if (error) {
+    displayError.textContent = error.message;
+  } else {
+    displayError.textContent = '';
+  }
+});
 
     // Handle form submission.
-    var form = document.getElementById('payment-form');
-    console.log('Create the Form')
-    form.addEventListener('submit', function(event) {
-      event.preventDefault();
+  //  var form = document.getElementById('payment-form');
+    //console.log('Create the Form')
+   
+   clientSecret = '<%=@payment_intent.client_secret%>'
+var form = document.getElementById('payment-form');
 
-      stripe.createToken(card).then(function(result) {
-        if (result.error) {
-          // Inform the user if there was an error.
-          var errorElement = document.getElementById('card-errors');
-          errorElement.textContent = result.error.message;
-          $('#card-errors').removeClass("invisible")
-          $("#please-wait").addClass("invisible");
-          $("#main-payment-form").removeClass("invisible");
-        } else {
-          // Send the token to your server.
-          stripeTokenHandler(result.token);
-        }
-      });
-    });
+form.addEventListener('submit', function(ev) {
+
+       $("#main-payment-form").addClass("invisible");
+$("#please-wait").removeClass("invisible");
+
+//  console.log('PAYMENT FORM TRGGERED');
+  ev.preventDefault();
+  stripe.confirmCardPayment(clientSecret, {
+    payment_method: {
+      card: card,
+//      billing_details: {
+//        name: 'Jenny Rosen'
+//      }
+    }
+  }).then(function(result) {
+    if (result.error) {
+      // Show error to your customer (e.g., insufficient funds)
+ //     console.log(result.error.message);
+       $('#card-errors').removeClass("invisible")
+       $('#card-errors').html(result.error.message)
+       $("#submit-payment-button").removeClass("invisible");
+       $("#main-payment-form").removeClass("invisible");
+       $("#please-wait").addClass("invisible");
+ //      $("#main-payment-form").removeClass("invisible");
+    } else {
+      // The payment has been processed!
+      if (result.paymentIntent.status === 'succeeded') {
+ //       console.log('PAYMENT SUCCESS')
+ //       console.log(result)
+  //      console.log(result.paymentIntent)
+        $('#stripe_success_token').val(JSON.stringify(result.paymentIntent));
+        $('#payment-form-success').submit()
+        
+        // Show a success message to your customer
+        // There's a risk of the customer closing the window before callback
+        // execution. Set up a webhook or plugin to listen for the
+        // payment_intent.succeeded event that handles any business critical
+        // post-payment actions.
+      }
+    }
+  });
+});   
+   
+//    form.addEventListener('submit', function(event) {
+//      event.preventDefault();
+//      stripe.createToken(card).then(function(result) {
+//        if (result.error) {
+//          // Inform the user if there was an error.
+//          var errorElement = document.getElementById('card-errors');
+//          errorElement.textContent = result.error.message;
+//          $('#card-errors').removeClass("invisible")
+//          $("#please-wait").addClass("invisible");
+//          $("#main-payment-form").removeClass("invisible");
+//        } else {
+//          // Send the token to your server.
+//          stripeTokenHandler(result.token);
+//        }
+//      });
+//    });
 
     // Submit the form with the token ID.
     function stripeTokenHandler(token) {
@@ -81,8 +140,8 @@
       hiddenInput.setAttribute('name', 'token');
       hiddenInput.setAttribute('value', token.id);
       form.appendChild(hiddenInput);
-      console.log("AM I GETTING THIS FAR 1")
-      console.log(hiddenInput)
+  //    console.log("AM I GETTING THIS FAR 1")
+   //   console.log(hiddenInput)
       // Submit the form
       form.submit();
     }
@@ -96,8 +155,8 @@
       country: 'GB',
       currency: 'gbp',
       total: {
-        label: 'e-me.nu payment',
-        amount: <%=@total_payment*100%>,
+        label: '<%=@path%> charge',
+        amount: <%= @payment_in_pence %>,
       },
       requestPayerName: true,
       requestPayerEmail: true,
@@ -107,43 +166,112 @@
     var prButton = elements.create('paymentRequestButton', {
       paymentRequest: paymentRequest,
     });
-    console.log(paymentRequest)
 
-    paymentRequest.on('token', function(ev) {
-      // Send the token to your server to charge it!
-      
+
+//    console.log(paymentRequest)
+
+paymentRequest.on('paymentmethod', function(ev) {
 
       name = $('#name').val()
       collection_time = $('#collection_time').val()
       house_number = $('#house_number').val()
       street = $('#street').val()
       postcode = $('#postcode').val()
-
       telephone = $('#telephone').val()
       email = $('#email').val()
-
       delivery_fee = $('#delivery_fee').val()
       table_number = $('#table_number').val()
-
-
-
-
-
       delivery_collection_type = $('#service_type').val()
+
+  // Confirm the PaymentIntent without handling potential next actions (yet).
+  stripe.confirmCardPayment(
+    clientSecret,
+    {payment_method: ev.paymentMethod.id},
+    {handleActions: false}
+  ).then(function(confirmResult) {
+    if (confirmResult.error) {
+      // Report to the browser that the payment failed, prompting it to
+      // re-show the payment interface, or show an error message and close
+      // the payment interface.
+      ev.complete('fail');
+    } else {
+      // Report to the browser that the confirmation was successful, prompting
+      // it to close the browser payment method collection interface.
+      dataPayment = {apple_and_google: true, stripe_success_token: confirmResult.paymentIntent, token: clientSecret, price: <%=@total_payment*100%>, items: [], collection_time: collection_time, name: name, telephone: telephone, service_type: delivery_collection_type, email: email, delivery_fee: delivery_fee, table_number: table_number, house_number: house_number, street: street, postcode: postcode }
+      console.log(dataPayment)
       $.ajax({
         url: "<%=stripe_path(@path)%>.json",
         context: document.body,
-        data: {token: ev.token.id, price: <%=@total_payment*100%>, items: [], collection_time: collection_time, name: name, telephone: telephone, service_type: delivery_collection_type, email: email, delivery_fee: delivery_fee, table_number: table_number, house_number: house_number, street: street, postcode: postcode}, 
+        data: dataPayment, 
         method: 'POST',
         mimeType:'application/json',
       }).done(function(response) {
         console.log("RESPONSE OKOKOKOKOKOK")
-        console.log(response)
         ev.complete('success');
         window.location.replace('<%= @redirect_domain%>' + response.path)
       });
+
       
-    });
+      
+      // Check if the PaymentIntent requires any actions and if so let Stripe.js
+      // handle the flow. If using an API version older than "2019-02-11" instead
+      // instead check for: `paymentIntent.status === "requires_source_action"`.
+      if (confirmResult.paymentIntent.status === "requires_action") {
+        // Let Stripe.js handle the rest of the payment flow.
+        stripe.confirmCardPayment(clientSecret).then(function(result) {
+          if (result.error) {
+            // The payment failed -- ask your customer for a new payment method.
+          } else {
+            // The payment has succeeded.
+          }
+        });
+      } else {
+        // The payment has succeeded.
+      }
+    }
+  });
+});
+
+
+
+
+
+   // paymentRequest.on('token', function(ev) {
+//      name = $('#name').val()
+//      collection_time = $('#collection_time').val()
+//      house_number = $('#house_number').val()
+//      street = $('#street').val()
+//      postcode = $('#postcode').val()
+//      telephone = $('#telephone').val()
+//      email = $('#email').val()
+//      delivery_fee = $('#delivery_fee').val()
+//      table_number = $('#table_number').val()
+//      delivery_collection_type = $('#service_type').val()
+//
+//
+//
+//      $.ajax({
+//        url: "<%=stripe_path(@path)%>.json",
+//        context: document.body,
+//        data: {token: ev.token.id, price: <%=@total_payment*100%>, items: [], collection_time: collection_time, name: name, telephone: telephone, service_type: delivery_collection_type, email: email, delivery_fee: delivery_fee, table_number: table_number, house_number: house_number, street: street, postcode: postcode}, 
+//        method: 'POST',
+//        mimeType:'application/json',
+//      }).done(function(response) {
+//        console.log("RESPONSE OKOKOKOKOKOK")
+//        ev.complete('success');
+//        window.location.replace('<%= @redirect_domain%>' + response.path)
+//      });
+//      
+//    });
+
+
+
+
+
+
+
+
+
     // Check the availability of the Payment Request API first.
     paymentRequest.canMakePayment().then(function(result) {
       if (result) {
@@ -190,29 +318,14 @@
             </div>
           </div>
           <div id='main-payment-form'>
-          <form action="<%=stripe_path(@path)%>" method="post" id="payment-form">
+          <form method="post" id="payment-form">
 
-            <%= hidden_field_tag :total, @total_payment %>
-            <%= hidden_field_tag :service_type, @service_type %>
-            <%= hidden_field_tag :collection_time, @collection_time %>
-            <%= hidden_field_tag :table_number, @table_number %>
-            <%= hidden_field_tag :name, @name %>
-            <%= hidden_field_tag :telephone, @telephone %>
-            <%= hidden_field_tag :email, @email %>
-            <%= hidden_field_tag :house_number, @house_number %>
-            <%= hidden_field_tag :street, @street %>
-            <%= hidden_field_tag :postcode, @postcode %>
-            <%= hidden_field_tag :basket, @basket %>
-            <%= hidden_field_tag :delivery_fee, @delivery_fee %>
 
             <div class="row bg-dark">
               <div class='col'>
-
                 <div id="payment-request-button" class='submit-payment '>
                   <!-- A Stripe Element will be inserted here. -->
                 </div>
-
-                <%= hidden_field_tag :price, (@total_payment*100).to_i %>
                 <label for="card-element" class='submit-payment '>
                   <!-- Credit or debit card -->
                 </label>
@@ -222,7 +335,7 @@
                 <!-- Used to display form errors. -->
                 <div id="card-errors" class='alert alert-danger invisible mt-2' role="alert"></div>
                <!--  <button  class="btn btn-warning mt-2 submit-payment mb-3 ">Submit Payment</button> -->
-                <%= submit_tag "Submit Payment", class: 'btn btn-primary btn-block mt-2 submit-payment mb-3'  %>
+                <%= submit_tag "Submit Payment", class: 'btn btn-primary btn-block mt-2 submit-payment mb-3', id: 'submit-payment-button'  %>
               </div>
             </div>
           </form>
@@ -236,6 +349,22 @@
   </div>
 </div>
 
+          <form method="post" id="payment-form-success" action="<%=stripe_path(@path)%>" >
+            <%= hidden_field_tag :price, (@total_payment*100).to_i %>
+            <%= hidden_field_tag :total, @total_payment %>
+            <%= hidden_field_tag :service_type, @service_type %>
+            <%= hidden_field_tag :collection_time, @collection_time %>
+            <%= hidden_field_tag :table_number, @table_number %>
+            <%= hidden_field_tag :name, @name %>
+            <%= hidden_field_tag :telephone, @telephone %>
+            <%= hidden_field_tag :email, @email %>
+            <%= hidden_field_tag :house_number, @house_number %>
+            <%= hidden_field_tag :street, @street %>
+            <%= hidden_field_tag :postcode, @postcode %>
+            <%= hidden_field_tag :basket, @basket %>
+            <%= hidden_field_tag :delivery_fee, @delivery_fee %>
+            <%= hidden_field_tag :stripe_success_token %>
+          </form>
 
 
 

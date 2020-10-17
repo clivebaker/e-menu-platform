@@ -24,12 +24,12 @@
   </head>
 
   <body>
-
+    <%= render 'components/global/environment' %>
 
     <%= render 'components/global/order_messages' %>
     <div class="container-fluid px-0" >
       <%= yield %>
-      <%= render 'components/global/languages' %>
+      <%#= render 'components/global/languages' %>
       <%= render 'components/global/footer' %>
     </div>
     <%= yield :js %>

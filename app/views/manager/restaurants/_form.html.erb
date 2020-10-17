@@ -90,20 +90,7 @@
   </div>
     </div>
   </div>
-  <div class="row">
-    <div class="col">
-        <div class="form-group ">
-    <%= form.label :facebook %>
-    <%= form.text_field :facebook, class: 'form-control  form-control-sm' %>
-  </div>
-    </div>
-    <div class="col">
-       <div class="form-group ">
-    <%= form.label :twitter %>
-    <%= form.text_field :twitter, class: 'form-control  form-control-sm' %>
-  </div>
-    </div>
-  </div>
+
 
 
 
@@ -115,7 +102,15 @@
       </div>
     </div>
   </div>
-
+  <div class="row">
+    <div class="col">
+      <div class="form-group ">
+        <%= form.label :path %>
+        <%= form.text_field :path, class: 'form-control  form-control-sm' %>
+      </div>
+    </div>
+  </div>
+  
 
   <!-- Home -->
   </div>
@@ -152,15 +147,7 @@
   </div>
   <div class="tab-pane fade" id="settings" role="tabpanel" aria-labelledby="settings-tab">
   <!-- Settings -->
-  <div class="row">
-    <div class="col">
-      <div class="form-group ">
-        <%= form.label :path %>
-        <%= form.text_field :path, class: 'form-control  form-control-sm' %>
-      </div>
-    </div>
-  </div>
-  
+
 
  <div class="row">
     <div class="col">
@@ -188,7 +175,20 @@
         </div>
       </div>
   </div>
-
+  <div class="row">
+    <div class="col">
+      <div class="form-group ">
+        <%= form.label :facebook %>
+        <%= form.text_field :facebook, class: 'form-control  form-control-sm' %>
+      </div>
+    </div>
+    <div class="col">
+      <div class="form-group ">
+        <%= form.label :twitter %>
+        <%= form.text_field :twitter, class: 'form-control  form-control-sm' %>
+      </div>
+    </div>
+  </div>
   <!-- tracking -->
   </div>
 

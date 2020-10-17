@@ -109,13 +109,6 @@ def pay
   @restaurant = Restaurant.find_by(path: @path)
   @publish_stripe_api_key = @restaurant.stripe_pk_api_key
 
-  # if @basket
-  #   @basket = JSON.parse(@basket)
-  #   @basket_item_count = @basket['count']
-  #   @basket_item_total =  (@basket['ids'].map{|d| d['total']}.inject(:+)*100.to_f).to_i
-  # end
-
-
   @total_payment = params[:total].to_f
 
   @service_type = params[:service_type] 
@@ -130,14 +123,26 @@ def pay
   @basket = params[:basket] 
   @delivery_fee = params[:delivery_fee] 
 
+ 
+  @payment_in_pence = (@total_payment * 100).to_i
 
-
-
+  Stripe.api_key = @restaurant.stripe_sk_api_key
+  #Create Stripe Transaction
+  @payment_intent = Stripe::PaymentIntent.create({
+  amount: @payment_in_pence ,
+  currency: 'gbp',
+  payment_method_types: ['card'],
+  description: "#{@path} charge"  
+})
+#  binding.pry
 
 
 end
 
 def stripe
+
+
+
 
 
   @service_type = params[:service_type] 
@@ -154,10 +159,13 @@ def stripe
 
   @address = "#{@house_number}, #{@street}, #{@postcode}" 
   
+
   error = false
+  success = false
   @path = params[:path]
 
   @restaurant = Restaurant.find_by(path: @path)
+
 
     @basket_key = JSON.parse(cookies['emenu_basket'])['key'] if cookies[:emenu_basket]
     @basket_db = Basket.find_or_create_by(key: @basket_key)
@@ -170,52 +178,77 @@ def stripe
  
     items = @basket['ids']
 
-    Stripe.api_key = @restaurant.stripe_sk_api_key
-
-    token = params[:token]
-
     price = params[:price].to_i
 
-    Rails.logger.debug("Payment Token: #{token}")
     Rails.logger.debug("Payment Price: #{price}")
   
     begin
-     @status = Stripe::Charge.create(
-        amount: price,
-        currency: 'gbp',
-        description: "#{@path} charge",
-        source: token
-      )
+
+      stripe_data = {}
+      stripe_token = {}
+
+      # binding.pry
       
 
+      if params[:stripe_success_token].present?
+        
+        if params['apple_and_google'].present?
+          @stripe_payment_intent = params[:stripe_success_token]
+        else
+          @stripe_payment_intent = JSON.parse(params[:stripe_success_token])
+        end
 
-    @receipt =  Receipt.create(
-      uuid: SecureRandom.uuid,
-      restaurant_id: @restaurant.id,
-      basket_total: price,
-      items: basket_build(@basket['ids']),
-      email: @email,
-      name: @name,
-      collection_time: @collection_time,
-      stripe_token: token,
-      status: @status,
-      is_ready: false,
-      source: :takeaway, 
-      telephone: @telephone,
-      address: @address,
-      delivery_or_collection: @service_type,
-      delivery_fee: @delivery_fee , 
-      table_number: @table_number
-    )
-    rescue Exception => e
-      error = true
-    puts e
-  end
+        if @stripe_payment_intent['status'] == 'succeeded'
+          success = true
+          stripe_token = @stripe_payment_intent['id']
+          stripe_data = @stripe_payment_intent
+        end 
+      end
 
-    
-  unless error
-   cookies.delete :emenu_basket
-  end
+      if success
+ 
+        @receipt =  Receipt.create(
+            uuid: SecureRandom.uuid,
+            restaurant_id: @restaurant.id,
+            basket_total: price,
+            items: basket_build(@basket['ids']),
+            email: @email,
+            name: @name,
+            collection_time: @collection_time,
+            stripe_token: stripe_token,
+            status: stripe_data,
+            is_ready: false,
+            source: :takeaway, 
+            telephone: @telephone,
+            address: @address,
+            delivery_or_collection: @service_type,
+            delivery_fee: @delivery_fee , 
+            table_number: @table_number
+          )
+  
+      else
+        error = true
+      end #if succeeded
+  
+
+        rescue Exception => e
+          error = true
+        puts e
+        puts "****************************************************************"
+        puts "ERROR: #{e} ***********************************"
+        puts "****************************************************************"
+        puts "params: #{params} ***********************************"
+        puts "****************************************************************"
+      
+      end
+
+        
+    if success 
+        # if @stripe_payment_intent['status'] == 'succeeded'
+          cookies.delete :emenu_basket
+      # end
+    end
+
 
   
 
@@ -427,12 +460,14 @@ def stripe
     @basket_db.save
 
 
-    menu_id = params[:menu_id] if  params[:menu_id].present?
+      menu_id = params[:menu_id] if  params[:menu_id].present?
     
       return_path = restaurant_path_path(path)
 
+      # binding.pry
 
-      return_path = order_menu_section_path(path, menu_id, params[:section_id]) if feature_match('menu_in_sections', @restaurant.features)
+      return_path = order_menu_path(path, menu_id) if feature_match('menu_in_sections', @restaurant.features) and menu_id.present?
+      return_path = order_menu_section_path(path, menu_id, params[:section_id]) if feature_match('menu_in_sections', @restaurant.features) and menu_id.present? and params[:section_id].present?
 # binding.pry
 
         respond_to do |format|
