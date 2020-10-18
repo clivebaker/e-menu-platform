@@ -1,4 +1,9 @@
 
+
+
+@import "bootstrap-datepicker";
+
+
 @import "trix";
 
 @import "tables";
@@ -15,6 +20,10 @@
 @import 'variables';
 
 @import "bootstrap";
+
+
+@import "datatables";
+
 
 
 @import url('https://fonts.googleapis.com/css?family=Cutive+Mono|Dosis:400,800|Monoton');
@@ -385,3 +394,4 @@ div.scrollmenu::-webkit-scrollbar {
           transition: transform .2s ease-in-out, background-color .2s ease-in-out;
           transition: transform .2s ease-in-out, background-color .2s ease-in-out, -webkit-transform .2s ease-in-out;
         }
+

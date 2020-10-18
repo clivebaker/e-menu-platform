@@ -193,6 +193,25 @@ class Receipt < ApplicationRecord
 
 
 
+  def zreport
+    
+    i = items['items'].present? ? items['items'].map{|s| {id: s['menu_id'], total: (s['total']*100.to_f).to_i, optional_ids: s['optionals']}} : []
+    c = items['items'].present? ? items['items'].count : 0
+
+    {
+      basket_total: basket_total,
+      item_count: c,
+      items: i,
+      source: source,
+      delivery_or_collection: delivery_or_collection,
+      delivery_fee: delivery_fee
+    }
+
+
+  end
+  
+
+
 
 
 end

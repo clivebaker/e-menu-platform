@@ -94,6 +94,9 @@ Rails.application.routes.draw do
     resources :restaurants do
 
       post 'set_delay'
+      post 'reporting/daily'
+      get 'reporting/daily'
+      get 'reporting/zreport_show/:daily_reporting_id', to: 'reporting#zreport_show', as: :zreport
 
       resources :opening_times
       resources :delivery_postcodes
