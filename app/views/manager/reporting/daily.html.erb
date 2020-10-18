@@ -67,9 +67,8 @@ $(document).ready(function() {
           <thead>
             <tr>
               <th>Date</th>
-              <th>Total</th>
-              <th>Number of Items Sold</th>
-              <th></th>
+              <th class='text-right'>Total</th>
+              <th class='text-right'>Number of Items Sold</th>
               <th></th>
             </tr>
           </thead>
@@ -77,10 +76,9 @@ $(document).ready(function() {
             <% @daily_reportings.each do |daily_reporting| %>
             <tr>
               <td><%= daily_reporting.date %></td>
-              <td><%= number_to_currency(daily_reporting.total.to_f / 100.to_f, unit: '£' )%></td>
-              <td><%= daily_reporting.items_count%></td>
-              <td><%= link_to 'View',  manager_restaurant_zreport_path(@restaurant,  daily_reporting) %></td>
-              <td><%#= link_to 'Download csv',  manager_restaurant_zreport_path(@restaurant,  daily_reporting) %></td>
+              <td class='text-right'><%= number_to_currency(daily_reporting.total.to_f / 100.to_f, unit: '£' )%></td>
+              <td class='text-right'><%= daily_reporting.items_count%></td>
+              <td class='text-right'><%= link_to 'View',  manager_restaurant_zreport_path(@restaurant,  daily_reporting) %></td>
             </tr>
             <% end %>
           </tbody>
