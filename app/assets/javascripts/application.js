@@ -16,6 +16,8 @@
 //= require bootstrap
 //= require trix
 //= require jstree
+//= require bootstrap-datepicker
+//= require datatables
 
 
 
