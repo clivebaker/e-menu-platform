@@ -1,94 +1,30 @@
-<% content_for :js do %>
 
-<script>
-
-$(document).ready(function() {
-  $("#items-data").dataTable({
-      dom: 'Bfrtip',
-
-        buttons: [
-            {
-                extend: 'excelHtml5',
-                title: '<%=@daily_reporting.date.strftime('%Y_%B_%d_zreport_emenunow')%>'
-            },
-            {
-                extend: 'csvHtml5',
-                title: '<%=@daily_reporting.date.strftime('%Y_%B_%d_zreport_emenunow')%>'
-            }
-        ]
-
-
-
-
-  });
-});
-
-</script>
-
-<% end %>
 <main role="main" class="container">
-  <div class='row'>
+  <div class='row pt-3'>
     <div class='col'>
         <h1>Z Report</h1>
     </div>
   </div>
-
-  <div class='row mb-4'>
-    <div class='col'>
-           <h2>Sales By Item on <%= @daily_reporting.date.strftime('%d %B %Y') %></h2>
-        
-
-<table class='table table-striped' id='items-data'>
-  <thead>
-    <tr>
-      <th>Item</th>
-      <th class='text-right'>Count</th>
-      <th class='text-right'>Total</th>
-      <th class='text-right'>Percentage Items</th>
-      <th class='text-right'>Percentage Sales</th>
-    </tr>
-  </thead>
-  <tbody>
-
-    
-    <% @daily_reporting.data.map{|a| a['id'] }.uniq.each do |menu_id|%>
-      <% 
-        totals = @daily_reporting.data.select{|a| a['id'] == menu_id } 
-        total_sales = totals.map{|x| x['total']}.inject(:+)
-        percent_count =  @daily_reporting.items_count == 0 ? 0 : (totals.count.to_f / @daily_reporting.items_count.to_f )*100
-        percent_total =  @daily_reporting.total == 0 ? 0 : (total_sales.to_f / @daily_reporting.total.to_f )*100
-      %> 
-    <tr>
-      <td><%= get_menu_item_name(menu_id)%></td>
-      <td class='text-right'><%= totals.count%></td>
-      <td class='text-right'><%= number_to_currency(total_sales.to_f / 100.to_f, unit: '£' )%></td>
-      <td class='text-right'><%= number_to_percentage(percent_count, precision: 2) %></td>
-      <td class='text-right'><%= number_to_percentage(percent_total, precision: 2) %></td>
-    </tr>
-    <% end %>
-    
-  </tbody>
-  <tfoot>
-     <tr class='font-weight-bold bg-dark text-light'>
-      <td>Total</td>
-      <td class='text-right'><%= @daily_reporting.items_count%></td>
-      <td class='text-right'><%= number_to_currency(@daily_reporting.total.to_f / 100.to_f, unit: '£' )%></td>
-      <td class='text-right'><%= number_to_percentage(100, precision: 0) %></td>
-      <td class='text-right'><%= number_to_percentage(100, precision: 0) %></td>
-    </tr>
- </tfoot>
-
-</table>
+<div class='row mb-4'>
+  <div class='col'>
+    <%= render 'manager/reporting/datatable_by_category', daily_reporting: @daily_reporting, by: 'category' %>
+  </div>
+</div>
 
 
-<%= link_to 'Back to Daily Reports', manager_restaurant_reporting_daily_path(@restaurant) %>
-
-    </div>
+<div class='row bg-light text-light pb-4 '>
+  <div class='col p-0 m-0 bg-info'>
+  &nbsp;
   </div>
 
+</div>
 
 
-
+<div class='row mb-4'>
+  <div class='col'>
+    <%= render 'manager/reporting/datatable', daily_reporting: @daily_reporting, by: 'item' %>
+  </div>
+</div>
 
 
 </main>
