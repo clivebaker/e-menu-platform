@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class HomeController < ApplicationController
+  # layout 'order'
+
   def index
     @restaurants = Restaurant.all
   end

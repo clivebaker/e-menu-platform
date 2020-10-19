@@ -1,0 +1,30 @@
+
+<main role="main" class="container">
+  <div class='row pt-3'>
+    <div class='col'>
+        <h1>Z Report</h1>
+    </div>
+  </div>
+<div class='row mb-4'>
+  <div class='col'>
+    <%= render 'manager/reporting/datatable_by_category', daily_reporting: @daily_reporting, by: 'category' %>
+  </div>
+</div>
+
+
+<div class='row bg-light text-light pb-4 '>
+  <div class='col p-0 m-0 bg-info'>
+  &nbsp;
+  </div>
+
+</div>
+
+
+<div class='row mb-4'>
+  <div class='col'>
+    <%= render 'manager/reporting/datatable', daily_reporting: @daily_reporting, by: 'item' %>
+  </div>
+</div>
+
+
+</main>

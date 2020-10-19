@@ -16,10 +16,19 @@ module MenusHelper
       m = Menu.find(item_id)
       m.image if m.image.attached?
     rescue
-
     end
-
   end
+  def get_menu_item_name(menu_id)
+    name = ''
+    begin
+      m = Menu.find(menu_id)
+      name = m.name
+    rescue
+    end
+    name
+  end
+
+
 
 
   def checked?(menu_custom_lists, custom_list_id, item_id)

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_08_111408) do
+ActiveRecord::Schema.define(version: 2020_10_17_224430) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -83,6 +83,17 @@ ActiveRecord::Schema.define(version: 2020_10_08_111408) do
     t.integer "position"
     t.integer "cloned_from"
     t.index ["restaurant_id"], name: "index_custom_lists_on_restaurant_id"
+  end
+
+  create_table "daily_reportings", force: :cascade do |t|
+    t.bigint "restaurant_id", null: false
+    t.jsonb "data"
+    t.date "date"
+    t.integer "total"
+    t.integer "items_count"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["restaurant_id"], name: "index_daily_reportings_on_restaurant_id"
   end
 
   create_table "delivery_postcodes", force: :cascade do |t|
@@ -397,6 +408,7 @@ ActiveRecord::Schema.define(version: 2020_10_08_111408) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "custom_list_items", "custom_lists"
   add_foreign_key "custom_lists", "restaurants"
+  add_foreign_key "daily_reportings", "restaurants"
   add_foreign_key "delivery_postcodes", "restaurants"
   add_foreign_key "item_screens", "item_screen_types"
   add_foreign_key "item_screens", "printers"

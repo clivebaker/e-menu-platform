@@ -1,0 +1,99 @@
+
+
+<% content_for :js do %>
+
+<script>
+
+$('.input-daterange').datepicker({
+    format: "yyyy-mm-dd",
+    todayBtn: "linked",
+    autoclose: true,
+    todayHighlight: true
+});
+
+
+
+$(document).ready(function() {
+  $("#items-data").dataTable({
+     "order": [[ 0, "desc" ]]
+  });
+});
+
+</script>
+
+<% end %>
+  
+  
+  <main role="main" class="container">
+    <div class='row'>
+      <div class='col'>
+
+          <h1>Daily Reports</h1>
+
+
+
+      </div>
+    </div>
+
+<!-- 
+<%= form_tag manager_restaurant_reporting_daily_path(@restaurant) do %>
+<div class="row bg-dark text-light p-3">
+  <div class="col">
+    <div class="row">
+      <div class="col">
+        <div class="input-daterange input-group mb-2">
+          <%= text_field_tag :start_date, @start_date, id: "start" , class: 'form-control', name: "start_date",  placeholder: "Start Date"  %>      
+          <div class="input-group-prepend">
+            <div class="input-group-text">to</div>
+          </div>
+          <%= text_field_tag :end_date, @end_date, id: "end" , class: 'form-control', name: "end_date",  placeholder: "End Date"  %>      
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <%= submit_tag "Update", class: 'btn btn-primary btn-block btn-sm'%>
+      </div>
+    </div>
+  </div>
+</div>
+<% end %>
+-->       
+
+    <div class='row'>
+      <div class='col'>
+
+        <table class='table table-striped' id='items-data'>
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th class='text-right'>Total</th>
+              <th class='text-right'>Number of Items Sold</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @daily_reportings.each do |daily_reporting| %>
+            <tr>
+              <td><%= daily_reporting.date %></td>
+              <td class='text-right'><%= number_to_currency(daily_reporting.total.to_f / 100.to_f, unit: '£' )%></td>
+              <td class='text-right'><%= daily_reporting.items_count%></td>
+              <td class='text-right'><%= link_to 'View',  manager_restaurant_zreport_path(@restaurant,  daily_reporting) %></td>
+            </tr>
+            <% end %>
+          </tbody>
+
+        </table>    
+
+
+
+      </div>
+    </div>
+
+
+
+
+
+
+
+</main>
