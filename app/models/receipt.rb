@@ -1,17 +1,19 @@
 
 class Receipt < ApplicationRecord
   belongs_to :restaurant
+  belongs_to :order
   after_create :broadcast
   after_create :creation_print
   after_create :item_breakdown
   has_many :screen_items
+  belongs_to :discount_code, optional: true
   delegate :id, to: :restaurant, prefix: true
 
+  after_create :email_receipt
 
   # def mylogger
   #   @@my_logger ||= Logger.new("#{Rails.root}/log/mylog.log")
   # end
-
 
   def item_breakdown
 
@@ -50,7 +52,6 @@ class Receipt < ApplicationRecord
 
   end
 
-
   def creation_print
 
 
@@ -71,11 +72,6 @@ class Receipt < ApplicationRecord
       end
     end
   end
-  
-
-
-  
-
 
   def broadcast
     @printers = Printer.where(restaurant_id: restaurant_id)
@@ -88,7 +84,7 @@ class Receipt < ApplicationRecord
   def print_receipt(printer, action='print')
     puts 'Hello'
     print_receipt = ApplicationController.render(partial: "manager/live/order_items_print", locals: { receipt: self, restaurant: restaurant_id })
-    print_receipt = print_receipt.gsub("&amp;","&").gsub("£","")
+    print_receipt = print_receipt.gsub("&amp;","&").gsub(restaurant.currency_symbol,"")
     header = ""
     header << "Name: #{name}\n" if delivery_or_collection != 'tableservice' 
     header << "Time: #{collection_time}\n" if delivery_or_collection != 'tableservice' 
@@ -102,16 +98,11 @@ class Receipt < ApplicationRecord
     ActionCable.server.broadcast("printers_channel_#{restaurant_id}_#{printer.pi_interface_server_token}", data)
   end
 
-  after_create :email_receipt
-
   def email_receipt
     if email.present?
       ApplicationMailer.receipt(id).deliver_now
     end
   end
-
-
-
 
   def creation_print_grouped(item_screen_type_key)
     item_screens = ItemScreen.where(restaurant_id: restaurant_id).joins(:item_screen_type).where("item_screen_types.key = ?", item_screen_type_key)
@@ -131,11 +122,10 @@ class Receipt < ApplicationRecord
     end
   end
 
-
   def print_receipt_grouped(printer, item_screen_type_key, action='print')
     
     print_receipt = ApplicationController.render(partial: "manager/live/order_item_screen_specific_print", locals: {grouped: true, screen_item: self, restaurant: restaurant_id, item_screen_type_key: item_screen_type_key })
-    print_receipt = print_receipt.gsub("&amp;","&").gsub("£","")
+    print_receipt = print_receipt.gsub("&amp;","&").gsub(restaurant.currency_symbol,"")
     header = ""
     header << "Name: #{name}\n" if delivery_or_collection != 'tableservice' 
     header << "Time: #{collection_time}\n" if delivery_or_collection != 'tableservice' 
@@ -148,9 +138,6 @@ class Receipt < ApplicationRecord
    # mylogger.debug("PRINTING PRIMARY: #{printer.inspect}")
     ActionCable.server.broadcast("printers_channel_#{restaurant_id}_#{printer.pi_interface_server_token}", data)
   end
-
-
-
 
   def secondary_creation_print_grouped(secondary_item_screen_type_key)
     item_screens = ItemScreen.where(restaurant_id: restaurant_id).joins(:item_screen_type).where("item_screen_types.key = ?", secondary_item_screen_type_key)
@@ -170,11 +157,10 @@ class Receipt < ApplicationRecord
     end
   end
 
-
   def secondary_print_receipt_grouped(printer, secondary_item_screen_type_key, action='print')
     
     print_receipt = ApplicationController.render(partial: "manager/live/order_item_screen_specific_print_secondary", locals: {grouped: true, screen_item: self, restaurant: restaurant_id, secondary_item_screen_type_key: secondary_item_screen_type_key })
-    print_receipt = print_receipt.gsub("&amp;","&").gsub("£","")
+    print_receipt = print_receipt.gsub("&amp;","&").gsub(restaurant.currency_symbol,"")
     header = ""
     header << "Name: #{name}\n" if delivery_or_collection != 'tableservice' 
     header << "Time: #{collection_time}\n" if delivery_or_collection != 'tableservice' 
@@ -187,11 +173,6 @@ class Receipt < ApplicationRecord
   #  mylogger.debug("PRINTING SECONDARY: #{printer.inspect}")
     ActionCable.server.broadcast("printers_channel_#{restaurant_id}_#{printer.pi_interface_server_token}", data)
   end
-
-
-
-
-
 
   def zreport
     
@@ -224,9 +205,5 @@ class Receipt < ApplicationRecord
 
 
   end
-  
-
-
-
 
 end

@@ -63,6 +63,11 @@ gem 'mailjet'
 gem "webpacker"
 gem 'jquery-datatables'
 
+# Application moitoring
+gem 'scout_apm'
+# Error logging
+gem 'rollbar'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
@@ -93,6 +98,7 @@ group :test do
 
   gem 'capybara', '>= 2.15', '< 4.0'
   gem 'factory_bot_rails'
+  gem 'rails-controller-testing'
   # gem 'selenium-webdriver'
   # Easy installation and use of chromedriver to run system tests with Chrome
   # gem 'chromedriver-helper'
