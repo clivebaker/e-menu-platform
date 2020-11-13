@@ -110,11 +110,13 @@ ul ul a {
 .overlay {
   display: none;
   position: fixed;
+  top: 0px;
+  left: 0px;
   /* full screen */
   width: 100vw;
   height: 100vh;
   /* transparent black */
-  background: rgba(0, 0, 0, 0.7);
+  background: rgba(0, 0, 0, 0.85);
   /* middle layer, i.e. appears below the sidebar */
   z-index: 998;
   opacity: 0;
