@@ -61,14 +61,50 @@ h1,h2,h3,h4{
 }
 
 #sidebar {
+  color: #fff;
+  transition: all 0.3s;
   min-width: 250px;
   max-width: 250px;
   height: 100vh;
   position: fixed;
   top: 0;
-  left: 0;
+  left: -250px;
   /* top layer */
   z-index: 9999;
+}
+
+#sidebar.active {
+  left: 0px;
+  // margin-left: -250px;
+}
+
+#sidebar .sidebar-header {
+  padding: 20px;
+}
+
+#sidebar ul.components {
+  padding: 20px 0;
+}
+
+#sidebar ul p {
+  color: #fff;
+  padding: 10px;
+}
+
+#sidebar ul li a {
+  padding: 10px;
+  font-size: 1.1em;
+  display: block;
+}
+#sidebar ul li a:hover {
+}
+
+#sidebar ul li.active > a, a[aria-expanded="true"] {
+  color: #fff;
+}
+ul ul a {
+  font-size: 0.9em !important;
+  padding-left: 30px !important;
 }
 
 .overlay {
