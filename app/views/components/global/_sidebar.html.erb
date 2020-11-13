@@ -1,8 +1,10 @@
 <nav id="sidebar" class="navbar-dark bg-dark">
 
-  <div id="dismiss" class="navbar-toggler">
-    <i class="fas fa-arrow-left"></i>
-  </div>
+  <button class="navbar-toggler" type="button" id="dismiss">
+    <%# <span class="navbar-toggler-icon"></span> %>
+    <i class="fas fa-times"></i>
+    <%# <span aria-hidden="true">&times;</span> %>
+  </button>
 
   <div class="sidebar-header">
     <h3>EMenu Sidebar</h3>
@@ -14,14 +16,13 @@
       <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false">Home</a>
       <ul class="collapse list-unstyled" id="homeSubmenu">
         <li>
-          <a href="#">Home 1</a>
+          <%= link_to "Find Restaurant", root_path %>
         </li>
-        <li>
-          <a href="#">Home 2</a>
-        </li>
-        <li>
-          <a href="#">Home 3</a>
-        </li>
+        <% if @restaurant %>
+          <li>
+            <%= link_to @restaurant.name, restaurant_path_path(@restaurant.path) %>
+          </li>
+        <% end %>
       </ul>
     </li>
     <li>
