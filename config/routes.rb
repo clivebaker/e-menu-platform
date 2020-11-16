@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
-  devise_for :patrons
+  devise_for :patrons, controllers: {
+    sessions: 'patrons/sessions'
+  }
   resources :raspberry_pi_statuses
   resources :raspberry_pi_updates do
     collection do
@@ -163,9 +165,7 @@ get 'receipt/:receipt_id/key/:item_screen_type_key/print/:printer_id', to: 'mana
   get 'home/table'
   post 'home/set_locale/:language_id' => 'home#set_locale', as: :home_set_locale
 
-
-   get '/:name', to: 'restaurant/menu#name'
-
+  # get '/:name', to: 'restaurant/menu#name'
 
   root 'home#index'
 end
