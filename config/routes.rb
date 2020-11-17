@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   devise_for :patrons, controllers: {
-    sessions: 'patrons/sessions'
+    sessions: 'patrons/sessions',
+    registrations: 'patrons/registrations'
   }
   resources :raspberry_pi_statuses
   resources :raspberry_pi_updates do

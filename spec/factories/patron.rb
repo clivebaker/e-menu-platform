@@ -4,7 +4,7 @@ FactoryBot.define do
   factory :patron do
 		sequence(:email) { "test@test.com" }
     
-    trait :sign_in_redirect do
+    trait :sign_up_redirect do
       redirect_after_signup_to { "/order/lulus" }
     end
     password { "testtest" }

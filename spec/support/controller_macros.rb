@@ -20,4 +20,12 @@ module ControllerMacros
       post :create, :params => { "patron": @patron.as_json }
     end
   end
+
+  def signup_patron(*args)
+    before(:each) do
+      @request.env["devise.mapping"] = Devise.mappings[:patron]
+      @patron = FactoryBot.build(:patron, *args)
+      post :create, :params => { "patron": @patron.as_json }
+    end
+  end
 end
