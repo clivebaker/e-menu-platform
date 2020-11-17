@@ -10,9 +10,15 @@ module Patrons
     # end
 
     # POST /resource/sign_in
-    # def create
-    #   super
-    # end
+    def create
+      if params[:patron][:password].present?
+        super
+      else
+        patron = Patron.where(:email => params[:patron][:email]).first
+        sign_in(patron)
+        super
+      end
+    end
 
     # DELETE /resource/sign_out
     # def destroy
@@ -27,7 +33,7 @@ module Patrons
     end
 
     def after_sign_in_path_for(resource)
-      params[:redirect_after_signup_to].presence || super
+      resource.redirect_after_signup_to || super
     end
   end
 end

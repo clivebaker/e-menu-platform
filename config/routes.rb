@@ -165,7 +165,7 @@ get 'receipt/:receipt_id/key/:item_screen_type_key/print/:printer_id', to: 'mana
   get 'home/table'
   post 'home/set_locale/:language_id' => 'home#set_locale', as: :home_set_locale
 
-  # get '/:name', to: 'restaurant/menu#name'
+  get '/:name', to: 'restaurant/menu#name'
 
   root 'home#index'
 end
