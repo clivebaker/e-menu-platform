@@ -1,10 +1,8 @@
 # frozen_string_literal: true
 
 class Patrons::RegistrationsController < Devise::RegistrationsController
-  # before_action :configure_sign_up_params, only: [:create]
+  before_action :configure_sign_up_params, only: [:create]
   # before_action :configure_account_update_params, only: [:update]
-
-  DEFAULT_PASSWORD = "defaultpassword".freeze
 
   # GET /resource/sign_up
   # def new
@@ -16,7 +14,8 @@ class Patrons::RegistrationsController < Devise::RegistrationsController
     if params[:patron][:password].present?
       super
     else
-      params[:patron][:password] = params[:patron][:password_confirmation] = DEFAULT_PASSWORD
+      params[:patron][:password] = params[:patron][:password_confirmation] = Patrons::BaseController::DEFAULT_PATRON_PASSWORD
+      params[:patron][:has_default_password] = true
       super
     end
   end

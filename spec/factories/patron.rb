@@ -1,8 +1,7 @@
-require 'rails_helper'
-
 FactoryBot.define do
   factory :patron do
-		sequence(:email) { "test@test.com" }
+    email { "test@test.com" }
+    has_no_password { true }
     
     trait :sign_up_redirect do
       redirect_after_signup_to { "/order/lulus" }
@@ -11,6 +10,11 @@ FactoryBot.define do
     
     trait :with_password do
       password { "testtest" }
+      has_no_password { false }
+    end
+    
+    trait :invalid_email do
+      email { "testtest.com" }
     end
   end
 end

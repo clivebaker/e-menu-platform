@@ -2,7 +2,7 @@
 
 module Patrons
   class SessionsController < Devise::SessionsController
-    # before_action :configure_sign_in_params, only: [:create]
+    before_action :configure_sign_in_params, only: [:new, :create]
 
     # GET /resource/sign_in
     # def new
@@ -11,11 +11,15 @@ module Patrons
 
     # POST /resource/sign_in
     def create
-      if params[:patron][:password].present?
-        super
-      else
-        patron = Patron.where(:email => params[:patron][:email]).first
+      begin
+        patron = Patron.where(:email => params[:patron][:email].downcase).first_or_create!(
+          :password =>  Patrons::BaseController::DEFAULT_PATRON_PASSWORD,
+          :password_confirmation => Patrons::BaseController::DEFAULT_PATRON_PASSWORD,
+          :has_no_password => true
+        )
         sign_in(patron)
+        super
+      rescue StandardError => e
         super
       end
     end
@@ -31,7 +35,7 @@ module Patrons
     def configure_sign_in_params
       devise_parameter_sanitizer.permit(:sign_in, keys: [:redirect_after_signup_to])
     end
-
+    
     def after_sign_in_path_for(resource)
       resource.redirect_after_signup_to || super
     end
