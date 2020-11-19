@@ -75,7 +75,7 @@
         });
 
         new_price = parseInt(price * 100) / 100
-        $(".button-price-"+scope).html("£"+ new_price)
+        $(".button-price-"+scope).html("<%=@restaurant.currency_symbol%>"+ new_price)
         $("#optionals-"+scope).html(optionals.join(','))
         note = $("#notes-"+scope).val()
         
@@ -120,29 +120,37 @@
 
 <div class="container-fluid p-0 m-0">
 
-<% if !@restaurant.is_open and is_tableservice?(@restaurant) %>
-  <div class="row">
-    <div class="col text-danger text-center border border-danger"> 
-      The Kitchen is Now closed
-    </div>
-  </div>
-<% end %>
-
-<% if @restaurant.is_open and @restaurant.is_closing < 30 and is_tableservice?(@restaurant) %>
-  <div class="row">
-    <div class="col text-warning text-center border border-warning"> 
-      The Kitchen is closing in <%= @restaurant.is_closing%> minutes
-    </div>
-  </div>
-<% end %>
-   <% if @restaurant.is_open and @restaurant.opening_time_kitchen_delay_minutes > 0 %>
-        <div class="row ">
-          <div class='col text-warning text-center border border-warning'>
-            Please Note: The kitchen is busy and there could be up to <%= @restaurant.opening_time_kitchen_delay_minutes %> minutes delay
-          </div>
+  <% if !@restaurant.is_open %>
+    <% if is_takeaway?(@restaurant) or is_delivery?(@restaurant) %>
+      <div class="row">
+        <div class="col text-warning text-center border border-warning"> 
+          The Kitchen is currently closed, but you can still order for next available open time
         </div>
-        <% end %>
+      </div>
+    <% else %>
+      <div class="row">
+        <div class="col text-danger text-center border border-danger"> 
+          The Kitchen is Now closed
+        </div>
+      </div>
+    <% end %>
+  <% end %>
 
+  <% if @restaurant.is_open and @restaurant.is_closing <= 30 and is_tableservice?(@restaurant) %>
+    <div class="row">
+      <div class="col text-warning text-center border border-warning"> 
+        The Kitchen is closing in <%= @restaurant.is_closing%> minutes
+      </div>
+    </div>
+  <% end %>
+
+  <% if @restaurant.is_open and @restaurant.opening_time_kitchen_delay_minutes > 0 %>
+    <div class="row ">
+      <div class='col text-warning text-center border border-warning'>
+        Please Note: The kitchen is busy and there could be up to <%= @restaurant.opening_time_kitchen_delay_minutes %> minutes delay
+      </div>
+    </div>
+  <% end %>
 
 
   <div class="row">
@@ -157,5 +165,6 @@
 
     </div>
   </div>
+
 </div>
 
