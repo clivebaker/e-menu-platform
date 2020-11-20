@@ -30,14 +30,14 @@
   </head>
 
   <body>
-    <%= render 'components/global/environment' %> <%= render
-    'manager/components/global/topnav' %> <%= render
-    'manager/components/restaurant/navigation' if
-    current_manager_restaurant_user %> <%= render 'components/global/messages'
-    %>
+    <%= render :partial => 'components/global/environment' %>
+    <%= render :partial => 'manager/components/global/topnav' %>
+    <%= render :partial => 'manager/components/restaurant/navigation' if current_manager_restaurant_user %>
+    <%= render :partial => 'components/global/messages' %>
     <div class="container-fluid px-0">
-      <%= yield %> <%= render 'components/global/languages' %> <%= render
-      'manager/components/global/footer' %>
+      <%= yield %>
+      <%= render :partial => 'components/global/languages' %>
+      <%= render :partial => 'manager/components/global/footer' %>
     </div>
     <%= yield :js %> <%= yield :channels %>
   </body>
