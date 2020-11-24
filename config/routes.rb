@@ -15,6 +15,14 @@ Rails.application.routes.draw do
   #   resources :printers
   # end
   resources :item_screen_types 
+  
+  resources :orders, :only => [:index]
+  
+  resources :patrons, :only => [:index] do
+    collection do
+      resources :orders, :only => [:index]
+    end
+  end
 
   resources :receipts do 
     post 'is_ready'
@@ -30,6 +38,8 @@ Rails.application.routes.draw do
     get 'list' => "home#index"
     get 'booking/:slug' => "booking#index", as: :booking
     get 'menu/:slug' => "menu#index", as: :menu
+
+    resources :menu, :only => [:index]
 
   end
 
@@ -166,7 +176,7 @@ get 'receipt/:receipt_id/key/:item_screen_type_key/print/:printer_id', to: 'mana
   get 'home/table'
   post 'home/set_locale/:language_id' => 'home#set_locale', as: :home_set_locale
 
-  get '/:name', to: 'restaurant/menu#name'
+  get '/:name', to: 'restaurant/menu#index'
 
   root 'home#index'
 end

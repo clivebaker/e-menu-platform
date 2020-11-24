@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_18_154437) do
+ActiveRecord::Schema.define(version: 2020_11_20_151719) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -223,6 +223,25 @@ ActiveRecord::Schema.define(version: 2020_11_18_154437) do
     t.index ["restaurant_id"], name: "index_opening_times_on_restaurant_id"
   end
 
+  create_table "orders", force: :cascade do |t|
+    t.string "long_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "restaurant_id", null: false
+    t.integer "value"
+    t.string "currency"
+    t.index ["restaurant_id"], name: "index_orders_on_restaurant_id"
+  end
+
+  create_table "orders_patrons", id: false, force: :cascade do |t|
+    t.bigint "order_id", null: false
+    t.bigint "patron_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["order_id"], name: "index_orders_patrons_on_order_id"
+    t.index ["patron_id"], name: "index_orders_patrons_on_patron_id"
+  end
+
   create_table "packages", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -431,6 +450,7 @@ ActiveRecord::Schema.define(version: 2020_11_18_154437) do
   add_foreign_key "menus", "restaurants"
   add_foreign_key "menus", "spice_levels"
   add_foreign_key "opening_times", "restaurants"
+  add_foreign_key "orders", "restaurants"
   add_foreign_key "printers", "pi_interfaces"
   add_foreign_key "printers", "restaurants"
   add_foreign_key "receipts", "restaurants"
