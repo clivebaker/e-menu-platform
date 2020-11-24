@@ -93,9 +93,7 @@ class BasketService < ApplicationController
     @basket_db.save
     @basket = @basket_db.contents
   end
-
-  private
-
+  
   def basket_build(ids)
     basket_items = []
     ids.each do |id|
@@ -117,5 +115,8 @@ class BasketService < ApplicationController
     { 'items' => basket_items }
 
   end
+
+  private
+
 
 end
