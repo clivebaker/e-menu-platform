@@ -1,10 +1,8 @@
 FactoryBot.define do
   factory :receipt do
-    order { FactoryBot.build(:order) }
-    value { 100 }
-    currency { "GBP" }
+    order { FactoryBot.create(:order) }
+    restaurant { FactoryBot.create(:restaurant) }
     uuid { SecureRandom.uuid }
-    restaurant_id { FactoryBot.build(:restaurant) }
     basket_total { 0 }
     items { {"items"=>[{"item"=>"<i>STARTERS</i> - <strong>Caprese Salad </strong>", "note"=>nil, "uuid"=>"eecd1569-1ae2-4862-a97a-c2fb8f089d6c", "total"=>6.0, "menu_id"=>23, "optionals"=>[], "item_screen_type_key"=>nil, "item_screen_type_name"=>nil, "secondary_item_screen_type_key"=>nil, "secondary_item_screen_type_name"=>nil}, {"item"=>"<i>STARTERS</i> - <strong>COURGETTE FRITTI</strong>", "note"=>nil, "uuid"=>"dd890abc-8af7-465c-b9ab-19903b4354c3", "total"=>5.5, "menu_id"=>24, "optionals"=>[], "item_screen_type_key"=>nil, "item_screen_type_name"=>nil, "secondary_item_screen_type_key"=>nil, "secondary_item_screen_type_name"=>nil}]} }
     email { "" }
