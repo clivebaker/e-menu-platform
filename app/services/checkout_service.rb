@@ -39,7 +39,7 @@ class CheckoutService < ApplicationController
       end 
     end
 
-    Receipt.create(
+    Order.create(
       uuid: SecureRandom.uuid,
       restaurant_id: @restaurant.id,
       basket_total: @price.to_i,

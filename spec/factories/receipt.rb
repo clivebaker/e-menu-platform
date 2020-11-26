@@ -1,10 +1,8 @@
 FactoryBot.define do
-  factory :order do
-    patrons { build_list :patron, 2 }
-    restaurant { FactoryBot.build(:restaurant) }
+  factory :receipt do
+    order { FactoryBot.build(:order) }
     value { 100 }
     currency { "GBP" }
-    
     uuid { SecureRandom.uuid }
     restaurant_id { FactoryBot.build(:restaurant) }
     basket_total { 0 }

@@ -18,7 +18,7 @@ Rails.application.routes.draw do
   
   resources :orders, :only => [:index]
   
-  resources :patrons, :only => [:index] do
+  resources :patrons, :module => :patrons, :only => [:index] do
     collection do
       resources :orders, :only => [:index]
     end

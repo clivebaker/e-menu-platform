@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_20_151719) do
+ActiveRecord::Schema.define(version: 2020_11_26_141735) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -317,6 +317,8 @@ ActiveRecord::Schema.define(version: 2020_11_20_151719) do
     t.string "delivery_or_collection"
     t.decimal "delivery_fee", precision: 8, scale: 2
     t.string "table_number"
+    t.bigint "order_id"
+    t.index ["order_id"], name: "index_receipts_on_order_id"
     t.index ["restaurant_id"], name: "index_receipts_on_restaurant_id"
   end
 
@@ -453,6 +455,7 @@ ActiveRecord::Schema.define(version: 2020_11_20_151719) do
   add_foreign_key "orders", "restaurants"
   add_foreign_key "printers", "pi_interfaces"
   add_foreign_key "printers", "restaurants"
+  add_foreign_key "receipts", "orders"
   add_foreign_key "receipts", "restaurants"
   add_foreign_key "restaurant_tables", "restaurants"
   add_foreign_key "restaurants", "cuisines"
