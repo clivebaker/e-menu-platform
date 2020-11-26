@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :restaurant_user do
-		email { "test@test.com" }
+		email { "test#{rand(1..1000)}@test.com" }
     password { "testtest" }
     
     trait :sign_up_redirect do

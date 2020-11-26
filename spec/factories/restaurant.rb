@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :restaurant do
-		email { "test@test.com" }
+		email { "test#{rand(1..1000)}@test.com" }
     name { "Test name" }
     address { "Test address" }
     postcode { "Test postcode" }
