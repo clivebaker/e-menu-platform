@@ -7,6 +7,7 @@ class Patron < ApplicationRecord
   attr_accessor :redirect_after_signup_to
 
   has_and_belongs_to_many :orders
+  has_many :patron_allergens
 
   default_scope { includes(:orders) }
 

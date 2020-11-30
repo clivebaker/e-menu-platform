@@ -18,9 +18,11 @@ Rails.application.routes.draw do
   
   resources :orders, :only => [:index]
   
-  resources :patrons, :module => :patrons, :only => [:index] do
+  resources :patrons, :module => :patrons, :only => [:index, :show] do
     collection do
+      get :settings, :to => "patrons#show"
       resources :orders, :only => [:index]
+      resources :patron_allergens, :only => [:update]
     end
   end
 
