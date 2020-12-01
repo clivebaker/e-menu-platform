@@ -15,6 +15,16 @@ Rails.application.routes.draw do
   #   resources :printers
   # end
   resources :item_screen_types 
+  
+  resources :orders, :only => [:index]
+  
+  resources :patrons, :module => :patrons, :only => [:index, :show] do
+    collection do
+      get :settings, :to => "patrons#show"
+      resources :orders, :only => [:index]
+      resources :patron_allergens, :only => [:update]
+    end
+  end
 
   resources :receipts do 
     post 'is_ready'
@@ -30,6 +40,8 @@ Rails.application.routes.draw do
     get 'list' => "home#index"
     get 'booking/:slug' => "booking#index", as: :booking
     get 'menu/:slug' => "menu#index", as: :menu
+
+    resources :menu, :only => [:index]
 
   end
 
@@ -151,8 +163,6 @@ get 'receipt/:receipt_id/key/:item_screen_type_key/print/:printer_id', to: 'mana
   post 'order/pay/:path', to: 'order#pay', as: :pay
   get 'order/checkoutx/:path', to: 'order#checkoutx', as: :checkoutx
   post 'order/stripe/:path', to: 'order#stripe', as: :stripe
-  post 'order/stripex/:path', to: 'order#stripex', as: :stripex
-  get 'order/basket/:path', to: 'order#basket', as: :basket
   get 'order/add_to_basket/:path', to: 'order#add_to_basket', as: :add_to_basket_base
   get 'order/add_to_basket/:path/:main_item', to: 'order#add_to_basket', as: :add_to_basket
   get 'order/add_to_basket/:path/:main_item/:items', to: 'order#add_to_basket', as: :add_to_basket_items
@@ -171,7 +181,7 @@ get 'receipt/:receipt_id/key/:item_screen_type_key/print/:printer_id', to: 'mana
   get 'home/table'
   post 'home/set_locale/:language_id' => 'home#set_locale', as: :home_set_locale
 
-  get '/:name', to: 'restaurant/menu#name'
+  get '/:name', to: 'restaurant/menu#index'
 
   root 'home#index'
 end
