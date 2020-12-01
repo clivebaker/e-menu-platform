@@ -12,7 +12,7 @@ module Manager
 
 
     def set_restaurant
-       @restaurant = Restaurant.find(params[:restaurant_id])
+      @restaurant = Restaurant.find(params[:restaurant_id])
       unless current_manager_restaurant_user.id == @restaurant.restaurant_user_id
         redirect_to '/422.html'
       end

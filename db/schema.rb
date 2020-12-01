@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_18_154437) do
+ActiveRecord::Schema.define(version: 2020_11_30_135914) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,6 +34,11 @@ ActiveRecord::Schema.define(version: 2020_11_18_154437) do
     t.string "checksum", null: false
     t.datetime "created_at", null: false
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
+  end
+
+  create_table "allergens", force: :cascade do |t|
+    t.string "title", null: false
+    t.string "description", null: false
   end
 
   create_table "baskets", force: :cascade do |t|
@@ -103,6 +108,20 @@ ActiveRecord::Schema.define(version: 2020_11_18_154437) do
     t.datetime "updated_at", null: false
     t.decimal "delivery_fee", precision: 5, scale: 2
     t.index ["restaurant_id"], name: "index_delivery_postcodes_on_restaurant_id"
+  end
+
+  create_table "discount_codes", force: :cascade do |t|
+    t.bigint "restaurant_id", null: false
+    t.integer "amount"
+    t.string "type"
+    t.string "code"
+    t.integer "max_uses"
+    t.integer "used_times", default: 0
+    t.datetime "expires_on"
+    t.boolean "single_use_per_user"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["restaurant_id"], name: "index_discount_codes_on_restaurant_id"
   end
 
   create_table "features", force: :cascade do |t|
@@ -223,10 +242,37 @@ ActiveRecord::Schema.define(version: 2020_11_18_154437) do
     t.index ["restaurant_id"], name: "index_opening_times_on_restaurant_id"
   end
 
+  create_table "orders", force: :cascade do |t|
+    t.string "long_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "restaurant_id", null: false
+    t.integer "value"
+    t.string "currency"
+    t.index ["restaurant_id"], name: "index_orders_on_restaurant_id"
+  end
+
+  create_table "orders_patrons", id: false, force: :cascade do |t|
+    t.bigint "order_id", null: false
+    t.bigint "patron_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["order_id"], name: "index_orders_patrons_on_order_id"
+    t.index ["patron_id"], name: "index_orders_patrons_on_patron_id"
+  end
+
   create_table "packages", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "patron_allergens", force: :cascade do |t|
+    t.boolean "active"
+    t.bigint "allergen_id", null: false
+    t.bigint "patron_id", null: false
+    t.index ["allergen_id"], name: "index_patron_allergens_on_allergen_id"
+    t.index ["patron_id"], name: "index_patron_allergens_on_patron_id"
   end
 
   create_table "patrons", force: :cascade do |t|
@@ -298,6 +344,8 @@ ActiveRecord::Schema.define(version: 2020_11_18_154437) do
     t.string "delivery_or_collection"
     t.decimal "delivery_fee", precision: 8, scale: 2
     t.string "table_number"
+    t.bigint "order_id"
+    t.index ["order_id"], name: "index_receipts_on_order_id"
     t.index ["restaurant_id"], name: "index_receipts_on_restaurant_id"
   end
 
@@ -423,6 +471,7 @@ ActiveRecord::Schema.define(version: 2020_11_18_154437) do
   add_foreign_key "custom_lists", "restaurants"
   add_foreign_key "daily_reportings", "restaurants"
   add_foreign_key "delivery_postcodes", "restaurants"
+  add_foreign_key "discount_codes", "restaurants"
   add_foreign_key "item_screens", "item_screen_types"
   add_foreign_key "item_screens", "printers"
   add_foreign_key "item_screens", "restaurants"
@@ -431,8 +480,12 @@ ActiveRecord::Schema.define(version: 2020_11_18_154437) do
   add_foreign_key "menus", "restaurants"
   add_foreign_key "menus", "spice_levels"
   add_foreign_key "opening_times", "restaurants"
+  add_foreign_key "orders", "restaurants"
+  add_foreign_key "patron_allergens", "allergens"
+  add_foreign_key "patron_allergens", "patrons"
   add_foreign_key "printers", "pi_interfaces"
   add_foreign_key "printers", "restaurants"
+  add_foreign_key "receipts", "orders"
   add_foreign_key "receipts", "restaurants"
   add_foreign_key "restaurant_tables", "restaurants"
   add_foreign_key "restaurants", "cuisines"

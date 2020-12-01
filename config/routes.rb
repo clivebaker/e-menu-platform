@@ -60,6 +60,11 @@ Rails.application.routes.draw do
   
 
   namespace :manager do
+    resources :restaurants, :param => :restaurant_id do
+      member do
+        resources :discount_codes
+      end
+    end
     get 'home/index'
     get 'home/dashboard'
     get 'home/menu'
