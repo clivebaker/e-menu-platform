@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_27_142507) do
+ActiveRecord::Schema.define(version: 2020_11_30_135914) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -108,6 +108,20 @@ ActiveRecord::Schema.define(version: 2020_11_27_142507) do
     t.datetime "updated_at", null: false
     t.decimal "delivery_fee", precision: 5, scale: 2
     t.index ["restaurant_id"], name: "index_delivery_postcodes_on_restaurant_id"
+  end
+
+  create_table "discount_codes", force: :cascade do |t|
+    t.bigint "restaurant_id", null: false
+    t.integer "amount"
+    t.string "type"
+    t.string "code"
+    t.integer "max_uses"
+    t.integer "used_times", default: 0
+    t.datetime "expires_on"
+    t.boolean "single_use_per_user"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["restaurant_id"], name: "index_discount_codes_on_restaurant_id"
   end
 
   create_table "features", force: :cascade do |t|
@@ -457,6 +471,7 @@ ActiveRecord::Schema.define(version: 2020_11_27_142507) do
   add_foreign_key "custom_lists", "restaurants"
   add_foreign_key "daily_reportings", "restaurants"
   add_foreign_key "delivery_postcodes", "restaurants"
+  add_foreign_key "discount_codes", "restaurants"
   add_foreign_key "item_screens", "item_screen_types"
   add_foreign_key "item_screens", "printers"
   add_foreign_key "item_screens", "restaurants"
