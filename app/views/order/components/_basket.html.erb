@@ -43,8 +43,8 @@
     <% end %>
     <hr />
     <div class="row pt-1">
-      <div class="col">
-        <td>Total</td>
+      <div class="col offset-sm-1">
+        Total
       </div>
       <div class="col">
         <%= number_to_currency(@basket_item_total, unit: '£') %>
@@ -59,6 +59,13 @@
             disable_basket_link = false 
           end
           %>
+        <%= button_to "CHECKOUT", checkout_path(@path), disabled: disable_basket_link, method: :get,  class: 'btn btn-dark btn-block'%>
+      </div>
+    </div>
+    <hr />
+    <div class="row py-2 pb-5 bg-light-70">
+      <div class="col">
+        <%# form_for  %>
         <%= button_to "CHECKOUT", checkout_path(@path), disabled: disable_basket_link, method: :get,  class: 'btn btn-dark btn-block'%>
       </div>
     </div>
