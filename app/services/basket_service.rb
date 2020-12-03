@@ -1,5 +1,7 @@
 class BasketService < ApplicationController
 
+  attr_accessor :discount_code
+
   def initialize(restaurant, basket)
 
     @restaurant = restaurant
@@ -21,6 +23,15 @@ class BasketService < ApplicationController
       @basket = basket_build(@basket_ids['ids'])
       @basket_item_count = @basket_ids['count']
       @basket_item_total = @basket['items'].map{|d| d['total']}.inject(:+)
+    end
+  end
+
+  def apply_discount_code(code)
+    if code.present?
+      return if @restaurant.discount_codes.where(:code => code).blank?
+      @basket_db.update_attribute(:discount_code, code)
+    else
+      @basket_db.update_attribute(:discount_code, "")
     end
   end
 

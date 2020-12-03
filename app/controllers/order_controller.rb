@@ -11,14 +11,14 @@ class OrderController < ApplicationController
 
     cookies.delete :emenu_basket if cookies['emenu_basket'].present? && @restaurant.id != JSON.parse(cookies['emenu_basket'])['key'].split('-').first.to_i
     
-    basket_service = BasketService.new(@restaurant, cookies['emenu_basket'])
+    @basket_service = BasketService.new(@restaurant, cookies['emenu_basket'])
 
-    if basket_service.get_basket_db&.contents.present?
-      @basket = basket_service.get_basket
-      @basket_item_count = basket_service.get_basket_item_count
-      @basket_item_total = basket_service.get_basket_item_total
+    if @basket_service.get_basket_db&.contents.present?
+      @basket = @basket_service.get_basket
+      @basket_item_count = @basket_service.get_basket_item_count
+      @basket_item_total = @basket_service.get_basket_item_total
     else
-      cookies['emenu_basket'] = basket_service.get_basket
+      cookies['emenu_basket'] = @basket_service.get_basket
     end
   end
 

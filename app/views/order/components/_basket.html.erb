@@ -65,8 +65,20 @@
     <hr />
     <div class="row py-2 pb-5 bg-light-70">
       <div class="col">
-        <%# form_for  %>
-        <%= button_to "CHECKOUT", checkout_path(@path), disabled: disable_basket_link, method: :get,  class: 'btn btn-dark btn-block'%>
+        <% if @basket_service.get_basket_db.discount_code.blank? %>
+        <%= form_for "", url: basket_path(1), :method => :patch do |f| %>
+        <%= f.hidden_field :path, :value => @path %>
+        <%= f.hidden_field :action, :value => "add" %>
+        <%= f.text_field :discount_code, :placeholder => "Discount code", class: "rounded" %>
+        <%= button_to "Apply", nil, { class: 'bg-dark text-white rounded' } %>
+        <% end %>
+        <% else %>
+        <%= button_to basket_path(1), :method => :patch, :class => "bg-dark text-light rounded p-1", params: { discount_code: "", path: @path } do %>
+        <%#= hidden_field_tag :path, @path %>
+        <%#= hidden_field_tag :action, "remove" %>
+        Discount applied: <%= @basket_service.get_basket_db.discount_code %> <i class="fa fa-1x fa-times-circle"></i>
+        <% end %>
+        <% end %>
       </div>
     </div>
   </div>

@@ -159,7 +159,7 @@
 
 
   <div class="row">
-    <div class="col">
+    <div class="col p-0">
       <%= render 'all' if @restaurant.blank? %>
       <% if feature_match('menu_in_sections', @restaurant.features) %>
       <%= render 'order/components/sections/restaurant_auto', menu: @menu2 if @restaurant.present? %>
