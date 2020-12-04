@@ -142,7 +142,7 @@ module Manager
     # Use callbacks to share common setup or constraints between actions.
     def set_restaurant_new
       
-      @restaurant = Restaurant.find(params[:id])
+      @restaurant = Restaurant.find(params[:restaurant_id])
       unless current_manager_restaurant_user.id == @restaurant.restaurant_user_id
          raise NotValidRestaurant
       end
