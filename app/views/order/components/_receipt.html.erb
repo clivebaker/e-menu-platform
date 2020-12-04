@@ -58,7 +58,7 @@
                 <tr>
                   <td>Total</td>
                   <td></td>
-                  <td class='text-right'><%= number_to_currency(@receipt.basket_total/100.to_f, unit: '£') %></td>
+                  <td class='text-right'><%= number_to_currency(@receipt.basket_total, unit: '£') %></td>
                 </tr>
               </tbody>
             </table> 

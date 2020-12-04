@@ -26,7 +26,7 @@
         <b>Expires on</b>
       </div>
       <div class="col-lg-2">
-        <b>Used amount</b>
+        <b>Active?</b>
       </div>
     </div>
     <hr />
@@ -42,12 +42,13 @@
         <%= dc.amount %>
       </div>
       <div class="col-lg-2">
-        <%= dc.expiry_date %>
+        <%= dc.expiry_date.strftime("%Y-%m-%d") %>
       </div>
       <div class="col-lg-2">
-        <%= dc.used_times %>
+        <%= dc.is_active? ? "Yes" : "No" %>
       </div>
       <div class="col-lg-1">
+        <%= link_to "Deactivate", manager_discount_code_path(dc.restaurant, dc), :method=>:delete, :confirm => "Are you sure?" if dc.is_active? %>
         <%= link_to "Edit", edit_manager_discount_code_path(dc.restaurant, dc) %>
       </div>
     </div>

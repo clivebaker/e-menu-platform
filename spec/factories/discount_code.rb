@@ -22,10 +22,9 @@ FactoryBot.define do
     restaurant { FactoryBot.build(:restaurant) }
     amount { 21 }
     type { "PercentageOffBasketDiscountCode" }
-  
+
     trait :invalid_percentage_off_discount_code do
       amount { 2112 }
     end
   end
-
 end

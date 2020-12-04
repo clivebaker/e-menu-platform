@@ -38,8 +38,7 @@ class Restaurant < ApplicationRecord
     if subtle_background.present? and subtle_background != 'None'
       back = "/background/#{subtle_background}.png"
     end
- end
-
+  end
 
   def stripe_sk_api_key
     Rails.env == 'production' ? stripe_api_key : 'sk_test_hOj5WqYB26UV1v5uuqXsADSG'

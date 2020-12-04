@@ -172,6 +172,7 @@ get 'receipt/:receipt_id/key/:item_screen_type_key/print/:printer_id', to: 'mana
   get 'order/:path', to: 'order#index', as: :restaurant_path
 
 
+  resources :baskets, :only => [:update]
 
   get 'home_mobile/index'
   get 'home/index'

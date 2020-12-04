@@ -11,14 +11,14 @@ class OrderController < ApplicationController
 
     cookies.delete :emenu_basket if cookies['emenu_basket'].present? && @restaurant.id != JSON.parse(cookies['emenu_basket'])['key'].split('-').first.to_i
     
-    basket_service = BasketService.new(@restaurant, cookies['emenu_basket'])
+    @basket_service = BasketService.new(@restaurant, cookies['emenu_basket'])
 
-    if basket_service.get_basket_db&.contents.present?
-      @basket = basket_service.get_basket
-      @basket_item_count = basket_service.get_basket_item_count
-      @basket_item_total = basket_service.get_basket_item_total
+    if @basket_service.get_basket_db&.contents.present?
+      @basket = @basket_service.get_basket
+      @basket_item_count = @basket_service.get_basket_item_count
+      @basket_item_total = @basket_service.get_basket_item_total
     else
-      cookies['emenu_basket'] = basket_service.get_basket
+      cookies['emenu_basket'] = @basket_service.get_basket
     end
   end
 
@@ -81,8 +81,8 @@ class OrderController < ApplicationController
     @delivery_time_options = @restaurant.available_times
 
     if @basket
-      @basket_item_count = @basket.contents['count']
-      @basket_item_total =  (@basket.contents['ids'].map{|d| d['total']}.inject(:+)*100.to_f).to_i
+      @basket_item_count = @basket_service.get_basket_item_count
+      @basket_item_total = @basket_service.get_basket_item_total
     end
   end
 
@@ -102,18 +102,12 @@ class OrderController < ApplicationController
     error = false
     success = false
 
-    if @basket
-      @basket_item_count = @basket.contents['count']
-      @basket_item_total =  @basket.contents['ids'].map{|d| d['total']}.inject(:+)
-    end
-
     checkout_service = CheckoutService.new(@restaurant, @parameters, @basket_service)
     
     begin
       @receipt = checkout_service.generate_receipt
       cookies.delete :emenu_basket
     rescue Exception => e
-      logger.warn e.inspect
       error = true
     end
 

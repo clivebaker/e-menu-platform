@@ -5,6 +5,7 @@ module Manager
 class DiscountCodesController < Manager::BaseController
   before_action :authenticate_manager_restaurant_user!
   before_action :set_restaurant
+  before_action :set_discount_code, :only => [:show, :edit, :update, :destroy]
 
   def index
     @discount_codes = @restaurant.discount_codes
@@ -18,7 +19,6 @@ class DiscountCodesController < Manager::BaseController
   end
   
   def edit
-    @discount_code = @restaurant.discount_codes.where(:id => params[:id]).first
   end
 
   def create
@@ -36,8 +36,6 @@ class DiscountCodesController < Manager::BaseController
   end
 
   def update
-    @discount_code = @restaurant.discount_codes.where(:id => params[:id]).first
-
     respond_to do |format|
       if @discount_code.update(discount_code_params)
         format.html { redirect_to manager_discount_codes_path(@restaurant), notice: 'Discount code was successfully updated.' }
@@ -50,9 +48,9 @@ class DiscountCodesController < Manager::BaseController
   end
 
   def destroy
-    @discount_code.destroy
+    @discount_code.update_attribute(:expires_on, 1.days.ago)
     respond_to do |format|
-      format.html { redirect_to manager_discount_codes_path(@restaurant), notice: 'Discount code was successfully destroyed.' }
+      format.html { redirect_to manager_discount_codes_path(@restaurant), notice: 'Discount code was successfully deactivated.' }
       format.json { head :no_content }
     end
   end
@@ -60,7 +58,7 @@ class DiscountCodesController < Manager::BaseController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_discount_code
-      @discount_code = DiscountCode.find(params[:id])
+      @discount_code = @restaurant.discount_codes.where(:id => params[:id]).first
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

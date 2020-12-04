@@ -243,19 +243,16 @@ $('#kitchen-delay').hide();
   </div>
   </div>
 <% end %>
-<div class='container-fluid pb-2' ><!--  style="background: url('/images/restaurant/thesauce/main-bg2.jpg') no-repeat fixed center;" -->
-  <div class='container mt-2'>
-    
-  <%= form_tag pay_path(@restaurant.path) do %>    
-
-    <div class="row bg-dark  justify-content-center  pt-3">
+<div class='container-fluid bg-dark pb-2 ' ><!--  style="background: url('/images/restaurant/thesauce/main-bg2.jpg') no-repeat fixed center;" -->
+  <%= form_tag pay_path(@restaurant.path) do %>
+    <div class="row   justify-content-center pt-3">
       <div class="col-sm-12 col-md-6 m-2 text-center">         
-      <%
-      service_types = []
-      service_types << ['Collection', 'collection'] if is_takeaway?(@restaurant) 
-      service_types << ['Delivery', 'delivery'] if is_delivery?(@restaurant)
-      service_types << ['Table Service', 'tableservice'] if is_tableservice?(@restaurant) and @restaurant.is_open
-      %>
+        <%
+        service_types = []
+        service_types << ['Collection', 'collection'] if is_takeaway?(@restaurant) 
+        service_types << ['Delivery', 'delivery'] if is_delivery?(@restaurant)
+        service_types << ['Table Service', 'tableservice'] if is_tableservice?(@restaurant) and @restaurant.is_open
+        %>
 
         <div class="row bg-dark" id='help-info'>
           <div class='col-sm-12 col-md-12 text-center text-light pb-2'>
@@ -295,14 +292,12 @@ $('#kitchen-delay').hide();
             <%= text_field_tag :telephone,  nil, class: "border p-2 bg-light form-control validation_check", placeholder: '' %>
           </div>
         </div>
-
         <div class="row bg-dark" id='email-field'>
           <div class='col-sm-12 col-md-12 text-left text-light form-group'>
             <%= label_tag :email %> <strong id='email_required' class='text-danger'>*</strong>
             <%= email_field_tag :email,  nil, class: "border p-2 bg-light form-control validation_check", placeholder: 'for your email receipt' %>
           </div>
         </div>
-
         <% if is_delivery?(@restaurant)%>
           <%# Address %>
           <div class="row bg-dark text-light" id='address-field' >
@@ -338,7 +333,6 @@ $('#kitchen-delay').hide();
             </div>
           </div>
         <% end %> 
-
         <div class="row bg-dark mt-4 mb-4">
           <div class='col text-center text-light'>
 
@@ -348,8 +342,8 @@ $('#kitchen-delay').hide();
                 Payment:
               </div>
               <div class='col'>
-                <%= number_to_currency(@basket_item_total.to_f / 100.to_f, unit: '£') %>
-                 <%= hidden_field_tag :basket, @basket_item_total.to_f / 100.to_f %>
+                <%= number_to_currency(@basket_item_total.to_f, unit: '£') %>
+                  <%= hidden_field_tag :basket, @basket_item_total.to_f %>
               </div>
             </div>
 
@@ -370,29 +364,25 @@ $('#kitchen-delay').hide();
                 Total:
               </div>
               <div class='col ' id='basket-total-value'>
-                <%= number_to_currency(@basket_item_total.to_f / 100.to_f, unit: '£') %>
+                <%= number_to_currency(@basket_item_total.to_f, unit: '£') %>
 
               </div>
-              <%= hidden_field_tag :total, @basket_item_total.to_f / 100.to_f%>    
+              <%= hidden_field_tag :total, @basket_item_total.to_f %>    
             </div>
 
 
-     
+      
           
           
           
           
           </div>
         </div>
-
-
         <div class="row bg-dark mt-4 mb-4 " id='pay-now-button'>
           <div class='col'>
             <%= submit_tag "Pay Now", class: 'btn btn-primary btn-block' %>
           </div>
         </div>
-
-
         <div class="row bg-dark" id='delivery-info'>
           <div class='col text-secondary'>
             <% if is_delivery?(@restaurant)%>
@@ -407,10 +397,9 @@ $('#kitchen-delay').hide();
             <% end %>
           </div>
         </div>
-
+      </div>
+    </div>
   <% end %>
-
-  </div>
 </div>
 
 
