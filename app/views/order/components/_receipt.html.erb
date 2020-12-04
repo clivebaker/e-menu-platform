@@ -38,13 +38,13 @@
         <tr>
           <td>Delivery Fee</td>
           <td></td>
-          <td class='text-right'><%= number_to_currency(@receipt.delivery_fee.to_f, unit: '£') %></td>
+          <td class='text-right'><%= number_to_currency(@receipt.delivery_fee.to_f, unit: @restaurant.currency_symbol) %></td>
         </tr>
         <% end %>
         <tr>
           <td>Total</td>
           <td></td>
-          <td class='text-right'><%= number_to_currency(@receipt.basket_total.to_f / 100, unit: '£') %></td>
+          <td class='text-right'><%= number_to_currency(@receipt.basket_total.to_f / 100, unit: @restaurant.currency_symbol) %></td>
         </tr>
       </tbody>
     </table>

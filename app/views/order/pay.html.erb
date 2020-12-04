@@ -151,18 +151,18 @@
 
   // Stripe AP
 
-  console.log("<%=stripe_path(@path)%>.json")
-  // apple pay
-  var paymentRequest = stripe.paymentRequest({
-    country: 'GB',
-    currency: 'gbp',
-    total: {
-      label: '<%=@path%> charge',
-      amount: <%= @payment_in_pence %>
-    },
-    requestPayerName: true,
-    requestPayerEmail: true,
-  });
+    console.log("<%=stripe_path(@path)%>.json")
+    // apple pay
+    var paymentRequest = stripe.paymentRequest({
+      country: 'GB',
+      currency: '<%=@restaurant.currency_code%>',
+      total: {
+        label: '<%=@path%> charge',
+        amount: <%= @payment_in_pence %>,
+      },
+      requestPayerName: true,
+      requestPayerEmail: true,
+    });
 
 
   var prButton = elements.create('paymentRequestButton', {
@@ -318,7 +318,7 @@
     <div class="row bg-dark pt-5">
       <div class='col text-center text-light'>
         <h1>PAYMENT</h1>
-        <h2><%= number_to_currency(@total_payment.to_f, unit: '£') %></h2>
+        <h2><%= number_to_currency(@total_payment.to_f, unit: @restaurant.currency_symbol) %></h2>
         <%#=@stripe%>
       </div>
     </div>

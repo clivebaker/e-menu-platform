@@ -69,6 +69,14 @@ ActiveRecord::Schema.define(version: 2020_12_04_123103) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "currencies", force: :cascade do |t|
+    t.string "name"
+    t.string "code"
+    t.string "symbol"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "custom_list_items", force: :cascade do |t|
     t.string "name"
     t.bigint "custom_list_id"
@@ -407,7 +415,9 @@ ActiveRecord::Schema.define(version: 2020_12_04_123103) do
     t.boolean "show_on_homepage"
     t.string "facebook_pixel"
     t.string "subtle_background"
+    t.bigint "currency_id"
     t.index ["cuisine_id"], name: "index_restaurants_on_cuisine_id"
+    t.index ["currency_id"], name: "index_restaurants_on_currency_id"
     t.index ["restaurant_user_id"], name: "index_restaurants_on_restaurant_user_id"
   end
 
@@ -490,6 +500,7 @@ ActiveRecord::Schema.define(version: 2020_12_04_123103) do
   add_foreign_key "receipts", "restaurants"
   add_foreign_key "restaurant_tables", "restaurants"
   add_foreign_key "restaurants", "cuisines"
+  add_foreign_key "restaurants", "currencies"
   add_foreign_key "restaurants", "restaurant_users"
   add_foreign_key "screen_items", "menus"
   add_foreign_key "screen_items", "receipts"

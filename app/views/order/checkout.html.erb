@@ -10,7 +10,7 @@ function validateEmail(email) {
   return re.test(email);
 }
 
-    $('.validation_check').keyup(function() {   
+    $('.validation_check').on("keyup change", function() {   
        validate();
 
     });
@@ -19,11 +19,13 @@ function validateEmail(email) {
 
       $('.pay-now-payment').addClass('disabled')
 
+      val_time = $('#collection_time').val()
       val_name = $('#name').val()
       val_telephone = $('#telephone').val()
       val_email = $('#email').val()
       val_table_number = $('#table_number').val()
  
+      valid_time = false
       valid_name = false
       valid_telephone = false
       valid_email = false
@@ -71,6 +73,15 @@ function validateEmail(email) {
 
 
       // alert('val')
+      if (!val_time){
+        // alert("Please enter a time");
+        $('#time_required').html('*');  
+        valid_time = false      
+      } else {
+        $('#time_required').html('');
+        valid_time = true
+      }
+
       if (val_name.length < 2){
         // alert("Please enter a name");
         $('#name_required').html('*');  
@@ -116,17 +127,23 @@ function validateEmail(email) {
       if (service_type == 'tableservice'){
         if (valid_table_number & valid_email){
             $('#pay-now-button').show();
-        } 
+        } else {
+            $('#pay-now-button').hide();
+        }
       } else if (service_type == 'delivery'){    
         prefix = $("#postcode_prefix option:selected").text();
         suffix = $("#postcode_suffix").val().toUpperCase();
         $("#postcode").val( prefix + ' ' + suffix  );
-        if (valid_address_house_number & valid_address_street & valid_address_postcode & valid_telephone & valid_name & valid_email){   
+        if (valid_address_house_number & valid_address_street & valid_address_postcode & valid_telephone & valid_time & valid_name & valid_email){   
            $('#pay-now-button').show();
-        } 
+        } else {
+           $('#pay-now-button').hide();
+        }
       } else if (service_type == 'collection') {
-        if (valid_telephone & valid_name & valid_email){
+        if (valid_telephone & valid_time & valid_name & valid_email){
            $('#pay-now-button').show();
+        } else {
+           $('#pay-now-button').hide();
         }
       }
     }
@@ -141,8 +158,8 @@ $(function(){
     fee = parseFloat($(this).val());
     new_basket = basket_total + fee
     $('#selected_delivery_fee').val(new_basket);
-    $('.delivery_fee_choose').html('£'+parseFloat(fee).toFixed(2));
-    $('#basket-total-value').html('£'+parseFloat(new_basket).toFixed(2));
+    $('.delivery_fee_choose').html('<%=@restaurant.currency_symbol%>'+parseFloat(fee).toFixed(2));
+    $('#basket-total-value').html('<%=@restaurant.currency_symbol%>'+parseFloat(new_basket).toFixed(2));
     $('#delivery_fee').val(parseFloat(fee));
     $('#total').val(parseFloat(new_basket));
     validate();
@@ -274,8 +291,8 @@ $('#kitchen-delay').hide();
         <% end %>
         <div class="row bg-dark" id='time-field'>
           <div class='col-sm-12 col-md-12 text-left text-light mb-3'>
-            <%= label_tag :time %> 
-            <%= select_tag :collection_time, options_for_select(@delivery_time_options.map{|s| [s[:text], s[:value]]}), { class: "border p-2 bg-light form-control"} %>
+            <%= label_tag :time %> <strong id='time_required' class='text-danger'>*</strong>
+            <%= select_tag :collection_time, options_for_select(@delivery_time_options.map{|s| [s[:text], s[:value]]}), { prompt: 'Select time', class: "border p-2 bg-light form-control validation_check"} %>
           </div>
         </div>
         <div class="row bg-dark">
@@ -321,7 +338,7 @@ $('#kitchen-delay').hide();
                   <%= label_tag :postcode %> <strong id='postcode_required' class='text-danger'>* </strong>
                   <div class="row bg-dark">
                     <div class='col form-group pr-1'>
-                      <%= select_tag :postcode_prefix, options_for_select(@restaurant.delivery_postcodes.map{|a| [a.prefix, a.delivery_fee]}), {prompt: "Postcode start", class: "border p-2 bg-light form-control delivery_fee_calculate"} %>  
+                      <%= select_tag :postcode_prefix, options_for_select(@restaurant.delivery_postcodes.map{|a| [a.prefix, a.delivery_fee]}), {prompt: "Postcode start", class: "border p-2 bg-light form-control delivery_fee_calculate validation_check"} %>  
                       <%= hidden_field_tag :postcode %>
                     </div>
                     <div class='col form-group pl-1'>
@@ -342,8 +359,8 @@ $('#kitchen-delay').hide();
                 Payment:
               </div>
               <div class='col'>
-                <%= number_to_currency(@basket_item_total.to_f, unit: '£') %>
-                  <%= hidden_field_tag :basket, @basket_item_total.to_f %>
+                <%= number_to_currency(@basket_item_total.to_f, unit: @restaurant.currency_symbol) %>
+                <%= hidden_field_tag :basket, @basket_item_total.to_f %>
               </div>
             </div>
 
@@ -364,8 +381,7 @@ $('#kitchen-delay').hide();
                 Total:
               </div>
               <div class='col ' id='basket-total-value'>
-                <%= number_to_currency(@basket_item_total.to_f, unit: '£') %>
-
+                <%= number_to_currency(@basket_item_total.to_f, unit: @restaurant.currency_symbol) %>
               </div>
               <%= hidden_field_tag :total, @basket_item_total.to_f %>    
             </div>
@@ -390,7 +406,7 @@ $('#kitchen-delay').hide();
               <% postcodes = @restaurant.delivery_postcodes.order(:prefix)%>
               <% delivery_fees = @restaurant.delivery_postcodes.map{|d| d.delivery_fee}.uniq.sort%>
               <% delivery_fees.each do |delivery_fee| %>
-                <strong class=''><%=number_to_currency delivery_fee, unit: '£'%></strong> - 
+                <strong class=''><%=number_to_currency delivery_fee, unit: @restaurant.currency_symbol%></strong> - 
                 <%= postcodes.select{|d| d.delivery_fee == delivery_fee}.map{|s| s.prefix}.join(', ')%>
                 <br>
               <% end %>

@@ -36,7 +36,7 @@
         <%= item['optionals'].join('<br> ').html_safe %>
       </div>
       <div class="col-sm-3">
-        <%= number_to_currency(item['total'], unit: '£') %>
+        <%= number_to_currency(item['total'], unit: @restaurant.currency_symbol) %>
       </div>
       <% end %>
     </div>
@@ -47,13 +47,13 @@
         Total <%= "(#{@basket_service.discount_code.description})" if @basket_service.discount_code.present? %>
       </div>
       <div class="col">
-        <%= number_to_currency(@basket_item_total, unit: '£') %>
+        <%= number_to_currency(@basket_item_total, unit: @restaurant.currency_symbol) %>
       </div>
     </div>
     <hr />
     <div class="row py-2 pb-5 bg-light-70">
       <div class="col">
-        <% 
+        <%
           disable_basket_link = true 
           if @basket_item_count.present? and @basket_item_count > 0
             disable_basket_link = false 
