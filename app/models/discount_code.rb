@@ -13,10 +13,10 @@ class DiscountCode < ApplicationRecord
     validates :code, length: { minimum: 3, maximum: 10 }
     validates :type, inclusion: { in: DiscountCode.types }
 
-    def expiry_date; self.expires_on.presence || "Never"; end
+    def expiry_date; self.expires_on.present? ? self.expires_on.strftime("%Y-%m-%d") : "Never"; end
 
     def is_active?
-      self.expires_on > DateTime.now || self.expires_on.nil?
+      self.expires_on.nil? || self.expires_on > DateTime.now
     end
 
     private
