@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_03_115753) do
+ActiveRecord::Schema.define(version: 2020_12_04_123103) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -113,7 +113,7 @@ ActiveRecord::Schema.define(version: 2020_12_03_115753) do
 
   create_table "discount_codes", force: :cascade do |t|
     t.bigint "restaurant_id", null: false
-    t.integer "amount"
+    t.float "amount"
     t.string "type"
     t.string "code"
     t.integer "max_uses"

@@ -9,9 +9,9 @@ class BasketsController < ApplicationController
 
     respond_to do |format|
       if action
-        format.html { redirect_to restaurant_path_path(@path) } 
+        format.html { redirect_to restaurant_path_path(@path), notice: "#{params[:discount_code].present? ? 'Code applied' : 'Code removed'}"} 
       else
-        format.html { redirect_to restaurant_path_path(@path), alert: "Error!" }
+        format.html { redirect_to restaurant_path_path(@path), alert: "Invalid code" }
       end
     end   
   end

@@ -42,7 +42,7 @@ class CheckoutService < ApplicationController
     Order.create(
       uuid: SecureRandom.uuid,
       restaurant_id: @restaurant.id,
-      basket_total: @price.to_i,
+      basket_total: @total_payment.to_i,
       items: @basket_service.basket_build(@basket_service.get_basket_db.contents['ids']),
       email: @email,
       name: @name,

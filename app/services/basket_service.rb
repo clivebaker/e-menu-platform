@@ -6,6 +6,7 @@ class BasketService < ApplicationController
 
     @restaurant = restaurant
     @basket = basket || { key: "#{@restaurant.id}-#{SecureRandom.uuid}" }.to_json
+    @basket_item_total ||= 0
 
     key = JSON.parse(@basket)['key']
     
@@ -23,13 +24,16 @@ class BasketService < ApplicationController
       @basket = basket_build(@basket_ids['ids'])
       @basket_item_count = @basket_ids['count']
       @basket_item_total = @basket['items'].map{|d| d['total']}.inject(:+)
+      apply_discount_code(@basket_db.discount_code)
     end
   end
-
+  
   def apply_discount_code(code)
     if code.present?
-      return if @restaurant.discount_codes.where(:code => code).blank?
+      @discount_code = @restaurant.discount_codes.is_active?.where(:code => code).first
+      return if @discount_code.blank?
       @basket_db.update_attribute(:discount_code, code)
+      @basket_item_total = @discount_code.apply_discount_to_total(@basket_item_total)
     else
       @basket_db.update_attribute(:discount_code, "")
     end
