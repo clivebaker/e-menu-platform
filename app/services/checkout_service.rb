@@ -1,5 +1,8 @@
 class CheckoutService < ApplicationController
 
+  attr_accessor :name, :total_payment, :service_type, :collection_time, :telephone, :address,
+                :table_number, :email, :house_number, :street, :postcode, :basket, :delivery_fee
+
   def initialize(restaurant, parameters, basket_service)
     parameters.each_pair {|k,v|instance_variable_set("@#{k}", v)}
     @restaurant = restaurant
@@ -21,7 +24,6 @@ class CheckoutService < ApplicationController
   end
 
   def make_payment
-
   end
 
   def generate_receipt
@@ -42,7 +44,7 @@ class CheckoutService < ApplicationController
     Order.create(
       uuid: SecureRandom.uuid,
       restaurant_id: @restaurant.id,
-      basket_total: @total_payment.to_i,
+      basket_total: @total_payment * 100,
       items: @basket_service.basket_build(@basket_service.get_basket_db.contents['ids']),
       email: @email,
       name: @name,

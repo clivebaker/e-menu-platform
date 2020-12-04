@@ -12,24 +12,24 @@ class Order < ApplicationRecord
     private
 
     def create_receipt
-        self.receipts.create(
-            uuid: uuid,
-            restaurant_id: self.restaurant_id,
-            basket_total: self.basket_total,
-            items: self.items,
-            email: self.email,
-            name: self.name,
-            collection_time: self.collection_time,
-            stripe_token: self.stripe_token || {},
-            status: self.stripe_data || {},
-            is_ready: false,
-            source: :takeaway, 
-            telephone: self.telephone,
-            address: self.address,
-            delivery_or_collection: self.delivery_or_collection,
-            delivery_fee: self.delivery_fee, 
-            table_number: self.table_number
-        )
+      self.receipts.create(
+        uuid: uuid,
+        restaurant_id: self.restaurant_id,
+        basket_total: self.basket_total,
+        items: self.items,
+        email: self.email,
+        name: self.name,
+        collection_time: self.collection_time,
+        stripe_token: self.stripe_token || {},
+        status: self.stripe_data || {},
+        is_ready: false,
+        source: :takeaway, 
+        telephone: self.telephone,
+        address: self.address,
+        delivery_or_collection: self.delivery_or_collection,
+        delivery_fee: self.delivery_fee, 
+        table_number: self.table_number
+      )
     end
  
 end

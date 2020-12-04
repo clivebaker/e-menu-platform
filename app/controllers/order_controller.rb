@@ -89,13 +89,13 @@ class OrderController < ApplicationController
   def pay
     @redirect_domain =  Rails.application.credentials.dig(:apple_pay, :redirect_domain)
 
-    checkout_service = CheckoutService.new(@restaurant, @parameters, @basket_service)
+    @checkout_service = CheckoutService.new(@restaurant, @parameters, @basket_service)
 
     @total_payment = params[:total].to_f
     @payment_in_pence = (@total_payment * 100).to_i
     @publish_stripe_api_key = @restaurant.stripe_pk_api_key
 
-    @payment_intent = checkout_service.create_transaction
+    @payment_intent = @checkout_service.create_transaction
   end
 
   def stripe
@@ -132,7 +132,7 @@ class OrderController < ApplicationController
   private 
 
   def stripe_parameters
-    @parameters = params.slice(:service_type, :total, :service_type, :collection_time, :table_number, :name, :telephone, :email, :house_number,
+    @parameters = params.slice(:service_type, :total, :price, :service_type, :collection_time, :table_number, :name, :telephone, :email, :house_number,
     :street, :postcode, :basket, :delivery_fee, :apple_and_google, :stripe_success_token)
     @path = params[:path]
     @restaurant = Restaurant.find_by(path: @path)
