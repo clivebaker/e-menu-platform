@@ -68,8 +68,10 @@ class Restaurant < ApplicationRecord
     today_day = t.strftime("%A").downcase
     today_opening_time = opening_time_times[today_day]['open']
     today_closing_time = opening_time_times[today_day]['close']
-    time_today_opening = Time.parse("#{t.year}-#{t.month}-#{t.day} #{today_opening_time}:00")
-    time_today_closing = Time.parse("#{t.year}-#{t.month}-#{t.day} #{today_closing_time}:00") - opening_time_kitchen_delay_minutes.minutes
+    time_today_opening = Time.parse("#{t.year}-#{t.month}-#{t.day} #{today_opening_time}:00") - t.utc_offset
+    time_today_closing = Time.parse("#{t.year}-#{t.month}-#{t.day} #{today_closing_time}:00") - t.utc_offset - opening_time_kitchen_delay_minutes.minutes
+    time_today_opening = time_today_opening.in_time_zone(time_zone)
+    time_today_closing = time_today_closing.in_time_zone(time_zone)
     time_today_opening < t and t < time_today_closing
   end
   def is_closing(notice = 0)
@@ -77,11 +79,13 @@ class Restaurant < ApplicationRecord
     today_day = t.strftime("%A").downcase
     today_opening_time = opening_time_times[today_day]['open']
     today_closing_time = opening_time_times[today_day]['close']
-    time_today_opening = Time.parse("#{t.year}-#{t.month}-#{t.day} #{today_opening_time}:00")
-    time_today_closing = Time.parse("#{t.year}-#{t.month}-#{t.day} #{today_closing_time}:00") - opening_time_kitchen_delay_minutes.minutes
+    time_today_opening = Time.parse("#{t.year}-#{t.month}-#{t.day} #{today_opening_time}:00") - t.utc_offset
+    time_today_closing = Time.parse("#{t.year}-#{t.month}-#{t.day} #{today_closing_time}:00") - t.utc_offset - opening_time_kitchen_delay_minutes.minutes
+    time_today_opening = time_today_opening.in_time_zone(time_zone)
+    time_today_closing = time_today_closing.in_time_zone(time_zone)
+    
     
     ((time_today_closing - t)/60).to_i
-    
     
   end
   
@@ -114,7 +118,7 @@ class Restaurant < ApplicationRecord
     time_today_opening = Time.parse("#{t.year}-#{t.month}-#{t.day} #{today_opening_time}:00")
     time_today_closing = Time.parse("#{t.year}-#{t.month}-#{t.day} #{today_closing_time}:00")
     
-    delivery_time_options << {value: "ASAP", text: "ASAP"} if is_open and (rounded_t + dtm < today_closing_time) 
+    delivery_time_options << {value: "ASAP", text: "ASAP"} if is_open and (round_down_t + dtm < today_closing_time) 
     
     
     tomorrow_opening_time = opening_time_times[tomorrow_day]['open']
@@ -127,7 +131,7 @@ class Restaurant < ApplicationRecord
     
     # Set first available time today
     if rounded_t > time_today_opening
-      next_time_today = rounded_t + dtm + btm
+      next_time_today = round_down_t + dtm + btm
     else
       next_time_today = time_today_opening + dtm
     end
