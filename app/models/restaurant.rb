@@ -131,7 +131,7 @@ class Restaurant < ApplicationRecord
     
     # Set first available time today
     if rounded_t > time_today_opening
-      next_time_today = round_down_t + dtm + btm
+      next_time_today = rounded_t + dtm + btm
     else
       next_time_today = time_today_opening + dtm
     end
