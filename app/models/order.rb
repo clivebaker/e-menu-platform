@@ -7,7 +7,7 @@ class Order < ApplicationRecord
 
     after_create :create_receipt
 
-    attr_accessor :uuid, :basket_total, :items, :email, :name, :collection_time, :stripe_token, :status, :is_ready, :source, :telephone, :address, :delivery_or_collection, :delivery_fee, :table_number, :stripe_data, :stripe_token
+    attr_accessor :uuid, :basket_total, :items, :email, :name, :collection_time, :stripe_token, :status, :is_ready, :source, :telephone, :address, :delivery_or_collection, :delivery_fee, :table_number, :stripe_data, :stripe_token, :discount_code
 
     private
 
@@ -28,7 +28,8 @@ class Order < ApplicationRecord
         address: self.address,
         delivery_or_collection: self.delivery_or_collection,
         delivery_fee: self.delivery_fee, 
-        table_number: self.table_number
+        table_number: self.table_number,
+        discount_code: self.discount_code
       )
     end
  

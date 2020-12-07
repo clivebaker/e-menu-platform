@@ -2,6 +2,7 @@
 
 class DiscountCode < ApplicationRecord
     belongs_to :restaurant, class_name: 'Restaurant'
+    has_many :receipts
 
     def self.types; ["PercentageOffBasketDiscountCode"]; end
     def self.code_matches(code); where('lower(code) = ?', code.downcase); end

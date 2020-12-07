@@ -34,6 +34,15 @@
           <td class='text-right'><%= number_to_currency(item['total'], unit: '£') %></td>
         </tr>
         <% end %>
+        <% if @receipt.discount_code.present? %>
+        <tr>
+          <td><%= @receipt.discount_code.description %></td>
+          <td></td>
+          <td class='text-right'>
+            -<%= number_to_currency(@receipt.discount_code.calculate_discount_from_basket_total(@receipt.basket_total), unit: @restaurant.currency_symbol) %>
+          </td>
+        </tr>
+        <% end %>
         <% if @receipt.delivery_fee.present? %>
         <tr>
           <td>Delivery Fee</td>

@@ -10,4 +10,8 @@ class PercentageOffBasketDiscountCode < DiscountCode
   def description
     "#{self.amount}% discount"
   end
+
+  def calculate_discount_from_basket_total(basket_total)
+    (((basket_total / (100 - self.amount) * 100) - basket_total)/100)
+  end
 end

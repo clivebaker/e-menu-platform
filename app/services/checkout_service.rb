@@ -1,7 +1,7 @@
 class CheckoutService < ApplicationController
 
   attr_accessor :name, :total_payment, :service_type, :collection_time, :telephone, :address,
-                :table_number, :email, :house_number, :street, :postcode, :basket, :delivery_fee
+                :table_number, :email, :house_number, :street, :postcode, :basket, :delivery_fee, :discount_code
 
   def initialize(restaurant, parameters, basket_service)
     parameters.each_pair {|k,v|instance_variable_set("@#{k}", v)}
@@ -57,7 +57,8 @@ class CheckoutService < ApplicationController
       address: @address,
       delivery_or_collection: @service_type,
       delivery_fee: @delivery_fee, 
-      table_number: @table_number
+      table_number: @table_number,
+      discount_code: @basket_service.discount_code
     )
   end
 

@@ -6,6 +6,7 @@ class Receipt < ApplicationRecord
   after_create :creation_print
   after_create :item_breakdown
   has_many :screen_items
+  belongs_to :discount_code
   delegate :id, to: :restaurant, prefix: true
 
   after_create :email_receipt
