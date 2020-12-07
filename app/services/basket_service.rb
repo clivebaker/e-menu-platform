@@ -30,7 +30,7 @@ class BasketService < ApplicationController
   
   def apply_discount_code(code)
     if code.present?
-      @discount_code = @restaurant.discount_codes.is_active?.where(:code => code).first
+      @discount_code = @restaurant.discount_codes.is_active?.code_matches?(code).first
       return if @discount_code.blank?
       @basket_db.update_attribute(:discount_code, code)
       @basket_item_total = @discount_code.apply_discount_to_total(@basket_item_total)

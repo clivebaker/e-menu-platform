@@ -8,7 +8,7 @@ class DiscountCodesController < Manager::BaseController
   before_action :set_discount_code, :only => [:show, :edit, :update, :destroy]
 
   def index
-    @discount_codes = @restaurant.discount_codes.order("code")
+    @discount_codes = @restaurant.discount_codes.order(updated_at: :DESC)
   end
 
   def show
