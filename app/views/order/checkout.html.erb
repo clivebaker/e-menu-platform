@@ -154,9 +154,10 @@ function validateEmail(email) {
 $(function(){
 
   $('.delivery_fee_calculate').change(function(){
-    basket_total = <%=@basket_item_total.to_f / 100.to_f%> 
+    basket_total = <%=@basket_item_total.to_f%> 
     fee = parseFloat($(this).val());
-    new_basket = basket_total + fee
+    fee = isNaN(fee) ? 0 : fee;
+    new_basket = basket_total + fee;
     $('#selected_delivery_fee').val(new_basket);
     $('.delivery_fee_choose').html('<%=@restaurant.currency_symbol%>'+parseFloat(fee).toFixed(2));
     $('#basket-total-value').html('<%=@restaurant.currency_symbol%>'+parseFloat(new_basket).toFixed(2));
