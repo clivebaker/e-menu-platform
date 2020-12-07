@@ -124,22 +124,22 @@
     <% if is_takeaway?(@restaurant) or is_delivery?(@restaurant) %>
       <div class="row">
         <div class="col text-warning text-center border border-warning"> 
-          The Kitchen is currently closed, but you can still order for next available open time
+          The Kitchen is currently closed, but you can still order takeaway for next available open time
         </div>
       </div>
     <% else %>
       <div class="row">
-        <div class="col text-danger text-center border border-danger"> 
+        <div class="col text-danger text-center border border-danger">
           The Kitchen is Now closed
         </div>
       </div>
     <% end %>
   <% end %>
 
-  <% if @restaurant.is_open and @restaurant.is_closing <= 30 and is_tableservice?(@restaurant) %>
+  <% if @restaurant.is_open and @restaurant.is_closing < 30 and is_tableservice?(@restaurant) %>
     <div class="row">
       <div class="col text-warning text-center border border-warning"> 
-        The Kitchen is closing in <%= @restaurant.is_closing%> minutes
+        The Kitchen is closing in <%= @restaurant.is_closing%> minutes<% if (is_takeaway?(@restaurant) or is_delivery?(@restaurant)) and @restaurant.is_closing < @restaurant.opening_time.delay_time_minutes %>, but you can still order takeaway for next available open time <% end %>
       </div>
     </div>
   <% end %>
