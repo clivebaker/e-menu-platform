@@ -15,7 +15,7 @@ class DiscountCode < ApplicationRecord
     validates_presence_of :type, :code, :amount
     validates :code, format: { with: /\A[a-zA-Z0-9]+\Z/ }
 
-    validate :discount_code
+    validate :discount_code, if: :code_changed?
     validates :code, length: { minimum: 3, maximum: 10 }
     validates :type, inclusion: { in: DiscountCode.types }
 
@@ -24,14 +24,13 @@ class DiscountCode < ApplicationRecord
     def is_active?
       self.expires_on.nil? || self.expires_on >= 1.days.ago
     end
-    
 
     private
 
     def downcase_code; self.code.downcase; end
 
     def discount_code
-      if DiscountCode.code_matches(self.code).is_active.present?;
+      if DiscountCode.code_matches(self.code).is_active.present?
         errors.add(:code, 'is not unique or is already active')
       end
     end
