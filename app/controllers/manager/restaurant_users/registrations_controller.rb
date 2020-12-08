@@ -3,6 +3,7 @@
 module Manager
   module RestaurantUsers
     class RegistrationsController < Devise::RegistrationsController
+      layout 'manager'
       # before_action :configure_sign_up_params, only: [:create]
       # before_action :configure_account_update_params, only: [:update]
 
