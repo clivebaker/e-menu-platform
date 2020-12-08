@@ -187,6 +187,7 @@ if (service_type == 'delivery'){
   $('#pay-now-button').hide();
   $('#help-info').hide();
   $('#kitchen-delay').hide();
+  $('.delivery_fee_calculate').change();
 
 } else if (service_type == 'collection') {
 
@@ -203,6 +204,8 @@ if (service_type == 'delivery'){
   $('#pay-now-button').hide();
   $('#help-info').hide();
   $('#kitchen-delay').hide();
+  $('#basket-total-value').html('<%=@restaurant.currency_symbol%>'+'<%=@basket_item_total.to_f%>');
+  $('#total').val(<%=@basket_item_total.to_f%>);
 
 } else if (service_type == 'tableservice') {
 
@@ -219,6 +222,8 @@ if (service_type == 'delivery'){
   $('#pay-now-button').hide();
   $('#help-info').hide();
   $('#kitchen-delay').show();
+  $('#basket-total-value').html('<%=@restaurant.currency_symbol%>'+'<%=@basket_item_total.to_f%>');
+  $('#total').val(<%=@basket_item_total.to_f%>);
 
 
 }
