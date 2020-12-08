@@ -117,38 +117,39 @@
 
 <% end %>
 
-<% if !@restaurant.is_open %>
-  <% if is_takeaway?(@restaurant) or is_delivery?(@restaurant) %>
-    <div class="row">
-      <div class="col text-warning text-center border border-warning"> 
-        The Kitchen is currently closed, but you can still order takeaway for next available open time
+<div class="container-fluid">
+  <% if !@restaurant.is_open %>
+    <% if is_takeaway?(@restaurant) or is_delivery?(@restaurant) %>
+      <div class="row">
+        <div class="col text-warning text-center border border-warning">
+          The Kitchen is currently closed, but you can still order takeaway for next available open time
+        </div>
       </div>
-    </div>
-  <% else %>
+    <% else %>
+      <div class="row">
+        <div class="col text-warning text-center border border-danger">
+          The Kitchen is Now closed
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+
+  <% if @restaurant.is_open and @restaurant.is_closing < 30 and is_tableservice?(@restaurant) %>
     <div class="row">
-      <div class="col text-danger text-center border border-danger">
-        The Kitchen is Now closed
+      <div class="col text-warning text-center border border-warning">
+        The Kitchen is closing in <%= @restaurant.is_closing%> minutes<% if (is_takeaway?(@restaurant) or is_delivery?(@restaurant)) and @restaurant.is_closing < @restaurant.opening_time.delay_time_minutes %>, but you can still order takeaway for next available open time <% end %>
       </div>
     </div>
   <% end %>
-<% end %>
 
-<% if @restaurant.is_open and @restaurant.is_closing < 30 and is_tableservice?(@restaurant) %>
-  <div class="row">
-    <div class="col text-warning text-center border border-warning"> 
-      The Kitchen is closing in <%= @restaurant.is_closing%> minutes<% if (is_takeaway?(@restaurant) or is_delivery?(@restaurant)) and @restaurant.is_closing < @restaurant.opening_time.delay_time_minutes %>, but you can still order takeaway for next available open time <% end %>
+  <% if @restaurant.is_open and @restaurant.opening_time_kitchen_delay_minutes > 0 %>
+    <div class="row ">
+      <div class="col text-warning text-center border border-warning">
+        Please Note: The kitchen is busy and there could be up to <%= @restaurant.opening_time_kitchen_delay_minutes %> minutes delay
+      </div>
     </div>
-  </div>
-<% end %>
-
-<% if @restaurant.is_open and @restaurant.opening_time_kitchen_delay_minutes > 0 %>
-  <div class="row ">
-    <div class='col text-warning text-center border border-warning'>
-      Please Note: The kitchen is busy and there could be up to <%= @restaurant.opening_time_kitchen_delay_minutes %> minutes delay
-    </div>
-  </div>
-<% end %>
-
+  <% end %>
+</div>
 
 <%= render 'all' if @restaurant.blank? %>
 <% if feature_match('menu_in_sections', @restaurant.features) %>
