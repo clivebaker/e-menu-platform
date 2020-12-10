@@ -21,28 +21,31 @@
 @import url("https://fonts.googleapis.com/css2?family=Cutive+Mono&family=Dosis:wght@400;800&family=Monoton&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Nothing+You+Could+Do&family=Nunito+Sans:wght@200;300;400&family=Open+Sans:ital,wght@0,300;0,400;0,700;0,800;1,300;1,400&display=swap");
 
+:root {
+ --col-primary: var(--emenu-primary);
+ --col-secondary: var(--emenu-darker);
+
+ --font-heading: var(--emenu-font-heading);
+ --font-primary: var(--emenu-font-primary);
+ --font-secondary: var(--emenu-font-secondary);
+}
+
 code {
  font-family: "Cutive Mono", monospace;
 }
 
 body {
  margin-top: 48px;
- // font-family: 'Kirang Haerang', cursive;
- // font-family: 'Modern Antiqua', cursive;
- // font-family: 'Open Sans Condensed', sans-serif;
- font-family: "Open Sans", sans-serif;
- font-family: "Nunito Sans", sans-serif;
- // font-family: 'Indie Flower', cursive;
- // font-family: 'Gloria Hallelujah', cursive;
- // font-family: "Dosis", sans-serif;
+
+ font-family: var(--emenu-font-primary);
 }
 
 #topbar {
- background-color: var(--secondary) !important;
+ background-color: var(--col-secondary) !important;
 }
 
 .navbar-brand {
- font-family: "Monoton", cursive;
+ font-family: var(--font-secondary);
 }
 
 .navbar-toggler:focus,
@@ -53,18 +56,13 @@ body {
 }
 
 h1 {
- font-family: "Nothing You Could Do", cursive;
+ font-family: var(--font-heading);
 }
 
 h2,
 h3,
 h4 {
- font-family: "Open Sans", sans-serif;
- // font-family: 'Kirang Haerang', cursive;
- // font-family: 'Modern Antiqua', cursive;
- // font-family: "Dosis", sans-serif;
- // font-family: 'Indie Flower', cursive;
- // font-family: 'Gloria Hallelujah', cursive;
+ font-family: var(--font-primary);
 }
 
 .field_with_errors {
@@ -76,8 +74,9 @@ h4 {
 }
 
 #sidebar {
- background-color: var(--secondary) !important;
- color: var(--primary) !important;
+ font-family: var(--font-primary);
+ background-color: var(--col-secondary) !important;
+ color: var(--col-primary) !important;
  transition: all 0.3s;
  min-width: 250px;
  max-width: 250px;
@@ -99,12 +98,13 @@ h4 {
 }
 
 #sidebar ul p {
- color: var(--primary) !important;
+ font-family: var(--font-primary) !important;
+ color: var(--col-primary) !important;
  padding: 10px;
 }
 
 #sidebar ul li a {
- color: var(--primary) !important;
+ color: var(--col-primary) !important;
  padding: 10px;
  font-size: 1.1em;
  display: block;
@@ -114,11 +114,18 @@ h4 {
 // }
 #sidebar ul li.active > a,
 a[aria-expanded="true"] {
- color: var(--primary) !important;
+ color: var(--col-primary) !important;
 }
 
-#sidebar .sidebar-footer {
+#sidebar .sidebar-footer,
+#sidebar .sidebar-footer a {
+ font-family: var(--emenu-font-primary) !important;
+ font-size: 10px;
  color: var(--emenu-lightest) !important;
+}
+
+#sidebar .sidebar-footer a {
+ text-decoration: underline;
 }
 
 ul ul a {

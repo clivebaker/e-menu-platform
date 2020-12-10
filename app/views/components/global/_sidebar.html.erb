@@ -3,8 +3,8 @@
     <button class="navbar-toggler border-0" type="button" id="dismiss">
       <svg xmlns="http://www.w3.org/2000/svg" width="22.243" height="22.243" viewBox="0 0 22.243 22.243">
         <g id="Hamburger" transform="translate(2.121 2.121)">
-          <line id="Line_1" data-name="Line 1" y1="18" x2="18" fill="none" stroke="var(--primary)" stroke-linecap="round" stroke-width="3"/>
-          <line id="Line_3" data-name="Line 3" x2="18" y2="18" fill="none" stroke="var(--primary)" stroke-linecap="round" stroke-width="3"/>
+          <line id="Line_1" data-name="Line 1" y1="18" x2="18" fill="none" stroke="var(--col-primary)" stroke-linecap="round" stroke-width="3"/>
+          <line id="Line_3" data-name="Line 3" x2="18" y2="18" fill="none" stroke="var(--col-primary)" stroke-linecap="round" stroke-width="3"/>
         </g>
       </svg>
     </button>
@@ -61,10 +61,11 @@
     <div class="sidebar-footer mt-auto">
       <div class="d-flex justify-content-between">
         <div class="p-1 d-flex flex-column">
-          <div class="px-1 py-0">Powered by</div>
+          <div class="p-1">Powered by</div>
           <div class="px-1 py-0"><%= image_tag("logo/Logo__icon_v1.0.0-dark-bkg.svg", height: '15', width: 'auto') %></div>
         </div>
-        <a href="#" class="p-1 mt-auto d-none">Privacy Policy</a>
+        <%# <a href="https://www.emenunow.com/privacy-policy" target class="p-1 mt-auto d-none">Privacy Policy</a> %>
+        <%= link_to 'Privacy Policy', 'https://www.emenunow.com/privacy-policy', target: 'privacy', class: 'pr-2 mt-auto' %>
       </div>
     </div>
   </div>
