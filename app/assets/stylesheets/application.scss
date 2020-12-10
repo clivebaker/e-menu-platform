@@ -100,15 +100,13 @@ h4 {
 }
 
 #sidebar ul p {
- font-family: var(--font-primary) !important;
- color: var(--col-primary) !important;
  padding: 10px;
 }
 
 #sidebar ul li a {
- color: var(--col-primary) !important;
+ color: var(--col-primary);
  padding: 10px;
- font-size: 1.1em;
+ font-size: 18px;
  display: block;
 }
 
@@ -121,9 +119,9 @@ a[aria-expanded="true"] {
 
 #sidebar .sidebar-footer,
 #sidebar .sidebar-footer a {
- font-family: var(--emenu-font-primary) !important;
+ font-family: var(--emenu-font-secondary) !important;
  font-size: 10px;
- color: var(--emenu-lightest) !important;
+ color: var(--emenu-light) !important;
 }
 
 #sidebar .sidebar-footer a {

@@ -18,8 +18,10 @@
   <% end %>
 
   <style>
-    <%=@restaurant.custom_css if @restaurant.present? and @restaurant.custom_css.present? %>
+    <%= @restaurant.custom_css if @restaurant.present? and @restaurant.custom_css.present? %>
   </style>
+
+  <%= stylesheet_link_tag "emenu_overwrite" if !@restaurant.present? or !@restaurant.custom_css.present? %>
 
   <%= csrf_meta_tags %>
 </head>
