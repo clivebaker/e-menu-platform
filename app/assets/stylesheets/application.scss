@@ -19,7 +19,9 @@
 @import "datatables";
 
 @import url("https://fonts.googleapis.com/css2?family=Cutive+Mono&family=Dosis:wght@400;800&family=Monoton&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Nothing+You+Could+Do&family=Nunito+Sans:wght@200;300;400&family=Open+Sans:ital,wght@0,300;0,400;0,700;0,800;1,300;1,400&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Nothing+You+Could+Do&family=Mulish:wght@200;300;400&family=Open+Sans:ital,wght@0,300;0,400;0,700;0,800;1,300;1,400&display=swap");
+
+@import url("https://use.typekit.net/axd5kmn.css");
 
 :root {
  --col-primary: var(--emenu-primary);
@@ -94,7 +96,7 @@ h4 {
 }
 
 #sidebar ul.components {
- padding: 20px 0;
+ padding: 75px 15px 20px;
 }
 
 #sidebar ul p {
