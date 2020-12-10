@@ -1,12 +1,15 @@
 class BasketService < ApplicationController
+  include TablesHelper
 
-  attr_accessor :discount_code
+  attr_accessor :discount_code, :service_types, :service_selected, :basket
 
   def initialize(restaurant, basket)
 
     @restaurant = restaurant
     @basket = basket || { key: "#{@restaurant.id}-#{SecureRandom.uuid}" }.to_json
     @basket_item_total ||= 0
+
+    set_service_type
 
     key = JSON.parse(@basket)['key']
     
@@ -37,10 +40,6 @@ class BasketService < ApplicationController
     else
       @basket_db.update_attribute(:discount_code, "")
     end
-  end
-
-  def get_basket
-    @basket
   end
 
   def get_basket_db
@@ -132,6 +131,13 @@ class BasketService < ApplicationController
   end
 
   private
+
+  def set_service_type
+    @service_types = []
+    @service_types << ['Collection', 'collection'] if is_takeaway?(@restaurant) 
+    @service_types << ['Delivery', 'delivery'] if is_delivery?(@restaurant)
+    @service_types << ['Table Service', 'tableservice'] if is_tableservice?(@restaurant) and @restaurant.is_open
+  end
 
 
 end

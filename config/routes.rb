@@ -16,7 +16,12 @@ Rails.application.routes.draw do
   # end
   resources :item_screen_types 
   
-  resources :orders, :only => [:index]
+  resources :orders, :only => [:index, :show]
+  resources :restaurants, :only => [:show], :path => "" do
+    member do
+      get :welcome
+    end
+  end
   
   resources :patrons, :module => :patrons, :only => [:index, :show] do
     collection do
@@ -155,7 +160,6 @@ get 'receipt/:receipt_id/print/:printer_id', to: 'manager/printers#print', as: :
 get 'receipt/:receipt_id/screen_item_uuid/:uuid/print/:printer_id', to: 'manager/printers#print_item', as: :print_item_receipt
 get 'receipt/:receipt_id/key/:item_screen_type_key/print/:printer_id', to: 'manager/printers#print_items', as: :print_items_receipt
 
- 
 
   get 'order/remove_from_basket/:path/:uuid', to: 'order#remove_from_basket', as: :remove_from_basket
   get 'order/receipt/:path/:uuid', to: 'order#receipt', as: :order_receipt
@@ -169,10 +173,10 @@ get 'receipt/:receipt_id/key/:item_screen_type_key/print/:printer_id', to: 'mana
   get 'order/add_to_basket/:path/:main_item/:items/note/:note', to: 'order#add_to_basket', as: :add_to_basket_items_notes
   get 'order/:path/menu/:menu_id/section/:section_id', to: 'order#index', as: :order_menu_section
   get 'order/:path/menu/:menu_id', to: 'order#index', as: :order_menu
-  get 'order/:path', to: 'order#index', as: :restaurant_path
+  # get 'order/:path'
 
 
-  resources :baskets, :only => [:update]
+  resources :baskets, :only => [:update], param: :path
 
   get 'home_mobile/index'
   get 'home/index'

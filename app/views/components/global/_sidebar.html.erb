@@ -1,4 +1,4 @@
-<nav id="sidebar" class="navbar-dark bg-dark d-none">
+<nav id="sidebar" class="navbar-dark bg-dark">
 
     <button class="navbar-toggler" type="button" id="dismiss">
         <%# <span class="navbar-toggler-icon"></span> %>
@@ -20,7 +20,7 @@
                 </li>
                 <% if @restaurant %>
                 <li>
-                    <%= link_to @restaurant.name, restaurant_path_path(@restaurant.path) %>
+                    <%= link_to @restaurant.name, restaurant_path(@restaurant.path) %>
                 </li>
                 <% end %>
             </ul>

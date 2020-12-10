@@ -81,4 +81,6 @@ en:
       three: Require three only
     error:
       title: Please choose the Options
+  restaurants:
+    welcome: Welcome to %{name}
 

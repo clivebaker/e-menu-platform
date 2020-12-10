@@ -6,12 +6,12 @@ module Patrons
     # layout 'order'
 
     def update
-      cp = current_patron.patron_allergens.where(:allergen_id => params[:id]).first_or_initialize
-      cp.active = params[:active]
+      patron_allergen = current_patron.patron_allergens.where(:menu_item_categorisation_id => params[:id]).first_or_initialize
+      patron_allergen.active = params[:active]
       
       respond_to do |format|
-        if cp.save
-          format.html { redirect_to settings_patrons_path, alert: "Success" }
+        if patron_allergen.save
+          format.html { redirect_to settings_patrons_path, notice: "Success" }
         else
           format.html { redirect_to settings_patrons_path, alert: "Please try again" }
         end

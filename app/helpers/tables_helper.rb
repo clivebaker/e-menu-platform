@@ -42,9 +42,6 @@ module TablesHelper
     end
   end
 
-
-
-
   def custom_list_options2(custom_lists, constraints = [], currency)
     valid_list_found = false
     ret_string = "<strong>#{t('menu.choose_below')}</strong><br>"
@@ -86,36 +83,30 @@ module TablesHelper
     end
   end
 
-      
+  def feature_match(feature, restaurant_features)
+    restaurant_features.map{|s| s.key.to_sym}.include?(feature.to_sym)
+  end
 
+  def is_delivery?(restaurant)
+    feature_match('delivery_service', restaurant.features)
+  end
 
+  def is_takeaway?(restaurant)
+    feature_match('takeaway_service_enabled', restaurant.features)
+  end
 
+  def is_tableservice?(restaurant)
+    feature_match('takeaway_to_table', restaurant.features)
+  end
 
-    def feature_match(feature, restaurant_features)
-      restaurant_features.map{|s| s.key.to_sym}.include?(feature.to_sym)
-    end
-  
-    def is_delivery?(restaurant)
-      feature_match('delivery_service', restaurant.features)
-    end
-    def is_takeaway?(restaurant)
-      feature_match('takeaway_service_enabled', restaurant.features)
-    end
-    def is_tableservice?(restaurant)
-      feature_match('takeaway_to_table', restaurant.features)
-    end
-    
-
-    def is_takeaway_or_delivery?(restaurant)
-      ret = false
-      del = is_delivery?(restaurant)
-      take = is_takeaway?(restaurant)
-      table = is_tableservice?(restaurant)
-      ret = del if del
-      ret = take if take
-      ret = table if table
-      ret
-    end
-
-
+  def is_takeaway_or_delivery?(restaurant)
+    ret = false
+    del = is_delivery?(restaurant)
+    take = is_takeaway?(restaurant)
+    table = is_tableservice?(restaurant)
+    ret = del if del
+    ret = take if take
+    ret = table if table
+    ret
+  end
 end

@@ -1,12 +1,13 @@
 <%
+  redirect_after_signup_to ||= params[:redirect_after_signup_to]
   redirect_after_signup_to ||= request.original_fullpath
   password_field_enabled ||= false
 %>
 
 <!-- <h2>Log in</h2> -->
-<div class="container-fluid d-none">
+<div class="container-fluid">
   <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-    <%= f.hidden_field :redirect_after_signup_to, :value => resource.redirect_after_signup_to || redirect_after_signup_to %>
+    <%= f.hidden_field :redirect_after_signup_to, :value => redirect_after_signup_to %>
     <div class="field">
       <%= f.label :email %><br />
       <%= f.email_field :email, autofocus: true, autocomplete: "email" %>

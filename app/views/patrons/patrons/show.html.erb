@@ -1,11 +1,11 @@
 <% pallergens = current_patron.patron_allergens %>
 <div class="row p-0 m-0">
   <div class="col-md-12 p-0 m-0">
-    <% Allergen.all.each do |allergen| %>
+    <% MenuItemCategorisation.all.each do |allergen| %>
       <%= form_for settings_patrons_path, :method => :patch, :url => patron_allergen_path(allergen.id) do |f| %>
         <label>
-          <h5><%= allergen.title.titleize %>: 
-          <%= f.check_box :active, :name => "active", :checked => pallergens.select{|x|x.allergen_id == allergen.id}.first&.active, :class=>"adaptive-size", :onclick=>"form.submit();" %></h5>
+          <h5><%= allergen.name.titleize %>: 
+          <%= f.check_box :active, :name => "active", :checked => pallergens.select{|x|x.menu_item_categorisation_id == allergen.id}.first&.active, :class=>"adaptive-size", :onclick=>"form.submit();" %></h5>
         </label>
       <% end %>
     <% end %>

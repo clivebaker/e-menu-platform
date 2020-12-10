@@ -4,7 +4,7 @@
 %>
 
 <% if item[:node_type] == 'section' %>
-<div class="col-sm-12 p-1 text-left <%= item[:css_class] if item[:css_class].present?%>">
+<div class="col-sm-12 text-left <%= item[:css_class] if item[:css_class].present?%>">
   <div class="order-item rounded" data-toggle="modal" data-target="#exampleModal">
     <div class="row  cursor-pointer">
       <div class="col text-danger">
@@ -24,7 +24,7 @@
 </div>
 
 <% else %>
-<div class="item-default <%= item[:ancestry].split('/').count == 3 ? 'col' : 'col-sm-12 col-md-6' %> p-1 <%= item[:css_class] if item[:css_class].present?%>">
+<div class="item-default <%= item[:ancestry].split('/').count == 3 ? 'col' : 'col-sm-12' %> <%= item[:css_class] if item[:css_class].present?%>">
   <div class=" p-1 rounded cursor-pointer" data-toggle="modal" data-target="#item-<%=item[:id]%>">
     <div class="row pb-1">
       <div class='col item-title'><strong class='item-name '><%=item[:name]%></strong></div>

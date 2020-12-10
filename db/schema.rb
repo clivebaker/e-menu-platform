@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_27_142507) do
+ActiveRecord::Schema.define(version: 2020_12_09_193024) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,11 +34,6 @@ ActiveRecord::Schema.define(version: 2020_11_27_142507) do
     t.string "checksum", null: false
     t.datetime "created_at", null: false
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
-  end
-
-  create_table "allergens", force: :cascade do |t|
-    t.string "title", null: false
-    t.string "description", null: false
   end
 
   create_table "baskets", force: :cascade do |t|
@@ -278,9 +273,9 @@ ActiveRecord::Schema.define(version: 2020_11_27_142507) do
 
   create_table "patron_allergens", force: :cascade do |t|
     t.boolean "active"
-    t.bigint "allergen_id", null: false
     t.bigint "patron_id", null: false
-    t.index ["allergen_id"], name: "index_patron_allergens_on_allergen_id"
+    t.bigint "menu_item_categorisation_id", null: false
+    t.index ["menu_item_categorisation_id"], name: "index_patron_allergens_on_menu_item_categorisation_id"
     t.index ["patron_id"], name: "index_patron_allergens_on_patron_id"
   end
 
@@ -494,7 +489,6 @@ ActiveRecord::Schema.define(version: 2020_11_27_142507) do
   add_foreign_key "menus", "spice_levels"
   add_foreign_key "opening_times", "restaurants"
   add_foreign_key "orders", "restaurants"
-  add_foreign_key "patron_allergens", "allergens"
   add_foreign_key "patron_allergens", "patrons"
   add_foreign_key "printers", "pi_interfaces"
   add_foreign_key "printers", "restaurants"
