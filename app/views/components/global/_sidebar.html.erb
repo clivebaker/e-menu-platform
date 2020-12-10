@@ -10,39 +10,19 @@
     </button>
 
     <ul class="list-unstyled components">
-      <li class="active">
-        <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false">Home</a>
-        <ul class="collapse list-unstyled" id="homeSubmenu">
-          <li>
-            <%= link_to "Find Restaurant", root_path %>
-          </li>
-          <% if @restaurant %>
-            <li>
-              <%= link_to @restaurant.name, restaurant_path_path(@restaurant.path) %>
-            </li>
-          <% end %>
-        </ul>
+      <li>
+        <%= link_to "Sign In", new_patron_session_path %>
       </li>
       <li>
-        <a href="#">About</a>
-        <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false">Pages</a>
-        <ul class="collapse list-unstyled" id="pageSubmenu">
-          <li>
-            <a href="#">Page 1</a>
-          </li>
-          <li>
-            <a href="#">Page 2</a>
-          </li>
-          <li>
-            <a href="#">Page 3</a>
-          </li>
-        </ul>
+        <%= link_to "Sign Up", new_patron_registration_path %>
       </li>
+      <% if @restaurant %>
+        <li>
+          <%= link_to @restaurant.name, restaurant_path_path(@restaurant.path) %>
+        </li>
+      <% end %>
       <li>
-      <a href="#">Portfolio</a>
-      </li>
-      <li>
-        <a href="#">Contact</a>
+        <%= link_to "Find Restaurant", root_path %>
       </li>
       </li>
       <% if patron_signed_in? %>
@@ -53,7 +33,7 @@
           <%= link_to "Edit settings",  settings_patrons_path %>
         </li>
         <li>
-          <%= link_to "Signout", destroy_patron_session_path, method: :delete %>
+          <%= link_to "Sign Out", destroy_patron_session_path, method: :delete %>
         </li>
       <% end %>
     </ul>
@@ -64,7 +44,6 @@
           <div class="p-1">Powered by</div>
           <div class="px-1 py-0"><%= image_tag("logo/Logo__icon_v1.0.0-dark-bkg.svg", height: '15', width: 'auto') %></div>
         </div>
-        <%# <a href="https://www.emenunow.com/privacy-policy" target class="p-1 mt-auto d-none">Privacy Policy</a> %>
         <%= link_to 'Privacy Policy', 'https://www.emenunow.com/privacy-policy', target: 'privacy', class: 'p-1 pr-2 mt-auto' %>
       </div>
     </div>
