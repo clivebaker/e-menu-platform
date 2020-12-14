@@ -1,0 +1,21 @@
+$theme-colors: (
+ "emenu-primary": #04acc4,
+ "emenu-primary-bright": #5ae7fc,
+ "emenu-primary-light": #bff5fc,
+ "emenu-primary-faint": #e4fbfe,
+ "emenu-secondary": #fcd45c,
+ "emenu-secondary-light": #fcedbf,
+ "emenu-secondary-faint": #fef8e6,
+ "emenu-darkest": #0f0f0f,
+ "emenu-darker": #292929,
+ "emenu-dark": #545454,
+ "emenu-light": #ababab,
+ "emenu-lighter": #dedede,
+ "emenu-lightest": #f2f2f2,
+);
+
+:root {
+ --emenu-font-heading: "Nothing You Could Do", cursive;
+ --emenu-font-primary: "futura-pt", "Mulish", sans-serif;
+ --emenu-font-secondary: "Open Sans", sans-serif;
+}
