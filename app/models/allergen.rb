@@ -1,5 +1,4 @@
-# frozen_string_literal: true
+class Allergen < MenuItemCategorisation
 
-class Allergen < ApplicationRecord
-  has_many :patron_allergens
+  
 end

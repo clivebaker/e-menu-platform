@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_09_193024) do
+ActiveRecord::Schema.define(version: 2020_12_11_133348) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -188,6 +188,7 @@ ActiveRecord::Schema.define(version: 2020_12_09_193024) do
     t.text "icon"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "type", default: "allergen"
   end
 
   create_table "menu_item_categorisations_menus", id: false, force: :cascade do |t|
@@ -271,12 +272,34 @@ ActiveRecord::Schema.define(version: 2020_12_09_193024) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "patron_addresses", force: :cascade do |t|
+    t.bigint "patron_id", null: false
+    t.boolean "house_number"
+    t.boolean "street"
+    t.boolean "postcode"
+    t.boolean "country"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["patron_id"], name: "index_patron_addresses_on_patron_id"
+  end
+
   create_table "patron_allergens", force: :cascade do |t|
     t.boolean "active"
     t.bigint "patron_id", null: false
     t.bigint "menu_item_categorisation_id", null: false
     t.index ["menu_item_categorisation_id"], name: "index_patron_allergens_on_menu_item_categorisation_id"
     t.index ["patron_id"], name: "index_patron_allergens_on_patron_id"
+  end
+
+  create_table "patron_marketing_preferences", force: :cascade do |t|
+    t.bigint "patron_id", null: false
+    t.boolean "emenu_news"
+    t.boolean "emenu_promotions"
+    t.boolean "restaurant_news"
+    t.boolean "restaurant_promotions"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["patron_id"], name: "index_patron_marketing_preferences_on_patron_id"
   end
 
   create_table "patrons", force: :cascade do |t|
@@ -288,6 +311,8 @@ ActiveRecord::Schema.define(version: 2020_12_09_193024) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "has_no_password", default: false
+    t.string "full_name"
+    t.string "phone"
     t.index ["email"], name: "index_patrons_on_email", unique: true
     t.index ["reset_password_token"], name: "index_patrons_on_reset_password_token", unique: true
   end
@@ -489,7 +514,9 @@ ActiveRecord::Schema.define(version: 2020_12_09_193024) do
   add_foreign_key "menus", "spice_levels"
   add_foreign_key "opening_times", "restaurants"
   add_foreign_key "orders", "restaurants"
+  add_foreign_key "patron_addresses", "patrons"
   add_foreign_key "patron_allergens", "patrons"
+  add_foreign_key "patron_marketing_preferences", "patrons"
   add_foreign_key "printers", "pi_interfaces"
   add_foreign_key "printers", "restaurants"
   add_foreign_key "receipts", "discount_codes"

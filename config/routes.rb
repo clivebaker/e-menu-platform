@@ -28,6 +28,7 @@ Rails.application.routes.draw do
       get :settings, :to => "patrons#show"
       resources :orders, :only => [:index]
       resources :patron_allergens, :only => [:update]
+      resources :patron_marketing_preferences, :only => [:update]
     end
   end
 
