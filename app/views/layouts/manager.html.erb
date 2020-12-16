@@ -12,7 +12,7 @@
       %>
     </title>
 
-    <%= stylesheet_link_tag "patron_application" %>
+    <%= stylesheet_link_tag "application" %>
     <link
       rel="stylesheet"
       href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
@@ -26,19 +26,32 @@
     <script src="https://cdn.datatables.net/buttons/1.6.4/js/dataTables.buttons.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/1.6.4/js/buttons.html5.min.js"></script>
 
+    <% if @restaurant.present? and @restaurant.theme&.css_font_url.present? %>
+      <link href="<%= @restaurant.theme.css_font_url%>" rel="stylesheet" />
+    <% elsif @restaurant.present? and @restaurant.css_font_url.present? %>
+      <link href="<%= @restaurant.css_font_url%>" rel="stylesheet" />
+    <% end %>
+
+    <style>
+      <%= render 'components/global/restaurant_style' %>
+    </style>
+
     <%= csrf_meta_tags %>
   </head>
 
   <body>
-    <div class="container-fluid px-0">
-      <%= render :partial => 'components/global/environment' %>
-      <%= render :partial => 'manager/components/global/topnav' %>
-      <%= render :partial => 'manager/components/restaurant/navigation' if current_manager_restaurant_user %>
-      <%= render :partial => 'components/global/messages' %>
+    <%= render 'manager/components/global/sidebar' %>
+    <%= render 'manager/components/global/topbar' %>
+    <%= render 'components/global/messages' %>
+    <%= render 'components/global/environment' %>
+    <%= render 'manager/components/restaurant/navigation' if current_manager_restaurant_user %>
+    
+    <div class="container-fluid p-0 pt-5">
       <%= yield %>
       <%= render :partial => 'components/global/languages' %>
       <%= render :partial => 'manager/components/global/footer' %>
     </div>
     <%= yield :js %> <%= yield :channels %>
+    <div class="overlay"></div>
   </body>
 </html>

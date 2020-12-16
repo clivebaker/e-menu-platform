@@ -13,12 +13,14 @@
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous" />
   <%= javascript_include_tag "application"%>
 
-  <% if @restaurant.present? and @restaurant.css_font_url.present? %>
-  <link href="<%= @restaurant.css_font_url%>" rel="stylesheet" />
+  <% if @restaurant.present? and @restaurant.theme&.css_font_url.present? %>
+    <link href="<%= @restaurant.theme.css_font_url%>" rel="stylesheet" />
+  <% elsif @restaurant.present? and @restaurant.css_font_url.present? %>
+    <link href="<%= @restaurant.css_font_url%>" rel="stylesheet" />
   <% end %>
 
   <style>
-    <%=@restaurant.custom_css if @restaurant.present? and @restaurant.custom_css.present? %>
+    <%= render 'components/global/restaurant_style' %>
   </style>
 
   <%= csrf_meta_tags %>
@@ -31,13 +33,11 @@
   <div class="container-fluid p-0">
     <%#= render 'components/global/environment' %>
     <%#= render 'components/global/topnav' %>
-    <%= render "patrons/sessions/new", :locals => { :redirect_after_signup_to => restaurant_path(Restaurant.first.path), :resource => Patron.new } if !patron_signed_in? %>
+    <%#= render "patrons/sessions/new", :locals => { :redirect_after_signup_to => restaurant_path(Restaurant.first.path), :resource => Patron.new } if !patron_signed_in? %>
     <%= render 'components/global/messages' %>
     <%= render 'components/global/hero' %>
   </div>
-  <div class="container">
-    <%= yield %>
-  </div>
+  <%= yield %>
   <div class="container-fluid p-0">
     <%= render :partial => 'components/global/languages' %>
     <%= render :partial => 'components/restaurants/footer' %>

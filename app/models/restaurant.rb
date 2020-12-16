@@ -5,6 +5,7 @@ class Restaurant < ApplicationRecord
 
   belongs_to :restaurant_user
   has_one :opening_time
+  has_one :theme
   has_many :delivery_postcodes
   has_many :receipts
   has_many :menus
@@ -24,11 +25,13 @@ class Restaurant < ApplicationRecord
   validates_presence_of :email, on: %i[create update], message: "can't be blank"
   validates_uniqueness_of :path, on: %i[create update], message: "must be unique"
   validates_uniqueness_of :restaurant_user_id, on: %i[create update], message: "must be unique"
+  validates :commision_percentage, :inclusion => { :in => 0..10, message: "must be between 0% and 10%" }
 
   delegate :name, to: :cuisine, prefix: true
   delegate :ids, to: :features, prefix: true
   delegate :live_menus, to: :menus, prefix: true
   delegate :times, :delay_time_minutes, :kitchen_delay_minutes, to: :opening_time, prefix: true
+  delegate :color_primary, :color_secondary, :css_font_url, :font_primary, :font_weight_primary, :text_transform_primary, :font_style_primary, :font_secondary, :font_weight_secondary, :text_transform_secondary, :font_style_secondary, :dark_theme, :custom_css, to: :theme, prefix: true
   delegate :name, :code, :symbol, to: :currency, prefix: true
 
   before_create :set_slug
@@ -47,7 +50,7 @@ class Restaurant < ApplicationRecord
   end
 
   def stripe_sk_api_key
-    Rails.env == 'production' ? stripe_api_key : 'sk_test_hOj5WqYB26UV1v5uuqXsADSG'
+    Rails.env == 'production' ? ENV['STRIPE_API_KEY'] : 'sk_test_hOj5WqYB26UV1v5uuqXsADSG'
   end
   
   def stripe_pk_api_key

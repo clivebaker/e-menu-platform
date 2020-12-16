@@ -16,6 +16,17 @@ $theme-colors: (
 
 :root {
  --emenu-font-heading: "Nothing You Could Do", cursive;
+ --emenu-font-weight-heading: 400;
+ --emenu-text-transform-heading: none;
+ --emenu-font-style-heading: normal;
+ 
  --emenu-font-primary: "futura-pt", "Mulish", sans-serif;
+ --emenu-font-weight-primary: 300;
+ --emenu-text-transform-primary: none;
+ --emenu-font-style-primary: normal;
+ 
  --emenu-font-secondary: "Open Sans", sans-serif;
+ --emenu-font-weight-secondary: 400;
+ --emenu-text-transform-secondary: none;
+ --emenu-font-style-secondary: normal;
 }

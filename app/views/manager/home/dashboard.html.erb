@@ -1,5 +1,5 @@
 
-<div class="container mt-4 mb-5">
+<div class="container mb-5">
 	<div class="row">
 
 		<% if @restaurant %>
@@ -87,6 +87,16 @@
 	    <div class="card shadow p-3 mb-5 bg-white rounded">
 	      <div class="card-body text-center">
   <%= link_to("Discount codes", manager_discount_codes_path(@restaurant), class: "nav-link") %>
+      
+	      </div>
+	    </div>
+	  </div>
+
+
+	  <div class="col-lg-6">
+	    <div class="card shadow p-3 mb-5 bg-white rounded">
+	      <div class="card-body text-center">
+  <%= link_to("Restaurant Theme", manager_restaurant_themes_path(@restaurant), class: "nav-link") %>
       
 	      </div>
 	    </div>

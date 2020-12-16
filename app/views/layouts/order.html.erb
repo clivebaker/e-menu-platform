@@ -12,12 +12,14 @@
   <%= javascript_include_tag "application"%>
 
 
-  <% if @restaurant.present? and  @restaurant.css_font_url.present? %>
-  <link href="<%= @restaurant.css_font_url%>" rel="stylesheet">
+  <% if @restaurant.present? and @restaurant.theme&.css_font_url.present? %>
+    <link href="<%= @restaurant.theme.css_font_url%>" rel="stylesheet" />
+  <% elsif @restaurant.present? and @restaurant.css_font_url.present? %>
+    <link href="<%= @restaurant.css_font_url%>" rel="stylesheet" />
   <% end %>
 
   <style>
-    <%=@restaurant.custom_css if @restaurant.present? and @restaurant.custom_css.present? %>
+    <%= render 'components/global/restaurant_style' %>
   </style>
 
 
@@ -30,7 +32,7 @@
   <%= render 'components/global/sidebar' %>
   <%= render 'components/global/topbar' %>
   <%= render 'components/global/environment' %>
-  <%= render "patrons/sessions/new", :locals => { :redirect_after_signup_to => restaurant_path(Restaurant.first.path), :resource => Patron.new } if !patron_signed_in? %>
+  <%#= render "patrons/sessions/new", :locals => { :redirect_after_signup_to => restaurant_path(Restaurant.first.path), :resource => Patron.new } if !patron_signed_in? %>
   <%= render 'components/global/order_messages' %>
   <%= yield %>
   <%#= render 'components/global/languages' %>

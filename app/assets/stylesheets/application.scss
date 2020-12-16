@@ -19,7 +19,7 @@
 @import "datatables";
 
 @import url("https://fonts.googleapis.com/css2?family=Cutive+Mono&family=Dosis:wght@400;800&family=Monoton&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Nothing+You+Could+Do&family=Mulish:wght@200;300;400&family=Open+Sans:ital,wght@0,300;0,400;0,700;0,800;1,300;1,400&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Nothing+You+Could+Do&family=Mulish:wght@200;300;400&family=Open+Sans:ital,wght@0,300;0,400;0,700;1,300;1,400&display=swap");
 
 @import url("https://use.typekit.net/axd5kmn.css");
 
@@ -28,8 +28,19 @@
  --col-secondary: var(--emenu-darker);
 
  --font-heading: var(--emenu-font-heading);
+ --font-weight-heading: var(--emenu-font-weight-heading);
+ --text-transform-heading: var(--emenu-text-transform-heading);
+ --font-style-heading: var(--emenu-font-style-heading);
+
  --font-primary: var(--emenu-font-primary);
+ --font-weight-primary: var(--emenu-font-weight-primary);
+ --text-transform-primary: var(--emenu-text-transform-primary);
+ --font-style-primary: var(--emenu-font-style-primary);
+
  --font-secondary: var(--emenu-font-secondary);
+ --font-weight-secondary: var(--emenu-font-weight-secondary);
+ --text-transform-secondary: var(--emenu-text-transform-secondary);
+ --font-style-secondary: var(--emenu-font-style-secondary);
 }
 
 code {
@@ -77,17 +88,28 @@ h4 {
 
 #sidebar {
  font-family: var(--font-primary);
+ font-weight: var(--font-weight-primary);
+ text-transform: var(--text-transform-primary);
+ font-style: var(--font-style-primary);
  background-color: var(--col-secondary) !important;
  color: var(--col-primary) !important;
  transition: all 0.3s;
- min-width: 250px;
- max-width: 250px;
- height: 100vh;
+ min-width: 350px;
+ max-width: 350px;
+ max-height: 100vh;
  position: fixed;
  top: 0;
- left: -250px;
+ left: -350px;
  /* top layer */
  z-index: 9999;
+
+ & a[data-toggle="collapse"] {
+  position: relative;
+ }
+
+ & .dropdown-toggle::after {
+  display: none;
+ }
 }
 
 #sidebar.active {
@@ -96,7 +118,7 @@ h4 {
 }
 
 #sidebar ul.components {
- padding: 75px 15px 20px;
+ padding: 27px 15px 20px;
 }
 
 #sidebar ul p {
@@ -117,9 +139,14 @@ a[aria-expanded="true"] {
  color: var(--col-primary) !important;
 }
 
+#sidebar .sidebar-header {
+ height: 48px;
+}
+
 #sidebar .sidebar-footer,
 #sidebar .sidebar-footer a {
  font-family: var(--emenu-font-secondary) !important;
+ text-transform: none;
  font-size: 10px;
  color: var(--emenu-light) !important;
 }
@@ -131,6 +158,18 @@ a[aria-expanded="true"] {
 ul ul a {
  font-size: 0.9em !important;
  padding-left: 30px !important;
+}
+
+.scroll {
+ overflow-y: auto;
+ overflow-x: hidden;
+ scrollbar-width: none;
+ -ms-overflow-style: none;
+
+ &::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+ }
 }
 
 .overlay {
@@ -437,6 +476,9 @@ div.scrollmenu::-webkit-scrollbar {
  /* positioning context for advancers */
  position: relative;
  font-size: 0;
+ &::-webkit-scrollbar {
+  display: none;
+ }
 }
 .js .pn-ProductNav {
  /* Make an auto-hiding scroller for the 3 people using a IE */
@@ -550,4 +592,33 @@ div.scrollmenu::-webkit-scrollbar {
  transition: transform 0.2s ease-in-out, background-color 0.2s ease-in-out;
  transition: transform 0.2s ease-in-out, background-color 0.2s ease-in-out,
   -webkit-transform 0.2s ease-in-out;
+}
+
+.order-footer {
+  height: 29px;
+
+  & div {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  & a {
+  color: inherit;
+  text-decoration: underline;
+  }
+}
+
+input[type="color"] {
+ -webkit-appearance: none;
+ border: none;
+ width: 80px;
+ height: 80px;
+}
+input[type="color"]::-webkit-color-swatch-wrapper {
+ padding: 0;
+}
+input[type="color"]::-webkit-color-swatch {
+ border: none;
 }

@@ -5,6 +5,7 @@ class RestaurantsController < ApplicationController
 
   def show
     @menu = @restaurant.menus_live_menus
+    @menu = @restaurant.menus_live_menus.where(:id => params[:menu_id]) if params[:menu_id].present?
     @menu2 = get_serialized_menu(@restaurant)
   end
 
@@ -16,12 +17,13 @@ class RestaurantsController < ApplicationController
 
   def get_restaurant
     @path = params[:id]
-    @restaurant = Restaurant.where("lowercase(path) = ?", @path.downcase).first
+    @restaurant = Restaurant.where("lower(path) = ?", @path.downcase).first
   end
 
   def basket_service
     cookies.delete :emenu_basket if cookies['emenu_basket'].present? && @restaurant.id != JSON.parse(cookies['emenu_basket'])['key'].split('-').first.to_i
     @basket_service = BasketService.new(@restaurant, cookies['emenu_basket'])
+    cookies['emenu_basket'] = @basket_service.get_cookie
   end
 
   def get_serialized_menu restaurant

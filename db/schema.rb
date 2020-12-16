@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_11_133348) do
+ActiveRecord::Schema.define(version: 2020_12_24_101956) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -438,6 +438,8 @@ ActiveRecord::Schema.define(version: 2020_12_11_133348) do
     t.string "facebook_pixel"
     t.string "subtle_background"
     t.bigint "currency_id"
+    t.string "stripe_connected_account_id"
+    t.float "commision_percentage", default: 0.0
     t.index ["cuisine_id"], name: "index_restaurants_on_cuisine_id"
     t.index ["currency_id"], name: "index_restaurants_on_currency_id"
     t.index ["restaurant_user_id"], name: "index_restaurants_on_restaurant_user_id"
@@ -499,6 +501,26 @@ ActiveRecord::Schema.define(version: 2020_12_11_133348) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "themes", force: :cascade do |t|
+    t.bigint "restaurant_id", null: false
+    t.string "color_primary"
+    t.string "color_secondary"
+    t.string "css_font_url"
+    t.string "font_primary"
+    t.integer "font_weight_primary"
+    t.string "text_transform_primary"
+    t.string "font_style_primary"
+    t.string "font_secondary"
+    t.integer "font_weight_secondary"
+    t.string "text_transform_secondary"
+    t.string "font_style_secondary"
+    t.boolean "dark_theme"
+    t.text "custom_css"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["restaurant_id"], name: "index_themes_on_restaurant_id"
+  end
+
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "custom_list_items", "custom_lists"
   add_foreign_key "custom_lists", "restaurants"
@@ -532,4 +554,5 @@ ActiveRecord::Schema.define(version: 2020_12_11_133348) do
   add_foreign_key "table_items", "menus"
   add_foreign_key "table_items", "tables"
   add_foreign_key "tables", "restaurant_tables"
+  add_foreign_key "themes", "restaurants"
 end
