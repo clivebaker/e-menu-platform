@@ -3,8 +3,13 @@ style = "background: url('#{url_for(@restaurant.background_image)}') no-repeat f
 style = "background: url('#{@restaurant.background}') ;" if @restaurant.background.present?
 %>
 
-<div class="container-fluid background-color" style="<%= style %>">
+<div class="container-fluid background-color menu-header" style="<%= style %>">
   <div class='row'>
+    <div class="col text-left mt-2 mb-2"> 
+      <% if @restaurant.image.attached? %>
+        <%= image_tag @restaurant.image.variant(resize: "200x200"), class: "img-fluid"  %>
+      <% end %>                
+    </div>
     <div class='col-sm-12 col-md-12 col-lg-12 col-xl-8'>
       <% menu.each do |m| %>
       <% if  m[:node_type] == 'menu' %>
@@ -36,9 +41,9 @@ style = "background: url('#{@restaurant.background}') ;" if @restaurant.backgrou
               </div>
             </div>
 
-            <div class='row'>
+            <div class='row menu-body'>
               <div class='col-sm-12 col-md-12 col-lg-12 col-xl-12'>
-                <div class="row">
+                <div class="row pt-4">
                   <% m[:children].each do |section| %>
                   <% if section[:node_type] == 'section' %>
                   <div class="col-sm-12 col-lg-12 text-light">
@@ -60,7 +65,7 @@ style = "background: url('#{@restaurant.background}') ;" if @restaurant.backgrou
       <% end %>
       <% end %>
     </div>
-    <div class='col-sm-12 col-md-12 col-lg-12 col-xl-4 border'>
+    <div class='col-sm-12 col-md-12 col-lg-12 col-xl-4 basket-body'>
       <div class='col-sm-auto'>
         <%= render 'restaurants/components/basket' if is_takeaway_or_delivery?(@restaurant)%>
       </div>
