@@ -12,15 +12,15 @@ style = "background: url('#{@restaurant.background}') ;" if @restaurant.backgrou
             <% if is_takeaway_or_delivery?(@restaurant)%>
             <% 
               disable_basket_link = true 
-              if @basket_item_count.present? and @basket_item_count > 0
+              if @basket_service.get_basket_item_count.present? and @basket_service.get_basket_item_count > 0
                 disable_basket_link = false 
               end
             %>
 
             <% unless disable_basket_link %>
             <%= link_to "#basket" do %>
-            <i class="fas fa-shopping-basket"></i> <%= number_to_currency(@basket_item_total, unit: @restaurant.currency_symbol) %>
-            <% end if @basket %>
+            <i class="fas fa-shopping-basket"></i> <%= number_to_currency(@basket_service.get_basket_item_total, unit: @restaurant.currency_symbol) %>
+            <% end if @basket_service.basket %>
             <% end %>
             <% end %>
           </h3>
