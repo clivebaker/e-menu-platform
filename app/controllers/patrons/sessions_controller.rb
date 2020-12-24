@@ -15,12 +15,11 @@ module Patrons
         patron = Patron.where(:email => params[:patron][:email].downcase).first_or_create!(
           :password =>  Patrons::BaseController::DEFAULT_PATRON_PASSWORD,
           :password_confirmation => Patrons::BaseController::DEFAULT_PATRON_PASSWORD,
-          :has_no_password => true
+          :has_no_password => true,
         )
-        sign_in(patron)
-        super
+        patron.redirect_after_signup_to = params[:patron][:redirect_after_signup_to]
+        sign_in_and_redirect(patron)
       rescue StandardError => e
-        super
       end
     end
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_27_142507) do
+ActiveRecord::Schema.define(version: 2020_12_24_101956) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,11 +34,6 @@ ActiveRecord::Schema.define(version: 2020_11_27_142507) do
     t.string "checksum", null: false
     t.datetime "created_at", null: false
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
-  end
-
-  create_table "allergens", force: :cascade do |t|
-    t.string "title", null: false
-    t.string "description", null: false
   end
 
   create_table "baskets", force: :cascade do |t|
@@ -193,6 +188,7 @@ ActiveRecord::Schema.define(version: 2020_11_27_142507) do
     t.text "icon"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "type", default: "allergen"
   end
 
   create_table "menu_item_categorisations_menus", id: false, force: :cascade do |t|
@@ -276,12 +272,34 @@ ActiveRecord::Schema.define(version: 2020_11_27_142507) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "patron_addresses", force: :cascade do |t|
+    t.bigint "patron_id", null: false
+    t.boolean "house_number"
+    t.boolean "street"
+    t.boolean "postcode"
+    t.boolean "country"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["patron_id"], name: "index_patron_addresses_on_patron_id"
+  end
+
   create_table "patron_allergens", force: :cascade do |t|
     t.boolean "active"
-    t.bigint "allergen_id", null: false
     t.bigint "patron_id", null: false
-    t.index ["allergen_id"], name: "index_patron_allergens_on_allergen_id"
+    t.bigint "menu_item_categorisation_id", null: false
+    t.index ["menu_item_categorisation_id"], name: "index_patron_allergens_on_menu_item_categorisation_id"
     t.index ["patron_id"], name: "index_patron_allergens_on_patron_id"
+  end
+
+  create_table "patron_marketing_preferences", force: :cascade do |t|
+    t.bigint "patron_id", null: false
+    t.boolean "emenu_news"
+    t.boolean "emenu_promotions"
+    t.boolean "restaurant_news"
+    t.boolean "restaurant_promotions"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["patron_id"], name: "index_patron_marketing_preferences_on_patron_id"
   end
 
   create_table "patrons", force: :cascade do |t|
@@ -293,6 +311,8 @@ ActiveRecord::Schema.define(version: 2020_11_27_142507) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "has_no_password", default: false
+    t.string "full_name"
+    t.string "phone"
     t.index ["email"], name: "index_patrons_on_email", unique: true
     t.index ["reset_password_token"], name: "index_patrons_on_reset_password_token", unique: true
   end
@@ -418,6 +438,8 @@ ActiveRecord::Schema.define(version: 2020_11_27_142507) do
     t.string "facebook_pixel"
     t.string "subtle_background"
     t.bigint "currency_id"
+    t.string "stripe_connected_account_id"
+    t.float "commision_percentage", default: 0.0
     t.index ["cuisine_id"], name: "index_restaurants_on_cuisine_id"
     t.index ["currency_id"], name: "index_restaurants_on_currency_id"
     t.index ["restaurant_user_id"], name: "index_restaurants_on_restaurant_user_id"
@@ -479,6 +501,26 @@ ActiveRecord::Schema.define(version: 2020_11_27_142507) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "themes", force: :cascade do |t|
+    t.bigint "restaurant_id", null: false
+    t.string "color_primary"
+    t.string "color_secondary"
+    t.string "css_font_url"
+    t.string "font_primary"
+    t.integer "font_weight_primary"
+    t.string "text_transform_primary"
+    t.string "font_style_primary"
+    t.string "font_secondary"
+    t.integer "font_weight_secondary"
+    t.string "text_transform_secondary"
+    t.string "font_style_secondary"
+    t.boolean "dark_theme"
+    t.text "custom_css"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["restaurant_id"], name: "index_themes_on_restaurant_id"
+  end
+
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "custom_list_items", "custom_lists"
   add_foreign_key "custom_lists", "restaurants"
@@ -494,8 +536,9 @@ ActiveRecord::Schema.define(version: 2020_11_27_142507) do
   add_foreign_key "menus", "spice_levels"
   add_foreign_key "opening_times", "restaurants"
   add_foreign_key "orders", "restaurants"
-  add_foreign_key "patron_allergens", "allergens"
+  add_foreign_key "patron_addresses", "patrons"
   add_foreign_key "patron_allergens", "patrons"
+  add_foreign_key "patron_marketing_preferences", "patrons"
   add_foreign_key "printers", "pi_interfaces"
   add_foreign_key "printers", "restaurants"
   add_foreign_key "receipts", "discount_codes"
@@ -511,4 +554,5 @@ ActiveRecord::Schema.define(version: 2020_11_27_142507) do
   add_foreign_key "table_items", "menus"
   add_foreign_key "table_items", "tables"
   add_foreign_key "tables", "restaurant_tables"
+  add_foreign_key "themes", "restaurants"
 end

@@ -1,9 +1,8 @@
 <% content_for :js do%>
-
 <script>
   $(function() {
 
-    BASE_URL = '<%=add_to_basket_base_path(@path)%>'
+    BASE_URL = '<%=basket_path(@path)%>'
     $('.selection-item').change(function() {
       item = $(this)
 
@@ -95,17 +94,15 @@
         menu_id = <%= menu_id %> ;
 
       if (note.length < 1) {
-        url = BASE_URL + '/' + scope + '/' + optionals.join(',') + '?section_id=' + section_id + '&menu_id=' + menu_id
+        url = BASE_URL + '?add_to_basket=true&main_item=' + scope + '&items=' + optionals.join(',') + '&section_id=' + section_id + '&menu_id=' + menu_id
         $('#add-to-basket-' + scope).attr("href", url)
-        //     console.log("href", url)
       } else {
         opt = optionals.join(',')
         if (opt.length < 1) {
           opt = 'nil'
         }
-        url = BASE_URL + '/' + scope + '/' + opt
-        $('#add-to-basket-' + scope).attr("href", url + '/note/' + encodeURIComponent(note).replace(/\./g, '%7C%7C%7C') + '?section_id=' + section_id + '&menu_id=' + menu_id)
-        //       console.log("href", url + '/note/' + encodeURIComponent(note).replace(/\./g, '%7C%7C%7C'))
+        url = BASE_URL + '?add_to_basket=true&main_item=' + scope + '&items=' + opt
+        $('#add-to-basket-' + scope).attr("href", url + '&note=' + encodeURIComponent(note).replace(/\./g, '%7C%7C%7C') + '&section_id=' + section_id + '&menu_id=' + menu_id)
       }
 
 
@@ -114,9 +111,7 @@
 
   });
 </script>
-
 <% end %>
-
 <div class="container-fluid">
   <% if !@restaurant.is_open %>
     <% if is_takeaway?(@restaurant) or is_delivery?(@restaurant) %>
@@ -143,7 +138,7 @@
   <% end %>
 
   <% if @restaurant.is_open and @restaurant.opening_time_kitchen_delay_minutes > 0 %>
-    <div class="row ">
+    <div class="row">
       <div class="col text-warning text-center border border-warning">
         Please Note: The kitchen is busy and there could be up to <%= @restaurant.opening_time_kitchen_delay_minutes %> minutes delay
       </div>
@@ -153,7 +148,7 @@
 
 <%= render 'all' if @restaurant.blank? %>
 <% if feature_match('menu_in_sections', @restaurant.features) %>
-<%= render 'order/components/sections/restaurant_auto', menu: @menu2 if @restaurant.present? %>
+<%= render 'restaurants/components/sections/restaurant_auto', menu: @menu2 if @restaurant.present? %>
 <% else %>
-<%= render 'order/components/restaurant_auto', menu: @menu2 if @restaurant.present? %>
+<%= render 'restaurants/components/restaurant_auto', menu: @menu2 if @restaurant.present? %>
 <% end %>

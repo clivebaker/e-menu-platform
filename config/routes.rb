@@ -16,13 +16,31 @@ Rails.application.routes.draw do
   # end
   resources :item_screen_types 
   
-  resources :orders, :only => [:index]
+  resources :orders, :only => [:index, :show]
+  resources :restaurants, :only => [:show], :path => "" do
+    member do
+      get :welcome
+      resources :checkouts, only: [:index] do
+        collection do
+          get :pay
+          post :pay
+          post :stripe
+          resources :receipt, only: [], param: :uuid do
+            member do
+              get :show, to: "checkouts#receipt"
+            end
+          end
+        end
+      end
+    end
+  end
   
   resources :patrons, :module => :patrons, :only => [:index, :show] do
     collection do
       get :settings, :to => "patrons#show"
       resources :orders, :only => [:index]
       resources :patron_allergens, :only => [:update]
+      resources :patron_marketing_preferences, :only => [:update]
     end
   end
 
@@ -114,6 +132,8 @@ Rails.application.routes.draw do
       resources :opening_times
       resources :delivery_postcodes
 
+      resources :themes
+
       resources :item_screens
 
       resources :pi_interfaces do 
@@ -148,31 +168,26 @@ Rails.application.routes.draw do
     }
   end
 
-
 #printing
 
 get 'receipt/:receipt_id/print/:printer_id', to: 'manager/printers#print', as: :print_receipt
 get 'receipt/:receipt_id/screen_item_uuid/:uuid/print/:printer_id', to: 'manager/printers#print_item', as: :print_item_receipt
 get 'receipt/:receipt_id/key/:item_screen_type_key/print/:printer_id', to: 'manager/printers#print_items', as: :print_items_receipt
 
- 
 
-  get 'order/remove_from_basket/:path/:uuid', to: 'order#remove_from_basket', as: :remove_from_basket
-  get 'order/receipt/:path/:uuid', to: 'order#receipt', as: :order_receipt
-  get 'order/checkout/:path', to: 'order#checkout', as: :checkout
-  post 'order/pay/:path', to: 'order#pay', as: :pay
-  get 'order/checkoutx/:path', to: 'order#checkoutx', as: :checkoutx
-  post 'order/stripe/:path', to: 'order#stripe', as: :stripe
-  get 'order/add_to_basket/:path', to: 'order#add_to_basket', as: :add_to_basket_base
-  get 'order/add_to_basket/:path/:main_item', to: 'order#add_to_basket', as: :add_to_basket
-  get 'order/add_to_basket/:path/:main_item/:items', to: 'order#add_to_basket', as: :add_to_basket_items
-  get 'order/add_to_basket/:path/:main_item/:items/note/:note', to: 'order#add_to_basket', as: :add_to_basket_items_notes
-  get 'order/:path/menu/:menu_id/section/:section_id', to: 'order#index', as: :order_menu_section
-  get 'order/:path/menu/:menu_id', to: 'order#index', as: :order_menu
-  get 'order/:path', to: 'order#index', as: :restaurant_path
+  # get 'order/remove_from_basket/:path/:uuid', to: 'order#remove_from_basket', as: :remove_from_basket
+  # get 'order/receipt/:path/:uuid', to: 'order#receipt', as: :order_receipt
+  # get 'order/checkout/:path', to: 'order#checkout', as: :checkout
+  # post 'order/pay/:path', to: 'order#pay', as: :pay
+  # get 'order/checkoutx/:path', to: 'order#checkoutx', as: :checkoutx
+  # post 'order/stripe/:path', to: 'order#stripe', as: :stripe
+  # get 'order/add_to_basket/:path', to: 'order#add_to_basket', as: :add_to_basket_base
+  # get 'order/add_to_basket', to: 'baskets#index', as: :add_to_basket
+  get 'baskets/:path/menu/:menu_id/section/:section_id', to: 'baskets#index', as: :order_menu_section
+  # get 'order/:path/menu/:menu_id', to: 'restaurants#index', as: :order_menu
+  get 'order/:path', to: 'order#index'
 
-
-  resources :baskets, :only => [:update]
+  resources :baskets, :only => [:update], param: :path
 
   get 'home_mobile/index'
   get 'home/index'

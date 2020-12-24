@@ -1,21 +1,20 @@
 class BasketService < ApplicationController
+  include TablesHelper
 
-  attr_accessor :discount_code
+  attr_accessor :discount_code, :service_types, :services_enabled, :service_selected, :basket
 
   def initialize(restaurant, basket)
 
     @restaurant = restaurant
-    @basket = basket || { key: "#{@restaurant.id}-#{SecureRandom.uuid}" }.to_json
+    
+    @cookie = @basket = (basket || { key: "#{@restaurant.id}-#{SecureRandom.uuid}" }.to_json)
     @basket_item_total ||= 0
+
+    set_services_enabled
 
     key = JSON.parse(@basket)['key']
     
     key_restaurant_id = key.split('-').first.to_i
-    #  binding.pry
-    if @restaurant.id != key_restaurant_id
-      cookies.delete :emenu_basket
-      @basket = { key: "#{@restaurant.id}-#{SecureRandom.uuid}"}.to_json
-    end
 
     key = JSON.parse(@basket)['key']
     @basket_db = Basket.where(key: key).first_or_create
@@ -39,8 +38,8 @@ class BasketService < ApplicationController
     end
   end
 
-  def get_basket
-    @basket
+  def get_cookie
+    @cookie
   end
 
   def get_basket_db
@@ -132,6 +131,14 @@ class BasketService < ApplicationController
   end
 
   private
+
+  def set_services_enabled
+    @service_types = ['Collection', 'Delivery', 'Table Service']
+    @services_enabled = []
+    @services_enabled << ['Collection', 'collection'] if is_takeaway?(@restaurant) 
+    @services_enabled << ['Delivery', 'delivery'] if is_delivery?(@restaurant)
+    @services_enabled << ['Table Service', 'tableservice'] if is_tableservice?(@restaurant) and @restaurant.is_open
+  end
 
 
 end
