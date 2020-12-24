@@ -207,6 +207,10 @@ ul ul a {
  max-height: 30px;
 }
 
+.dropdown-menu {
+  z-index: 1200;
+}
+
 .hero-main-background {
  background: url(asset_path("background1.jpg")) no-repeat center center;
  background-size: cover;
