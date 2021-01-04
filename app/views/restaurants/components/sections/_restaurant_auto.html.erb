@@ -58,7 +58,7 @@ style = "background: url('#{@restaurant.background}') ;" if @restaurant.backgrou
 
 <div class="container-fluid">
   <div class='row'>
-    <div class='col-sm-12 col-md-12 col-lg-12 col-xl-8 pb-4'>
+    <div class='col-md-8 pb-4'>
       <% menu.select{|w| w[:id] == menu_id }.each do |m| %>
       <% if m[:node_type] == 'menu' %>
       <div class="row">
@@ -108,7 +108,7 @@ style = "background: url('#{@restaurant.background}') ;" if @restaurant.backgrou
       <% end %>
       <% end %>
     </div>
-    <div class='col-sm-12 col-md-12 col-lg-12 col-xl-4 basket-body'>
+    <div class='col-md-4 basket-body'>
       <div class='col-sm-auto'>
         <%= render 'restaurants/components/basket' if is_takeaway_or_delivery?(@restaurant)%>
       </div>
