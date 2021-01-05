@@ -58,7 +58,7 @@ style = "background: url('#{@restaurant.background}') ;" if @restaurant.backgrou
 
 <div class="container-fluid">
   <div class='row'>
-    <div class='col-md-8 pb-4'>
+    <div class='col-md-8 pb-4 menu-body'>
       <% menu.select{|w| w[:id] == menu_id }.each do |m| %>
       <% if m[:node_type] == 'menu' %>
       <div class="row">
@@ -84,7 +84,7 @@ style = "background: url('#{@restaurant.background}') ;" if @restaurant.backgrou
                 </div>
               </div>
             </div>
-            <div class='row menu-body'>
+            <div class='row'>
               <div class='col-sm-12 col-md-12 col-lg-12 col-xl-12'>
                 <div class="row pt-4">
                   <% m[:children].select{|a| a[:id] == current_section}.each do |section| %>
