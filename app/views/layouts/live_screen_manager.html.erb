@@ -10,17 +10,27 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
     <%= javascript_include_tag "application"%>
 
+    <% if @restaurant.present? and @restaurant.theme&.css_font_url.present? %>
+      <link href="<%= @restaurant.theme.css_font_url%>" rel="stylesheet" />
+    <% elsif @restaurant.present? and @restaurant.css_font_url.present? %>
+      <link href="<%= @restaurant.css_font_url%>" rel="stylesheet" />
+    <% end %>
+
+    <style>
+      <%= render 'components/global/restaurant_style' %>
+    </style>
 
     <%= csrf_meta_tags %>
   </head>
 
   <body>
+    <%= render 'manager/components/global/sidebar' %>
+    <%= render 'manager/components/global/topbar' %>
+    <%= render 'components/global/messages' %>
     <%= render 'components/global/environment' %>
-    <%= render 'manager/components/global/topnav' %>
     <%= render 'manager/components/restaurant/navigation' if current_manager_restaurant_user %>
 
-    <%= render 'components/global/messages' %>
-    <div class="container-fluid px-0">
+    <div class="container-fluid pt-3">
       <%= yield %>
 
     </div>

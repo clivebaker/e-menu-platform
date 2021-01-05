@@ -1,3 +1,9 @@
+<% content_for :js do %>
+
+  <%= javascript_include_tag "color_picker"%>
+
+<% end %>
+
 <%= form_with(model: ['manager', @restaurant, manager_theme], local: true) do |form| %>
   <% if manager_theme.errors.any? %>
     <div id="error_explanation">
@@ -31,11 +37,20 @@
   <div class="form-row">
     <div class="form-group col-md-4">
       <%= form.label 'Primary Colour:' %>
-      <%= form.color_field :color_primary %>
+      <%= form.text_field :color_primary, { class: 'form-control' } %>
     </div>
     <div class="form-group col-md-4">
+      <div class="color-picker" id="color_block_primary" style="background-color:<%= @restaurant.theme.color_primary %>"></div>
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="form-group col-md-4">
       <%= form.label 'Secondary Colour:' %>
-      <%= form.color_field :color_secondary %>
+      <%= form.text_field :color_secondary, { class: 'form-control' } %>
+    </div>
+    <div class="form-group col-md-4">
+      <div class="color-picker" id="color_block_secondary" style="background-color:<%= @restaurant.theme.color_secondary %>"></div>
     </div>
   </div>
 
