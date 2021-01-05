@@ -19,7 +19,8 @@ App.snippets = App.cable.subscriptions.create(
    $("#current-orders").html(data.html);
    $("body").addClass("bg-danger");
    $("#accept-button").show();
-   new Audio(data.sound_file_path).play();
+   order_bell.play();
+   setTimeout(order_bell.currentTime = 0, 1000);
 
    // console.log("Data received: " + data)
 
