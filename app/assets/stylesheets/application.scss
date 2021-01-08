@@ -148,7 +148,7 @@ a[aria-expanded="true"] {
  font-family: var(--emenu-font-secondary) !important;
  text-transform: none;
  font-size: 10px;
- color: var(--emenu-light) !important;
+ color: var(--emenu-lighter) !important;
 }
 
 #sidebar .sidebar-footer a {
@@ -614,15 +614,10 @@ div.scrollmenu::-webkit-scrollbar {
   }
 }
 
-input[type="color"] {
+.color-picker {
  -webkit-appearance: none;
- border: none;
- width: 80px;
- height: 80px;
-}
-input[type="color"]::-webkit-color-swatch-wrapper {
- padding: 0;
-}
-input[type="color"]::-webkit-color-swatch {
- border: none;
+ border-radius: 10px;
+ border: 2px solid var(--emenu-dark);
+ width: 100px;
+ height: 100px;
 }
