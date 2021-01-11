@@ -1,7 +1,7 @@
 <%
   pallergens = current_patron.patron_allergens
   marketing = current_patron.patron_marketing_preference
-  orders = current_patron.orders.limit(10)
+  orders = current_patron.orders.order("created_at DESC")
   addresses = current_patron.patron_addresses.limit(10)
 %>
 
@@ -28,7 +28,7 @@
             <h5><%= current_patron.full_name %></h5>
             <h5><%= current_patron.email.truncate(6) %></h5>
             <h5><%= current_patron.phone %></h5>
-            <h5>Active since: <%= current_patron.created_at.strftime("%d-%m-%y") %></h5>
+            <h5>Active since: <%= current_patron.created_at.strftime("%d %B %Y") %></h5>
             <h5><%= current_patron.orders.size %> previous orders</h5>
           </div>
         </div>
@@ -38,10 +38,29 @@
           <a class="btn col-md-12 bg-dark text-light mt-1" data-toggle="collapse" href="#collapse4" role="button" aria-expanded="false" aria-controls="collapse4">
             <h5 class="m-0">Order history</h5>
           </a>
-          <div class="collapse p-5 bg-light" id="collapse4">
+          <div class="collapse p-4 bg-light" id="collapse4">
             <% if orders.present? %>
+              <h4 class="mb-3 text-left"><%= pluralize( orders.count, 'Order' ) %>:</h4>
               <% orders.each do |order| %>
-                <%= order.inspect %>
+              <% items =  order.receipts.first.items['items']%>
+                <div class="card mb-3">
+                  <div class="card-header">
+                    <h5>Order #<%= order.id %></h5>
+                  </div>
+                  <div class="card-body">
+                    <h5 class="card-title"><%= order.restaurant.name %></h5>
+                    <p class="card-text"><%= pluralize( items.count, "Item" ) %></p>
+                    <% if order.value.present? %>
+                      <p class="card-text"><%= number_to_currency(order.value / 100.00, unit: order.restaurant.currency_symbol) %></p>
+                    <% else %>
+                      <p class="card-text"><%= number_to_currency(order.receipts.first.basket_total / 100.00, unit: order.restaurant.currency_symbol) %></p>
+                    <% end %>
+                    <%=link_to "Details", view_receipt_receipts_path(order.receipts.first.uuid), class: 'btn btn-warning'%>
+                  </div>
+                  <div class="card-footer text-muted">
+                    <p class="card-text"><%= order.created_at.in_time_zone(order.restaurant.time_zone).strftime("%d %B %Y - %H:%M") %></p>
+                  </div>
+                </div>
               <% end %>
             <% else %>
               <h5>You have made no orders yet :)</h5>
