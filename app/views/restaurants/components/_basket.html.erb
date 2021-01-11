@@ -71,7 +71,7 @@
     <div class="row py-2 pb-5 bg-light-70">
       <div class="col">
         <% if @basket_service.get_basket_db.discount_code.blank? %>
-        <%= form_for "", url: basket_path(1), :method => :patch do |f| %>
+        <%= form_for "", url: basket_path(@restaurant.path), :method => :patch do |f| %>
         <%= f.hidden_field :path, :value => @path %>
         <%= f.hidden_field :action, :value => "add" %>
         <%= f.text_field :discount_code, :placeholder => "Discount code", class: "rounded" %>
