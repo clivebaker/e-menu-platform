@@ -2,8 +2,8 @@ class CheckoutsController < ApplicationController
   layout 'powered_by'
   before_action :get_restaurant
   before_action :get_basket
-  before_action :stripe_parameters, only: [:index, :pay, :stripe]
-  skip_before_action :verify_authenticity_token, only: %i[stripe]
+  before_action :stripe_parameters, only: [:index, :create, :pay, :stripe]
+  skip_before_action :verify_authenticity_token, only: %i[stripe, create]
 
   def index
     checkout_service = CheckoutService.new(@restaurant, @parameters, @basket_service)
@@ -14,6 +14,12 @@ class CheckoutsController < ApplicationController
       @basket_item_count = @basket_service.get_basket_item_count
       @basket_item_total = @basket_service.get_basket_item_total
     end
+  end
+
+  def create
+    @checkout_service = CheckoutService.new(@restaurant, @parameters, @basket_service)
+
+    render json: @checkout_service.create_checkout_session
   end
 
   def pay
@@ -53,6 +59,7 @@ class CheckoutsController < ApplicationController
   end  
   
   def receipt
+    cookies.delete :emenu_basket
     @uuid = params[:uuid]
     @receipt = Receipt.find_by(uuid: @uuid)
   end

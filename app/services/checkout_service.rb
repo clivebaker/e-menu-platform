@@ -15,16 +15,47 @@ class CheckoutService < ApplicationController
 
   def create_transaction
     Stripe.api_key = @restaurant.stripe_sk_api_key
+
     Stripe::PaymentIntent.create({
-      amount: @payment_in_pence,
+      amount: (@basket_service.get_basket_item_total * 100).to_i,
       currency: @restaurant.currency_code,
       payment_method_types: ['card'],
       description: "#{@path} charge",
-      application_fee_amount: ((@payment_in_pence * ((@restaurant.commision_percentage.presence || 1.5)/100))*1.2).to_i,
+      application_fee_amount: application_fee_amount((@basket_service.get_basket_item_total * 100).to_i, @restaurant),
       transfer_data: {
         destination: @restaurant.stripe_connected_account_id
       },  
     })
+  end
+
+  def create_checkout_session
+    @receipt = generate_receipt
+    Stripe.api_key = @restaurant.stripe_sk_api_key
+    session = Stripe::Checkout::Session.create({
+      payment_method_types: ['card'],
+      payment_intent_data: {
+        application_fee_amount: application_fee_amount((@basket_service.get_basket_item_total * 100).to_i, @restaurant),
+        on_behalf_of: @restaurant.stripe_connected_account_id,
+        transfer_data: {
+          destination: @restaurant.stripe_connected_account_id
+        }
+      },
+      line_items: [{
+        price_data: {
+          currency: @restaurant.currency_code,
+          product_data: {
+            name: "Restaurant order for #{@restaurant.name}",
+          },
+          unit_amount: (@basket_service.get_basket_item_total * 100).to_i,
+        },
+        quantity: 1,
+      }],
+      mode: 'payment',
+      success_url: (Rails.env.development? ? 'https://eat.emenunow.com' : Rails.application.routes.url_helpers.receipt_path(@restaurant.path, @receipt.uuid, checkout_status: "success"))+"?&uuid=#{@receipt.uuid}&session_id={CHECKOUT_SESSION_ID}",
+      cancel_url: (Rails.env.development? ? 'https://eat.emenunow.com' : Rails.application.routes.urlurl_helpers.restaurant_url(@restaurant.path, checkout_status: "cancel"))+"?status=success&",
+    }.merge(shipping_details))
+
+    { id: session.id }.to_json
   end
 
   def make_payment
@@ -64,6 +95,22 @@ class CheckoutService < ApplicationController
       table_number: @table_number,
       discount_code: @basket_service.discount_code
     )
+  end
+
+  def application_fee_amount(payment, restaurant)
+    ((payment * ((restaurant.commision_percentage.presence || 1.5)/100))*1.2).to_i
+  end
+
+  def shipping_details
+    if @basket_service.service_type.nil?
+      { 
+        shipping_address_collection: {
+          allowed_countries: ['GB', 'CA']
+        }
+      }
+    else
+      {}
+    end
   end
 
 end

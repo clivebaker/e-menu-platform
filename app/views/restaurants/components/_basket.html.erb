@@ -63,7 +63,36 @@
             disable_basket_link = false 
           end
           %>
-        <%= button_to "CHECKOUT", checkouts_path(@path), disabled: disable_basket_link, method: :get,  class: 'btn btn-dark btn-block'%>
+        <% if true %>
+          <script src="https://js.stripe.com/v3/"></script>
+          <button id="checkout-button" class="btn btn-dark btn-block">Checkout</button>
+          <script type="text/javascript">
+            var stripe = Stripe('<%= @restaurant.stripe_pk_api_key %>');
+            var checkoutButton = document.getElementById('checkout-button');
+
+            checkoutButton.addEventListener('click', function() {
+              fetch('<%= checkouts_path(@restaurant.path) %>', {
+                method: 'GET'
+              })
+              .then(function(response) {
+                return response.json();
+              })
+              .then(function(session) {
+                return stripe.redirectToCheckout({ sessionId: session.id });
+              })
+              .then(function(result) {
+                if (result.error) {
+                  alert(result.error.message);
+                }
+              })
+              .catch(function(error) {
+                console.error('Error:', error);
+              });
+            });
+          </script>
+        <% else %>
+          <%= button_to "CHECKOUT", checkouts_path(@path), disabled: disable_basket_link, method: :get,  class: 'btn btn-dark btn-block'%>
+        <% end %>
       </div>
     </div>
     <% end %>

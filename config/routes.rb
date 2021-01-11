@@ -19,9 +19,11 @@ Rails.application.routes.draw do
   resources :orders, :only => [:index, :show]
   resources :restaurants, :only => [:show], :path => "" do
     member do
+      get :order
       get :welcome
       resources :checkouts, only: [:index] do
         collection do
+          get :create
           get :pay
           post :pay
           post :stripe
