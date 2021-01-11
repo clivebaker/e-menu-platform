@@ -21,6 +21,7 @@ class CheckoutService < ApplicationController
       payment_method_types: ['card'],
       description: "#{@path} charge",
       application_fee_amount: ((@payment_in_pence * ((@restaurant.commision_percentage.presence || 1.5)/100))*1.2).to_i,
+      on_behalf_of: @restaurant.stripe_connected_account_id
       transfer_data: {
         destination: @restaurant.stripe_connected_account_id
       },  
