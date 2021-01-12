@@ -14,33 +14,35 @@
     <div class="scroll">
       <ul class="list-unstyled components">
         <% if @restaurant %>
-        <li>
-          <%= link_to @restaurant.name, restaurant_path(@restaurant.path) %>
-        </li>
+          <li>
+            <%= link_to @restaurant.name, restaurant_path(@restaurant.path) %>
+          </li>
         <% end %>
         <% if patron_signed_in? %>
-        <li>
-          <%= link_to "Your account", edit_patron_registration_path %>
-        </li>
-        <li>
-          <%= link_to "Edit settings",  settings_patrons_path %>
-        </li>
+          <li>
+            <%= link_to "Your account", edit_patron_registration_path %>
+          </li>
+          <li>
+            <%= link_to "Edit settings",  settings_patrons_path %>
+          </li>
         <% end %>
         <% if !patron_signed_in? %>
-        <li>
-          <%= link_to "Sign in", new_patron_session_path %>
-        </li>
-        <li>
-          <%= link_to "Register", new_patron_registration_path %>
-        </li>
+          <li>
+            <%= link_to "Sign in", new_patron_session_path %>
+          </li>
+          <li>
+            <%= link_to "Register", new_patron_registration_path %>
+          </li>
         <% end %>
-        <li>
-          <%= link_to "Choose Restaurant", root_path %>
-        </li>
+        <% if !@restaurant and !current_page?(root_path) %>
+          <li>
+            <%= link_to "Choose Restaurant", root_path %>
+          </li>
+        <% end %>
         <% if patron_signed_in? %>
-        <li>
-          <%= link_to "Sign Out", destroy_patron_session_path, method: :delete %>
-        </li>
+          <li>
+            <%= link_to "Sign Out", destroy_patron_session_path, method: :delete %>
+          </li>
         <% end %>
       </ul>
     </div>
