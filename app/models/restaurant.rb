@@ -54,7 +54,11 @@ class Restaurant < ApplicationRecord
   end
   
   def stripe_pk_api_key
-    Rails.env == 'production' ? stripe_publish_api_key : 'pk_test_WK72bUcdjoVsncoNFQGrFkcv'
+    Rails.env == 'production' ? ENV['STRIPE_PK_API_KEY'] : 'pk_test_WK72bUcdjoVsncoNFQGrFkcv'
+  end
+
+  def stripe_connected_account_id
+    Rails.env == 'production' ? super : 'acct_1HFMjjEdU8EUcuyG'
   end
   
     
