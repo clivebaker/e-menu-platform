@@ -208,23 +208,27 @@ ul ul a {
 }
 
 .dropdown-menu {
-  z-index: 1200;
+ z-index: 1200;
 }
 
 .hero-main-background {
- background: url(asset_path("background1.jpg")) no-repeat center center;
+ background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6)),
+  url(asset_path("hero/start-eating.jpg")) no-repeat center center;
  background-size: cover;
 }
 .hero-main-background2 {
- background: url(asset_path("background2-dark.jpg")) no-repeat center center;
+ background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6)),
+  url(asset_path("hero/start-eating.jpg")) no-repeat center center;
  background-size: cover;
 }
 .hero-main-user-background {
- background: url(asset_path("background_user.jpg")) no-repeat center center;
+ background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6)),
+  url(asset_path("hero/start-eating.jpg")) no-repeat center center;
  background-size: cover;
 }
 .hero-main-pay-background {
- background: url(asset_path("pay_background.jpg")) no-repeat center center;
+ background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6)),
+  url(asset_path("hero/start-eating.jpg")) no-repeat center center;
  background-size: cover;
 }
 
@@ -599,19 +603,19 @@ div.scrollmenu::-webkit-scrollbar {
 }
 
 .order-footer {
-  height: 29px;
+ height: 29px;
 
-  & div {
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+ & div {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+ }
 
-  & a {
+ & a {
   color: inherit;
   text-decoration: underline;
-  }
+ }
 }
 
 .color-picker {

@@ -5,11 +5,16 @@
 
 <% content_for :js do%>
   <script>
+    var order_bell;
     $(function(){
         $("#accept-button").click(function(){
           $('body').removeClass('bg-danger');
           $("#accept-button").hide();
         });
+    });
+    window.addEventListener("click", function() {
+      order_bell = new Audio("<%= asset_path("order-bell.wav") %>");
+      order_bell.play().then(() => { order_bell.pause()} )
     });
   </script>
 <% end %>

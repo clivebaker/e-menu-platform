@@ -22,6 +22,7 @@ class CheckoutService < ApplicationController
       payment_method_types: ['card'],
       description: "#{@path} charge",
       application_fee_amount: application_fee_amount((@basket_service.get_basket_item_total * 100).to_i, @restaurant),
+      on_behalf_of: @restaurant.stripe_connected_account_id,
       transfer_data: {
         destination: @restaurant.stripe_connected_account_id
       },  
