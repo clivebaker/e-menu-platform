@@ -47,9 +47,15 @@ code {
  font-family: "Cutive Mono", monospace;
 }
 
-body {
- margin-top: 48px;
+html {
+  height: 100%;
+}
 
+body {
+  height: calc(100% - 48px);
+  position: relative;
+  margin-top: 48px;
+ 
  font-family: var(--emenu-font-primary);
 }
 
@@ -84,6 +90,58 @@ h4 {
 
 .wrapper {
  display: block;
+}
+
+#preview-container {
+ font-family: var(--font-primary);
+ font-weight: var(--font-weight-primary);
+ text-transform: var(--text-transform-primary);
+ font-style: var(--font-style-primary);
+ color: var(--col-dark) !important;
+ transition: all 0.3s;
+ min-width: 498px;
+ max-width: 498px;
+ height: calc(100% - 48px);
+ position: fixed;
+ top: 48px;
+ right: -498px;
+ /* top layer */
+ z-index: 1048;
+}
+
+#preview-container.active,
+#preview-container.force-active {
+ right: 0px;
+ // margin-left: -250px;
+}
+
+#preview-container {
+  display: grid !important;
+  grid-template-columns: 1fr 438px 1fr;
+  grid-template-rows: 1fr 30px 885px 30px 1fr;
+
+  & > * {
+    grid-area: 3 / 2 / 4 / 3;
+  }
+}
+
+#preview-window-container {
+  display: grid !important;
+  grid-template-columns: 1fr 390px 1fr;
+  grid-template-rows: 1fr 844px 1fr;
+  
+  & > * {
+    grid-area: 2 / 2 / 3 / 3;
+  }
+}
+
+#preview-window {
+  background-color: var(--col-secondary);
+  padding-top: 47px;
+}
+
+#preview-border {
+  background-image: url(asset_path("preview/iPhone_12_vertical_frame_(1x).png"));
 }
 
 #sidebar {
@@ -130,6 +188,18 @@ h4 {
  padding: 10px;
  font-size: 18px;
  display: block;
+}
+
+#sidebar ul li a.external-link:after {
+  content: '';
+  margin-left: 8px;
+  display: inline-block;
+  height: 14px;
+  width: 14px;
+  background-color: var(--col-primary);
+  -webkit-mask-image: url(asset_path("icons/external.svg"));
+  mask-image: url(asset_path("icons/external.svg"));
+  mask-size: cover;
 }
 
 // #sidebar ul li a:hover {
@@ -393,6 +463,25 @@ footer {
  background-color: var(--emenu-lightest) !important;
 }
 
+#dashboard-main {
+  background-color: var(--emenu-lightest) !important;
+}
+
+#dashboard-preview-container {
+  display: grid !important;
+  grid-template-columns: 1fr 500px;
+  grid-template-rows: 1fr;
+
+  & > * {
+    grid-area: 1 / 1 / 2 / 2;
+  }
+
+  & > .force-wide,
+  & > .forced-wide {
+    grid-area: 1 / 1 / 2 / 3;
+  }
+}
+
 .trix-content {
  height: 400px !important;
  overflow-y: auto;
@@ -602,8 +691,10 @@ div.scrollmenu::-webkit-scrollbar {
   -webkit-transform 0.2s ease-in-out;
 }
 
-.order-footer {
- height: 29px;
+.order-footer,
+.manager-footer {
+  width: 100%;
+  height: 29px;
 
  & div {
   height: 100%;

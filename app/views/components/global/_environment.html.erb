@@ -1,11 +1,14 @@
 
 <% unless Rails.env == 'production' %>
-<% 
-bg = 'bg-warning'
-bg = 'bg-info' if Rails.env=='development'
-%>
-<div class='py-3 <%=bg%>'>
-<div class='col'>
-<%= Rails.env %> environment
-</div></div>
+  <% 
+  bg = 'bg-warning'
+  bg = 'bg-info' if Rails.env=='development'
+  %>
+
+  <div class='row m-2 rounded-lg position-fixed <%=bg%>' style="height: 32px; top: 0px; right: 150px; z-index: 1600;">
+    <div class='col my-auto'>
+      <%= Rails.env %> environment
+    </div>
+  </div>
+
 <% end %>

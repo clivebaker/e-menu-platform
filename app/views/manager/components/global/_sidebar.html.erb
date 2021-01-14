@@ -17,6 +17,9 @@
           <li>
             <%= link_to "Dashboard", manager_home_dashboard_path %>
           </li>
+          <li>
+            <%= link_to "Public Restaurant", restaurant_path(@restaurant.path), class: "external-link" %>
+          </li>
         <% end %>
         <% if current_manager_restaurant_user&.restaurant %>
           <li class="active">
@@ -99,6 +102,11 @@
                 <%= link_to("Daily Reports", manager_restaurant_reporting_daily_path(@restaurant)) %> 
               </li>
             </ul>
+          </li>
+        <% end %>
+        <% if !Rails.env.production? %>
+          <li>
+          <%= link_to 'broadcast orders', manager_live_orders_broadcast_path(@restaurant), remote: true if Rails.env == 'development' and @restaurant.present? and  @restaurant.id.present? %>
           </li>
         <% end %>
       </ul>

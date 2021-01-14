@@ -19,21 +19,48 @@
 //= require bootstrap-datepicker
 //= require datatables
 
-// Sidebar open/close
+// Sidebar open/close/collapse
 $(document).ready(function () {
-  $("#dismiss, .overlay").on("click", function () {
-    // hide sidebar
-    $("#sidebar").removeClass("active");
-    // hide overlay
-    $(".overlay").removeClass("active");
-  });
+ $("#dismiss, .overlay").on("click", function () {
+  // hide sidebar
+  $("#sidebar").removeClass("active");
+  // hide overlay
+  $(".overlay").removeClass("active");
+ });
 
-  $("#sidebarCollapse").on("click", function () {
-    // open sidebar
-    $("#sidebar").addClass("active");
-    // fade in the overlay
-    $(".overlay").addClass("active");
-    $(".collapse.in").toggleClass("in");
-    $("a[aria-expanded=true]").attr("aria-expanded", "false");
-  });
+ $("#sidebarCollapse").on("click", function () {
+  // open sidebar
+  $("#sidebar").addClass("active");
+  // fade in the overlay
+  $(".overlay").addClass("active");
+  $(".collapse.in").toggleClass("in");
+  $("a[aria-expanded=true]").attr("aria-expanded", "false");
+ });
 });
+
+// Preview open/close
+$(document).ready(function () {
+ $("body").keyup(function (e) {
+  // hide preview
+  if (e.keyCode == 32) {
+   $("#preview-container").toggleClass("active");
+  }
+ });
+});
+
+// Preview force
+$(document).ready(forcePreview);
+function forcePreview() {
+ const bodyWidth = $("body").width();
+ if (bodyWidth > 900 + 30 + 500) {
+  $("#preview-container").addClass("force-active");
+  $("#dashboard-preview-content").removeClass("force-wide");
+ } else {
+  $("#preview-container").removeClass("force-active");
+  $("#dashboard-preview-content").addClass("force-wide");
+ };
+ if ($("#dashboard-preview-content").hasClass("forced-wide")) {
+  $("#preview-container").removeClass("force-active");
+ };
+}
+$(window).on("resize", forcePreview);

@@ -1,161 +1,176 @@
-<div class="container-fluid">
-  <div class="row p-3">
-		<div class="col pb-5">
+<% content_for :title do %>
+	EMenu Theme<% if @restaurant %> - <%= @restaurant.name %><%end%>
+<% end %>
 
-      <h1>Restaurant Theme</h1>
+<% content_for :preview do %>
+  <div class="w-100 h-100" style="background-color: var(--col-primary); padding: 5px;">
+    <h4><%= @restaurant.name %></h4>
+    <h5>Theme preview window</h5>
+  </div>
+<% end %>
 
-      <% if @manager_theme.blank? %>
+<div id="dashboard-main" class="d-flex flex-column h-100">
+	<div id="dashboard-preview-container" class="my-auto">
+		<main id="dashboard-preview-content" class="container m-auto">
+      <div class="row p-3">
+        <div class="col pb-5">
 
-        <%= link_to 'Create Restaurant Theme', new_manager_restaurant_theme_path(@restaurant), class: 'btn btn-primary ' %>
+          <h1>Restaurant Theme</h1>
 
-      <% else %>
+          <% if @manager_theme.blank? %>
+
+            <%= link_to 'Create Restaurant Theme', new_manager_restaurant_theme_path(@restaurant), class: 'btn btn-primary ' %>
+
+          <% else %>
 
 
-        <div class="row">
-          <div class="col pb-1">
-            <div class="form-group">
-              <h5>Colours</h5>
+            <div class="row">
+              <div class="col pb-1">
+                <div class="form-group">
+                  <h5>Colours</h5>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
 
-        <div class="row">
-          <div class="col-sm-4 text-right  pb-1">
-            Dark Theme:
-          </div>
-          <div class="col-sm-6  pb-1">
-            <%= @manager_theme.dark_theme %>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-sm-4 text-right  pb-1">
-            Primary Color:
-          </div>
-          <div class="col-sm-6  pb-1">
-            <%= @manager_theme.color_primary %>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-sm-4 text-right  pb-1">
-            Secondary Color:
-          </div>
-          <div class="col-sm-6  pb-1">
-            <%= @manager_theme.color_secondary %> 
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col border-top border-gray pb-1">
-            <div class="form-group">
-              <h5>Fonts</h5>
+            <div class="row">
+              <div class="col-sm-4 text-right  pb-1">
+                Dark Theme:
+              </div>
+              <div class="col-sm-6  pb-1">
+                <%= @manager_theme.dark_theme %>
+              </div>
             </div>
-          </div>
-        </div>
 
-        <div class="row">
-          <div class="col-sm-4 text-right  pb-1">
-            Google Font Url:
-          </div>
-          <div class="col-sm-6  pb-1">
-            <%= @manager_theme.css_font_url %> 
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-sm-4 text-right  pb-1">
-            Primary Font Family:
-          </div>
-          <div class="col-sm-6  pb-1">
-            <%= @manager_theme.font_primary %>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-sm-4 text-right  pb-1">
-            Primary Font Weight:
-          </div>
-          <div class="col-sm-6  pb-1">
-            <%= @manager_theme.font_weight_primary %>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-sm-4 text-right  pb-1">
-            Primary Text Transform:
-          </div>
-          <div class="col-sm-6  pb-1">
-            <%= @manager_theme.text_transform_primary %>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-sm-4 text-right  pb-1">
-            Primary Font Style:
-          </div>
-          <div class="col-sm-6  pb-1">
-            <%= @manager_theme.font_style_primary %>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-sm-4 text-right  pb-1">
-            Secondary Font Family:
-          </div>
-          <div class="col-sm-6  pb-1">
-            <%= @manager_theme.font_secondary %>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-sm-4 text-right  pb-1">
-            Secondary Font Weight:
-          </div>
-          <div class="col-sm-6  pb-1">
-            <%= @manager_theme.font_weight_secondary %>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-sm-4 text-right  pb-1">
-            Secondary Text Transform:
-          </div>
-          <div class="col-sm-6  pb-1">
-            <%= @manager_theme.text_transform_secondary %>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-sm-4 text-right  pb-1">
-            Secondary Font Style:
-          </div>
-          <div class="col-sm-6  pb-1">
-            <%= @manager_theme.font_style_secondary %>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col border-top border-gray pb-1">
-            <div class="form-group">
-              <h5>Custom Styling</h5>
+            <div class="row">
+              <div class="col-sm-4 text-right  pb-1">
+                Primary Color:
+              </div>
+              <div class="col-sm-6  pb-1">
+                <%= @manager_theme.color_primary %>
+              </div>
             </div>
-          </div>
+
+            <div class="row">
+              <div class="col-sm-4 text-right  pb-1">
+                Secondary Color:
+              </div>
+              <div class="col-sm-6  pb-1">
+                <%= @manager_theme.color_secondary %> 
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col border-top border-gray pb-1">
+                <div class="form-group">
+                  <h5>Fonts</h5>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-sm-4 text-right  pb-1">
+                Google Font Url:
+              </div>
+              <div class="col-sm-6  pb-1">
+                <%= @manager_theme.css_font_url %> 
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-sm-4 text-right  pb-1">
+                Primary Font Family:
+              </div>
+              <div class="col-sm-6  pb-1">
+                <%= @manager_theme.font_primary %>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-sm-4 text-right  pb-1">
+                Primary Font Weight:
+              </div>
+              <div class="col-sm-6  pb-1">
+                <%= @manager_theme.font_weight_primary %>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-sm-4 text-right  pb-1">
+                Primary Text Transform:
+              </div>
+              <div class="col-sm-6  pb-1">
+                <%= @manager_theme.text_transform_primary %>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-sm-4 text-right  pb-1">
+                Primary Font Style:
+              </div>
+              <div class="col-sm-6  pb-1">
+                <%= @manager_theme.font_style_primary %>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-sm-4 text-right  pb-1">
+                Secondary Font Family:
+              </div>
+              <div class="col-sm-6  pb-1">
+                <%= @manager_theme.font_secondary %>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-sm-4 text-right  pb-1">
+                Secondary Font Weight:
+              </div>
+              <div class="col-sm-6  pb-1">
+                <%= @manager_theme.font_weight_secondary %>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-sm-4 text-right  pb-1">
+                Secondary Text Transform:
+              </div>
+              <div class="col-sm-6  pb-1">
+                <%= @manager_theme.text_transform_secondary %>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-sm-4 text-right  pb-1">
+                Secondary Font Style:
+              </div>
+              <div class="col-sm-6  pb-1">
+                <%= @manager_theme.font_style_secondary %>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col border-top border-gray pb-1">
+                <div class="form-group">
+                  <h5>Custom Styling</h5>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-sm-4 text-right  pb-1">
+                Custom CSS:
+              </div>
+              <div class="col-sm-6  pb-1">
+                <%= @manager_theme.custom_css %>
+              </div>
+            </div>
+
+            <%= link_to 'Edit', edit_manager_restaurant_theme_path(@restaurant, @manager_theme) %> 
+
+          <% end %>
+
         </div>
-
-        <div class="row">
-          <div class="col-sm-4 text-right  pb-1">
-            Custom CSS:
-          </div>
-          <div class="col-sm-6  pb-1">
-            <%= @manager_theme.custom_css %>
-          </div>
-        </div>
-
-        <%= link_to 'Edit', edit_manager_restaurant_theme_path(@restaurant, @manager_theme) %> 
-
-      <% end %>
-
+      </div>
     </div>
   </div>
 </div>
