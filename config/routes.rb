@@ -21,9 +21,8 @@ Rails.application.routes.draw do
     member do
       get :order
       get :welcome
-      resources :checkouts, only: [:index] do
+      resources :checkouts, only: [:index, :create] do
         collection do
-          get :create
           get :pay
           post :pay
           post :stripe

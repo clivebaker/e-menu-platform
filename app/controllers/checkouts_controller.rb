@@ -27,11 +27,7 @@ class CheckoutsController < ApplicationController
 
     @checkout_service = CheckoutService.new(@restaurant, @parameters, @basket_service)
 
-    @total_payment = params[:total].to_f
-    @payment_in_pence = (@total_payment * 100).to_i
-    @publish_stripe_api_key = @restaurant.stripe_pk_api_key
-
-    @payment_intent = @checkout_service.create_transaction
+    render json: @checkout_service.create_checkout_session
   end
 
   def stripe
