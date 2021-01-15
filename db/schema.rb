@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_24_101956) do
+ActiveRecord::Schema.define(version: 2021_01_15_103714) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -254,6 +254,22 @@ ActiveRecord::Schema.define(version: 2020_12_24_101956) do
     t.bigint "restaurant_id", null: false
     t.integer "value"
     t.string "currency"
+    t.json "stripe_data"
+    t.string "uuid"
+    t.integer "basket_total"
+    t.jsonb "items"
+    t.string "stripe_token"
+    t.string "status"
+    t.boolean "is_ready"
+    t.string "email"
+    t.string "name"
+    t.string "collection_time"
+    t.string "telephone"
+    t.string "address"
+    t.string "delivery_or_collection"
+    t.string "delivery_fee"
+    t.string "table_number"
+    t.string "discount_code"
     t.index ["restaurant_id"], name: "index_orders_on_restaurant_id"
   end
 

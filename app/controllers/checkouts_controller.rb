@@ -21,43 +21,20 @@ class CheckoutsController < ApplicationController
 
     render json: @checkout_service.create_checkout_session
   end
-
-  def pay
-    @redirect_domain =  Rails.application.credentials.dig(:apple_pay, :redirect_domain)
-
-    @checkout_service = CheckoutService.new(@restaurant, @parameters, @basket_service)
-
-    render json: @checkout_service.create_checkout_session
-  end
-
-  def stripe
-    error = false
-    success = false
-
-    checkout_service = CheckoutService.new(@restaurant, @parameters, @basket_service)
-    
-    begin
-      @receipt = checkout_service.generate_receipt
-      cookies.delete :emenu_basket
-    rescue Exception => e
-      error = true
-    end
-
-    respond_to do |format|
-      if error
-        format.html { redirect_to checkouts_path(@path), alert: "Payment Error: #{e.message}" } 
-        format.json { render json: {ok: true, error: true, path: receipt_path(@path, @receipt.uuid)} }
-      else
-        format.html { redirect_to receipt_path(@path, @receipt.uuid), notice: "Payment Successful" }
-        format.json { render json: {ok: true, error: false, path: receipt_path(@path, @receipt.uuid)} }
-      end
-    end   
-  end  
   
   def receipt
     cookies.delete :emenu_basket
-    @uuid = params[:uuid]
-    @receipt = Receipt.find_by(uuid: @uuid)
+
+    @order = Order.find_by(uuid: params[:uuid])
+    rs = ReceiptService.new(@order).check_checkout_status
+
+    if @order.stripe_data["payment_status"] == "paid"
+      @receipt = @order.first_or_create_receipt
+      flash[:notice] = "Payment successfully processed"
+    else
+      redirect_to resturant_path(@path), alert: "Payment Error: please try again"
+    end  
+
   end
 
   private

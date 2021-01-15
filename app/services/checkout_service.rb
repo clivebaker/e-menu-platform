@@ -13,26 +13,10 @@ class CheckoutService < ApplicationController
     @address = "#{@house_number}, #{@street}, #{@postcode}"
   end
 
-  def create_transaction
-    Stripe.api_key = @restaurant.stripe_sk_api_key
-
-    Stripe::PaymentIntent.create({
-      amount: (@basket_service.get_basket_item_total * 100).to_i,
-      currency: @restaurant.currency_code,
-      payment_method_types: ['card'],
-      description: "#{@path} charge",
-      application_fee_amount: application_fee_amount((@basket_service.get_basket_item_total * 100).to_i, @restaurant),
-      on_behalf_of: @restaurant.stripe_connected_account_id,
-      transfer_data: {
-        destination: @restaurant.stripe_connected_account_id
-      },  
-    })
-  end
-
   def create_checkout_session
-    @receipt = generate_receipt
+    @order = generate_order
     Stripe.api_key = @restaurant.stripe_sk_api_key
-    session = Stripe::Checkout::Session.create({
+    @session = Stripe::Checkout::Session.create({
       payment_method_types: ['card'],
       payment_intent_data: {
         application_fee_amount: application_fee_amount((@basket_service.get_basket_item_total * 100).to_i, @restaurant),
@@ -52,34 +36,24 @@ class CheckoutService < ApplicationController
         quantity: 1,
       }],
       mode: 'payment',
-      success_url: (Rails.env.development? ? 'https://eat.emenunow.com' : Rails.application.routes.url_helpers.receipt_path(@restaurant.path, @receipt.uuid, checkout_status: "success"))+"?&uuid=#{@receipt.uuid}&session_id={CHECKOUT_SESSION_ID}",
-      cancel_url: (Rails.env.development? ? 'https://eat.emenunow.com' : Rails.application.routes.urlurl_helpers.restaurant_url(@restaurant.path, checkout_status: "cancel"))+"?status=success&",
+      success_url: (Rails.env.development? ? 'https://eat.emenunow.com' : Rails.application.routes.url_helpers.receipt_path(@restaurant.path, @order.uuid, checkout_status: "success"))+"?&uuid=#{@order.uuid}&session_id={CHECKOUT_SESSION_ID}&checkout_status=success",
+      cancel_url: (Rails.env.development? ? 'https://eat.emenunow.com' : Rails.application.routes.urlurl_helpers.restaurant_url(@restaurant.path, checkout_status: "cancel"))+"?checkout_status=cancel&",
     }
     # .merge(shipping_details)
     )
+    @order.status = @session.payment_status
+    @order.stripe_data = @session
+    @order.stripe_token = @session.id
+    @order.save!
 
-    { id: session.id }.to_json
+    { id: @session.id }.to_json
   end
 
   def make_payment
   end
 
-  def generate_receipt
-    if @stripe_success_token.present?
-      if @apple_and_google.present?
-        @stripe_payment_intent = @stripe_success_token
-      else
-        @stripe_payment_intent = JSON.parse(@stripe_success_token)
-      end
-
-      if @stripe_payment_intent['status'] == 'succeeded'
-        success = true
-        stripe_token = @stripe_payment_intent['id']
-        stripe_data = @stripe_payment_intent
-      end 
-    end
-
-    Order.create(
+  def generate_order  
+    Order.new(
       uuid: SecureRandom.uuid,
       restaurant_id: @restaurant.id,
       basket_total: @total_payment * 100,
@@ -87,10 +61,7 @@ class CheckoutService < ApplicationController
       email: @email,
       name: @name,
       collection_time: @collection_time,
-      stripe_token: stripe_token || {},
-      status: stripe_data || {},
       is_ready: false,
-      source: :takeaway, 
       telephone: @telephone,
       address: @address,
       delivery_or_collection: @service_type,

@@ -5,14 +5,8 @@ class Order < ApplicationRecord
     belongs_to :restaurant
     has_many :receipts
 
-    after_create :create_receipt
-
-    attr_accessor :uuid, :basket_total, :items, :email, :name, :collection_time, :stripe_token, :status, :is_ready, :source, :telephone, :address, :delivery_or_collection, :delivery_fee, :table_number, :stripe_data, :stripe_token, :discount_code
-
-    private
-
-    def create_receipt
-      self.receipts.create(
+    def first_or_create_receipt
+      self.receipts.first_or_create(
         uuid: uuid,
         restaurant_id: self.restaurant_id,
         basket_total: self.basket_total,
@@ -21,7 +15,7 @@ class Order < ApplicationRecord
         name: self.name,
         collection_time: self.collection_time,
         stripe_token: self.stripe_token || {},
-        status: self.stripe_data || {},
+        status: self&.stripe_data.try("payment_status", :[]) || {},
         is_ready: false,
         source: :takeaway, 
         telephone: self.telephone,
@@ -32,5 +26,8 @@ class Order < ApplicationRecord
         discount_code: self.discount_code
       )
     end
+
+    private
+
  
 end
