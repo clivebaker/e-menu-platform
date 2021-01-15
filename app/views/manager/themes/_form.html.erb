@@ -40,7 +40,7 @@
       <%= form.text_field :color_primary, { class: 'form-control' } %>
     </div>
     <div class="form-group col-md-4">
-      <div class="color-picker" id="color_block_primary" style="background-color:<%= @restaurant.theme.color_primary %>"></div>
+      <div class="color-picker" id="color_block_primary" style="background-color:<%= @restaurant.theme.color_primary if @manager_theme&.color_primary.present? %>"></div>
     </div>
   </div>
 
@@ -50,7 +50,7 @@
       <%= form.text_field :color_secondary, { class: 'form-control' } %>
     </div>
     <div class="form-group col-md-4">
-      <div class="color-picker" id="color_block_secondary" style="background-color:<%= @restaurant.theme.color_secondary %>"></div>
+      <div class="color-picker" id="color_block_secondary" style="background-color:<%= @restaurant.theme.color_secondary if @manager_theme&.color_secondary.present? %>"></div>
     </div>
   </div>
 
