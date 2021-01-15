@@ -1,13 +1,28 @@
-<div class="container-fluid">
-  <div class="row p-3">
-		<div class="col pb-5">
+<% content_for :title do %>
+	EMenu Theme<% if @restaurant %> - <%= @restaurant.name %><%end%>
+<% end %>
 
-      <h1>Restaurant Theme</h1>
+<% content_for :preview do %>
+  <div class="w-100 h-100" style="background-color: var(--col-primary); padding: 5px;">
+    <h4><%= @restaurant.name %></h4>
+    <h5>Theme preview window</h5>
+  </div>
+<% end %>
 
-      <%= render 'form', manager_theme: @manager_theme %>
+<div id="dashboard-main" class="d-flex flex-column h-100">
+	<div id="dashboard-preview-container" class="my-5">
+		<main id="dashboard-preview-content" class="container m-auto no-preview">
+      <div class="row p-3">
+        <div class="col pb-5">
 
-      <%= link_to 'Back', manager_restaurant_themes_path(@restaurant) %>
+          <h1>Restaurant Theme</h1>
 
+          <%= render 'form', manager_theme: @manager_theme %>
+
+          <%= link_to 'Back', manager_restaurant_themes_path(@restaurant) %>
+
+        </div>
+      </div>
     </div>
   </div>
 </div>

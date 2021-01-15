@@ -59,7 +59,7 @@ function forcePreview() {
   $("#preview-container").removeClass("force-active");
   $("#dashboard-preview-content").addClass("force-wide");
  };
- if ($("#dashboard-preview-content").hasClass("forced-wide")) {
+ if ($("#dashboard-preview-content").hasClass("no-preview")) {
   $("#preview-container").removeClass("force-active");
  };
 }

@@ -1,7 +1,22 @@
-<main role="main" class="container">
-  <div class="my-3 p-3 bg-white rounded shadow-sm">
-	  <h3 class="pb-2 mb-0">New Restaurant</h3>
-		<%= render 'form', restaurant: @restaurant %>
-		<%= link_to 'Back', manager_restaurants_path %>
+<% content_for :title do %>
+	EMenu Theme<% if @restaurant %> - <%= @restaurant.name %><%end%>
+<% end %>
+
+<% content_for :preview do %>
+  <div class="w-100 h-100" style="background-color: var(--col-primary); padding: 5px;">
+    <h4><%= @restaurant.name %></h4>
+    <h5>Theme preview window</h5>
+  </div>
+<% end %>
+
+<div id="dashboard-main" class="d-flex flex-column h-100">
+	<div id="dashboard-preview-container" class="my-5">
+		<main id="dashboard-preview-content" class="container m-auto no-preview">
+			<div class="my-3 p-3 bg-white rounded shadow-sm">
+				<h3 class="pb-2 mb-0">New Restaurant</h3>
+				<%= render 'form', restaurant: @restaurant %>
+				<%= link_to 'Back', manager_restaurants_path %>
+			</div>
+		</main>
 	</div>
-</main>
+</div>

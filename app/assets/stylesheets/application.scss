@@ -468,6 +468,7 @@ footer {
 }
 
 #dashboard-preview-container {
+  background-color: var(--emenu-lightest) !important;
   display: grid !important;
   grid-template-columns: 1fr 500px;
   grid-template-rows: 1fr;
@@ -477,7 +478,7 @@ footer {
   }
 
   & > .force-wide,
-  & > .forced-wide {
+  & > .no-preview {
     grid-area: 1 / 1 / 2 / 3;
   }
 }
