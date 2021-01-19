@@ -38,7 +38,7 @@ class CheckoutService < ApplicationController
       }],
       mode: 'payment',
       success_url: (Rails.env.development? ? 'https://eat.emenunow.com' : Rails.application.routes.url_helpers.receipt_path(@restaurant.path, @order.uuid, checkout_status: "success"))+"?&uuid=#{@order.uuid}&session_id={CHECKOUT_SESSION_ID}&checkout_status=success",
-      cancel_url: (Rails.env.development? ? 'https://eat.emenunow.com' : Rails.application.routes.urlurl_helpers.restaurant_url(@restaurant.path, checkout_status: "cancel"))+"?checkout_status=cancel&",
+      cancel_url: (Rails.env.development? ? 'https://eat.emenunow.com' : Rails.application.routes.url_helpers.restaurant_url(@restaurant.path, checkout_status: "cancel"))+"?checkout_status=cancel&",
     }
     # .merge(shipping_details)
     )
