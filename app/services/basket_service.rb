@@ -2,7 +2,7 @@ class BasketService < ApplicationController
   include TablesHelper
 
   attr_accessor :discount_code, :service_type, :service_types, :services_enabled,
-                :service_selected, :basket, :basket_key
+                :service_selected, :basket, :basket_key, :patron
 
   def initialize(restaurant, patron, basket)
 
