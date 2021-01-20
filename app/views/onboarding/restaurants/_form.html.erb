@@ -1,0 +1,84 @@
+<%= form_with(model: [:onboarding, restaurant], local: true) do |form| %>
+  <% if restaurant.errors.any? %>
+    <div id="error_explanation" class="alert alert-danger">
+      <h2><%= pluralize(restaurant.errors.count, "error") %> prohibited this restaurant from being saved:</h2>
+      <ul>
+        <% restaurant.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <%= form.hidden_field :restaurant_user_id %>
+  <div>
+    <div>
+      <div class="row">
+        <div class="col">
+          <div class="form-group ">
+            <%= form.label :name %>
+            <%= form.text_field :name, class: 'form-control  form-control-sm' %>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <div class="form-group ">
+            <%= form.label :address %>
+            <%= form.text_field :address, class: 'form-control  form-control-sm' %>
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-group ">
+            <%= form.label :postcode %>
+            <%= form.text_field :postcode, class: 'form-control  form-control-sm' %>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <div class="form-group ">
+            <%= form.label :telephone %>
+            <%= form.text_field :telephone, class: 'form-control  form-control-sm' %>
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-group ">
+            <%= form.label :email %>
+            <%= form.text_field :email, class: 'form-control  form-control-sm' %>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <div class="form-group ">
+            <%= form.label :cuisine_id %>
+            <%= form.select :cuisine_id,  options_for_select(@cuisines.map{|a| [a.name, a.id]}, restaurant.cuisine_id ), {prompt: "Choose cuisine"}, {class: 'form-control  form-control-sm'} %>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <div class="form-group ">
+            <%= form.label :path %>
+            <%= form.text_field :path, class: 'form-control  form-control-sm' %>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <div class="form-group ">
+            <%= form.label :currency_id %>
+            <%= form.select :currency_id, options_for_select(Currency.all.map{|s| [s.name, s.id]}, restaurant.currency_id), {prompt: "Choose Currency"}, {class: 'form-control  form-control-sm'} %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <div class="actions">
+        <%= form.submit nil, class: "btn btn-warning" %>
+      </div>
+    </div>
+  </div>
+<% end %>

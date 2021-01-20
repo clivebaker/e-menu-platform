@@ -1,0 +1,28 @@
+<% content_for :title do %>
+Welcome to EMenu Now
+<% end %>
+
+<div class="row">
+  <div class="col">&nbsp;</div>
+	  <div class="col-lg-6">
+	    <div class="card p-3 mb-5 bg-white rounded">
+	      <div class="card-body text-center">
+	        <p>Welcome</p>
+	        <p>Thanks for partnering with EMenu Now</p>
+	        <p>Follow the link below to head to your dashboard area</p>
+	      </div>
+	    </div>
+	  </div>
+  <div class="col">&nbsp;</div>
+</div>
+<div class="row">
+  <div class="col">&nbsp;</div>
+	  <div class="col-lg-6">
+	    <div class="card p-3 mb-5 bg-white rounded">
+	      <div class="card-body text-center">
+	        <%= link_to 'Dashboard', manager_home_dashboard_path  %>
+	      </div>
+	    </div>
+	  </div>
+  <div class="col">&nbsp;</div>
+</div>

@@ -12,7 +12,12 @@
 <% end %>
 
 <%= form.hidden_field :restaurant_user_id %>
-
+<% 
+table_service = restaurant.features.where(id: 9).present?
+delivery = restaurant.features.where(id: 10).present?
+table_takeaway = restaurant.features.where(id: 11).present?
+collection = restaurant.features.where(id: 12).present?
+%>
 
 
 <!-- Tabs -->
@@ -134,13 +139,24 @@
     <div class="row">
       <div class="col">
         <div class="form-group ">
+          <%= link_to("Connect stripe", @connect, class: "btn btn-warning#{' disabled' if @account[:details_submitted] && @account[:charges_enabled]}") %>
+          <% if @account[:details_submitted] && @account[:charges_enabled] %>
+            <strong class="d-block text-gray-dark">Stripe connection <span class="badge badge-pill badge-success">Complete</span></strong>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+    <div class="row d-none">
+      <div class="col">
+        <div class="form-group ">
           <%= form.label :stripe_api_key %>
           <%= form.text_field :stripe_api_key, class: 'form-control  form-control-sm', rows: 10  %>
         </div>
       </div>
     </div>
 
-    <div class="row">
+    <div class="row d-none">
       <div class="col">
         <div class="form-group ">
           <%= form.label :stripe_publish_api_key %>
@@ -149,7 +165,7 @@
       </div>
     </div>
 
-    <div class="row">
+    <div class="row d-none">
       <div class="col">
         <div class="form-group ">
           <%= form.label "Stripe Connected Account ID" %>
@@ -174,6 +190,31 @@
   <div class="tab-pane fade" id="settings" role="tabpanel" aria-labelledby="settings-tab">
     <!-- Settings -->
 
+    <div class="row">
+      <div class="col-sm">
+        <h5>Services</h5>
+        <ul class="switches">
+        
+        <% @features[8..12].each do |feature|%>
+
+          <li class="my-3">
+            <%= check_box_tag dom_id(feature), feature.id, @restaurant.features.include?(feature), data: {
+                              remote: true,
+                              url: manager_restaurant_toggle_feature_path(@restaurant.id, feature.id),
+                              method: :post
+                              } %>
+            <label for="feature_<%= feature.id %>">
+              <span><%=feature.name%></span>
+              <span></span>
+            </label>
+          </li>
+
+        <% end %>
+
+        </ul>
+
+      </div>
+    </div>
 
     <div class="row">
       <div class="col">

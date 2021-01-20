@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_11_175833) do
+ActiveRecord::Schema.define(version: 2021_01_26_123229) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -235,6 +235,20 @@ ActiveRecord::Schema.define(version: 2021_01_11_175833) do
     t.index ["menu_item_categorisation_id"], name: "index_menus_on_menu_item_categorisation_id"
     t.index ["restaurant_id"], name: "index_menus_on_restaurant_id"
     t.index ["spice_level_id"], name: "index_menus_on_spice_level_id"
+  end
+
+  create_table "onboards", force: :cascade do |t|
+    t.bigint "restaurant_user_id", null: false
+    t.boolean "tos_agreed"
+    t.datetime "tos_agreed_date"
+    t.string "tos_ver_agreed"
+    t.string "tos_ip"
+    t.text "tos_user_agent"
+    t.boolean "free_trial"
+    t.boolean "completed"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["restaurant_user_id"], name: "index_onboards_on_restaurant_user_id"
   end
 
   create_table "opening_times", force: :cascade do |t|
@@ -552,6 +566,7 @@ ActiveRecord::Schema.define(version: 2021_01_11_175833) do
   add_foreign_key "menus", "menu_item_categorisations"
   add_foreign_key "menus", "restaurants"
   add_foreign_key "menus", "spice_levels"
+  add_foreign_key "onboards", "restaurant_users"
   add_foreign_key "opening_times", "restaurants"
   add_foreign_key "orders", "restaurants"
   add_foreign_key "patron_addresses", "patrons"

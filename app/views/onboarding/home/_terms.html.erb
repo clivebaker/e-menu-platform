@@ -1,0 +1,57 @@
+<% content_for :js do %>
+  <script>
+    $(document).ready(function() {
+      var the_terms = $("#onboard_tos_agreed");
+
+      the_terms.click(function() {
+        if ($(this).is(":checked")) {
+          $("#agree-button").removeAttr("disabled");
+        } else {
+          $("#agree-button").attr("disabled", "disabled");
+        }
+      });
+
+    });
+  </script>
+<% end %>
+<% 
+free_trial = true
+if !@restaurant
+  submit_button = 'Create Restaurant'
+else
+  submit_button = 'Proceed'
+end
+%>
+
+<%= form_with(model: [:onboarding, onboard], url: onboarding_agree_path, method: 'patch', local: true) do |form| %>
+  <% if onboard.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(onboard.errors.count, "error") %> prohibited this onboarding from being saved:</h2>
+
+      <ul>
+      <% onboard.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="row">
+    <div class="col-md-10 mx-auto p-4 border rounded text-left text-dark terms-of-service">
+      <%= render 'tos_v0.1' %>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="col-md-6 pb-1 mx-auto">
+      <div class="form-check">
+        <%= form.check_box :tos_agreed, { class: 'form-check-input' } %>
+        <%= form.label 'I have read and agree to the Terms of Service', { class: 'form-check-label' } %>
+      </div>
+    </div>
+  </div>
+ 
+  <div class="form-group">
+    <%= form.submit submit_button, class: 'btn btn-warning', id: 'agree-button', disabled: !onboard.tos_agreed  %>
+  </div>
+
+<% end %>

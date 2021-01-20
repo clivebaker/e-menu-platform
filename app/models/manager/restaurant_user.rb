@@ -7,6 +7,7 @@ class RestaurantUser < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
 
   has_one :restaurant
+  has_one :onboard
 
   def display_name
     email

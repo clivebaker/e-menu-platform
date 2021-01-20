@@ -1,0 +1,25 @@
+<% content_for :title do %>
+Connect to payment provider
+<% end %>
+
+<div class="row">
+  <div class="col">&nbsp;</div>
+    <% if @restaurant and current_onboarding_restaurant_user %>
+      <div class="col-lg-6">
+        <div class="card p-3 mb-5 bg-white rounded">
+          <div class="card-body text-center">
+            <%= link_to("Connect stripe", @connect, class: "nav-link") %>
+          </div>
+        </div>
+      </div>
+    <% else %>
+      <div class="col-lg-6">
+        <div class="card p-3 mb-5 bg-white rounded">
+          <div class="card-body text-center">
+            <%= link_to 'Go back', new_onboarding_restaurant_path  %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  <div class="col">&nbsp;</div>
+</div>

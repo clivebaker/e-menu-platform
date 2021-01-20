@@ -1,0 +1,45 @@
+<% content_for :title do %>
+Choose your services
+<% end %>
+
+<% if @restaurant and current_onboarding_restaurant_user %>
+  <div class="row">
+    <div class="col-lg-6 text-center mx-auto">
+      <h5>Services</h5>
+      <ul class="mx-auto switches">
+      <% @services.each do |feature|%>
+        <li class="my-3">
+          <%= check_box_tag dom_id(feature), feature.id, @restaurant.features.include?(feature), data: {
+                            remote: true,
+                            url: onboarding_restaurant_toggle_feature_path(@restaurant.id, feature.id),
+                            method: :post
+                            } %>
+          <label for="feature_<%= feature.id %>">
+            <span><%=feature.name%></span>
+            <span></span>
+          </label>
+        </li>
+      <% end %>
+      </ul>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-6 mx-auto">
+      <div class="card p-3 mb-5 bg-white rounded">
+        <div class="card-body text-center">
+          <%= link_to("Connect stripe", @connect, class: "nav-link") %>
+        </div>
+      </div>
+    </div>
+  </div>
+<% else %>
+  <div class="row">
+    <div class="col-lg-6 mx-auto">
+      <div class="card p-3 mb-5 bg-white rounded">
+        <div class="card-body text-center">
+          <%= link_to 'Go back', new_onboarding_restaurant_path  %>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

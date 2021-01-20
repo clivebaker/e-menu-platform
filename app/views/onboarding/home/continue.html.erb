@@ -1,0 +1,24 @@
+<% content_for :title do %>
+Partner with EMenu Now
+<% end %>
+
+<div class="row">
+  <div class="col">&nbsp;</div>
+	  <div class="col-lg-8">
+	    <div class="card p-3 mb-5 bg-white rounded">
+	      <div class="card-body text-center">
+	        <p>Free Trial</p>
+	        <p>This is the service agreement for your free trial</p>
+	      </div>
+	      <div class="card-body text-center">
+	        <p>Terms of Service</p>
+	        <p>This is the terms of service of partnering with EMenu Now</p>
+	        <p>Please read and agree before continuing</p>
+	      </div>
+	      <div class="card-body text-center">
+					<%= render 'terms', onboard: @onboard %>
+	      </div>
+	    </div>
+	  </div>
+  <div class="col">&nbsp;</div>
+</div>
