@@ -4,6 +4,7 @@ class CheckoutService < ApplicationController
                 :table_number, :email, :house_number, :street, :postcode, :basket, :delivery_fee, :discount_code, :payment_in_pence, :basket_service
 
   def initialize(restaurant, parameters, basket_service)
+
     parameters.each_pair {|k,v|instance_variable_set("@#{k}", v)}
     @restaurant = restaurant
     @basket_service = basket_service
@@ -20,7 +21,7 @@ class CheckoutService < ApplicationController
     @session = Stripe::Checkout::Session.create({
       payment_method_types: ['card'],
       payment_intent_data: {
-        application_fee_amount: application_fee_amount((@basket_service.get_basket_item_total * 100).to_i, @restaurant),
+        application_fee_amount: application_fee_amount(@order.value, @restaurant),
         on_behalf_of: @restaurant.stripe_connected_account_id,
         transfer_data: {
           destination: @restaurant.stripe_connected_account_id
@@ -32,7 +33,7 @@ class CheckoutService < ApplicationController
           product_data: {
             name: "Restaurant order for #{@restaurant.name}",
           },
-          unit_amount: (@basket_service.get_basket_item_total * 100).to_i,
+          unit_amount: @order.value,
         },
         quantity: 1,
       }],
@@ -53,11 +54,13 @@ class CheckoutService < ApplicationController
   def make_payment
   end
 
+  private
+
   def generate_order  
     @order = Order.create(
       uuid: SecureRandom.uuid,
       restaurant_id: @restaurant.id,
-      basket_total: @total_payment * 100,
+      basket_total: to_stripe_amount(@total_payment),
       items: @basket_service.basket_build(@basket_service.get_basket_db.contents['ids']),
       email: @email,
       name: @name,
@@ -69,7 +72,7 @@ class CheckoutService < ApplicationController
       delivery_fee: @delivery_fee, 
       table_number: @table_number,
       discount_code: @basket_service.discount_code,
-      value: @total_payment * 100,
+      value: to_stripe_amount(@total_payment),
       currency: @restaurant.currency.code
     )
     @order.patrons << @patron if @patron and !@order.patrons.include?(@patron)
@@ -90,6 +93,10 @@ class CheckoutService < ApplicationController
     else
       {}
     end
+  end
+
+  def to_stripe_amount(number)
+    (number * 100).round(0).to_i
   end
 
 end
