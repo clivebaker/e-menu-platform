@@ -2,8 +2,8 @@ class CheckoutsController < ApplicationController
   layout 'powered_by'
   before_action :get_restaurant
   before_action :get_basket
-  before_action :stripe_parameters, only: [:index, :pay, :stripe]
-  skip_before_action :verify_authenticity_token, only: %i[stripe]
+  before_action :stripe_parameters, only: [:index, :create, :pay, :stripe]
+  skip_before_action :verify_authenticity_token, only: %i[stripe, create]
 
   def index
     checkout_service = CheckoutService.new(@restaurant, @parameters, @basket_service)
@@ -16,45 +16,25 @@ class CheckoutsController < ApplicationController
     end
   end
 
-  def pay
-    @redirect_domain =  Rails.application.credentials.dig(:apple_pay, :redirect_domain)
-
+  def create
     @checkout_service = CheckoutService.new(@restaurant, @parameters, @basket_service)
 
-    @total_payment = params[:total].to_f
-    @payment_in_pence = (@total_payment * 100).to_i
-    @publish_stripe_api_key = @restaurant.stripe_pk_api_key
-
-    @payment_intent = @checkout_service.create_transaction
+    render json: @checkout_service.create_checkout_session
   end
-
-  def stripe
-    error = false
-    success = false
-
-    checkout_service = CheckoutService.new(@restaurant, @parameters, @basket_service)
-    
-    begin
-      @receipt = checkout_service.generate_receipt
-      cookies.delete :emenu_basket
-    rescue Exception => e
-      error = true
-    end
-
-    respond_to do |format|
-      if error
-        format.html { redirect_to checkouts_path(@path), alert: "Payment Error: #{e.message}" } 
-        format.json { render json: {ok: true, error: true, path: receipt_path(@path, @receipt.uuid)} }
-      else
-        format.html { redirect_to receipt_path(@path, @receipt.uuid), notice: "Payment Successful" }
-        format.json { render json: {ok: true, error: false, path: receipt_path(@path, @receipt.uuid)} }
-      end
-    end   
-  end  
   
   def receipt
-    @uuid = params[:uuid]
-    @receipt = Receipt.find_by(uuid: @uuid)
+    cookies.delete :emenu_basket
+
+    @order = Order.find_by(uuid: params[:uuid])
+    rs = ReceiptService.new(@order).check_checkout_status
+
+    if @order.stripe_data["payment_status"] == "paid"
+      @receipt = @order.first_or_create_receipt
+      flash[:notice] = "Payment successfully processed"
+    else
+      redirect_to resturant_path(@path), alert: "Payment Error: please try again"
+    end  
+
   end
 
   private
