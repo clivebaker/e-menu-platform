@@ -268,6 +268,22 @@ ActiveRecord::Schema.define(version: 2021_01_26_123229) do
     t.bigint "restaurant_id", null: false
     t.integer "value"
     t.string "currency"
+    t.json "stripe_data"
+    t.string "uuid"
+    t.integer "basket_total"
+    t.jsonb "items"
+    t.string "stripe_token"
+    t.string "status"
+    t.boolean "is_ready"
+    t.string "email"
+    t.string "name"
+    t.string "collection_time"
+    t.string "telephone"
+    t.string "address"
+    t.string "delivery_or_collection"
+    t.string "delivery_fee"
+    t.string "table_number"
+    t.string "discount_code"
     t.index ["restaurant_id"], name: "index_orders_on_restaurant_id"
   end
 

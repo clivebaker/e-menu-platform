@@ -1,7 +1,8 @@
 class BasketService < ApplicationController
   include TablesHelper
 
-  attr_accessor :discount_code, :service_types, :services_enabled, :service_selected, :basket, :patron
+  attr_accessor :discount_code, :service_type, :service_types, :services_enabled,
+                :service_selected, :basket, :basket_key, :patron
 
   def initialize(restaurant, patron, basket)
 
@@ -13,7 +14,7 @@ class BasketService < ApplicationController
 
     set_services_enabled
 
-    key = JSON.parse(@basket)['key']
+    @basket_key = key = JSON.parse(@basket)['key']
     
     key_restaurant_id = key.split('-').first.to_i
 

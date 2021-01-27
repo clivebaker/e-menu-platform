@@ -19,8 +19,9 @@ Rails.application.routes.draw do
   resources :orders, :only => [:index, :show]
   resources :restaurants, :only => [:show], :path => "" do
     member do
+      get :order
       get :welcome
-      resources :checkouts, only: [:index] do
+      resources :checkouts, only: [:index, :create] do
         collection do
           get :pay
           post :pay
