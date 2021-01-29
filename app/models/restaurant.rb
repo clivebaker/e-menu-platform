@@ -63,12 +63,7 @@ class Restaurant < ApplicationRecord
     else
       Rails.env == 'production' ? ENV['STRIPE_PK_API_KEY'] : 'pk_test_WK72bUcdjoVsncoNFQGrFkcv'
     end
-  end
-
-  def stripe_connected_account_id
-    Rails.env == 'production' ? super : 'acct_1HFMjjEdU8EUcuyG'
-  end
-  
+  end  
     
   def set_slug
     if slug.blank? 
