@@ -80,9 +80,9 @@ class CheckoutService < ApplicationController
   end
 
   def application_fee_amount(payment, restaurant)
-    amount = ((payment * ((restaurant.commision_percentage.presence || 1.5)/100))*1.2).to_i
+    amount = ((payment * ((restaurant.commision_percentage.presence || 1.5)/100))*1.2)
     amount = ((payment * 0.04) + amount) if restaurant.stripe_chargeback_enabled
-    amount
+    amount.ceil
   end
 
   def shipping_details
