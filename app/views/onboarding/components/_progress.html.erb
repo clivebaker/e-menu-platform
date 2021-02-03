@@ -56,7 +56,7 @@
         
         <li id="terms-stage" class="<%= @progress[:terms] if @progress %>">Agree to our terms</li>
         
-        <% if current_onboarding_restaurant_user && !@progress[:restaurant]&.include?("current") && !(action_name == 'complete') && !(@progress[:connect]&.include?("complete") || @progress[:connect]&.include?("failed")) %>
+        <% if current_onboarding_restaurant_user && !@progress[:restaurant]&.include?("current") && !(action_name == 'complete') && !@progress[:connect]&.include?("complete") %>
           <li id="restaurant-stage" class="link">
             <%= link_to 'Create your restaurant', onboarding_continue_path, class: @progress[:restaurant] if @progress  %>
           </li>
@@ -64,7 +64,7 @@
           <li id="restaurant-stage" class="<%= @progress[:restaurant] if @progress %>">Create your restaurant</li>
         <% end %>
 
-        <% if @restaurant&.persisted? && !@progress[:services]&.include?("current") && !(action_name == 'complete') && !(@progress[:connect]&.include?("complete") || @progress[:connect]&.include?("failed")) %>
+        <% if @restaurant&.persisted? && !@progress[:services]&.include?("current") && !(action_name == 'complete') && !@progress[:connect]&.include?("complete") %>
           <li id="services-stage" class="link">
             <%= link_to 'Choose your services', onboarding_restaurant_services_path(@restaurant), class: @progress[:services] if @progress  %>
           </li>

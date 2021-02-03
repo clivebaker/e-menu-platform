@@ -19,9 +19,5 @@ class RestaurantUser < ApplicationRecord
     roles.include? role.to_s
   end
 
-
-
-
-
   
 end

@@ -58,11 +58,12 @@ body {
   background-color: var(--emenu-darker);
   color: var(--emenu-lighter);
   font-weight: 300;
-  background-image: url(asset_path("onboarding-bkg-icon.svg")), url(asset_path("onboarding-bkg-shapes.svg"));
+  background-image: url(asset_path("onboarding-bkg-icon.svg")),
+   url(asset_path("onboarding-bkg-shapes.svg"));
   background-position: 20% 20%, bottom;
-  background-size: clamp(300px, 50vw, 800px) auto, clamp(1200px, 110%, 110vw) auto;
+  background-size: clamp(300px, 50vw, 800px) auto,
+   clamp(1200px, 110%, 110vw) auto;
   background-repeat: no-repeat;
-
 
   & #onboarding-main {
    min-height: calc(100vh - 75px);
@@ -978,7 +979,7 @@ div.scrollmenu::-webkit-scrollbar {
   height: 26px;
   border-radius: 15px;
   // box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.4);
-  background: var(--emenu-light);
+  background: var(--emenu-dark);
   transition: all 0.3s;
  }
 
@@ -993,7 +994,7 @@ div.scrollmenu::-webkit-scrollbar {
   top: 2px;
   width: 32px;
   height: 22px;
-  background: var(--emenu-darker);
+  background: white;
   border-radius: 11px;
   z-index: 1;
   transition: transform 0.3s;
@@ -1021,6 +1022,18 @@ div.scrollmenu::-webkit-scrollbar {
   height: 14px;
   left: 8px;
   background-size: 14px 14px;
+ }
+}
+
+.onboarding-layout {
+ & .switches {
+  & span:last-child {
+   background: var(--emenu-light);
+  }
+
+  & span:last-child::before {
+   background: var(--emenu-darker);
+  }
  }
 }
 

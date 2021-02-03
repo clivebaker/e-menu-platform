@@ -176,13 +176,14 @@ Rails.application.routes.draw do
       get 'connect'
       get 'complete'
       post 'toggle_feature/:feature_id', action: :toggle_feature, as: :toggle_feature
+      post 'dashboard_login', action: :dashboard_login, as: :dashboard_login
     end
     
     get 'start', to: 'home#start'
     get 'continue', to: 'home#continue'
     patch 'agree', to: 'home#tos_agree'
 
-    devise_for :restaurant_users, path: 'onboarding', controllers: {
+    devise_for :restaurant_users, path: '/', controllers: {
       sessions: 'onboarding/restaurant_users/sessions',
       registrations: 'onboarding/restaurant_users/registrations',
       passwords: 'onboarding/restaurant_users/passwords'

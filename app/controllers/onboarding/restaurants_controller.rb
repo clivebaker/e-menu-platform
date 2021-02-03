@@ -51,7 +51,6 @@ module Onboarding
     end
     
     def services
-      byebug
       @progress[:services] += ' current'
     end
     
@@ -88,6 +87,14 @@ module Onboarding
       @onboard.update_attribute(:free_trial, true) if @account[:details_submitted] # stripe onboarding details submitted
       @account[:details_submitted] ? @onboard.update_attribute(:completed, true) : @onboard.update_attribute(:completed, false) # stripe onboarding details submitted
       @progress[:connect] = @account[:details_submitted] ? 'complete' : 'failed'
+      @connect = connect_service.refresh_account(@restaurant.stripe_connected_account_id) if !@account[:details_submitted]
+    end
+
+    def dashboard_login
+      @restaurant_user = RestaurantUser.find(params[:restaurant_user_id])
+      @restaurant_user.reload
+      sign_in(@restaurant_user)
+      redirect_to manager_home_dashboard_path
     end
     
     private
