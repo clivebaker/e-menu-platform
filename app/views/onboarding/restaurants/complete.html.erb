@@ -2,27 +2,50 @@
 Welcome to EMenu Now
 <% end %>
 
-<div class="row">
-  <div class="col">&nbsp;</div>
-	  <div class="col-lg-6">
-	    <div class="card p-3 mb-5 bg-white rounded">
-	      <div class="card-body text-center">
-	        <p>Welcome</p>
-	        <p>Thanks for partnering with EMenu Now</p>
-	        <p>Follow the link below to head to your dashboard area</p>
-	      </div>
-	    </div>
-	  </div>
-  <div class="col">&nbsp;</div>
+<div class="row my-5">
+	<div class="col-md-6 mx-auto text-center">
+		<h3>Thanks for partnering with EMenu Now!</h3>
+	</div>
 </div>
-<div class="row">
-  <div class="col">&nbsp;</div>
-	  <div class="col-lg-6">
-	    <div class="card p-3 mb-5 bg-white rounded">
-	      <div class="card-body text-center">
-	        <%= link_to 'Dashboard', manager_home_dashboard_path  %>
-	      </div>
-	    </div>
-	  </div>
-  <div class="col">&nbsp;</div>
-</div>
+
+<% if @progress[:connect]&.include?("complete") %>
+
+	<div class="row my-5">
+		<div class="col-10 mx-auto text-center">
+			<p>You've set up your restaurant and connected Stripe as a payment provider.</p>
+			<p>You'll be able to start creating your menu and accepting orders soon.</p>
+			<p>One of our team will be in contact soon to take you through the remaining steps.</p>
+		</div>
+	</div>
+
+	<div class="row my-5">
+		<div class="col-8 col-md-3 mx-auto text-center">
+			<%= link_to("EMenu Dashboard", manager_home_dashboard_path, class: 'next-link') %>
+		</div>
+	</div>
+
+<% else %>
+
+	<div class="row my-5">
+		<div class="col-10 mx-auto text-center">
+			<p>The stripe connection was not complete.</p>
+			<p>That's not a problem.</p>
+			<p>You can complete this later, or <%= link_to("click here", @connect) %> to try again.</p>
+		</div>
+	</div>
+
+	<div class="row my-5">
+		<div class="col-10 mx-auto text-center">
+			<p>You've still set up your restaurant with EMenu.</p>
+			<p>You'll be able to start creating your menu and accepting orders soon.</p>
+			<p>One of our team will be in contact soon to take you through the remaining steps.</p>
+		</div>
+	</div>
+
+	<div class="row my-5">
+		<div class="col-8 col-md-3 mx-auto text-center">
+			<%= link_to("EMenu Dashboard", manager_home_dashboard_path, class: 'next-link') %>
+		</div>
+	</div>
+
+<% end %>

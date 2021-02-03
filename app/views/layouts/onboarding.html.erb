@@ -39,18 +39,20 @@
   </head>
 
   <body class="onboarding-layout">
-    <%#= render 'manager/components/global/sidebar' %>
-    <%#= render 'manager/components/global/topbar' %>
+    <%= render 'onboarding/components/progress' %>
+    <%= render 'onboarding/components/topbar' %>
     <%= render 'components/global/messages' %>
     <%#= render 'components/global/environment' %>
     <%#= render 'manager/components/restaurant/navigation' if current_manager_restaurant_user %>
     
-    <div class="container-fluid p-0 pt-5">
-      <%= yield %>
-      <%#= render :partial => 'components/global/languages' %>
-      <%#= render :partial => 'manager/components/global/footer' %>
-    </div>
-    <!--<div class="overlay"></div>-->
+    <main class="container p-0 d-flex flex-column h-100" id="onboarding-main">
+      <div class="my-auto">
+        <%= yield %>
+        <%#= render :partial => 'components/global/languages' %>
+        <%#= render :partial => 'manager/components/global/footer' %>
+      </div>
+    </main>
+    <div class="overlay"></div>
     <%= yield :js %> <%= yield :channels %>
   </body>
 </html>

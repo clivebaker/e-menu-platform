@@ -2,10 +2,8 @@
 Create your restaurant with EMenu Now
 <% end %>
 
-<main role="main" class="container">
-  <div class="my-3 p-3 bg-white rounded">
-	  <h3 class="pb-2 mb-0">New Restaurant</h3>
+<div class="row">
+	<div class="col-10 col-md-8 mx-auto">
 		<%= render 'form', restaurant: @restaurant %>
-		<%#= link_to 'Back', manager_restaurants_path %>
 	</div>
-</main>
+</div>

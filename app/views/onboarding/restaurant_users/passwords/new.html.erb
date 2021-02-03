@@ -1,34 +1,31 @@
 
-<div class="container">
   <div class="row">
-    <div class="col">&nbsp;</div>
-    <div class="col-8">
+    <div class="col-6 mx-auto">
      
-      <div class="jumbotron  mt-4">
 
 
-<h2>Forgot your password?</h2>
+        <h2>Forgot your password?</h2>
 
-<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
-  <%= devise_error_messages! %>
+        <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+          <%= devise_error_messages! %>
 
-  <div class="form-group">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email", class: 'form-control' %>
-  </div>
+          <div class="form-group">
+            <%= f.label :email %><br />
+            <%= f.email_field :email, autofocus: true, autocomplete: "email", class: 'form-control' %>
+          </div>
 
-  <div class="form-group">
-    <%= f.submit "Send me reset password instructions", class: 'btn btn-primary'  %>
-  </div>
-<% end %>
+          <div class="row my-5">
+            <div class="col-md-8 mx-auto text-center">
+              <%= f.submit "Reset", class: 'btn btn-warning' %>
+            </div>
+          </div>
+        <% end %>
 
 
-          <%= render "manager/restaurant_users/shared/links" %>
+        <%= render "onboarding/restaurant_users/shared/links" %>
 
-</div>
 
     </div>
-    <div class="col">&nbsp;</div>
   </div>
 </div>
 

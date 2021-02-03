@@ -15,6 +15,12 @@ class ConnectService < ApplicationController
       country: @restaurant.currency.code == 'cad' ? 'CA' : 'GB',
       email: @restaurant.restaurant_user.email,
       default_currency: @restaurant.currency.code,
+      metadata: {
+        restaurant_name: @restaurant.name,
+        restaurant_path: @restaurant.path,
+        restaurant_telephone: @restaurant.telephone,
+        restaurant_email: @restaurant.email,
+      },
     })
 
     account_link = Stripe::AccountLink.create({

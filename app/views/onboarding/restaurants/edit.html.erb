@@ -1,7 +1,9 @@
-<main role="main" class="container">
-  <div class="my-3 p-3 bg-white rounded shadow-sm">
-	  <h3 class="pb-2 mb-0">Edit Restaurant</h3>
+<% content_for :title do %>
+Create your restaurant with EMenu Now
+<% end %>
+
+<div class="row">
+	<div class="col-10 col-md-8 mx-auto">
 		<%= render 'form', restaurant: @restaurant %>
-		<%#= link_to 'Back', manager_restaurant_path(@restaurant) %>
 	</div>
-</main>
+</div>

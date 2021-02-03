@@ -1,34 +1,27 @@
-<div class="container">
   <div class="row">
-    <div class="col">&nbsp;</div>
-    <div class="col-8">
+    <div class="col-6 mx-auto">
      
-      <div class="jumbotron  mt-4">
-        <h1 class="display-4">Log in</h1>
-        <p class="lead">Continue onboarding...</p>
-        <hr class="my-4">
 
           <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
             <div class="form-group">
-              <%= f.label :email %>
-              <%= f.email_field :email, autofocus: true, autocomplete: "email", class: 'form-control', 'aria-describedby'=>'emailHelp', placeholder: 'Enter Email' %>
+              <%= f.label :email, 'Please enter your email address' %>
+              <%= f.email_field :email, autofocus: true, autocomplete: "email", class: 'form-control', 'aria-describedby'=>'emailHelp', placeholder: 'Email address' %>
               <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
             </div>
             <div class="form-group">
-              <%= f.label :password %>
+              <%= f.label :password, 'Enter your password' %>
               <%= f.password_field :password, autocomplete: "off", class: 'form-control', placeholder: "Password"%>
             </div>
-            <div class="actions">
-              <%= f.submit "Log in", class: 'btn btn-primary' %>
+            <div class="row my-5">
+              <div class="col-md-8 mx-auto text-center">
+                <%= f.submit "Log in", class: 'btn btn-warning' %>
+              </div>
             </div>
           <% end %>
           <hr class="my-4">
 
           <%= render "onboarding/restaurant_users/shared/links" %>
 
-      </div>
 
     </div>
-    <div class="col">&nbsp;</div>
   </div>
-</div>

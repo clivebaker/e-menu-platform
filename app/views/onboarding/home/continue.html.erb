@@ -2,23 +2,35 @@
 Partner with EMenu Now
 <% end %>
 
-<div class="row">
-  <div class="col">&nbsp;</div>
-	  <div class="col-lg-8">
-	    <div class="card p-3 mb-5 bg-white rounded">
-	      <div class="card-body text-center">
-	        <p>Free Trial</p>
-	        <p>This is the service agreement for your free trial</p>
-	      </div>
-	      <div class="card-body text-center">
-	        <p>Terms of Service</p>
-	        <p>This is the terms of service of partnering with EMenu Now</p>
-	        <p>Please read and agree before continuing</p>
-	      </div>
-	      <div class="card-body text-center">
-					<%= render 'terms', onboard: @onboard %>
-	      </div>
-	    </div>
-	  </div>
-  <div class="col">&nbsp;</div>
+<div class="row my-5">
+	<div class="col-10 col-lg-6 mx-auto text-center">
+		<h3>Get started with a free trial</h3>
+	</div>
 </div>
+
+<div class="row">
+	<div class="col-10 col-sm-8 col-md-6 col-lg-4 mx-auto text-center">
+		<p>30 Day free trial</p>
+		<p>0% Commission</p>
+	</div>
+</div>
+
+<div class="row my-5">
+	<div class="col-10 col-lg-6 mx-auto text-center">
+		<h3>After that, continue with these low prices</h3>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-10 col-sm-8 col-md-6 col-lg-4 mx-auto text-center">
+		<p>1.5% Commission</p>
+		<p>from £5 per week subscription</p>
+	</div>
+</div>
+
+<div class="row my-5">
+	<div class="col-lg-12 mx-auto">
+		<div class="card-body text-center">
+			<%= render 'terms', onboard: @onboard %>
+		</div>
+	</div>

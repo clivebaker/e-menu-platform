@@ -7,20 +7,22 @@ module Onboarding
     before_action :set_restaurant_new, only: %i[edit update services connect complete]
     before_action :set_cuisine, only: %i[new create edit update]
     before_action :get_onboarding
+    before_action :set_progress
 
-    before_action :set_features, only: :services
+    before_action :set_features, only: %i[services connect complete]
 
     # GET /restaurants/new
     def new
       @restaurant = Restaurant.new
       @restaurant.restaurant_user_id = current_onboarding_restaurant_user.id
+      @progress[:restaurant] += ' current'
     end
     
     # POST /restaurants
     # POST /restaurants.json
     def create
       @restaurant = Restaurant.new(restaurant_params)
-
+      
       respond_to do |format|
         if @restaurant.save
           format.html { redirect_to onboarding_restaurant_services_path(@restaurant), notice: 'Restaurant was successfully created.' }
@@ -31,11 +33,11 @@ module Onboarding
         end
       end
     end
-
+    
     def edit
-
+      @progress[:restaurant] += ' current'
     end
-
+    
     def update
       respond_to do |format|
         if @restaurant.update(restaurant_params)
@@ -47,10 +49,12 @@ module Onboarding
         end
       end
     end
-
+    
     def services
+      byebug
+      @progress[:services] += ' current'
     end
-
+    
     def toggle_feature
       @restaurant = Restaurant.find(params[:restaurant_id])
       feature = Feature.find(params[:feature_id])
@@ -60,8 +64,10 @@ module Onboarding
         @restaurant.features << feature
       end
     end
-
+    
     def connect
+      @progress[:connect] += ' current'
+            
       connect_service = ConnectService.new(@restaurant)
       if session[:account_id]
         @restaurant.update_attribute(:stripe_connected_account_id, session[:account_id])
@@ -75,32 +81,42 @@ module Onboarding
         @connect = create_account[:url]
       end
     end
-
+    
     def complete
       connect_service = ConnectService.new(@restaurant)
       @account = connect_service.get_account
       @onboard.update_attribute(:free_trial, true) if @account[:details_submitted] # stripe onboarding details submitted
-      @onboard.update_attribute(:completed, true) if @account[:details_submitted] # stripe onboarding details submitted
+      @account[:details_submitted] ? @onboard.update_attribute(:completed, true) : @onboard.update_attribute(:completed, false) # stripe onboarding details submitted
+      @progress[:connect] = @account[:details_submitted] ? 'complete' : 'failed'
     end
-
+    
     private
-
+    
     # Use callbacks to share common setup or constraints between actions.
     def set_restaurant_new
       @restaurant = Restaurant.find(params[:restaurant_id] || params[:id])
       unless current_onboarding_restaurant_user.id == @restaurant.restaurant_user_id
-         raise NotValidRestaurant
+        raise NotValidRestaurant
       end
     end
-
+    
     def get_onboarding
       @onboard = current_onboarding_restaurant_user.onboard
     end
-
+    
+    def set_progress
+      @progress = {}
+      @progress[:register] = current_onboarding_restaurant_user ? 'complete' : ''
+      @progress[:terms] = @onboard&.tos_agreed ? 'complete' : ''
+      @progress[:restaurant] = current_onboarding_restaurant_user.restaurant ? 'complete' : ''
+      @progress[:services] = (current_onboarding_restaurant_user&.restaurant && (current_onboarding_restaurant_user.restaurant.features & Feature.find([12,9,11,10])).any?) ? 'complete' : ''
+      @progress[:connect] = @onboard&.completed ? 'complete' : @onboard&.completed.nil? ? '' : 'failed'
+    end
+    
     def set_cuisine
       @cuisines = Cuisine.all
     end
-
+    
     def set_features
       @features = Feature.all
       @services = Feature.find([12,9,11,10])
