@@ -183,6 +183,14 @@ collection = restaurant.features.where(id: 12).present?
           </div>
         </div>
       </div>
+      <div class="row">
+        <div class="col">
+          <div class="form-group ">
+            <label>Stripe chargeback protection enabled</label>
+            <%= form.check_box :stripe_chargeback_enabled  %>
+          </div>
+        </div>
+      </div>
     <% end %>
 
     <!-- Finance -->
