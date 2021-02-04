@@ -21,8 +21,8 @@ class ConnectService < ApplicationController
 
     account_link = Stripe::AccountLink.create({
       account: account.id,
-      refresh_url: (Rails.env.development? ? "http://localhost:3000/onboarding/restaurants/#{@restaurant.id}/connect" : Rails.application.routes.url_helpers.onboarding_restaurant_connect_path(@restaurant)),
-      return_url: (Rails.env.development? ? "http://localhost:3000/onboarding/restaurants/#{@restaurant.id}/complete" : Rails.application.routes.url_helpers.onboarding_restaurant_complete_path(@restaurant)),
+      refresh_url: (Rails.env.development? ? "http://localhost:3000/onboarding/restaurants/#{@restaurant.id}/connect" : Rails.application.routes.url_helpers.onboarding_restaurant_connect_url(@restaurant)),
+      return_url: (Rails.env.development? ? "http://localhost:3000/onboarding/restaurants/#{@restaurant.id}/complete" : Rails.application.routes.url_helpers.onboarding_restaurant_complete_url(@restaurant)),
       type: 'account_onboarding',
       })
       
@@ -35,8 +35,8 @@ class ConnectService < ApplicationController
     def refresh_account(account_id)
       account_link = Stripe::AccountLink.create({
         account: account_id,
-        refresh_url: (Rails.env.development? ? "http://localhost:3000/onboarding/restaurants/#{@restaurant.id}/connect" : Rails.application.routes.url_helpers.onboarding_restaurant_connect_path(@restaurant)),
-        return_url: (Rails.env.development? ? "http://localhost:3000/onboarding/restaurants/#{@restaurant.id}/complete" : Rails.application.routes.url_helpers.onboarding_restaurant_complete_path(@restaurant)),
+        refresh_url: (Rails.env.development? ? "http://localhost:3000/onboarding/restaurants/#{@restaurant.id}/connect" : Rails.application.routes.url_helpers.onboarding_restaurant_connect_url(@restaurant)),
+        return_url: (Rails.env.development? ? "http://localhost:3000/onboarding/restaurants/#{@restaurant.id}/complete" : Rails.application.routes.url_helpers.onboarding_restaurant_complete_url(@restaurant)),
         type: 'account_onboarding',
       })
       
