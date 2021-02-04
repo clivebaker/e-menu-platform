@@ -15,7 +15,7 @@
       <ul class="list-unstyled components">
         <% if current_manager_restaurant_user %>
           <li>
-            <%= link_to "Dashboard", manager_home_dashboard_path %>
+            <%= link_to "Dashboard", manager_home_index_path %>
           </li>
         <% end %>
         <% if current_manager_restaurant_user&.restaurant %>
@@ -54,7 +54,7 @@
                   <%= link_to("Discount Codes", manager_discount_codes_path(@restaurant)) %>
                 </li>
                 <li>
-                  <%= link_to("View Menus", manager_home_menu_path()) %>
+                  <%= link_to("View Menus", menu_manager_home_index_path(@restaurant)) %>
                 </li>
                 <li>
                   <%= link_to("Printer Interfaces", manager_restaurant_pi_interfaces_path(@restaurant)) %>

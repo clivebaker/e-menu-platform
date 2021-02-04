@@ -13,7 +13,7 @@
     <% if @restaurant && @restaurant.image.attached? %>
       <%#= link_to (image_tag @restaurant.image, height: 23, width: 'auto'), new_manager_restaurant_user_session_path, class:"navbar-brand" %>
     <% else %>
-      <%= link_to new_manager_restaurant_user_session_path, class: "navbar-brand" do %>
+      <%= link_to current_manager_restaurant_user ? manager_home_index_path : new_manager_restaurant_user_session_path, class: "navbar-brand" do %>
         <%= image_tag("logo/Logo__icon_v1.0.0-dark-bkg.svg", height: '20', width: 'auto') %>
       <% end %>
     <% end %>

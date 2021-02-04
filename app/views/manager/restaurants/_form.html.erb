@@ -10,20 +10,18 @@
   </ul>
 </div>
 <% end %>
-
 <%= form.hidden_field :restaurant_user_id %>
-
-
-
 <!-- Tabs -->
-<ul class="nav nav-tabs" id="myTab" role="tablist">
-  <li class="nav-item" role="presentation">
-    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Home</a>
+<ul class="nav nav-tabs d-inline-block text-center" id="myTab" role="tablist">
+  <li class="nav-item d-inline-block text-center" role="presentation">
+    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Your restaurant</a>
   </li>
-  <li class="nav-item" role="presentation">
-    <a class="nav-link" id="finance-tab" data-toggle="tab" href="#finance" role="tab" aria-controls="finance" aria-selected="false">Finance</a>
+  <li class="nav-item d-inline-block text-center" role="presentation">
+    <a class="nav-link" id="finance-tab" data-toggle="tab" href="#finance" role="tab" aria-controls="finance" aria-selected="false">Admin</a>
   </li>
-  <li class="nav-item" role="presentation">
+  <%
+=begin%>
+ <li class="nav-item" role="presentation">
     <a class="nav-link" id="settings-tab" data-toggle="tab" href="#settings" role="tab" aria-controls="settings" aria-selected="false">Settings</a>
   </li>
   <li class="nav-item" role="presentation">
@@ -31,33 +29,32 @@
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="styling-tab" data-toggle="tab" href="#styling" role="tab" aria-controls="styling" aria-selected="false">Styling</a>
-  </li>
+  </li> 
+<%
+=end%>
 </ul>
 <!-- /Tabs -->
-
-<div class="tab-content" id="myTabContent">
-  <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+<div class="tab-content py-5 card" id="myTabContent">
+  <div class="tab-pane fade show active col-md-6 col-10 offset-md-3 offset-1" id="home" role="tabpanel" aria-labelledby="home-tab">
     <!-- Home -->
     <div class="row">
       <div class="col">
         <div class="form-group ">
-          <%= form.label :name %>
-          <%= form.text_field :name, class: 'form-control  form-control-sm' %>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col">
-        <div class="form-group ">
-          <%= form.label :image %>
+          <% if restaurant.image.attached? %>
+          <%= image_tag restaurant.image.variant(resize: "200x200"), class: "img-fluid text-center"  %>
+          <br />
+          <% end %>
+          <%= form.label "Restaurant logo (Square shaped logo)" %>
+          <br />
           <%= form.file_field :image %>
         </div>
       </div>
+    </div>
+    <div class="row pt-5">
       <div class="col">
         <div class="form-group ">
-          <% if restaurant.image.attached? %>
-          <%= image_tag restaurant.image.variant(resize: "200x200"), class: "img-fluid"  %>
-          <% end %>
+          <%= form.label "Restaurant name" %>
+          <%= form.text_field :name, class: 'form-control  form-control-sm text-center' %>
         </div>
       </div>
     </div>
@@ -65,13 +62,15 @@
       <div class="col">
         <div class="form-group ">
           <%= form.label :address %>
-          <%= form.text_field :address, class: 'form-control  form-control-sm' %>
+          <%= form.text_field :address, class: 'form-control  form-control-sm text-center' %>
         </div>
       </div>
+    </div>
+    <div class="row">
       <div class="col">
         <div class="form-group ">
           <%= form.label :postcode %>
-          <%= form.text_field :postcode, class: 'form-control  form-control-sm' %>
+          <%= form.text_field :postcode, class: 'form-control  form-control-sm text-center' %>
         </div>
       </div>
     </div>
@@ -79,120 +78,78 @@
       <div class="col">
         <div class="form-group ">
           <%= form.label :telephone %>
-          <%= form.text_field :telephone, class: 'form-control  form-control-sm' %>
-        </div>
-      </div>
-      <div class="col">
-        <div class="form-group ">
-          <%= form.label :email %>
-          <%= form.text_field :email, class: 'form-control  form-control-sm' %>
+          <%= form.text_field :telephone, class: 'form-control  form-control-sm text-center' %>
         </div>
       </div>
     </div>
-
-
-
-
+    <div class="row">
+      <div class="col">
+        <div class="form-group ">
+          <%= form.label :email %>
+          <%= form.text_field :email, class: 'form-control  form-control-sm text-center' %>
+        </div>
+      </div>
+    </div>
     <div class="row">
       <div class="col">
         <div class="form-group ">
           <%= form.label :cuisine_id %>
-          <%= form.select :cuisine_id,  options_for_select(@cuisines.map{|a| [a.name, a.id]}, restaurant.cuisine_id ), {prompt: "Choose cuisine"}, {class: 'form-control  form-control-sm'} %>
+          <%= form.select :cuisine_id,  options_for_select(@cuisines.map{|a| [a.name, a.id]}, restaurant.cuisine_id ), {prompt: "Choose cuisine"}, {class: 'form-control  form-control-sm text-center'} %>
         </div>
       </div>
     </div>
+    <!-- Home -->
+  </div>
+  <div class="tab-pane fade col-12 col-md-6 offset-md-3" id="finance" role="tabpanel" aria-labelledby="finance-tab">
+    <!-- Finance -->
     <div class="row">
       <div class="col">
         <div class="form-group ">
-          <%= form.label :path %>
-          <%= form.text_field :path, class: 'form-control  form-control-sm' %>
+          <%= form.label "URL Path" %>
+          <%= form.text_field :path, class: 'form-control  form-control-sm text-center' %>
         </div>
       </div>
     </div>
-
-
-    <!-- Home -->
-  </div>
-  <div class="tab-pane fade" id="finance" role="tabpanel" aria-labelledby="finance-tab">
-    <!-- Finance -->
-
-    <div class="row">
-      <div class="col">
-        <h3>Stripe</h3>
-      </div>
-    </div>
-
     <div class="row">
       <div class="col">
         <div class="form-group ">
           <%= form.label :currency_id %>
-          <%= form.select :currency_id, options_for_select(Currency.all.map{|s| [s.name, s.id]}, restaurant.currency_id), {prompt: "Choose Currency"}, {class: 'form-control  form-control-sm'} %>
+          <%= form.select :currency_id, options_for_select(Currency.all.map{|s| [s.name, s.id]}, restaurant.currency_id), {prompt: "Choose Currency"}, {class: 'form-control  form-control-sm text-center'} %>
         </div>
       </div>
     </div>
-
-    <div class="row">
-      <div class="col">
-        <div class="form-group ">
-          <%= form.label :stripe_api_key %>
-          <%= form.text_field :stripe_api_key, class: 'form-control  form-control-sm', rows: 10  %>
-        </div>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col">
-        <div class="form-group ">
-          <%= form.label :stripe_publish_api_key %>
-          <%= form.text_field :stripe_publish_api_key, class: 'form-control  form-control-sm', rows: 10  %>
-        </div>
-      </div>
-    </div>
-
     <div class="row">
       <div class="col">
         <div class="form-group ">
           <%= form.label "Stripe Connected Account ID" %>
-          <%= form.text_field :stripe_connected_account_id, class: 'form-control  form-control-sm', rows: 10  %>
+          <%= form.text_field :stripe_connected_account_id, class: 'form-control  form-control-sm text-center', rows: 10  %>
         </div>
       </div>
     </div>
-
-    <% if params[:admin] == "true" %>
-      <div class="row">
-        <div class="col">
-          <div class="form-group ">
-            <label>Commission percentage e.g. 1.5</label>
-            <%= form.text_field :commision_percentage, class: 'form-control  form-control-sm', rows: 10  %>
-          </div>
+    <div class="row">
+      <div class="col">
+        <div class="form-group ">
+          <label>Commission percentage e.g. 1.5</label>
+          <%= form.text_field :commision_percentage, class: 'form-control  form-control-sm text-center', rows: 10  %>
         </div>
       </div>
-    <% end %>
-
+    </div>
     <!-- Finance -->
   </div>
   <div class="tab-pane fade" id="settings" role="tabpanel" aria-labelledby="settings-tab">
     <!-- Settings -->
-
-
     <div class="row">
       <div class="col">
         <div class="form-group ">
           <label for="restaurant_show_on_homepage">Show on eat.emenunow.com homepage</label>
-
           <%= form.check_box :show_on_homepage, class: 'form-control  form-control-sm' %>
         </div>
       </div>
     </div>
-
-
     <!-- Settings -->
   </div>
-
   <div class="tab-pane fade" id="tracking" role="tabpanel" aria-labelledby="tracking-tab">
     <!-- tracking -->
-
-
     <div class="row mt-2">
       <div class="col">
         <div class="form-group ">
@@ -217,12 +174,8 @@
     </div>
     <!-- tracking -->
   </div>
-
-
   <div class="tab-pane fade" id="styling" role="tabpanel" aria-labelledby="styling-tab">
     <!-- Styling -->
-
-
     <div class="row mt-5 border-bottom border-gray">
       <div class="col">
         <div class="form-group ">
@@ -238,29 +191,23 @@
         </div>
       </div>
     </div>
-
-
     <% 
-subtle_background_list = [
-{file: 'None', name: 'None'},
-{file: 'wall4_@2X', name: 'Wall'},
-{file: 'asfalt_@2X', name: 'Asfalt'},
-{file: 'binding_light_@2X', name: 'Binding'},
-{file: 'circles-light', name: 'Circles'},
-{file: 'concrete-texture', name: 'Concrete'},
-{file: 'dark_wall_@2X', name: 'Dark Wall'},
-{file: 'debut_light_@2X', name: 'Debut Light'},
-{file: 'furley_bg_@2X', name: 'Furley'},
-{file: 'light-veneer', name: 'Light Veneer'},
-{file: 'lightpaperfibers_@2X', name: 'Paper Fibres'},
-{file: 'prism', name: 'Prism'},
-{file: 'scribble_light_@2X', name: 'Scribble'},
-]
-
-%>
-
-
-
+      subtle_background_list = [
+        {file: 'None', name: 'None'},
+        {file: 'wall4_@2X', name: 'Wall'},
+        {file: 'asfalt_@2X', name: 'Asfalt'},
+        {file: 'binding_light_@2X', name: 'Binding'},
+        {file: 'circles-light', name: 'Circles'},
+        {file: 'concrete-texture', name: 'Concrete'},
+        {file: 'dark_wall_@2X', name: 'Dark Wall'},
+        {file: 'debut_light_@2X', name: 'Debut Light'},
+        {file: 'furley_bg_@2X', name: 'Furley'},
+        {file: 'light-veneer', name: 'Light Veneer'},
+        {file: 'lightpaperfibers_@2X', name: 'Paper Fibres'},
+        {file: 'prism', name: 'Prism'},
+        {file: 'scribble_light_@2X', name: 'Scribble'},
+      ]
+    %>
     <div class="row my-3 border-bottom border-gray">
       <div class="col">
         <div class="row">
@@ -276,16 +223,12 @@ subtle_background_list = [
             <div class="form-group ">
               <div class="card-group">
                 <%subtle_background_list.reject{|a| a[:name]=="None"}.each do |subtle| %>
-
                 <div class="card" style="width: 12rem;">
                   <%= image_tag "/background/#{subtle[:file]}.png", class: "img-fluid" %>
                   <div class="card-body">
                     <p class="card-text"><small><%=subtle[:name]%></small></p>
                   </div>
                 </div>
-
-
-
                 <% end %>
               </div>
             </div>
@@ -293,34 +236,13 @@ subtle_background_list = [
         </div>
       </div>
     </div>
-
     <!-- /Styling -->
   </div>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="row">
+<div class="row py-5">
   <div class="col">
-
-
     <div class="actions">
-      <%= form.submit nil, class: "btn btn-primary" %>
+      <%= form.submit "Submit restaurant details", class: "btn btn-primary" %>
     </div>
   </div>
 </div>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_15_103714) do
+ActiveRecord::Schema.define(version: 2021_01_29_121810) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -237,6 +237,20 @@ ActiveRecord::Schema.define(version: 2021_01_15_103714) do
     t.index ["spice_level_id"], name: "index_menus_on_spice_level_id"
   end
 
+  create_table "onboards", force: :cascade do |t|
+    t.bigint "restaurant_user_id", null: false
+    t.boolean "tos_agreed"
+    t.datetime "tos_agreed_date"
+    t.string "tos_ver_agreed"
+    t.string "tos_ip"
+    t.text "tos_user_agent"
+    t.boolean "free_trial"
+    t.boolean "completed"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["restaurant_user_id"], name: "index_onboards_on_restaurant_user_id"
+  end
+
   create_table "opening_times", force: :cascade do |t|
     t.bigint "restaurant_id"
     t.jsonb "times", default: {}
@@ -439,6 +453,7 @@ ActiveRecord::Schema.define(version: 2021_01_15_103714) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.text "roles", default: [], array: true
+    t.boolean "admin", default: false
     t.index ["email"], name: "index_restaurant_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_restaurant_users_on_reset_password_token", unique: true
   end
@@ -474,6 +489,7 @@ ActiveRecord::Schema.define(version: 2021_01_15_103714) do
     t.bigint "currency_id"
     t.string "stripe_connected_account_id"
     t.float "commision_percentage", default: 0.0
+    t.boolean "stripe_chargeback_enabled", default: false
     t.index ["cuisine_id"], name: "index_restaurants_on_cuisine_id"
     t.index ["currency_id"], name: "index_restaurants_on_currency_id"
     t.index ["restaurant_user_id"], name: "index_restaurants_on_restaurant_user_id"
@@ -552,6 +568,11 @@ ActiveRecord::Schema.define(version: 2021_01_15_103714) do
     t.text "custom_css"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "basket_colour", default: "#000"
+    t.string "item_colour", default: "#000"
+    t.string "basket_text_colour", default: "#fff"
+    t.string "item_text_colour", default: "#fff"
+    t.string "item_header_colour", default: "#000"
     t.index ["restaurant_id"], name: "index_themes_on_restaurant_id"
   end
 
@@ -568,6 +589,7 @@ ActiveRecord::Schema.define(version: 2021_01_15_103714) do
   add_foreign_key "menus", "menu_item_categorisations"
   add_foreign_key "menus", "restaurants"
   add_foreign_key "menus", "spice_levels"
+  add_foreign_key "onboards", "restaurant_users"
   add_foreign_key "opening_times", "restaurants"
   add_foreign_key "orders", "restaurants"
   add_foreign_key "patron_addresses", "patrons"

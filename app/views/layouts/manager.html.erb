@@ -40,17 +40,15 @@
   </head>
 
   <body>
+    <%= render 'components/global/environment' %>
     <%= render 'manager/components/global/sidebar' %>
     <%= render 'manager/components/global/topbar' %>
     <%= render 'components/global/messages' %>
-    <%= render 'components/global/environment' %>
-    <%= render 'manager/components/restaurant/navigation' if current_manager_restaurant_user %>
+    <%#= render 'manager/components/restaurant/navigation' if current_manager_restaurant_user %>
     
-    <div class="container-fluid p-0 pt-5">
-      <%= yield %>
-      <%= render :partial => 'components/global/languages' %>
-      <%= render :partial => 'manager/components/global/footer' %>
-    </div>
+    <%= yield %>
+    <%= render :partial => 'components/global/languages' %>
+    <%= render :partial => 'manager/components/global/footer' %>
     <div class="overlay"></div>
     <%= yield :js %> <%= yield :channels %>
   </body>

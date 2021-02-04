@@ -1,137 +1,54 @@
-<main role="main" class="container">
-
-
-  <h1>Restaurant Details</h1>
+<main role="main">
+  <div class="jumbotron jumbotron-fluid">
+    <div class="container text-center">
+      <% if @restaurant.image.attached? %>
+      <%= image_tag @restaurant.image.variant(resize: "200x200"), class: "img-fluid"  %>
+      <% end %>
+      <h1 class=" text-dark">Restaurant configuration</h1>
+      <p class="pt-3">
+        <%= @restaurant.cuisine_name %> |
+        <%= @restaurant.address %>, <%= @restaurant.postcode %> |
+        <%= @restaurant.telephone %> |
+        <%= @restaurant.email %> |
+        <%= @restaurant.show_on_homepage ? "SEO Visible" : "SEO Hidden" %>
+      </p>
+      <p class="">
+        Currency: <%= @restaurant.currency_name %> |
+        Stripe Account: <%= @restaurant.stripe_connected_account_id %> |
+        EMenu Commission: <%= @restaurant.commision_percentage %>% |
+        Chargeback Protection: <%= @restaurant.stripe_chargeback_enabled ? "0.04% of sale" : "No" %>
+      </p>
+    </div>
+  </div>
+</main>
+<div class="container text-center py-5">
   <% if @restaurant %>
   <!-- Tabs -->
-  <ul class="nav nav-tabs" id="myTab" role="tablist">
-    <li class="nav-item" role="presentation">
-      <a class="nav-link " id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Home</a>
+  <ul class="nav nav-tabs d-inline-block text-center" id="myTab" role="tablist">
+    <li class="nav-item d-inline-block text-center" role="presentation">
+      <a class="nav-link active" id="settings-tab" data-toggle="tab" href="#settings" role="tab" aria-controls="settings" aria-selected="false">Feature Customisations</a>
     </li>
-    <li class="nav-item" role="presentation">
-      <a class="nav-link" id="finance-tab" data-toggle="tab" href="#finance" role="tab" aria-controls="finance" aria-selected="false">Finance</a>
+    <%
+=begin%>
+ <li class="nav-item d-inline-block text-center" role="presentation">
+      <a class="nav-link" id="styling-tab" data-toggle="tab" href="#styling" role="tab" aria-controls="styling" aria-selected="false">Restaurant Branding</a>
     </li>
-    <li class="nav-item" role="presentation">
-      <a class="nav-link active" id="settings-tab" data-toggle="tab" href="#settings" role="tab" aria-controls="settings" aria-selected="false">Settings</a>
-    </li>
-    <li class="nav-item" role="presentation">
-      <a class="nav-link" id="tracking-tab" data-toggle="tab" href="#tracking" role="tab" aria-controls="settings" aria-selected="false">Tracking</a>
-    </li>
-    <li class="nav-item" role="presentation">
-      <a class="nav-link" id="styling-tab" data-toggle="tab" href="#styling" role="tab" aria-controls="styling" aria-selected="false">Styling</a>
-    </li>
+    <li class="nav-item d-inline-block text-center" role="presentation">
+      <a class="nav-link" id="tracking-tab" data-toggle="tab" href="#tracking" role="tab" aria-controls="settings" aria-selected="false">Analytics</a>
+    </li> 
+<%
+=end%>
   </ul>
   <!-- /Tabs -->
-
-  <div class="tab-content" id="myTabContent">
-    <div class="tab-pane fade show " id="home" role="tabpanel" aria-labelledby="home-tab">
-      <!-- Home -->
-      <div class="row my-3 p-3 bg-white rounded shadow-sm">
-        <div class="col-12">
-          <div class="media text-muted pt-3">
-            <p class="media-body pb-3 mb-0  lh-125 border-bottom border-gray">
-              <strong class="d-block text-gray-dark">ID</strong>
-              <small><%= @restaurant.id %></small>
-            </p>
-          </div>
-
-          <div class="media text-muted pt-3">
-            <p class="media-body pb-3 mb-0  lh-125 border-bottom border-gray">
-              <strong class="d-block text-gray-dark">Name</strong>
-              <%= @restaurant.name %>
-            </p>
-          </div>
-
-          <div class="media text-muted pt-3">
-            <p class="media-body pb-3 mb-0  lh-125 border-bottom border-gray">
-              <strong class="d-block text-gray-dark">Image</strong>
-              <% if @restaurant.image.attached? %>
-              <%= image_tag @restaurant.image.variant(resize: "200x200"), class: "img-fluid"  %>
-              <% end %>
-            </p>
-          </div>
-          <div class="media text-muted pt-3">
-            <p class="media-body pb-3 mb-0 lh-125 border-bottom border-gray">
-              <strong class="d-block text-gray-dark">Cuisine</strong>
-              <%= @restaurant.cuisine_name %>
-            </p>
-          </div>
-
-          <div class="media text-muted pt-3">
-            <p class="media-body pb-3 mb-0 lh-125 border-bottom border-gray">
-              <strong class="d-block text-gray-dark">Address</strong>
-              <%= @restaurant.address %>, <%= @restaurant.postcode %>
-            </p>
-          </div>
-          <div class="media text-muted pt-3">
-            <p class="media-body pb-3 mb-0 lh-125 border-bottom border-gray">
-              <strong class="d-block text-gray-dark">Telephone</strong>
-              <%= @restaurant.telephone %>
-            </p>
-          </div>
-          <div class="media text-muted pt-3">
-            <p class="media-body pb-3 mb-0 lh-125 border-bottom border-gray">
-              <strong class="d-block text-gray-dark">Email</strong>
-              <%= @restaurant.email %>
-            </p>
-          </div>
-          <div class="media text-muted pt-3">
-            <p class="media-body pb-3 mb-0  lh-125 border-bottom border-gray">
-              <strong class="d-block text-gray-dark">Path</strong>
-              <%= @restaurant.path %>
-            </p>
-          </div>
-        </div>
-      </div>
-      <!-- /Home -->
-    </div>
-    <div class="tab-pane fade show" id="finance" role="tabpanel" aria-labelledby="finance-tab">
-      <!-- Finance -->
-      <div class="row my-3 p-3 bg-white rounded shadow-sm">
-        <div class="col-12">
-          <div class="media text-muted pt-3">
-            <p class="media-body pb-3 mb-0 lh-125 border-bottom border-gray">
-              <strong class="d-block text-gray-dark">Currency</strong>
-              <%= @restaurant.currency_name %>
-            </p>
-          </div>
-          <div class="media text-muted pt-3">
-            <p class="media-body pb-3 mb-0 lh-125 border-bottom border-gray">
-              <strong class="d-block text-gray-dark">Stripe API Key</strong>
-              <%= @restaurant.stripe_api_key %>
-            </p>
-          </div>
-          <div class="media text-muted pt-3">
-            <p class="media-body pb-3 mb-0 lh-125 border-bottom border-gray">
-              <strong class="d-block text-gray-dark">Stripe Publish API key</strong>
-              <%= @restaurant.stripe_publish_api_key %>
-            </p>
-          </div>
-          <div class="media text-muted pt-3">
-            <p class="media-body pb-3 mb-0 lh-125 border-bottom border-gray">
-              <strong class="d-block text-gray-dark">Stripe Connected Account ID</strong>
-              <%= @restaurant.stripe_connected_account_id %>
-            </p>
-          </div>
-          <div class="media text-muted pt-3">
-            <p class="media-body pb-3 mb-0 lh-125 border-bottom border-gray">
-              <strong class="d-block text-gray-dark">Commission percentage e.g. 1.5</strong>
-              <%= @restaurant.commision_percentage %>
-            </p>
-          </div>
-        </div>
-      </div>
-      <!-- /Finance -->
-    </div>
-    <div class="tab-pane fade show active" id="settings" role="tabpanel" aria-labelledby="settings-tab">
+  <div class="tab-content container" id="myTabContent">
+    <div class="card tab-pane fade show active py-3" id="settings" role="tabpanel" aria-labelledby="settings-tab">
       <!-- Settings -->
-      <div class="row my-3 p-3 bg-white rounded shadow-sm">
+      <div class="p-3 bg-white rounded">
         <div class="col-12">
-
           <div class="row">
             <div class="col-sm">
               <ul>
-                <h5>Assigned Features</h5>
+                <h5>Enabled Features</h5>
                 <% @restaurant.features.each do |feature|%>
                 <div><%= link_to manager_restaurant_remove_feature_path(@restaurant.id, feature.id), method: :post do %>
                   <span class="badge badge-dark mr-1"><%=feature.name%></span><i class="fas fa-minus-square"></i><% end %></div>
@@ -140,7 +57,7 @@
             </div>
             <div class="col-sm">
               <ul>
-                <h5>Available Features</h5>
+                <h5>Disabled Features</h5>
                 <% @features.reject{|a| @restaurant.features.map{|b| b.id}.include?(a.id)}.each do |feature|%>
                 <div><%= link_to manager_restaurant_add_feature_path(@restaurant.id, feature.id), method: :post  do %>
                   <span class="badge badge-dark mr-1"><%=feature.name%></span><i class="fas fa-plus-square"></i><% end %></div>
@@ -148,7 +65,9 @@
               </ul>
             </div>
           </div>
-          <div class="row">
+          <%
+=begin%>
+ <div class="row">
             <div class="col-sm">
               <h5>Menu Template</h5>
               <div class="form-group">
@@ -157,67 +76,39 @@
                 <%= submit_tag nil, class: 'btn btn-primary mt-2' %>
                 <% end %>
                 <h3>Current Template: <%=@restaurant.template.map{|x| x.name}.join(' ')%></h3>
-
               </div>
             </div>
-          </div>
-
-
-          <div class="media text-muted pt-3">
-            <p class="media-body pb-3 mb-0  lh-125 border-bottom border-gray">
-              <strong class="d-block text-gray-dark">Show on eat.emenunow.com homepage</strong>
-              <%= @restaurant.show_on_homepage ? "YES" : "NO" %>
-            </p>
-          </div>
-
-
-
+          </div> 
+<%
+=end%>
         </div>
       </div>
       <!-- /Settings -->
     </div>
-
-
-
-    <div class="tab-pane fade show" id="tracking" role="tabpanel" aria-labelledby="tracking-tab">
+    <div class="card tab-pane fade show" id="tracking" role="tabpanel" aria-labelledby="tracking-tab">
       <!-- tracking -->
-      <div class="row my-3 p-3 bg-white rounded shadow-sm">
+      <div class="row  p-3 bg-white rounded shadow-sm">
         <div class="col-12">
-
-
           <div class="media text-muted pt-3">
-            <p class="media-body pb-3 mb-0 lh-125 border-bottom border-gray">
+            <p class="card m-3 p-2 pb-3 mb-0 lh-125 border-bottom border-gray">
               <strong class="d-block text-gray-dark">Facebook Pixels</strong>
               <%= @restaurant.facebook_pixel %>
             </p>
           </div>
           <div class="media text-muted pt-3">
-            <p class="media-body pb-3 mb-0 lh-125 border-bottom border-gray">
+            <p class="card m-3 p-2 pb-3 mb-0 lh-125 border-bottom border-gray">
               <strong class="d-block text-gray-dark">Social</strong>
               <strong>Facebook: </strong><%= @restaurant.facebook.blank? ?  "Not supplied" : @restaurant.facebook%>, <strong>Twitter: </strong><%= @restaurant.twitter.blank? ?  "Not supplied" : @restaurant.twitter%>
             </p>
           </div>
-
-
-
         </div>
       </div>
       <!-- /tracking -->
     </div>
-
-
-
-
-
-
-    <div class="tab-pane fade show" id="styling" role="tabpanel" aria-labelledby="styling-tab">
+    <div class="card tab-pane fade show" id="styling" role="tabpanel" aria-labelledby="styling-tab">
       <!-- Styling -->
-      <div class="row my-3 p-3 bg-white rounded shadow-sm">
+      <div class="row  p-3 bg-white rounded shadow-sm">
         <div class="col-12">
-
-
-
-
           <div class="row border-bottom border-gray">
             <div class="col-sm-6">
               <div class="text-muted pt-3">
@@ -236,26 +127,15 @@
               </div>
             </div>
           </div>
-
-
-
         </div>
       </div>
       <!-- /Styling -->
     </div>
   </div>
-
   <% end %>
-
-
-
-
-  <div class="row my-3 p-3 bg-white rounded shadow-sm">
-
-    <div class="d-block text-right mt-3">
-      <%= link_to("Add Restaurant", new_manager_restaurant_path) unless @restaurant %>
-      <%= link_to("Edit Restaurant", edit_manager_restaurant_path(@restaurant)) if @restaurant%>
+  <div class="row py-5">
+    <div class="col-md mt-3">
+      <%= link_to("Setup Restaurant", edit_manager_restaurant_path(@restaurant), class: "btn btn-primary") if @restaurant%>
     </div>
   </div>
-
-</main>
+</div>
