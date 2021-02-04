@@ -1,12 +1,8 @@
 class ConnectService < ApplicationController
 
-  # attr_accessor :name, :total_payment, :service_type, :collection_time, :telephone, :address
-
   def initialize(restaurant)
     @restaurant = restaurant
-
     Stripe.api_key = Rails.env == 'production' ? ENV['STRIPE_API_KEY'] : 'sk_test_hOj5WqYB26UV1v5uuqXsADSG'
-    @origin = Rails.env == 'development' ? 'http://localhost:3000' : request.headers['origin'] || "https://#{request.headers['host']}"
   end
 
   def create_account
@@ -25,23 +21,23 @@ class ConnectService < ApplicationController
 
     account_link = Stripe::AccountLink.create({
       account: account.id,
-      refresh_url: "#{@origin}/onboarding/restaurants/#{@restaurant.id}/connect",
-      return_url: "#{@origin}/onboarding/restaurants/#{@restaurant.id}/complete",
+      refresh_url: (Rails.env.development? ? "http://localhost:3000/onboarding/restaurants/#{@restaurant.id}/connect" : Rails.application.routes.url_helpers.onboarding_restaurant_connect_path(@restaurant)),
+      return_url: (Rails.env.development? ? "http://localhost:3000/onboarding/restaurants/#{@restaurant.id}/complete" : Rails.application.routes.url_helpers.onboarding_restaurant_complete_path(@restaurant)),
       type: 'account_onboarding',
-    })
+      })
+      
+      {
+        url: account_link.url,
+        account_id: account.id
+      }
+    end
     
-    {
-    url: account_link.url,
-    account_id: account.id
-    }
-  end
-  
-  def refresh_account(account_id)
-    account_link = Stripe::AccountLink.create({
-      account: account_id,
-      refresh_url: "#{@origin}/onboarding/restaurants/#{@restaurant.id}/connect",
-      return_url: "#{@origin}/onboarding/restaurants/#{@restaurant.id}/complete",
-      type: 'account_onboarding',
+    def refresh_account(account_id)
+      account_link = Stripe::AccountLink.create({
+        account: account_id,
+        refresh_url: (Rails.env.development? ? "http://localhost:3000/onboarding/restaurants/#{@restaurant.id}/connect" : Rails.application.routes.url_helpers.onboarding_restaurant_connect_path(@restaurant)),
+        return_url: (Rails.env.development? ? "http://localhost:3000/onboarding/restaurants/#{@restaurant.id}/complete" : Rails.application.routes.url_helpers.onboarding_restaurant_complete_path(@restaurant)),
+        type: 'account_onboarding',
       })
       
     url = account_link.url
