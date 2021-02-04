@@ -17,7 +17,10 @@
     <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Your restaurant</a>
   </li>
   <li class="nav-item d-inline-block text-center" role="presentation">
-    <a class="nav-link" id="finance-tab" data-toggle="tab" href="#finance" role="tab" aria-controls="finance" aria-selected="false">Admin</a>
+    <a class="nav-link" id="styling-tab" data-toggle="tab" href="#styling" role="tab" aria-controls="styling" aria-selected="false">Banding/Styling</a>
+  </li> 
+  <li class="nav-item d-inline-block text-center" role="presentation">
+    <a class="nav-link" id="finance-tab" data-toggle="tab" href="#finance" role="tab" aria-controls="finance" aria-selected="false">Financial Adminstration</a>
   </li>
   <%
 =begin%>
@@ -27,9 +30,6 @@
   <li class="nav-item" role="presentation">
     <a class="nav-link" id="tracking-tab" data-toggle="tab" href="#tracking" role="tab" aria-controls="tracking" aria-selected="false">Tracking</a>
   </li>
-  <li class="nav-item" role="presentation">
-    <a class="nav-link" id="styling-tab" data-toggle="tab" href="#styling" role="tab" aria-controls="styling" aria-selected="false">Styling</a>
-  </li> 
 <%
 =end%>
 </ul>
@@ -39,12 +39,12 @@
     <!-- Home -->
     <div class="row">
       <div class="col">
-        <div class="form-group ">
+        <div class="form-group card p-3 text-center d-block">
           <% if restaurant.image.attached? %>
-          <%= image_tag restaurant.image.variant(resize: "200x200"), class: "img-fluid text-center"  %>
+          <%= image_tag restaurant.image.variant(resize: "100x100"), class: "text-center w-auto"  %>
           <br />
           <% end %>
-          <%= form.label "Restaurant logo (Square shaped logo)" %>
+          <h5 class="pb-5">Restaurant logo (Square shaped logo)</h5>
           <br />
           <%= form.file_field :image %>
         </div>
@@ -102,11 +102,21 @@
   </div>
   <div class="tab-pane fade col-12 col-md-6 offset-md-3" id="finance" role="tabpanel" aria-labelledby="finance-tab">
     <!-- Finance -->
+    <% 
+      admin = params[:admin] == "true"
+    %>
+    <div class="row">
+      <div class="col">
+        <p class="py-3">
+          Please contact your EMenu account manager to configure this section
+        </p>
+      </div>
+    </div>
     <div class="row">
       <div class="col">
         <div class="form-group ">
           <%= form.label "URL Path" %>
-          <%= form.text_field :path, class: 'form-control  form-control-sm text-center' %>
+          <%= form.text_field :path, class: 'form-control  form-control-sm text-center', :disabled=>!admin %>
         </div>
       </div>
     </div>
@@ -114,7 +124,7 @@
       <div class="col">
         <div class="form-group ">
           <%= form.label :currency_id %>
-          <%= form.select :currency_id, options_for_select(Currency.all.map{|s| [s.name, s.id]}, restaurant.currency_id), {prompt: "Choose Currency"}, {class: 'form-control  form-control-sm text-center'} %>
+          <%= form.select :currency_id, options_for_select(Currency.all.map{|s| [s.name, s.id]}, restaurant.currency_id), {prompt: "Choose Currency"}, {class: 'form-control  form-control-sm text-center', :disabled=>!admin} %>
         </div>
       </div>
     </div>
@@ -122,7 +132,7 @@
       <div class="col">
         <div class="form-group ">
           <%= form.label "Stripe Connected Account ID" %>
-          <%= form.text_field :stripe_connected_account_id, class: 'form-control  form-control-sm text-center', rows: 10  %>
+          <%= form.text_field :stripe_connected_account_id, class: 'form-control  form-control-sm text-center', rows: 10, :disabled=>!admin  %>
         </div>
       </div>
     </div>
@@ -130,33 +140,49 @@
       <div class="col">
         <div class="form-group ">
           <label>Commission percentage e.g. 1.5</label>
-          <%= form.text_field :commision_percentage, class: 'form-control  form-control-sm text-center', rows: 10  %>
+          <%= form.text_field :commision_percentage, class: 'form-control  form-control-sm text-center', rows: 10, :disabled=>!admin  %>
         </div>
       </div>
     </div>
     <div class="row">
       <div class="col">
         <div class="form-group ">
-          <label>Stripe chargeback protection enabled</label>
-          <%= form.check_box :stripe_chargeback_enabled  %>
+          <label>Stripe chargeback protection enabled (0.04% extra charge)
+            <br />
+            <%= form.check_box :stripe_chargeback_enabled, class: 'text-center', :disabled=>!admin %>
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <div class="form-group ">
+          <label>Enable SEO indexing (show restaurant on EMenu listings)
+            <br />
+            <%= form.check_box :show_on_homepage, class: 'text-center', :disabled=>!admin %>
+          </label>
         </div>
       </div>
     </div>
     <!-- Finance -->
   </div>
-  <div class="tab-pane fade" id="settings" role="tabpanel" aria-labelledby="settings-tab">
+  <div class="tab-pane fade col-12 col-md-6 offset-md-3" id="settings" role="tabpanel" aria-labelledby="settings-tab">
     <!-- Settings -->
-    <div class="row">
+    <%
+=begin%>
+ <div class="row">
       <div class="col">
         <div class="form-group ">
-          <label for="restaurant_show_on_homepage">Show on eat.emenunow.com homepage</label>
+          <label for="restaurant_show_on_homepage"></label>
           <%= form.check_box :show_on_homepage, class: 'form-control  form-control-sm' %>
         </div>
       </div>
-    </div>
+    </div> 
+<%
+=end%>
     <!-- Settings -->
   </div>
-  <div class="tab-pane fade" id="tracking" role="tabpanel" aria-labelledby="tracking-tab">
+  <div class="tab-pane fade col-12 col-md-6 offset-md-3" id="tracking" role="tabpanel" aria-labelledby="tracking-tab">
     <!-- tracking -->
     <div class="row mt-2">
       <div class="col">
@@ -182,12 +208,65 @@
     </div>
     <!-- tracking -->
   </div>
-  <div class="tab-pane fade" id="styling" role="tabpanel" aria-labelledby="styling-tab">
+  <div class="tab-pane fade col-12 col-md-6 offset-md-3" id="styling" role="tabpanel" aria-labelledby="styling-tab">
     <!-- Styling -->
-    <div class="row mt-5 border-bottom border-gray">
+    <div class="row my-3 border-bottom border-gray card p-5">
+      <% 
+        subtle_background_list = [
+          {file: 'None', name: 'None'},
+          {file: 'wall4_@2X', name: 'Wall'},
+          {file: 'asfalt_@2X', name: 'Asfalt'},
+          {file: 'binding_light_@2X', name: 'Binding'},
+          {file: 'circles-light', name: 'Circles'},
+          {file: 'concrete-texture', name: 'Concrete'},
+          {file: 'dark_wall_@2X', name: 'Dark Wall'},
+          {file: 'debut_light_@2X', name: 'Debut Light'},
+          {file: 'furley_bg_@2X', name: 'Furley'},
+          {file: 'light-veneer', name: 'Light Veneer'},
+          {file: 'lightpaperfibers_@2X', name: 'Paper Fibres'},
+          {file: 'prism', name: 'Prism'},
+          {file: 'scribble_light_@2X', name: 'Scribble'},
+        ]
+      %>
+      <div class="col">
+        <div class="row">
+          <div class="col">
+            <div class="form-group ">
+              <h5 class="pb-5">Solid background colour</h5>
+              <p class='text-gray text-warning'><i> Choosing a solid background will override a custom background image</i></p>
+              <%= form.select :subtle_background,  options_for_select(subtle_background_list.map{|s| [s[:name], s[:file]]}, restaurant.subtle_background ), {prompt: "Choose solid background"}, {class: 'form-control  form-control-sm'} %>
+              <% content_for :js do %>
+              <script type="text/javascript">
+                $(".subtle-color").click(function () {
+                  $("#restaurant_subtle_background").val($(this).data("id"));
+                });
+              </script>
+              <% end %>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <div class="form-group ">
+              <div class="row">
+                <% subtle_background_list.each do |subtle| %>
+                <div class="subtle-color card col-md-3 col-4 p-0" style="cursor: pointer;" data-id="<%= subtle[:file] %>" id="subtle-color-<%=subtle[:name]%>">
+                  <%= image_tag "/background/#{subtle[:file]}.png", style: "min-height: 100%;", class: "img-fluid" if !subtle[:file].include?("None") %>
+                  <!--<div class="card-body">
+                    <p class="card-text"><small></small></p>
+                  </div>-->
+                </div>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-5 border-bottom border-gray card p-5">
       <div class="col">
         <div class="form-group ">
-          <%= form.label :background_image %>
+          <h5 class="pb-5">Custom Background Image</h5>
           <%= form.file_field :background_image %>
         </div>
       </div>
@@ -196,51 +275,6 @@
           <% if restaurant.background_image.attached? %>
           <%= image_tag restaurant.background_image.variant(resize: "200x200"), class: "img-fluid"  %>
           <% end %>
-        </div>
-      </div>
-    </div>
-    <% 
-      subtle_background_list = [
-        {file: 'None', name: 'None'},
-        {file: 'wall4_@2X', name: 'Wall'},
-        {file: 'asfalt_@2X', name: 'Asfalt'},
-        {file: 'binding_light_@2X', name: 'Binding'},
-        {file: 'circles-light', name: 'Circles'},
-        {file: 'concrete-texture', name: 'Concrete'},
-        {file: 'dark_wall_@2X', name: 'Dark Wall'},
-        {file: 'debut_light_@2X', name: 'Debut Light'},
-        {file: 'furley_bg_@2X', name: 'Furley'},
-        {file: 'light-veneer', name: 'Light Veneer'},
-        {file: 'lightpaperfibers_@2X', name: 'Paper Fibres'},
-        {file: 'prism', name: 'Prism'},
-        {file: 'scribble_light_@2X', name: 'Scribble'},
-      ]
-    %>
-    <div class="row my-3 border-bottom border-gray">
-      <div class="col">
-        <div class="row">
-          <div class="col">
-            <div class="form-group ">
-              <%= form.label :subtle_pattern_background %> <small class='text-gray text-warning'><i> WARNING: Choosing a subtle pattern background will override the uploaded image</i></small>
-              <%= form.select :subtle_background,  options_for_select(subtle_background_list.map{|s| [s[:name], s[:file]]}, restaurant.subtle_background ), {prompt: "Choose Subtle Background"}, {class: 'form-control  form-control-sm'} %>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col">
-            <div class="form-group ">
-              <div class="card-group">
-                <%subtle_background_list.reject{|a| a[:name]=="None"}.each do |subtle| %>
-                <div class="card" style="width: 12rem;">
-                  <%= image_tag "/background/#{subtle[:file]}.png", class: "img-fluid" %>
-                  <div class="card-body">
-                    <p class="card-text"><small><%=subtle[:name]%></small></p>
-                  </div>
-                </div>
-                <% end %>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </div>

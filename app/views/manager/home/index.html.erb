@@ -1,7 +1,8 @@
 <main role="main">
   <div class="jumbotron jumbotron-fluid">
-    <div class="container">
-      <h2 class="text-center text-dark">Welcome to <%= @restaurant.name %></h2>
+    <div class="container text-center">
+      <h2 class="text-dark">Welcome to <%= @restaurant.name %></h2>
+      <p>Manage your account here</p>
     </div>
   </div>
 </main>
@@ -11,38 +12,75 @@
     <div class="col-lg-6">
       <div class="card p-3 mb-5 bg-white rounded">
         <div class="card-body text-center">
-          <%= link_to("Restaurant Configuration", manager_restaurant_path(@restaurant), class: "nav-link") %>
+          <%= link_to manager_restaurant_path(@restaurant), class: "nav-link" do %>
+            <%= image_tag "icons/ecom.svg", :style=>"height:50px;" %>
+            <span class="px-3">Restaurant Configuration</span>
+          <% end %>
         </div>
       </div>
     </div>
     <div class="col-lg-6">
       <div class="card p-3 mb-5 bg-white rounded">
         <div class="card-body text-center">
-          <%= link_to("Menu Control", manager_restaurant_menus_path(@restaurant), class: "nav-link") %>
+          <%= link_to manager_restaurant_menus_path(@restaurant), class: "nav-link" do %>
+            <%= image_tag "icons/menu.svg", :style=>"height:50px;" %>
+            <span class="px-3">Menu Control</span>
+          <% end %>
         </div>
       </div>
     </div>
     <div class="col-lg-6">
       <div class="card p-3 mb-5 bg-white rounded">
         <div class="card-body text-center">
-          <%= link_to("Table service", manager_live_tables_path(@restaurant), class: "nav-link") %>
+          <%= link_to manager_live_tables_path(@restaurant), class: "nav-link" do %>
+            <%= image_tag "icons/round-table.svg", :style=>"height:50px;" %>
+            <span class="px-3">Table service</span>
+          <% end %>
         </div>
       </div>
     </div>
     <div class="col-lg-6">
       <div class="card p-3 mb-5 bg-white rounded">
         <div class="card-body text-center">
-          <%= link_to("Live Orders", manager_live_orders_path(@restaurant), class: "nav-link") %>
+          <%= link_to manager_live_orders_path(@restaurant), class: "nav-link" do %>
+            <%= image_tag "icons/monitor.svg", :style=>"height:50px;" %>
+            <span class="px-3">Live Orders</span>
+          <% end %>
         </div>
       </div>
     </div>
     <div class="col-lg-6">
       <div class="card p-3 mb-5 bg-white rounded">
         <div class="card-body text-center">
-          <%= link_to("QR Codes", qr_manager_restaurant_restaurant_tables_path(@restaurant), class: "nav-link") %>
+          <%= link_to qr_manager_restaurant_restaurant_tables_path(@restaurant), class: "nav-link" do %>
+            <%= image_tag "icons/qr-code.svg", :style=>"height:50px;" %>
+            <span class="px-3">QR Codes</span>
+          <% end %>
         </div>
       </div>
     </div>
+    <div class="col-lg-6">
+      <div class="card p-3 mb-5 bg-white rounded">
+        <div class="card-body text-center">
+          <%= link_to manager_discount_codes_path(@restaurant), class: "nav-link" do %>
+            <%= image_tag "icons/bill.svg", :style=>"height:50px;" %>
+            <span class="px-3">Discount Codes</span>
+          <% end %>
+        </div>
+      </div>
+    </div>
+    <% if current_manager_restaurant_user.admin %>
+      <div class="col-lg-6">
+        <div class="card p-3 mb-5 bg-white rounded">
+          <div class="card-body text-center">
+            <%= link_to manager_administrations_path, class: "nav-link" do %>
+              <%= image_tag "icons/bill.svg", :style=>"height:50px;" %>
+              <span class="px-3">Admin: Global Adminstration</span>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    <% end %>
     <% else %>
     <div class="col-lg-6">
       <div class="card p-3 mb-5 bg-white rounded">

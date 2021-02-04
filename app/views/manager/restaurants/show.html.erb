@@ -18,6 +18,11 @@
         EMenu Commission: <%= @restaurant.commision_percentage %>% |
         Chargeback Protection: <%= @restaurant.stripe_chargeback_enabled ? "0.04% of sale" : "No" %>
       </p>
+      <div class="row py-5">
+        <div class="col-md mt-3">
+          <%= link_to("Change the above details >", edit_manager_restaurant_path(@restaurant), class: "btn btn-primary") if @restaurant%>
+        </div>
+      </div>
     </div>
   </div>
 </main>
@@ -28,11 +33,11 @@
     <li class="nav-item d-inline-block text-center" role="presentation">
       <a class="nav-link active" id="settings-tab" data-toggle="tab" href="#settings" role="tab" aria-controls="settings" aria-selected="false">Feature Customisations</a>
     </li>
-    <%
-=begin%>
  <li class="nav-item d-inline-block text-center" role="presentation">
       <a class="nav-link" id="styling-tab" data-toggle="tab" href="#styling" role="tab" aria-controls="styling" aria-selected="false">Restaurant Branding</a>
     </li>
+    <%
+=begin%>
     <li class="nav-item d-inline-block text-center" role="presentation">
       <a class="nav-link" id="tracking-tab" data-toggle="tab" href="#tracking" role="tab" aria-controls="settings" aria-selected="false">Analytics</a>
     </li> 
@@ -43,6 +48,11 @@
   <div class="tab-content container" id="myTabContent">
     <div class="card tab-pane fade show active py-3" id="settings" role="tabpanel" aria-labelledby="settings-tab">
       <!-- Settings -->
+      <div class="row py-5">
+        <div class="col-md mt-3">
+          <p>Quickly enable or disable restaurant functionality</p>
+        </div>
+      </div>
       <div class="p-3 bg-white rounded">
         <div class="col-12">
           <div class="row">
@@ -107,14 +117,14 @@
     </div>
     <div class="card tab-pane fade show" id="styling" role="tabpanel" aria-labelledby="styling-tab">
       <!-- Styling -->
-      <div class="row  p-3 bg-white rounded shadow-sm">
+      <div class=" p-3 bg-white rounded shadow-sm">
         <div class="col-12">
-          <div class="row border-bottom border-gray">
+          <div class="row py-5">
             <div class="col-sm-6">
               <div class="text-muted pt-3">
                 <p class="pb-3 mb-0 lh-125 ">
                   <strong class="d-block text-gray-dark">Background Image</strong>
-                  <%= image_tag @restaurant.background_image.variant(resize: "200x200"), class: "img-fluid" if @restaurant.background_image.attached?  %>
+                  <%= @restaurant.background_image.attached? ? (image_tag @restaurant.background_image.variant(resize: "200x200"), class: "img-fluid") : "You have no image uploaded" %>
                 </p>
               </div>
             </div>
@@ -122,9 +132,14 @@
               <div class="text-muted pt-3">
                 <p class="pb-3 mb-0 lh-125 ">
                   <strong class="d-block text-gray-dark">Subtle Background Image</strong>
-                  <%= image_tag "/background/#{@restaurant.subtle_background}.png", class: "img-fluid", width: '200' if @restaurant.subtle_background.present? and @restaurant.subtle_background != 'None'  %>
+                  <%= @restaurant.subtle_background.present? && @restaurant.subtle_background != 'None' ? (image_tag "/background/#{@restaurant.subtle_background}.png", class: "img-fluid", width: '200') : "You have no image uploaded"  %>
                 </p>
               </div>
+            </div>
+          </div>
+          <div class="row py-5">
+            <div class="col-md mt-3">
+              <%= link_to("Change the above details >", edit_manager_restaurant_path(@restaurant), class: "btn btn-primary") if @restaurant%>
             </div>
           </div>
         </div>
@@ -133,9 +148,4 @@
     </div>
   </div>
   <% end %>
-  <div class="row py-5">
-    <div class="col-md mt-3">
-      <%= link_to("Setup Restaurant", edit_manager_restaurant_path(@restaurant), class: "btn btn-primary") if @restaurant%>
-    </div>
-  </div>
 </div>
