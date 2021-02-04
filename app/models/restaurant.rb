@@ -50,17 +50,20 @@ class Restaurant < ApplicationRecord
   end
 
   def stripe_sk_api_key
-    Rails.env == 'production' ? ENV['STRIPE_API_KEY'] : 'sk_test_hOj5WqYB26UV1v5uuqXsADSG'
+    if stripe_chargeback_enabled
+      Rails.env == 'production' ? ENV['STRIPE_PRO_API_KEY'] : 'sk_test_51IEEKiJyyGTIkLikMKhhmkTY4raz9JHFXp9qiQYwvJNRviHXdBqwpIez4Kva9vtbw6iMaT5qZML5vvGAK1n71i0c0013EXKJPf'
+    else
+      Rails.env == 'production' ? ENV['STRIPE_API_KEY'] : 'sk_test_hOj5WqYB26UV1v5uuqXsADSG'
+    end
   end
   
   def stripe_pk_api_key
-    Rails.env == 'production' ? ENV['STRIPE_PK_API_KEY'] : 'pk_test_WK72bUcdjoVsncoNFQGrFkcv'
-  end
-
-  def stripe_connected_account_id
-    Rails.env == 'production' ? super : 'acct_1HFMjjEdU8EUcuyG'
-  end
-  
+    if stripe_chargeback_enabled
+      Rails.env == 'production' ? ENV['STRIPE_PRO_PK_API_KEY'] : 'pk_test_51IEEKiJyyGTIkLikJM25yV1oCLrbVhvDwWRXfvtDG3AZlXWvMmzusQQLUajhKyHezbGugPkI25j1qGCYIlwddvBq00lYPYNmZn'
+    else
+      Rails.env == 'production' ? ENV['STRIPE_PK_API_KEY'] : 'pk_test_WK72bUcdjoVsncoNFQGrFkcv'
+    end
+  end  
     
   def set_slug
     if slug.blank? 
