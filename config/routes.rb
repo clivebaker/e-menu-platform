@@ -143,6 +143,7 @@ Rails.application.routes.draw do
       end
       post 'add_feature/:feature_id', action: :add_feature, as: :add_feature
       post 'remove_feature/:feature_id', action: :remove_feature, as: :remove_feature
+      post 'toggle_feature/:feature_id', action: :toggle_feature, as: :toggle_feature
       get 'active', action: :active
       post 'toggle_active', action: :toggle_active
       post 'add_template', action: :add_template
@@ -166,6 +167,26 @@ Rails.application.routes.draw do
       sessions: 'manager/restaurant_users/sessions',
       registrations: 'manager/restaurant_users/registrations',
       passwords: 'manager/restaurant_users/passwords'
+    }
+  end
+
+  namespace :onboarding do
+    resources :restaurants do
+      get 'services'
+      get 'connect'
+      get 'complete'
+      post 'toggle_feature/:feature_id', action: :toggle_feature, as: :toggle_feature
+      post 'dashboard_login', action: :dashboard_login, as: :dashboard_login
+    end
+    
+    get 'start', to: 'home#start'
+    get 'continue', to: 'home#continue'
+    patch 'agree', to: 'home#tos_agree'
+
+    devise_for :restaurant_users, path: '/', controllers: {
+      sessions: 'onboarding/restaurant_users/sessions',
+      registrations: 'onboarding/restaurant_users/registrations',
+      passwords: 'onboarding/restaurant_users/passwords'
     }
   end
 
