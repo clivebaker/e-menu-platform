@@ -25,7 +25,7 @@ module Onboarding
       
       respond_to do |format|
         if @restaurant.save
-          format.html { redirect_to onboarding_restaurant_services_path(@restaurant), notice: 'Restaurant was successfully created.' }
+          format.html { redirect_to onboarding_restaurant_services_path(@restaurant), notice: 'Business was successfully created.' }
           format.json { render :show, status: :created, location: @restaurant }
         else
           format.html { render :new }
@@ -41,7 +41,7 @@ module Onboarding
     def update
       respond_to do |format|
         if @restaurant.update(restaurant_params)
-          format.html { redirect_to onboarding_restaurant_services_path(@restaurant), notice: 'Restaurant was successfully updated.' }
+          format.html { redirect_to onboarding_restaurant_services_path(@restaurant), notice: 'Business was successfully updated.' }
           format.json { render :show, status: :ok, location: @restaurant }
         else
           format.html { render :edit }

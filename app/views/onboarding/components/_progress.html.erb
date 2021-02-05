@@ -58,10 +58,10 @@
         
         <% if current_onboarding_restaurant_user && !@progress[:restaurant]&.include?("current") && !(action_name == 'complete') && !@progress[:connect]&.include?("complete") %>
           <li id="restaurant-stage" class="link">
-            <%= link_to 'Create your restaurant', onboarding_continue_path, class: @progress[:restaurant] if @progress  %>
+            <%= link_to 'Set up your business', onboarding_continue_path, class: @progress[:restaurant] if @progress  %>
           </li>
         <% else %>
-          <li id="restaurant-stage" class="<%= @progress[:restaurant] if @progress %>">Create your restaurant</li>
+          <li id="restaurant-stage" class="<%= @progress[:restaurant] if @progress %>">Set up your business</li>
         <% end %>
 
         <% if @restaurant&.persisted? && !@progress[:services]&.include?("current") && !(action_name == 'complete') && !@progress[:connect]&.include?("complete") %>
