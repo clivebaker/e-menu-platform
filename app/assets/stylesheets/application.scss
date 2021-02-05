@@ -49,6 +49,7 @@ code {
 
 body {
  margin-top: 48px;
+ overscroll-behavior: none;
 
  font-family: var(--emenu-font-primary);
 
@@ -395,8 +396,14 @@ ul ul a {
  & h4,
  & .h4,
  & h5,
- & .h5 {
+ & .h5,
+ & small {
   font-weight: 300 !important;
+ }
+
+ & .restaurant-path {
+   font-size: 1em;
+   font-size: clamp(0.75em, 5vw, 2.5em)
  }
 
  & a {
@@ -730,6 +737,22 @@ footer {
 
  top: 100px;
  z-index: 1100;
+}
+
+.asterisk-after:after {
+ content: "*";
+}
+
+.asterisk-2-after:after {
+ content: "**";
+}
+
+.asterisk-before:before {
+ content: "*";
+}
+
+.asterisk-2-before:before {
+ content: "**";
 }
 
 // .menu-sub-nav {
