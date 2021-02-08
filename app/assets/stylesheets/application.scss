@@ -1030,6 +1030,14 @@ div.scrollmenu::-webkit-scrollbar {
   left: 8px;
   background-size: 14px 14px;
  }
+
+ & [type="checkbox"]:disabled + label span:last-child {
+  background: var(--emenu-lighter);
+ }
+
+ & [type="checkbox"]:checked:disabled + label span:last-child {
+  background: rgba(40,167,69,0.4);
+ }
 }
 
 .onboarding-layout {

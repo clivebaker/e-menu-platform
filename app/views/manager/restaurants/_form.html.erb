@@ -198,41 +198,105 @@ collection = restaurant.features.where(id: 12).present?
   <div class="tab-pane fade" id="settings" role="tabpanel" aria-labelledby="settings-tab">
     <!-- Settings -->
 
-    <div class="row">
-      <div class="col-sm">
-        <h5>Services</h5>
-        <ul class="switches">
-        
-        <% @features[8..12].each do |feature|%>
+  <% if params[:admin] == "true" %>
 
-          <li class="my-3">
-            <%= check_box_tag dom_id(feature), feature.id, @restaurant.features.include?(feature), data: {
-                              remote: true,
-                              url: manager_restaurant_toggle_feature_path(@restaurant.id, feature.id),
-                              method: :post
-                              } %>
-            <label for="feature_<%= feature.id %>">
-              <span><%=feature.name%></span>
-              <span></span>
-            </label>
-          </li>
+  <div class="row">
+    <div class="col-sm">
+      <h5>Services - Admin</h5>
+      <ul class="switches">
+      
+      <% @features.each do |feature|%>
 
-        <% end %>
+        <li class="my-3">
+          <%= check_box_tag dom_id(feature), feature.id, @restaurant.features.include?(feature), data: {
+                            remote: true,
+                            url: manager_restaurant_toggle_feature_path(@restaurant.id, feature.id),
+                            method: :post
+                            } %>
+          <label for="feature_<%= feature.id %>">
+            <span><%=feature.name%></span>
+            <span></span>
+          </label>
+        </li>
 
-        </ul>
+      <% end %>
 
+      </ul>
+
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <div class="form-group ">
+        <label for="restaurant_ssubscription_enabled">Subscription Enabled</label>
+
+        <%= form.check_box :subscription_enabled, class: 'form-control  form-control-sm' %>
       </div>
     </div>
+  </div>
 
-    <div class="row">
-      <div class="col">
-        <div class="form-group ">
-          <label for="restaurant_show_on_homepage">Show on eat.emenunow.com homepage</label>
+  <% else %>
 
-          <%= form.check_box :show_on_homepage, class: 'form-control  form-control-sm' %>
-        </div>
+  <div class="row">
+    <div class="col-sm">
+      <h5>Services</h5>
+      <ul class="switches">
+      
+      <% @services.each do |feature|%>
+
+        <li class="my-3">
+          <%= check_box_tag dom_id(feature), feature.id, @restaurant.features.include?(feature), data: {
+                            remote: true,
+                            url: manager_restaurant_toggle_feature_path(@restaurant.id, feature.id),
+                            method: :post
+                            } %>
+          <label for="feature_<%= feature.id %>">
+            <span><%=feature.name%></span>
+            <span></span>
+          </label>
+        </li>
+
+      <% end %>
+
+      </ul>
+
+    </div>
+  </div>
+
+  <% checkout_toggle = @features.where(key: 'checkout').first %>
+
+  <div class="row">
+    <div class="col-sm">
+      <hr>
+      <ul class="switches">
+        <li class="my-3">
+          <%= check_box_tag dom_id(checkout_toggle), checkout_toggle.id, @restaurant.features.include?(checkout_toggle), data: {
+                            remote: true,
+                            url: manager_restaurant_toggle_feature_path(@restaurant.id, checkout_toggle.id),
+                            method: :post
+                            }, disabled: !@restaurant.subscription_enabled %>
+          <label for="feature_<%= checkout_toggle.id %>">
+            <span><%=checkout_toggle.name%></span>
+            <span></span>
+          </label>
+        </li>
+      </ul>
+
+    </div>
+  </div>
+  
+  <% end %>
+
+  <div class="row">
+    <div class="col">
+      <div class="form-group ">
+        <label for="restaurant_show_on_homepage">Show on eat.emenunow.com homepage</label>
+
+        <%= form.check_box :show_on_homepage, class: 'form-control  form-control-sm' %>
       </div>
     </div>
+  </div>
 
 
     <!-- Settings -->
