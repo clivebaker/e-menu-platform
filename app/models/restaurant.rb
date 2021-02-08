@@ -36,7 +36,7 @@ class Restaurant < ApplicationRecord
 
   before_create :set_slug
 
-  after_initialize :default_features
+  after_create :default_features
 
   has_one_attached :image
   has_one_attached :background_image
@@ -171,9 +171,10 @@ class Restaurant < ApplicationRecord
   private
 
   def default_features
-    self.features |= Feature.find([1,8])
+    self.features |= Feature.find([1,8,13])
     # 1 = Images
     # 8 = Menu in Sections
+    # 13 = Checkout
   end
 
 end
