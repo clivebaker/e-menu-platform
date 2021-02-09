@@ -113,7 +113,7 @@
 </script>
 <% end %>
 <div class="container-fluid">
-  <% if !@restaurant.is_open %>
+  <% if !@restaurant.is_open and enable_checkout?(@restaurant) %>
     <% if is_takeaway?(@restaurant) or is_delivery?(@restaurant) %>
       <div class="row">
         <div class="col text-warning text-center border border-warning">
@@ -129,10 +129,10 @@
     <% end %>
   <% end %>
 
-  <% if @restaurant.is_open and @restaurant.is_closing < 30 and is_tableservice?(@restaurant) %>
+  <% if @restaurant.is_open and (@restaurant.is_closing < @restaurant.opening_time.delay_time_minutes) %>
     <div class="row">
       <div class="col text-warning text-center border border-warning">
-        The Kitchen is closing in <%= @restaurant.is_closing%> minutes<% if (is_takeaway?(@restaurant) or is_delivery?(@restaurant)) and @restaurant.is_closing < @restaurant.opening_time.delay_time_minutes %>, but you can still order takeaway for next available open time <% end %>
+        The Kitchen is closing in <%= @restaurant.is_closing%> minutes<% if (is_takeaway?(@restaurant) or is_delivery?(@restaurant)) and (@restaurant.is_closing < @restaurant.opening_time.delay_time_minutes) and enable_checkout?(@restaurant) %>, but you can still order takeaway for next available open time <% end %>
       </div>
     </div>
   <% end %>
@@ -148,7 +148,7 @@
 
 <%= render 'all' if @restaurant.blank? %>
 <% if feature_match('menu_in_sections', @restaurant.features) %>
-<%= render 'restaurants/components/sections/restaurant_auto', menu: @menu2 if @restaurant.present? %>
+  <%= render 'restaurants/components/sections/restaurant_auto', menu: @menu2 if @restaurant.present? %>
 <% else %>
-<%= render 'restaurants/components/restaurant_auto', menu: @menu2 if @restaurant.present? %>
+  <%= render 'restaurants/components/restaurant_auto', menu: @menu2 if @restaurant.present? %>
 <% end %>
