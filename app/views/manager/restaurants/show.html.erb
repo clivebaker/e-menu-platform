@@ -213,7 +213,7 @@
                                     method: :post
                                     }, disabled: !@restaurant.subscription_enabled %>
                   <label for="feature_<%= checkout_toggle.id %>">
-                    <span><%=checkout_toggle.name%></span>
+                    <span><%= checkout_toggle.name %> <small class="text-muted">(Accept orders & payments)</small></span>
                     <span></span>
                   </label>
                 </li>
