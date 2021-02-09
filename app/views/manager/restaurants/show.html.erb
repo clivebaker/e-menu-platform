@@ -144,6 +144,36 @@
       <div class="row my-3 p-3 bg-white rounded shadow-sm">
         <div class="col-12">
 
+          <% if params[:admin] == "true" %>
+
+          <div class="row">
+            <div class="col-sm">
+              <h5>Services - Admin</h5>
+              <ul class="switches">
+              
+              <% @features.each do |feature|%>
+
+                <li class="my-3">
+                  <%= check_box_tag dom_id(feature), feature.id, @restaurant.features.include?(feature), data: {
+                                    remote: true,
+                                    url: manager_restaurant_toggle_feature_path(@restaurant.id, feature.id),
+                                    method: :post
+                                    } %>
+                  <label for="feature_<%= feature.id %>">
+                    <span><%=feature.name%></span>
+                    <span></span>
+                  </label>
+                </li>
+
+              <% end %>
+
+              </ul>
+
+            </div>
+          </div>
+
+          <% else %>
+
           <div class="row">
             <div class="col-sm">
               <h5>Services</h5>
@@ -169,30 +199,29 @@
 
             </div>
           </div>
-          
-          <% if params[:admin] == "true" %>
 
-            <div class="row">
-              <div class="col-sm">
-                <ul>
-                  <h5>Assigned Features</h5>
-                  <% @restaurant.features.each do |feature|%>
-                  <div><%= link_to manager_restaurant_remove_feature_path(@restaurant.id, feature.id), method: :post do %>
-                    <span class="badge badge-dark mr-1"><%=feature.name%></span><i class="fas fa-minus-square"></i><% end %></div>
-                  <% end %>
-                </ul>
-              </div>
-              <div class="col-sm">
-                <ul>
-                  <h5>Available Features</h5>
-                  <% @features.reject{|a| @restaurant.features.map{|b| b.id}.include?(a.id)}.each do |feature|%>
-                  <div><%= link_to manager_restaurant_add_feature_path(@restaurant.id, feature.id), method: :post  do %>
-                    <span class="badge badge-dark mr-1"><%=feature.name%></span><i class="fas fa-plus-square"></i><% end %></div>
-                  <% end %>
-                </ul>
-              </div>
+          <% checkout_toggle = @features.where(key: 'checkout').first %>
+
+          <div class="row">
+            <div class="col-sm">
+              <hr>
+              <ul class="switches">
+                <li class="my-3">
+                  <%= check_box_tag dom_id(checkout_toggle), checkout_toggle.id, @restaurant.features.include?(checkout_toggle), data: {
+                                    remote: true,
+                                    url: manager_restaurant_toggle_feature_path(@restaurant.id, checkout_toggle.id),
+                                    method: :post
+                                    }, disabled: !@restaurant.subscription_enabled %>
+                  <label for="feature_<%= checkout_toggle.id %>">
+                    <span><%= checkout_toggle.name %> <small class="text-muted">(Accept orders & payments)</small></span>
+                    <span></span>
+                  </label>
+                </li>
+              </ul>
+
             </div>
-
+          </div>
+          
           <% end %>
 
           <!--<div class="row">
