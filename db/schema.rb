@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_08_164352) do
+ActiveRecord::Schema.define(version: 2021_02_10_180844) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -80,6 +80,7 @@ ActiveRecord::Schema.define(version: 2021_02_08_164352) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "cloned_from"
+    t.boolean "available", default: true
     t.index ["custom_list_id"], name: "index_custom_list_items_on_custom_list_id"
   end
 

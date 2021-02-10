@@ -3,7 +3,7 @@
 module Manager
 
 class CustomListsController < Manager::BaseController
-   before_action :authenticate_manager_restaurant_user!
+  before_action :authenticate_manager_restaurant_user!
   before_action :set_custom_list, only: [:show, :edit, :update, :destroy]
   before_action :set_restaurant
 
@@ -29,22 +29,20 @@ class CustomListsController < Manager::BaseController
   end
 
   def up
-
     @restaurant = Restaurant.find(params[:restaurant_id])
     @custom_list = CustomList.find(params[:custom_list_id])
     @custom_list.move_higher
     @custom_list.save
     redirect_to manager_restaurant_custom_lists_path(@restaurant)
   end
-  def down
 
+  def down
     @restaurant = Restaurant.find(params[:restaurant_id])
     @custom_list = CustomList.find(params[:custom_list_id])
     @custom_list.move_lower
     @custom_list.save
     redirect_to manager_restaurant_custom_lists_path(@restaurant)
   end
-
 
   # POST /custom_lists
   # POST /custom_lists.json
@@ -98,12 +96,10 @@ class CustomListsController < Manager::BaseController
       @custom_list = CustomList.find(params[:id])
     end
 
-
-
     # Never trust parameters from the scary internet, only allow the white list through.
     def custom_list_params
       params.require(:custom_list).permit(:name, :restaurant_id, :constraint)
     end
-end
+  end
 
 end

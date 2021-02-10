@@ -3,10 +3,11 @@
 module Manager
 
 class CustomListItemsController < Manager::BaseController
-   before_action :authenticate_manager_restaurant_user!
+  before_action :authenticate_manager_restaurant_user!
   before_action :set_custom_list_item, only: [:show, :edit, :update, :destroy]
   before_action :set_restaurant
   before_action :set_custom_list
+  
   # GET /custom_list_items
   # GET /custom_list_items.json
   def index
@@ -72,17 +73,15 @@ class CustomListItemsController < Manager::BaseController
     def set_custom_list_item
       @custom_list_item = CustomListItem.find(params[:id])
     end
+
     def set_custom_list
       @custom_list = CustomList.find(params[:custom_list_id])
     end
 
-
-
     # Never trust parameters from the scary internet, only allow the white list through.
     def custom_list_item_params
-      params.require(:custom_list_item).permit(:name, :custom_list_id, :price, :description)
+      params.require(:custom_list_item).permit(:name, :custom_list_id, :price, :description, :available)
     end
-end
-
+  end
 
 end
