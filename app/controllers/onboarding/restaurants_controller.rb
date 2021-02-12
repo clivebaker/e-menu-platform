@@ -94,7 +94,7 @@ module Onboarding
       @restaurant_user = RestaurantUser.find(params[:restaurant_user_id])
       @restaurant_user.reload
       sign_in(@restaurant_user)
-      redirect_to manager_home_dashboard_path
+      redirect_to manager_home_index_path
     end
     
     private
