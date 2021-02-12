@@ -58,6 +58,7 @@ gem 'sidekiq'
 gem 'yandex-translator'
 gem 'mini_racer'
 gem 'rb-readline'
+gem 'image_processing', '~> 1.0'
 
 gem 'mailjet'
 gem "webpacker"
