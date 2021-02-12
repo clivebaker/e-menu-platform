@@ -68,7 +68,11 @@ class CustomListsController < Manager::BaseController
 
     Rails.cache.delete("api/restaurant/#{@restaurant.id}/menu")
     Rails.cache.delete("restaurant_order_menu_#{@restaurant.id}")
-
+    
+    Rails.cache.delete("custom_list_constraint_#{@custom_list.id}")
+    Rails.cache.delete("custom_list_#{@custom_list.id}")
+    Rails.cache.delete("custom_list_name_#{@custom_list.id}")
+    
     respond_to do |format|
       if @custom_list.update(custom_list_params)
         format.html { redirect_to manager_restaurant_custom_list_path(@restaurant, @custom_list), notice: 'Custom list was successfully updated.' }
@@ -79,10 +83,17 @@ class CustomListsController < Manager::BaseController
       end
     end
   end
-
+  
   # DELETE /custom_lists/1
   # DELETE /custom_lists/1.json
   def destroy
+    
+    Rails.cache.delete("api/restaurant/#{@restaurant.id}/menu")
+    Rails.cache.delete("restaurant_order_menu_#{@restaurant.id}")
+    
+    Rails.cache.delete("custom_list_#{@custom_list.id}")
+    Rails.cache.delete("custom_list_name_#{@custom_list.id}")
+
     @custom_list.destroy
     respond_to do |format|
       format.html { redirect_to manager_restaurant_custom_lists_path(@restaurant), notice: 'Custom list was successfully destroyed.' }

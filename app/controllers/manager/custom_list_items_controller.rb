@@ -47,6 +47,14 @@ class CustomListItemsController < Manager::BaseController
   # PATCH/PUT /custom_list_items/1
   # PATCH/PUT /custom_list_items/1.json
   def update
+    
+    Rails.cache.delete("api/restaurant/#{@restaurant.id}/menu")
+    Rails.cache.delete("restaurant_order_menu_#{@restaurant.id}")
+
+    Rails.cache.delete("custom_list_item_#{@custom_list_item.id}")
+    Rails.cache.delete_matched("custom_list_items*-#{@custom_list_item.id}-*")
+    Rails.cache.delete("custom_list_#{@custom_list.id}")
+    
     respond_to do |format|
       if @custom_list_item.update(custom_list_item_params)
         format.html { redirect_to manager_restaurant_custom_list_path(@restaurant, @custom_list), notice: 'Custom list item was successfully updated.' }
@@ -57,10 +65,18 @@ class CustomListItemsController < Manager::BaseController
       end
     end
   end
-
+  
   # DELETE /custom_list_items/1
   # DELETE /custom_list_items/1.json
   def destroy
+    
+    Rails.cache.delete("api/restaurant/#{@restaurant.id}/menu")
+    Rails.cache.delete("restaurant_order_menu_#{@restaurant.id}")
+    
+    Rails.cache.delete("custom_list_item_#{@custom_list_item.id}")
+    Rails.cache.delete("custom_list_#{@custom_list.id}")
+
+    clear_list_item(@custom_list.id, @custom_list_item.id)
     @custom_list_item.destroy
     respond_to do |format|
       format.html { redirect_to manager_restaurant_custom_list_path(@restaurant, @custom_list), notice: 'Custom list item was successfully destroyed.' }
@@ -82,6 +98,16 @@ class CustomListItemsController < Manager::BaseController
     def custom_list_item_params
       params.require(:custom_list_item).permit(:name, :custom_list_id, :price, :description, :available)
     end
+
+    def clear_list_item(list_id, list_item_id)
+      query = Menu.where("custom_lists -> '#{list_id}' ? '#{list_item_id}'")
+      query.each do |h|
+        h.custom_lists["#{list_id}"].delete("#{list_item_id}")
+        h.custom_lists.delete("#{list_id}") if h.custom_lists["#{list_id}"].length == 0
+        h.save
+      end
+    end
+
   end
 
 end
