@@ -13,7 +13,7 @@ class Restaurant < ApplicationRecord
   has_many :restaurant_tables
   has_many :discount_codes
   has_many :custom_lists, -> { order(position: :asc) }
-  has_and_belongs_to_many :features
+  has_and_belongs_to_many :features, -> { distinct }
   has_and_belongs_to_many :template
 
   # has_many :tables, through: :restaurant_tables
@@ -35,6 +35,8 @@ class Restaurant < ApplicationRecord
   delegate :name, :code, :symbol, to: :currency, prefix: true
 
   before_create :set_slug
+
+  after_create :default_features
 
   has_one_attached :image
   has_one_attached :background_image
@@ -166,6 +168,13 @@ class Restaurant < ApplicationRecord
     delivery_time_options
   end
 
+  private
 
+  def default_features
+    self.features |= Feature.find([1,8,13])
+    # 1 = Images
+    # 8 = Menu in Sections
+    # 13 = Checkout
+  end
 
 end

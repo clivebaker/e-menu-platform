@@ -11,6 +11,12 @@
 </div>
 <% end %>
 <%= form.hidden_field :restaurant_user_id %>
+<% 
+table_service = restaurant.features.where(id: 9).present?
+delivery = restaurant.features.where(id: 10).present?
+table_takeaway = restaurant.features.where(id: 11).present?
+collection = restaurant.features.where(id: 12).present?
+%>
 <!-- Tabs -->
 <ul class="nav nav-tabs d-inline-block text-center" id="myTab" role="tablist">
   <li class="nav-item d-inline-block text-center" role="presentation">
@@ -115,16 +121,10 @@
     <div class="row">
       <div class="col">
         <div class="form-group ">
-          <%= form.label "URL Path" %>
-          <%= form.text_field :path, class: 'form-control  form-control-sm text-center', :disabled=>!admin %>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col">
-        <div class="form-group ">
-          <%= form.label :currency_id %>
-          <%= form.select :currency_id, options_for_select(Currency.all.map{|s| [s.name, s.id]}, restaurant.currency_id), {prompt: "Choose Currency"}, {class: 'form-control  form-control-sm text-center', :disabled=>!admin} %>
+          <%= link_to("Connect stripe", @connect, class: "d-inline-block btn btn-warning#{' disabled' if @account[:details_submitted] && @account[:charges_enabled]}") %>
+          <% if @account[:details_submitted] && @account[:charges_enabled] %>
+            <strong class="d-inline-block text-gray-dark">Stripe connection <span class="badge badge-pill badge-success">Complete</span></strong>
+          <% end %>
         </div>
       </div>
     </div>
@@ -141,6 +141,22 @@
         <div class="form-group ">
           <label>Commission percentage e.g. 1.5</label>
           <%= form.text_field :commision_percentage, class: 'form-control  form-control-sm text-center', rows: 10, :disabled=>!admin  %>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <div class="form-group ">
+          <%= form.label "URL Path" %>
+          <%= form.text_field :path, class: 'form-control  form-control-sm text-center', :disabled=>!admin %>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <div class="form-group ">
+          <%= form.label :currency_id %>
+          <%= form.select :currency_id, options_for_select(Currency.all.map{|s| [s.name, s.id]}, restaurant.currency_id), {prompt: "Choose Currency"}, {class: 'form-control  form-control-sm text-center', :disabled=>!admin} %>
         </div>
       </div>
     </div>
@@ -168,18 +184,108 @@
   </div>
   <div class="tab-pane fade col-12 col-md-6 offset-md-3" id="settings" role="tabpanel" aria-labelledby="settings-tab">
     <!-- Settings -->
-    <%
-=begin%>
- <div class="row">
-      <div class="col">
-        <div class="form-group ">
-          <label for="restaurant_show_on_homepage"></label>
-          <%= form.check_box :show_on_homepage, class: 'form-control  form-control-sm' %>
-        </div>
+
+  <% if params[:admin] == "true" %>
+
+  <div class="row">
+    <div class="col-sm">
+      <h5>Services - Admin</h5>
+      <ul class="switches">
+      
+      <% @features.each do |feature|%>
+
+        <li class="my-3">
+          <%= check_box_tag dom_id(feature), feature.id, @restaurant.features.include?(feature), data: {
+                            remote: true,
+                            url: manager_restaurant_toggle_feature_path(@restaurant.id, feature.id),
+                            method: :post
+                            } %>
+          <label for="feature_<%= feature.id %>">
+            <span><%=feature.name%></span>
+            <span></span>
+          </label>
+        </li>
+
+      <% end %>
+
+      </ul>
+
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <div class="form-group ">
+        <label for="restaurant_ssubscription_enabled">Subscription Enabled</label>
+
+        <%= form.check_box :subscription_enabled, class: 'form-control  form-control-sm' %>
       </div>
-    </div> 
-<%
-=end%>
+    </div>
+  </div>
+
+  <% else %>
+
+  <div class="row">
+    <div class="col-sm">
+      <h5>Services</h5>
+      <ul class="switches">
+      
+      <% @services.each do |feature|%>
+
+        <li class="my-3">
+          <%= check_box_tag dom_id(feature), feature.id, @restaurant.features.include?(feature), data: {
+                            remote: true,
+                            url: manager_restaurant_toggle_feature_path(@restaurant.id, feature.id),
+                            method: :post
+                            } %>
+          <label for="feature_<%= feature.id %>">
+            <span><%=feature.name%></span>
+            <span></span>
+          </label>
+        </li>
+
+      <% end %>
+
+      </ul>
+
+    </div>
+  </div>
+
+  <% checkout_toggle = @features.where(key: 'checkout').first %>
+
+  <div class="row">
+    <div class="col-sm">
+      <hr>
+      <ul class="switches">
+        <li class="my-3">
+          <%= check_box_tag dom_id(checkout_toggle), checkout_toggle.id, @restaurant.features.include?(checkout_toggle), data: {
+                            remote: true,
+                            url: manager_restaurant_toggle_feature_path(@restaurant.id, checkout_toggle.id),
+                            method: :post
+                            }, disabled: !@restaurant.subscription_enabled %>
+          <label for="feature_<%= checkout_toggle.id %>">
+            <span><%=checkout_toggle.name%> <small class="text-muted">(Accept orders & payments)</small></span>
+            <span></span>
+          </label>
+        </li>
+      </ul>
+
+    </div>
+  </div>
+  
+  <% end %>
+
+  <div class="row">
+    <div class="col">
+      <div class="form-group ">
+        <label for="restaurant_show_on_homepage">Show on eat.emenunow.com homepage</label>
+
+        <%= form.check_box :show_on_homepage, class: 'form-control  form-control-sm' %>
+      </div>
+    </div>
+  </div>
+
+
     <!-- Settings -->
   </div>
   <div class="tab-pane fade col-12 col-md-6 offset-md-3" id="tracking" role="tabpanel" aria-labelledby="tracking-tab">

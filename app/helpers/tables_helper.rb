@@ -98,7 +98,7 @@ module TablesHelper
   def is_tableservice?(restaurant)
     feature_match('takeaway_to_table', restaurant.features)
   end
-
+  
   def is_takeaway_or_delivery?(restaurant)
     ret = false
     del = is_delivery?(restaurant)
@@ -107,6 +107,15 @@ module TablesHelper
     ret = del if del
     ret = take if take
     ret = table if table
+    ret
+  end
+  
+  def enable_checkout?(restaurant)
+    ret = false
+    on = feature_match('checkout', restaurant.features)
+    subscribed = restaurant.subscription_enabled
+    t_or_d = is_takeaway_or_delivery?(restaurant)
+    ret = true if on && subscribed && t_or_d
     ret
   end
 end
