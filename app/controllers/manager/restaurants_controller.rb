@@ -9,7 +9,7 @@ module Manager
     before_action :set_cuisine, only: %i[new create show edit update]
     before_action :get_stripe_account, only: %i[show edit update]
 
-    before_action :set_features, only: %i[show edit]
+    before_action :set_features, only: %i[show edit update new]
 
 
     # GET /restaurants/new
