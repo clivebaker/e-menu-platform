@@ -1,6 +1,6 @@
     <div class="nav-scroller bg-white shadow-sm">
       <nav class="nav nav-underline">
-        <%= link_to "Dashboard", manager_home_dashboard_path, class: "nav-link" %>
+        <%= link_to "Dashboard", manager_home_index_path, class: "nav-link" %>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Configuration
@@ -25,7 +25,7 @@
 
               <div class="dropdown-divider"></div>
                 <% if @restaurant.present? && @restaurant.id %> 
-                  <%= link_to("View Menus", manager_home_menu_path(), class: "nav-link") %>
+                  <%= link_to("View Menus", menu_manager_home_index_path, class: "nav-link") %>
                 <% end %>
               <div class="dropdown-divider"></div>
               <% if @restaurant.present? and @restaurant.id.present?%>

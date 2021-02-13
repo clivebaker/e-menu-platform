@@ -42,7 +42,7 @@ module Manager
       # end
 
       def after_sign_up_path_for(_resource)
-        manager_home_dashboard_path
+        manager_home_index_path
       end
 
       # protected

@@ -17,6 +17,10 @@ module Manager
         redirect_to '/422.html'
       end
     end
+
+    def authenticate_admin!
+      current_user.admin ? true : (redirect_to manager_home_index_path, :notice => "Admin level required")
+    end
   end
 
 end

@@ -87,18 +87,25 @@ Rails.application.routes.draw do
       get 'menu_optionals/:items', to: 'menu#menu_optionals'
     end
   end
-
-  
-
   namespace :manager do
     resources :restaurants, :param => :restaurant_id do
       member do
         resources :discount_codes
       end
+      collection do
+        resources :administrations, :only => [:index] do
+          member do
+            get :login_as
+          end
+        end
+      end
     end
-    get 'home/index'
-    get 'home/dashboard'
-    get 'home/menu'
+    resources :home do
+      collection do
+        get :dashboard
+        get :menu
+      end
+    end
 
     get 'live_tables/:restaurant_id' => 'live#tables', as: :live_tables
     get 'live_items/:restaurant_id' => 'live#items', as: :live_items
