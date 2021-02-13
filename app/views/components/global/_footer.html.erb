@@ -9,7 +9,11 @@
 				</p>
 				<p><small><%= t('footer.e_menu_copyright') %></small></p>
 				<!-- <p><small><%= t('footer.disclaimer').html_safe %></small></p> -->
+				<% if current_manager_restaurant_user %>
+				<p><small><%= link_to "Visit restaurant dashboard", manager_home_index_path, class: 'btn btn-outline-primary' %></small></p>
+				<% else %>
 				<p><small><%= link_to "Restaurant Login", new_manager_restaurant_user_session_path, class: 'btn btn-outline-primary' %></small></p>
+				<% end %>
 			</div>
 		</div>
 	</div>
