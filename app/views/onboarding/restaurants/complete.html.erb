@@ -20,7 +20,7 @@ Welcome to EMenu Now
 
 	<div class="row my-5">
 		<div class="col-8 col-md-3 mx-auto text-center">
-			<%= link_to("EMenu Dashboard", manager_home_dashboard_path, class: 'next-link') %>
+			<%= link_to("EMenu Dashboard", onboarding_restaurant_dashboard_login_path(@restaurant, restaurant_user_id: current_onboarding_restaurant_user.id), class: 'next-link', method: 'post') %>
 		</div>
 	</div>
 

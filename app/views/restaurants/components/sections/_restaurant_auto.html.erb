@@ -7,7 +7,7 @@ style = "background: url('#{@restaurant.background}') ;" if @restaurant.backgrou
   <div class="row">
     <div class="col text-left mt-2 mb-2"> 
       <% if @restaurant.image.attached? %>
-        <%= image_tag @restaurant.image.variant(resize: "200x200"), class: "img-fluid"  %>
+        <%= image_tag @restaurant.image.variant(resize_and_pad: [200, 200]), class: "img-fluid"  %>
       <% end %>                
     </div>
     <div class="col text-right text-dark">
