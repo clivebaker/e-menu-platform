@@ -69,6 +69,16 @@
         </div>
       </div>
     </div>
+    <div class="col-lg-6">
+      <div class="card p-3 mb-5 bg-white rounded">
+        <div class="card-body text-center">
+          <%= link_to manager_reports_path, class: "nav-link" do %>
+            <%= image_tag "icons/reports.svg", :style=>"height:50px;" %>
+            <span class="px-3">Analytics and reporting</span>
+          <% end %>
+        </div>
+      </div>
+    </div>
     <% if current_manager_restaurant_user.admin %>
       <div class="col-lg-6">
         <div class="card p-3 mb-5 bg-white rounded">

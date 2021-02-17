@@ -13,6 +13,7 @@ class CheckoutService < ApplicationController
     @total_payment = @total.to_f 
     @payment_in_pence = (@total_payment*100).to_i
     @address = "#{@house_number}, #{@street}, #{@postcode}"
+    @application_fee_amount = application_fee_amount(to_stripe_amount(@total_payment), @restaurant)
   end
 
   def create_checkout_session
@@ -21,7 +22,7 @@ class CheckoutService < ApplicationController
     @session = Stripe::Checkout::Session.create({
       payment_method_types: ['card'],
       payment_intent_data: {
-        application_fee_amount: application_fee_amount(@order.value, @restaurant),
+        application_fee_amount: @application_fee_amount,
         on_behalf_of: @restaurant.stripe_connected_account_id,
         transfer_data: {
           destination: @restaurant.stripe_connected_account_id
@@ -73,16 +74,23 @@ class CheckoutService < ApplicationController
       table_number: @table_number,
       discount_code: @basket_service.discount_code,
       value: to_stripe_amount(@total_payment),
-      currency: @restaurant.currency.code
+      currency: @restaurant.currency.code,
+      application_fee_amount: @application_fee_amount,
+      emenu_commission: @emenu_commission,
+      chargeback_fee: @chargeback_fee,
+      chargeback_enabled: @chargeback_enabled,
+      emenu_vat_charge: @emenu_vat_charge
     )
     @order.patrons << @patron if @patron and !@order.patrons.include?(@patron)
     @order
   end
 
   def application_fee_amount(payment, restaurant)
-    amount = ((payment * ((restaurant.commision_percentage.presence || 1.5)/100))*1.2)
-    amount = ((payment * 0.004) + amount) if restaurant.stripe_chargeback_enabled
-    amount.ceil
+    @emenu_commission = (payment * ((restaurant.commision_percentage.presence || 1.5)/100)).ceil
+    @emenu_vat_charge = (@emenu_commission * 0.2).ceil
+    @chargeback_fee = (payment * 0.004).ceil if @chargeback_enabled = restaurant.stripe_chargeback_enabled
+    amount = @emenu_commission + @emenu_vat_charge + @chargeback_fee
+    amount
   end
 
   def shipping_details

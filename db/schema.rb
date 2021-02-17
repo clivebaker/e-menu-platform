@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_08_164352) do
+ActiveRecord::Schema.define(version: 2021_02_16_122411) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -284,6 +284,11 @@ ActiveRecord::Schema.define(version: 2021_02_08_164352) do
     t.string "delivery_fee"
     t.string "table_number"
     t.string "discount_code"
+    t.integer "application_fee_amount", default: 0
+    t.integer "emenu_commission", default: 0
+    t.integer "chargeback_fee", default: 0
+    t.boolean "chargeback_enabled", default: false
+    t.integer "emenu_vat_charge", default: 0
     t.index ["restaurant_id"], name: "index_orders_on_restaurant_id"
   end
 
@@ -423,6 +428,11 @@ ActiveRecord::Schema.define(version: 2021_02_08_164352) do
     t.string "table_number"
     t.bigint "order_id"
     t.bigint "discount_code_id"
+    t.integer "application_fee_amount", default: 0
+    t.integer "emenu_commission", default: 0
+    t.integer "chargeback_fee", default: 0
+    t.boolean "chargeback_enabled", default: false
+    t.integer "emenu_vat_charge", default: 0
     t.index ["discount_code_id"], name: "index_receipts_on_discount_code_id"
     t.index ["order_id"], name: "index_receipts_on_order_id"
     t.index ["restaurant_id"], name: "index_receipts_on_restaurant_id"
@@ -569,6 +579,11 @@ ActiveRecord::Schema.define(version: 2021_02_08_164352) do
     t.text "custom_css"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "basket_colour", default: "#000"
+    t.string "item_colour", default: "#000"
+    t.string "basket_text_colour", default: "#fff"
+    t.string "item_text_colour", default: "#fff"
+    t.string "item_header_colour", default: "#000"
     t.index ["restaurant_id"], name: "index_themes_on_restaurant_id"
   end
 
