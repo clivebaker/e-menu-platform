@@ -80,6 +80,7 @@ ActiveRecord::Schema.define(version: 2021_02_16_122411) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "cloned_from"
+    t.boolean "available", default: true
     t.index ["custom_list_id"], name: "index_custom_list_items_on_custom_list_id"
   end
 

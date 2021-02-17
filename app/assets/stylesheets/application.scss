@@ -77,6 +77,11 @@ input[type="checkbox"] + label {
  cursor: pointer;
 }
 
+input[type="checkbox"]:disabled,
+input[type="checkbox"]:disabled + label {
+ cursor: not-allowed;
+}
+
 #topbar {
  background-color: var(--col-secondary) !important;
 }
