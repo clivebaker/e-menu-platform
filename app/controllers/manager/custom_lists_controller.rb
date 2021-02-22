@@ -109,7 +109,7 @@ class CustomListsController < Manager::BaseController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def custom_list_params
-      params.require(:custom_list).permit(:name, :restaurant_id, :constraint)
+      params.require(:custom_list).permit(:name, :restaurant_id, :constraint, :required_items, :limit_min, :limit_count, :limit_max)
     end
   end
 

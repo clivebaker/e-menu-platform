@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_10_180844) do
+ActiveRecord::Schema.define(version: 2021_02_17_130421) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -92,6 +92,10 @@ ActiveRecord::Schema.define(version: 2021_02_10_180844) do
     t.string "constraint"
     t.integer "position"
     t.integer "cloned_from"
+    t.boolean "required_items", default: false
+    t.integer "limit_min"
+    t.integer "limit_count"
+    t.integer "limit_max"
     t.index ["restaurant_id"], name: "index_custom_lists_on_restaurant_id"
   end
 
@@ -189,7 +193,7 @@ ActiveRecord::Schema.define(version: 2021_02_10_180844) do
     t.text "icon"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "type", default: "allergen"
+    t.string "type", default: "Allergen"
   end
 
   create_table "menu_item_categorisations_menus", id: false, force: :cascade do |t|

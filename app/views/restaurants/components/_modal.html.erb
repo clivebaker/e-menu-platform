@@ -58,90 +58,73 @@
             <div class="row pt-2"></div>
 
             <div class="row border-top mt-2 pt-1">
-              <div class='col'>
-                <% custom_lists = [] #item[:custom_lists] %>
+              <% custom_lists = [] #item[:custom_lists] %>
 
-                <% item[:custom_lists].each do |l| %>
-                  <% custom_lists << custom_list_object(l[0])%>
-                <% end %>
-                <%
-                  sort_order = @restaurant.custom_list_ids
-                  lookup = {}
+              <% item[:custom_lists].each do |l| %>
+                <% custom_lists << custom_list_object(l[0])%>
+              <% end %>
+              <%
+                sort_order = @restaurant.custom_list_ids
+                lookup = {}
 
-                  sort_order.each_with_index do |item, index|
-                    lookup[item] = index
-                  end
+                sort_order.each_with_index do |item, index|
+                  lookup[item] = index
+                end
 
-                  cl = custom_lists.sort_by do |item|
-                    lookup.fetch(item.id)
-                  end
-                %>
+                cl = custom_lists.sort_by do |item|
+                  lookup.fetch(item.id)
+                end
+              %>
 
-                <% 
-                  lookup2 = {}
-                  custom_list_sort_order = cl.map{|a| a.id}
+              <% 
+                lookup2 = {}
+                custom_list_sort_order = cl.map{|a| a.id}
 
-                  custom_list_sort_order.each_with_index do |item, index|
-                    lookup2[item] = index
-                  end
-                %>
-                
-                <%
-                  il = item[:custom_lists].sort_by do |item|
-                    lookup2.fetch(item[0].to_i)
-                  end
-                %>
-      
-                <% required_lists = [] %>
+                custom_list_sort_order.each_with_index do |item, index|
+                  lookup2[item] = index
+                end
+              %>
+              
+              <%
+                il = item[:custom_lists].sort_by do |item|
+                  lookup2.fetch(item[0].to_i)
+                end
+              %>
+    
+              <% required_lists = [] %>
 
-                <% il.each_with_index do |list, index| %>
+              <% il.each_with_index do |list, index| %>
+                <% custom_list = custom_list_object(list[0])%>
+                <div class='col-12 custom-list-set<%= custom_list.required_items ? " required-set" : " optional-set" %><%= " limit-min" if custom_list.limit_min %><%= " limit-count" if custom_list.limit_count %><%= " limit-max" if custom_list.limit_max %>'<%= "data-scope=#{main_item} " %><%= "data-list=#{custom_list.id} " %><%= "data-min=#{custom_list.limit_min} " if custom_list.limit_min %><%= "data-count=#{custom_list.limit_count} " if custom_list.limit_count %><%= "data-max=#{custom_list.limit_max}" if custom_list.limit_max %>> 
                   <div class="row ml-1 ">
-                    <div class='col modal-please-choose'>
-                    <% custom_list = custom_list_object(list[0])%>
-                      <% message = "Please choose #{custom_list.constraint} option" unless custom_list.constraint == '*' %>
-                      <% message = "Optional" if custom_list.constraint == '*' %>
+                    <div class='col rounded modal-please-choose'>
+                      <% message = cl_message_to_human(custom_list) %>
                       <strong><%= custom_list.name %>  (<%=message%>)</strong>
                     </div>
                   </div>
   
                   <% list[1].each_with_index do |item_id, index| %>
                     <% cli = custom_list_item(item_id)%>
-                    <% if custom_list.constraint == '*' %>
-                      <div class="row m-2 p-1 border<%= " alert alert-danger" if !cli.available %>">
-                        <div class='col'>
-                        
-                          <%# if cli.id != 131 or ( main_item == 168 and index != 5 ) %>
-                            <%# if  cli.id != 79 %>
-                              <%= check_box_tag "item-#{cli.id}", "item-#{cli.id}-#{main_item}", nil, id:"custom-item-#{cli.id}", class: "selection-item selection-item-#{main_item}", 'data-price' => ("%.2f" % cli.price).to_f, 'data-start_price' => start_price, 'data-scope' => main_item,'data-constraint' => custom_list.constraint, 'data-id' => cli.id, disabled: !cli.available %> <small><strong><%=cli.name%><%= " (Unavailable)" if !cli.available %></strong> <% if cli.description.present?%>  <i>- <%=cli.description%></i><% end %></small>
-                            <%# else %>
-                              <%# binding.pry if index == 5 %>
-                              <%#=  "item-#{cli.id} item-#{cli.id}-#{main_item} selection-item selection-item-#{main_item} #{("%.2f" % cli.price).to_f} #{start_price} #{main_item} #{custom_list.constraint} #{cli.id}  <small>#{cli.name}</small>"%>
-                            <%# end %>
-                          <%# end %>
 
-                        </div>
-                        <div class='col-3 text-right'>
-                          <small><%=number_to_currency(cli.price, unit: "+#{@restaurant.currency_symbol}") if cli.price.to_f > 0.0 %></small>
-                        </div>
+                    <% required_lists << custom_list.id if custom_list.required_items? %>
+
+                    <div class="row m-2 p-1 border<%= " alert alert-danger" if !cli.available %>">
+                      <div class='col'>
+                        <%= check_box_tag "item-#{cli.id}", "item-#{cli.id}-#{main_item}", nil, id:"custom-item-#{cli.id}", class: "selection-item selection-item-#{main_item}", 'data-price' => ("%.2f" % cli.price).to_f, 'data-start_price' => start_price, 'data-scope' => main_item,'data-constraint' => custom_list.constraint, 'data-id' => cli.id, disabled: !cli.available %> <small><strong><%=cli.name%><%= " (Unavailable)" if !cli.available %></strong> <% if cli.description.present?%>  <i>- <%=cli.description%></i><% end %></small>
                       </div>
-                    <% else %>
-                      <div class="row m-2 p-1 border<%= " alert alert-danger" if !cli.available %>">
-                        <div class='col'>
-                          <% required_lists << custom_list.id%>
-                          <%= radio_button_tag "item-#{custom_list.id}", "item-#{custom_list.id}", nil, 'data-price' => ("%.2f" % cli.price).to_f, class: "selection-item selection-item-radio-#{main_item} selection-item-required-#{custom_list.id}", 'data-scope' => main_item, 'data-constraint' => custom_list.constraint, 'data-start_price' => start_price, 'data-id' => cli.id, disabled: !cli.available %> <small><strong><%=cli.name%><%= " (Unavailable)" if !cli.available %></strong>  <% if cli.description.present?%>  <i>- <%=cli.description%></i><% end %></small>
-                        </div>
                       <div class='col-3 text-right'>
-                          <small><%=number_to_currency(cli.price, unit: "+#{@restaurant.currency_symbol}") if cli.price.to_f > 0.0 %></small>
-                        </div>
+                        <small><%=number_to_currency(cli.price, unit: "+#{@restaurant.currency_symbol}") if cli.price.to_f > 0.0 %></small>
                       </div>
-                    <% end %>
-                  <% end %>
-                <% end %>
+                    </div>
 
-                <input type='hidden' value='<%=required_lists.uniq.join(',')%>' id="required-lists-<%= main_item %>">
-                <%= text_field_tag "notes-#{main_item}", nil,  placeholder: "Tell the Kitchen: Allergies etc...", class: 'form-control selection-item ', 'data-scope' => main_item, 'data-start_price' => start_price %>
+                  <% end %>
+                </div>
+              <% end %>
+
+            
+              <input type='hidden' value='<%=required_lists.uniq.join(',')%>' id="required-lists-<%= main_item %>">
+              <%= text_field_tag "notes-#{main_item}", nil,  placeholder: "Tell the Kitchen: Allergies etc...", class: 'form-control selection-item ', 'data-scope' => main_item, 'data-start_price' => start_price %>
               
-              </div>
             </div>
 
             <div id='required-message-<%= main_item%>'>
