@@ -24,7 +24,12 @@ class Order < ApplicationRecord
         delivery_or_collection: self.delivery_or_collection,
         delivery_fee: self.delivery_fee, 
         table_number: self.table_number,
-        discount_code: self.discount_code
+        discount_code: self.discount_code,
+        application_fee_amount: self.application_fee_amount,
+        emenu_commission: self.emenu_commission,
+        chargeback_fee: self.chargeback_fee,
+        chargeback_enabled: self.chargeback_enabled,
+        emenu_vat_charge: self.emenu_vat_charge
       )
     end
 

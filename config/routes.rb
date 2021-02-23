@@ -99,6 +99,9 @@ Rails.application.routes.draw do
           end
         end
       end
+      collection do
+        resources :reports, :only => [:index]
+      end
     end
     resources :home do
       collection do

@@ -74,7 +74,7 @@ class Receipt < ApplicationRecord
 
   def broadcast
     @printers = Printer.where(restaurant_id: restaurant_id)
-    html  = ApplicationController.render(partial: "manager/live/order_items", locals: { printers: @printers, restaurant: restaurant_id })
+    html  = ApplicationController.render(partial: "manager/live/order_items", locals: { printers: @printers, restaurant: Restaurant.find(restaurant_id) })
     # binding.pry
     data = {html: html, sound_file_path: ActionController::Base.helpers.asset_path('order-bell.wav')}   
     ActionCable.server.broadcast("receipts_channel_#{restaurant_id}", data)
