@@ -84,10 +84,11 @@ module Onboarding
     def complete
       connect_service = ConnectService.new(@restaurant)
       @account = connect_service.get_account
+      @connect = connect_service.refresh_account(@restaurant.stripe_connected_account_id) if !@account[:details_submitted]
       @onboard.update_attribute(:free_trial, true) if @account[:details_submitted] # stripe onboarding details submitted
+      EmenuMailer.welcome(@restaurant.id, @connect).deliver_now if @onboard&.completed.nil?
       @account[:details_submitted] ? @onboard.update_attribute(:completed, true) : @onboard.update_attribute(:completed, false) # stripe onboarding details submitted
       @progress[:connect] = @account[:details_submitted] ? 'complete' : 'failed'
-      @connect = connect_service.refresh_account(@restaurant.stripe_connected_account_id) if !@account[:details_submitted]
     end
 
     def dashboard_login
