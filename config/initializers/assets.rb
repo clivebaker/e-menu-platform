@@ -15,12 +15,14 @@ Rails.application.config.assets.precompile +=
   home_mobile.scss
   patron_application.css
   emenu_overwrite.css
+  pdf.scss
   home_mobile.js
   cable.js
   cable_food.js
   cable_drinks.js
   color_picker.js
   live_order_loader.js
+  pdf.js
  ]
 
 # Precompile additional assets.

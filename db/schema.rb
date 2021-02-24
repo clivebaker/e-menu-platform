@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_17_130421) do
+ActiveRecord::Schema.define(version: 2021_02_19_135420) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -271,11 +271,11 @@ ActiveRecord::Schema.define(version: 2021_02_17_130421) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "restaurant_id", null: false
-    t.integer "value"
+    t.integer "value", default: 0
     t.string "currency"
     t.json "stripe_data"
     t.string "uuid"
-    t.integer "basket_total"
+    t.integer "basket_total", default: 0
     t.jsonb "items"
     t.string "stripe_token"
     t.string "status"
@@ -286,9 +286,14 @@ ActiveRecord::Schema.define(version: 2021_02_17_130421) do
     t.string "telephone"
     t.string "address"
     t.string "delivery_or_collection"
-    t.string "delivery_fee"
+    t.string "delivery_fee", default: "0"
     t.string "table_number"
     t.string "discount_code"
+    t.integer "application_fee_amount", default: 0
+    t.integer "emenu_commission", default: 0
+    t.integer "chargeback_fee", default: 0
+    t.boolean "chargeback_enabled", default: false
+    t.integer "emenu_vat_charge", default: 0
     t.index ["restaurant_id"], name: "index_orders_on_restaurant_id"
   end
 
@@ -410,7 +415,7 @@ ActiveRecord::Schema.define(version: 2021_02_17_130421) do
   create_table "receipts", force: :cascade do |t|
     t.string "uuid"
     t.bigint "restaurant_id"
-    t.integer "basket_total"
+    t.integer "basket_total", default: 0
     t.jsonb "items"
     t.string "email"
     t.string "stripe_token"
@@ -424,10 +429,15 @@ ActiveRecord::Schema.define(version: 2021_02_17_130421) do
     t.string "telephone"
     t.string "address"
     t.string "delivery_or_collection"
-    t.decimal "delivery_fee", precision: 8, scale: 2
+    t.decimal "delivery_fee", precision: 8, scale: 2, default: "0.0"
     t.string "table_number"
     t.bigint "order_id"
     t.bigint "discount_code_id"
+    t.integer "application_fee_amount", default: 0
+    t.integer "emenu_commission", default: 0
+    t.integer "chargeback_fee", default: 0
+    t.boolean "chargeback_enabled", default: false
+    t.integer "emenu_vat_charge", default: 0
     t.index ["discount_code_id"], name: "index_receipts_on_discount_code_id"
     t.index ["order_id"], name: "index_receipts_on_order_id"
     t.index ["restaurant_id"], name: "index_receipts_on_restaurant_id"
@@ -574,6 +584,11 @@ ActiveRecord::Schema.define(version: 2021_02_17_130421) do
     t.text "custom_css"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "basket_colour", default: "#000"
+    t.string "item_colour", default: "#000"
+    t.string "basket_text_colour", default: "#fff"
+    t.string "item_text_colour", default: "#fff"
+    t.string "item_header_colour", default: "#000"
     t.index ["restaurant_id"], name: "index_themes_on_restaurant_id"
   end
 
