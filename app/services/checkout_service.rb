@@ -76,6 +76,7 @@ class CheckoutService < ApplicationController
       value: to_stripe_amount(@total_payment),
       currency: @restaurant.currency.code,
       application_fee_amount: @application_fee_amount,
+      stripe_processing_fee: @stripe_processing_fee,
       emenu_commission: @emenu_commission,
       chargeback_fee: @chargeback_fee,
       chargeback_enabled: @chargeback_enabled,
@@ -86,10 +87,11 @@ class CheckoutService < ApplicationController
   end
 
   def application_fee_amount(payment, restaurant)
+    @stripe_processing_fee = ((@payment_in_pence * 0.015) + 20).ceil
     @emenu_commission = (payment * ((restaurant.commision_percentage.presence || 1.5)/100)).ceil
     @emenu_vat_charge = (@emenu_commission * 0.2).ceil
     @chargeback_fee = @chargeback_enabled = restaurant.stripe_chargeback_enabled ? (payment * 0.004).ceil : 0
-    amount = @emenu_commission + @emenu_vat_charge + @chargeback_fee
+    amount = @emenu_commission + @emenu_vat_charge + @chargeback_fee + @stripe_processing_fee
     amount
   end
 
