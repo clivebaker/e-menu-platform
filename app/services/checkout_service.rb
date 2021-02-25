@@ -13,7 +13,7 @@ class CheckoutService < ApplicationController
     @total_payment = @total.to_f 
     @payment_in_pence = (@total_payment*100).to_i
     @address = "#{@house_number}, #{@street}, #{@postcode}"
-    @application_fee_amount = application_fee_amount(to_stripe_amount(@total_payment), @restaurant)
+    @application_fee_amount = application_fee_amount(to_stripe_amount(@total_payment))
   end
 
   def create_checkout_session
@@ -86,11 +86,11 @@ class CheckoutService < ApplicationController
     @order
   end
 
-  def application_fee_amount(payment, restaurant)
-    @stripe_processing_fee = ((@payment_in_pence * 0.015) + 20).ceil
-    @emenu_commission = (payment * ((restaurant.commision_percentage.presence || 1.5)/100)).ceil
+  def application_fee_amount(payment)
+    @stripe_processing_fee = ((@payment_in_pence * (is_eu_country ? 0.014 : 0.029)) + 20).ceil
+    @emenu_commission = (payment * ((@restaurant.commision_percentage.presence || 1.5)/100)).ceil
     @emenu_vat_charge = (@emenu_commission * 0.2).ceil
-    @chargeback_fee = @chargeback_enabled = restaurant.stripe_chargeback_enabled ? (payment * 0.004).ceil : 0
+    @chargeback_fee = @chargeback_enabled = @restaurant.stripe_chargeback_enabled ? (payment * 0.004).ceil : 0
     amount = @emenu_commission + @emenu_vat_charge + @chargeback_fee + @stripe_processing_fee
     amount
   end
@@ -109,6 +109,10 @@ class CheckoutService < ApplicationController
 
   def to_stripe_amount(number)
     (number * 100).round(0).to_i
+  end
+
+  def is_eu_country
+    ['GB'].include?(@restaurant.currency_code)
   end
 
 end
