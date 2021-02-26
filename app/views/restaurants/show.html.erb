@@ -1,76 +1,108 @@
 <% content_for :js do%>
 <script>
   $(function() {
+    
+    if (typeof validSets == 'undefined') {
+      validSets = {};
+      $('.custom-list-set').each(function(i, e) {
+        validSets[$(e).data().scope] ||= []
+        if ($(e).hasClass('optional-set')) {
+          validSets[$(e).data().scope].push($(e).data().list)
+        }
+      })
+    };
 
+    
     BASE_URL = '<%=basket_path(@path)%>'
     $('.selection-item').change(function() {
-      item = $(this)
+      item = $(this) // custom list item clicked
+      scope = item.data('scope') // menu item id of item clicked
+      set = item.closest('.custom-list-set') // custom list of item clicked
+      list = set.data('list') // custom list id of item clicked
+      min = set.data('min') // limit-min of custom list of item clicked
+      count = set.data('count') // limit-count of custom list of item clicked
+      max = set.data('max') // limit-max of custom list of item clicked
+      checkedSet = set.find(':checked') // array of items that are checked in clicked items set
+      scopeSets = $(`.custom-list-set[data-scope=${scope}]`) // array of sets that are in this item scope
 
+      if (set.hasClass('limit-count') || set.hasClass('limit-max')) {
+        maxSelect = max | count
+      } else {
+        maxSelect = undefined;
+      };
 
-      start_price = item.data('start_price') * 1
-      scope = item.data('scope')
-      //    console.log("scope: " + scope)
-
-      lists = $('#required-lists-' + scope).val()
-      //     console.log('Lists:' + lists)
-      valid = []
-
-      $.each(lists.split(','), function(i, v) {
-        //  console.log('value_list:' + v )
-
-        instance_valid = false
-        $.each($('.selection-item-required-' + v), function(index, value) {
-          item = $(this)
-          is_checked = (item.is(':checked'));
-          if (is_checked) {
-            instance_valid = true
-          }
-          //     console.log(is_checked)
-          //     console.log(scope)
-        });
-        valid.push(instance_valid)
-
-      });
-      required_options = true
-      $.each(valid, function(i, v) {
-        if (v == false) {
-          required_options = false
-        }
-      });
-      if (required_options) {
-        $('#required-message-' + scope).hide();
-        $('#add-to-basket-' + scope).removeClass('disabled');
-
+      // limit total selected
+      if (checkedSet.length > maxSelect) {
+       item.prop('checked', false);
+       checkedSet.length--
       }
 
+      // validate set
+      if (set.hasClass('limit-min') && checkedSet.length >= min) {
+        set.find('.modal-please-choose').removeClass('bg-warning');
+        if ($.inArray(list, validSets[scope]) === -1) { validSets[scope].push(list) }
+      } else if (set.hasClass('limit-count') && checkedSet.length == count) {
+        set.find('.modal-please-choose').removeClass('bg-warning');
+        if ($.inArray(list, validSets[scope]) === -1) { validSets[scope].push(list) }
+      } else if (!set.hasClass('required-set')) {
+        set.find('.modal-please-choose').removeClass('bg-warning');
+        if ($.inArray(list, validSets[scope]) === -1) { validSets[scope].push(list) }
+      } else {
+        set.find('.modal-please-choose').addClass('bg-warning');
+        index = $.inArray(list, validSets[scope])
+        if (index !== -1) { validSets[scope].splice(index, 1) }
+      }
+      
+      //validate all sets
+      if (scopeSets.length === validSets[scope].length) {
+        $('#required-message-' + scope).hide();
+        $('#add-to-basket-' + scope).removeClass('d-none');
+        $('#placeholder-to-basket-' + scope).addClass('d-none');
+      } else {
+        $('#required-message-' + scope).show();
+        $('#add-to-basket-' + scope).addClass('d-none');
+        $('#placeholder-to-basket-' + scope).removeClass('d-none');
+      }
 
-      //      console.log("Valid")
-      //      console.log(valid)
-      //      console.log("/valid")
-      //      console.log('required_options')
-      //      console.log(required_options)
-      //      console.log('/required_options')
-
+      start_price = item.data('start_price') * 1
       calculate_price(start_price, scope)
+    });
+
+    $('.placeholder-to-basket').click(function(e) {
+      e.preventDefault()
+
+      item = $(this) // custom list item clicked
+      scope = item.data('scope') // menu item id of item clicked
+      scopeSets = $(`.custom-list-set[data-scope=${scope}]`) // array of sets that are in this item scope
+      invalidScopeSets = []
+
+      // for each set validate
+      $(scopeSets).each(function(i, set) {
+        list = $(set).data('list') // custom list id of item clicked
+        // if set is not in validSets, invalid set
+        index = $.inArray(list, validSets[scope])
+        if (index === -1) {
+          invalidSet = $(set).find('.modal-please-choose')
+          invalidSet.addClass('bg-warning');
+        }
+      })
     });
 
     function calculate_price(start_price, scope) {
 
       price = start_price
-      //     console.log('item: ' + scope + " price:"+ price)
+          // console.log('item: ' + scope + " | price: "+ price)
       optionals = []
 
-      $.each($('.selection-item-radio-' + scope + ':checked'), function(index, value) {
-        price += ($(this).data('price') * 1);
-        optionals.push($(this).data('id'))
-      });
-
       $.each($('.selection-item-' + scope + ':checked'), function(index, value) {
+        // console.log ('this price: ' + $(this).data('price') + ' is a ' + typeof $(this).data('price'))
         price += ($(this).data('price') * 1);
         optionals.push($(this).data('id'))
       });
+          // console.log('item: ' + scope + " | price: "+ price)
 
       new_price = parseInt(price * 100) / 100
+      // console.log('new price: ' + new_price + ' is a ' + typeof new_price)
       $(".button-price-" + scope).html("<%=@restaurant.currency_symbol%>" + new_price)
       $("#optionals-" + scope).html(optionals.join(','))
       note = $("#notes-" + scope).val()
