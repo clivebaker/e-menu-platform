@@ -92,6 +92,10 @@ ActiveRecord::Schema.define(version: 2021_02_19_135420) do
     t.string "constraint"
     t.integer "position"
     t.integer "cloned_from"
+    t.boolean "required_items", default: false
+    t.integer "limit_min"
+    t.integer "limit_count"
+    t.integer "limit_max"
     t.index ["restaurant_id"], name: "index_custom_lists_on_restaurant_id"
   end
 
@@ -189,7 +193,7 @@ ActiveRecord::Schema.define(version: 2021_02_19_135420) do
     t.text "icon"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "type", default: "allergen"
+    t.string "type", default: "Allergen"
   end
 
   create_table "menu_item_categorisations_menus", id: false, force: :cascade do |t|
@@ -580,11 +584,6 @@ ActiveRecord::Schema.define(version: 2021_02_19_135420) do
     t.text "custom_css"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "basket_colour", default: "#000"
-    t.string "item_colour", default: "#000"
-    t.string "basket_text_colour", default: "#fff"
-    t.string "item_text_colour", default: "#fff"
-    t.string "item_header_colour", default: "#000"
     t.index ["restaurant_id"], name: "index_themes_on_restaurant_id"
   end
 
