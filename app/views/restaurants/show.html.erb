@@ -56,14 +56,36 @@
       //validate all sets
       if (scopeSets.length === validSets[scope].length) {
         $('#required-message-' + scope).hide();
-        $('#add-to-basket-' + scope).removeClass('disabled');
+        $('#add-to-basket-' + scope).removeClass('d-none');
+        $('#placeholder-to-basket-' + scope).addClass('d-none');
       } else {
         $('#required-message-' + scope).show();
-        $('#add-to-basket-' + scope).addClass('disabled');
+        $('#add-to-basket-' + scope).addClass('d-none');
+        $('#placeholder-to-basket-' + scope).removeClass('d-none');
       }
 
       start_price = item.data('start_price') * 1
       calculate_price(start_price, scope)
+    });
+
+    $('.placeholder-to-basket').click(function(e) {
+      e.preventDefault()
+
+      item = $(this) // custom list item clicked
+      scope = item.data('scope') // menu item id of item clicked
+      scopeSets = $(`.custom-list-set[data-scope=${scope}]`) // array of sets that are in this item scope
+      invalidScopeSets = []
+
+      // for each set validate
+      $(scopeSets).each(function(i, set) {
+        list = $(set).data('list') // custom list id of item clicked
+        // if set is not in validSets, invalid set
+        index = $.inArray(list, validSets[scope])
+        if (index === -1) {
+          invalidSet = $(set).find('.modal-please-choose')
+          invalidSet.addClass('bg-warning');
+        }
+      })
     });
 
     function calculate_price(start_price, scope) {
