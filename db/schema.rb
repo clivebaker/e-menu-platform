@@ -584,11 +584,6 @@ ActiveRecord::Schema.define(version: 2021_02_19_135420) do
     t.text "custom_css"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "basket_colour", default: "#000"
-    t.string "item_colour", default: "#000"
-    t.string "basket_text_colour", default: "#fff"
-    t.string "item_text_colour", default: "#fff"
-    t.string "item_header_colour", default: "#000"
     t.index ["restaurant_id"], name: "index_themes_on_restaurant_id"
   end
 
