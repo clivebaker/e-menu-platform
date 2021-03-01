@@ -14,7 +14,7 @@ Rails.application.routes.draw do
 
   resources :stripe_webhooks, :path => "stripe-webhooks", :only => [] do
     collection do
-      post :webhook, as: ""
+      post :webhook, path: ""
     end
   end
 
