@@ -52,6 +52,7 @@ gem 'wicked_pdf'
 gem 'aasm'
 gem 'rqrcode'
 gem 'stripe'
+
 gem 'acts_as_list'
 gem 'cancancan'
 gem 'globalize', git: 'https://github.com/globalize/globalize'

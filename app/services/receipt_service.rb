@@ -10,4 +10,13 @@ class ReceiptService < ApplicationController
     @order.update_attribute(:stripe_data, @checkout_session)
   end
 
+
+  def refund
+    Stripe.api_key = @restaurant.stripe_sk_api_key
+
+    Stripe::Refund.create({
+      charge: 'ch_1IEzTBJyyGTIkLikradAPznr',
+    })
+  end
+
 end

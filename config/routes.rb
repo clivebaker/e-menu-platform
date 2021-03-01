@@ -11,6 +11,8 @@ Rails.application.routes.draw do
       get :files
     end
   end
+
+  resources :stripe_webhooks, :path => "stripe-webhooks", :only => [:index]
   # namespace :manager do
   #   resources :printers
   # end
@@ -35,7 +37,7 @@ Rails.application.routes.draw do
       end
     end
   end
-  
+
   resources :patrons, :module => :patrons, :only => [:index, :show] do
     collection do
       get :settings, :to => "patrons#show"
