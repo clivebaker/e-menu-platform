@@ -12,7 +12,12 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :stripe_webhooks, :path => "stripe-webhooks", :only => [:index]
+  resources :stripe_webhooks, :path => "stripe-webhooks", :only => [] do
+    collection do
+      post :webhook, as: ""
+    end
+  end
+
   # namespace :manager do
   #   resources :printers
   # end

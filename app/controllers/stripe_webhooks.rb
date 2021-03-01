@@ -1,5 +1,5 @@
 class StripeWebhooksController < ApplicationController
-  def index
+  def webhook
     EventFilterService.new(request)
   end
 end
