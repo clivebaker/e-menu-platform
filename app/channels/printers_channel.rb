@@ -6,6 +6,7 @@ class PrintersChannel < ApplicationCable::Channel
     # binding.pry
     stream_from "printers_channel_#{params[:restaurant_id]}_#{params[:server_token]}"
     pi_interface = PiInterface.find_or_create_by(server_token: params[:server_token], restaurant_id: params[:restaurant_id]) 
+    pi_interface.version = params[:version] if params[:version].present?
     pi_interface.online = true
     pi_interface.save
 
