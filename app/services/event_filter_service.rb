@@ -1,17 +1,20 @@
 class EventFilterService
-  def initialize(request)
+
+  attr_reader :response
+
+  def initialize(payload)
     # authorization logic (optional to-do)
     # @signature = request.headers['Stripe-Signature']
     # return Unauthorized unless valid_signature
 
-    @payload = request.body.read
-    set_type    
+    @payload = payload
+    @response = respond
   end
 
   private
 
-  def set_type
-    case @payload.type
+  def respond
+    case @payload[:type]
     when "checkout.session.completed"
       CheckoutSessionCompletedService.new(@payload)
     end
