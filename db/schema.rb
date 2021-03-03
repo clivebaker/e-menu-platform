@@ -384,6 +384,7 @@ ActiveRecord::Schema.define(version: 2021_02_25_165432) do
     t.boolean "online"
     t.text "lsusb"
     t.text "lsusb_compare"
+    t.string "version"
     t.index ["restaurant_id"], name: "index_pi_interfaces_on_restaurant_id"
   end
 
