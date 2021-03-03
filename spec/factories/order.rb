@@ -33,7 +33,7 @@ FactoryBot.define do
         "customer": nil,
         "customer_details": nil,
         "customer_email": nil,
-        "livemode": false,
+        "livemode": "false",
         "locale": nil,
         "metadata": {
         },
@@ -67,7 +67,7 @@ FactoryBot.define do
         "customer": nil,
         "customer_details": nil,
         "customer_email": nil,
-        "livemode": false,
+        "livemode": "false",
         "locale": nil,
         "metadata": {
         },
@@ -101,7 +101,7 @@ FactoryBot.define do
         "customer": nil,
         "customer_details": nil,
         "customer_email": nil,
-        "livemode": false,
+        "livemode": "false",
         "locale": nil,
         "metadata": {
         },

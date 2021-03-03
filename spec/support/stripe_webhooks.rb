@@ -23,10 +23,8 @@ RSpec.shared_examples "Stripe webhooks" do
           "customer": nil,
           "customer_details": nil,
           "customer_email": nil,
-          "livemode": false,
+          "livemode": "false",
           "locale": nil,
-          "metadata": {
-          },
           "mode": "payment",
           "payment_intent": "pi_00000000000000",
           "payment_method_types": [
@@ -68,10 +66,8 @@ RSpec.shared_examples "Stripe webhooks" do
           "customer": nil,
           "customer_details": nil,
           "customer_email": nil,
-          "livemode": false,
+          "livemode": "false",
           "locale": nil,
-          "metadata": {
-          },
           "mode": "payment",
           "payment_intent": "pi_00000000000000",
           "payment_method_types": [
@@ -113,10 +109,8 @@ RSpec.shared_examples "Stripe webhooks" do
           "customer": nil,
           "customer_details": nil,
           "customer_email": nil,
-          "livemode": false,
+          "livemode": "false",
           "locale": nil,
-          "metadata": {
-          },
           "mode": "payment",
           "payment_intent": "pi_00000000000000",
           "payment_method_types": [
