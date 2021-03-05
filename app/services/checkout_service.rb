@@ -23,7 +23,10 @@ class CheckoutService < ApplicationController
       payment_method_types: ['card'],
       payment_intent_data: {
         application_fee_amount: @application_fee_amount,
-        on_behalf_of: @restaurant.stripe_connected_account_id
+        on_behalf_of: @restaurant.stripe_connected_account_id,
+        transfer_data: {
+          destination: @restaurant.stripe_connected_account_id
+        }
       },
       line_items: [{
         price_data: {
@@ -31,8 +34,7 @@ class CheckoutService < ApplicationController
           product_data: {
             name: "Restaurant order for #{@restaurant.name}",
           },
-          unit_amount: @order.value,
-          method: 'instant'
+          unit_amount: @order.value
         },
         quantity: 1,
       }],
