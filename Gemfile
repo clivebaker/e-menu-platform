@@ -52,6 +52,7 @@ gem 'wicked_pdf'
 gem 'aasm'
 gem 'rqrcode'
 gem 'stripe'
+gem 'stripe-ruby-mock', '~> 2.5.0', :require => 'stripe_mock'
 
 gem 'acts_as_list'
 gem 'cancancan'
@@ -63,7 +64,7 @@ gem 'bootsnap', '>= 1.1.0', require: false
 gem 'sidekiq'
 gem 'yandex-translator'
 gem 'mini_racer'
-gem 'rb-readline'
+# gem 'rb-readline'
 gem 'image_processing', '~> 1.0'
 gem 'active_storage_validations'
 
@@ -110,7 +111,8 @@ group :test do
   # gem 'selenium-webdriver'
   # Easy installation and use of chromedriver to run system tests with Chrome
   # gem 'chromedriver-helper'
-  # gem 'database_cleaner', '~> 1.5'
+  gem 'database_cleaner-active_record'
+
   # gem 'rails-controller-testing' # If you are using Rails 5.x
   # gem 'shoulda-matchers', '~> 3.0', require: false
 end

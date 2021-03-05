@@ -1,4 +1,4 @@
-class ReceiptService < ApplicationController
+class OrderService < ApplicationController
 
   def initialize(order)
     @order = order
@@ -10,13 +10,11 @@ class ReceiptService < ApplicationController
     @order.update_attribute(:stripe_data, @checkout_session)
   end
 
-
   def refund
-    Stripe.api_key = @restaurant.stripe_sk_api_key
-
-    Stripe::Refund.create({
-      charge: 'ch_1IEzTBJyyGTIkLikradAPznr',
+    refund = Stripe::Refund.create({
+      payment_intent: @order.stripe_data['payment_intent']
     })
+    @order.refunds.create(stripe_data: refund)
   end
 
 end

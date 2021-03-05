@@ -5,6 +5,7 @@ class Order < ApplicationRecord
     has_many :patrons, through: :patron_orders
     belongs_to :restaurant
     has_many :receipts
+    has_many :refunds
 
     def first_or_create_receipt
       self.receipts.first_or_create(
