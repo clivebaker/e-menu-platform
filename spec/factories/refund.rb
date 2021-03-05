@@ -1,6 +1,5 @@
 FactoryBot.define do
   factory :refund do
-    order { FactoryBot.create(:order, :paid) }
     stripe_data {{
       "id": "re_1IQwskJyyGTIkLikV9U49IJu",
       "object": "refund",

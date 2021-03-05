@@ -98,6 +98,11 @@ Rails.application.routes.draw do
     resources :restaurants, :param => :restaurant_id do
       member do
         resources :discount_codes
+        resources :orders, :only => [] do
+          member do
+            resources :refunds, only: [:create]
+          end
+        end
       end
       collection do
         resources :administrations, :only => [:index] do
@@ -105,8 +110,6 @@ Rails.application.routes.draw do
             get :login_as
           end
         end
-      end
-      collection do
         resources :reports, :only => [:index]
       end
     end
