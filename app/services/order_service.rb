@@ -11,10 +11,16 @@ class OrderService < ApplicationController
   end
 
   def refund
-    refund = Stripe::Refund.create({
-      payment_intent: @order.stripe_data['payment_intent']
-    })
-    @order.refunds.create(stripe_data: refund)
+    begin
+      refund = Stripe::Refund.create({
+        payment_intent: @order.stripe_data['payment_intent'],
+        reverse_transfer: true
+      })
+      @order.refunds.create(stripe_data: refund)
+      return true
+    rescue Exception => e
+      return e
+    end
   end
 
 end

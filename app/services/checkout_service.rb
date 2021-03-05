@@ -34,7 +34,7 @@ class CheckoutService < ApplicationController
           product_data: {
             name: "Restaurant order for #{@restaurant.name}",
           },
-          unit_amount: @order.value,
+          unit_amount: @order.value
         },
         quantity: 1,
       }],
