@@ -14,7 +14,7 @@
 
 <div class="row mb-0">
   <div class="col-lg-12 pt-3 pb-3">
-    <p class="m-0">Your restaurant's available balance: <%= number_to_currency(available["amount"], unit: @restaurant.currency_symbol) %></p>
+    <p class="m-0">Your restaurant's available balance: <%= number_to_currency(available["amount"] / 100.0, unit: @restaurant.currency_symbol) %></p>
     <p>Top up your balance in stripe account setup by your EMenu service representative</p>
   </div>
 </div>
