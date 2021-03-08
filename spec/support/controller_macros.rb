@@ -1,8 +1,8 @@
 module ControllerMacros
-  def login_manager
+  def login_manager(restaurant_user: nil)
     before(:each) do
       @request.env["devise.mapping"] = Devise.mappings[:restaurant_user]
-      sign_in @restaurant_user = FactoryBot.create(:restaurant_user)
+      sign_in @restaurant_user = (restaurant_user || FactoryBot.create(:restaurant_user))
     end
   end
 
