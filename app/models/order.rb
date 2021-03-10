@@ -5,6 +5,7 @@ class Order < ApplicationRecord
     has_many :patrons, through: :patron_orders
     belongs_to :restaurant
     has_many :receipts
+    has_many :refunds
 
     def first_or_create_receipt
       self.receipts.first_or_create(
@@ -26,6 +27,7 @@ class Order < ApplicationRecord
         table_number: self.table_number,
         discount_code: self.discount_code,
         application_fee_amount: self.application_fee_amount,
+        stripe_processing_fee: self.stripe_processing_fee,
         emenu_commission: self.emenu_commission,
         chargeback_fee: self.chargeback_fee,
         chargeback_enabled: self.chargeback_enabled,

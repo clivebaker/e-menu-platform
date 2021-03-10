@@ -26,7 +26,7 @@ class CheckoutsController < ApplicationController
     cookies.delete :emenu_basket
 
     @order = Order.find_by(uuid: params[:uuid])
-    rs = ReceiptService.new(@order).check_checkout_status
+    rs = OrderService.new(@order).check_checkout_status
 
     if @order.stripe_data["payment_status"] == "paid"
       @receipt = @order.first_or_create_receipt
