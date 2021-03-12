@@ -11,6 +11,13 @@ Rails.application.routes.draw do
       get :files
     end
   end
+
+  resources :stripe_webhooks, :path => "stripe-webhooks", :only => [] do
+    collection do
+      post :webhook, path: ""
+    end
+  end
+
   # namespace :manager do
   #   resources :printers
   # end
@@ -35,7 +42,7 @@ Rails.application.routes.draw do
       end
     end
   end
-  
+
   resources :patrons, :module => :patrons, :only => [:index, :show] do
     collection do
       get :settings, :to => "patrons#show"
@@ -91,6 +98,11 @@ Rails.application.routes.draw do
     resources :restaurants, :param => :restaurant_id do
       member do
         resources :discount_codes
+        resources :orders, :only => [] do
+          member do
+            resources :refunds, only: [:create]
+          end
+        end
       end
       collection do
         resources :administrations, :only => [:index] do
@@ -98,8 +110,6 @@ Rails.application.routes.draw do
             get :login_as
           end
         end
-      end
-      collection do
         resources :reports, :only => [:index]
       end
     end

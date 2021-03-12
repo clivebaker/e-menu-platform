@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_19_135420) do
+ActiveRecord::Schema.define(version: 2021_03_03_165415) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -193,7 +193,7 @@ ActiveRecord::Schema.define(version: 2021_02_19_135420) do
     t.text "icon"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "type", default: "Allergen"
+    t.string "type", default: "allergen"
   end
 
   create_table "menu_item_categorisations_menus", id: false, force: :cascade do |t|
@@ -294,6 +294,7 @@ ActiveRecord::Schema.define(version: 2021_02_19_135420) do
     t.integer "chargeback_fee", default: 0
     t.boolean "chargeback_enabled", default: false
     t.integer "emenu_vat_charge", default: 0
+    t.integer "stripe_processing_fee"
     t.index ["restaurant_id"], name: "index_orders_on_restaurant_id"
   end
 
@@ -383,6 +384,7 @@ ActiveRecord::Schema.define(version: 2021_02_19_135420) do
     t.boolean "online"
     t.text "lsusb"
     t.text "lsusb_compare"
+    t.string "version"
     t.index ["restaurant_id"], name: "index_pi_interfaces_on_restaurant_id"
   end
 
@@ -438,9 +440,18 @@ ActiveRecord::Schema.define(version: 2021_02_19_135420) do
     t.integer "chargeback_fee", default: 0
     t.boolean "chargeback_enabled", default: false
     t.integer "emenu_vat_charge", default: 0
+    t.integer "stripe_processing_fee"
     t.index ["discount_code_id"], name: "index_receipts_on_discount_code_id"
     t.index ["order_id"], name: "index_receipts_on_order_id"
     t.index ["restaurant_id"], name: "index_receipts_on_restaurant_id"
+  end
+
+  create_table "refunds", force: :cascade do |t|
+    t.bigint "order_id"
+    t.jsonb "stripe_data"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["order_id"], name: "index_refunds_on_order_id"
   end
 
   create_table "restaurant_tables", force: :cascade do |t|
@@ -584,6 +595,11 @@ ActiveRecord::Schema.define(version: 2021_02_19_135420) do
     t.text "custom_css"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "basket_colour", default: "#000"
+    t.string "item_colour", default: "#000"
+    t.string "basket_text_colour", default: "#fff"
+    t.string "item_text_colour", default: "#fff"
+    t.string "item_header_colour", default: "#000"
     t.index ["restaurant_id"], name: "index_themes_on_restaurant_id"
   end
 

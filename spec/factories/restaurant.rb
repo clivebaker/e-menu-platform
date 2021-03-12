@@ -8,5 +8,7 @@ FactoryBot.define do
     restaurant_user { FactoryBot.create(:restaurant_user) }
     cuisine { FactoryBot.create :cuisine }
     path { "test#{rand(1..1000)}" }
+    currency { FactoryBot.create(:currency) }
+    features { [ FactoryBot.build(:feature, :images), FactoryBot.build(:feature, :menu_in_sections), FactoryBot.build(:feature, :checkout) ] }
   end
 end
